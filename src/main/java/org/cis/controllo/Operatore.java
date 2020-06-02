@@ -141,7 +141,6 @@ public class Operatore {
             for (File f : files) {
                 f.delete();
                 if(i == Math.floor(files.length / 2)) {
-                    commonEvents.setProgressBar("Siamo a metà pulizia e non accenno a fermarmi! :)", 2);
                     Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Siamo a metà pulizia e non accenno a fermarmi! :)", 2);}});
                 }
                 i++;
