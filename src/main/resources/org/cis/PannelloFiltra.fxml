@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="269.0" prefWidth="650.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.cis.SecondaryController">
+   <children>
+      <Label layoutX="264.0" layoutY="14.0" text="Opzioni Filtro" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <CheckBox fx:id="checkLingua" layoutX="57.0" layoutY="63.0" mnemonicParsing="false" stylesheets="@tableStyle.css" text="Lingua" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </CheckBox>
+      <Label layoutX="22.0" layoutY="82.0" text="(Inglese, Non-Inglese, Misto)" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="11.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="comboLanguage" layoutX="422.0" layoutY="69.0" prefHeight="26.0" prefWidth="208.0" promptText="Select Programming Language" />
+      <Button fx:id="bottoneAnnulla" layoutX="22.0" layoutY="220.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="296.0" style="-fx-background-color: #cc3333; -fx-background-radius: 5;" text="Annulla">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="bottoneFiltra" layoutX="334.0" layoutY="220.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="296.0" style="-fx-background-color: #eda678; -fx-background-radius: 5;" text="Filtra!">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <ImageView fx:id="iconCancel" fitHeight="26.0" fitWidth="26.0" layoutX="111.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../icons/cancel-icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="iconFilter" fitHeight="26.0" fitWidth="26.0" layoutX="429.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../icons/filter-icon.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
