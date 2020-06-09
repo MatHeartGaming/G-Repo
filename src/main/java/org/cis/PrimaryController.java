@@ -50,6 +50,9 @@ public class PrimaryController {
     @FXML
     private ImageView iconFilter, iconAddQuery, iconSave, iconSearch, iconRemoveQuery, iconStop;
 
+    @FXML
+    private CheckBox checkStrictMode;
+
     private List<TextField> listaCampiQuery = new ArrayList<>();
     private List<TextField> listaCampiChiavi = new ArrayList<>();
 
@@ -76,6 +79,7 @@ public class PrimaryController {
         bottoneStop.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneStop, "#ff0000");}});
         bottoneStop.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneStop, "#cc3333");}});
         bottoneStop.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {stopThread();}});
+        checkStrictMode.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {cercaInTabella();}});
         this.enableDisableRemoveButton(true);
         initIcons();
         initCombo();
@@ -220,8 +224,9 @@ public class PrimaryController {
     private void eventoCercaInTabella() {
         Modello modello = Applicazione.getInstance().getModello();
         ObservableList<Repository> listaOriginale = (ObservableList<Repository>) modello.getObject(Costanti.LISTA_REPO);
+        boolean strict = this.checkStrictMode.isSelected();
         String daCercare = this.campoCercaTabella.getText();
-        ObservableList<Repository> listaAgg = Operatore.cercaPerNome(listaOriginale, daCercare, getSelectedComboLanguage());
+        ObservableList<Repository> listaAgg = Operatore.cercaPerNome(listaOriginale, daCercare, getSelectedComboLanguage(), strict);
         modello.addObject(Costanti.LISTA_REPO_AGGIORNATA, listaAgg);
     }
 
@@ -409,7 +414,7 @@ public class PrimaryController {
     private void stopThread() {
         Thread thread = (Thread) Applicazione.getInstance().getModello().getObject(Costanti.THREAD_DOWNLOAD_REPO);
         if(thread != null) {
-            thread.interrupt();
+            thread.stop();
             Applicazione.getInstance().getCommonEvents().setProgressBar("Operazione interrotta dall'utente...", 0);
         }
         Applicazione.getInstance().getModello().addObject(Costanti.THREAD_DOWNLOAD_REPO, null);

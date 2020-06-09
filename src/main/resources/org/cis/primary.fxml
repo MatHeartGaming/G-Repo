@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
@@ -166,7 +167,7 @@
             </Tab>
             <Tab text="Results">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="554.0" prefWidth="925.0" style="-fx-background-color: #0b132b;">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="554.0" prefWidth="925.0" style="-fx-background-color: #0b132b;" stylesheets="@tableStyle.css">
                      <children>
                         <TableView fx:id="tableRepository" layoutY="59.0" prefHeight="440.0" prefWidth="906.0" stylesheets="@tableStyle.css" AnchorPane.bottomAnchor="54.60000000000002" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="59.0">
                           <columns>
@@ -194,7 +195,7 @@
                               <Font name="System Bold Italic" size="12.0" />
                            </font>
                         </TextField>
-                        <ComboBox fx:id="comboParametriRicerca" layoutX="616.0" layoutY="15.0" prefHeight="26.0" prefWidth="179.0" promptText="Repositories" AnchorPane.rightAnchor="111.19999999999999" />
+                        <ComboBox fx:id="comboParametriRicerca" layoutX="616.0" layoutY="15.0" prefHeight="26.0" prefWidth="111.0" promptText="Repositories" AnchorPane.rightAnchor="179.0" />
                         <ImageView fx:id="iconFilter" fitHeight="27.0" fitWidth="36.0" layoutX="679.0" layoutY="511.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="15.600000000000023" AnchorPane.rightAnchor="200.39999999999998">
                            <image>
                               <Image url="@../../icons/filter-icon.png" />
@@ -205,6 +206,11 @@
                               <Image url="@../../icons/save-icon.png" />
                            </image>
                         </ImageView>
+                        <CheckBox fx:id="checkStrictMode" layoutX="746.0" layoutY="18.0" mnemonicParsing="false" text="Strict mode" textFill="WHITE" AnchorPane.rightAnchor="63.59999999999998">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </CheckBox>
                      </children>
                   </AnchorPane>
                </content>

@@ -16,17 +16,59 @@ import java.util.List;
 
 public class Operatore {
 
-    public static ObservableList<Repository> cercaPerNome(ObservableList<Repository> lista, String daCercare, String parametro) {
+    public static ObservableList<Repository> cercaPerNome(ObservableList<Repository> lista, String daCercare, String parametro, boolean strict) {
         ObservableList<Repository> risultato = FXCollections.observableArrayList();
         for(Repository repo : lista) {
-            if(confrontaElemConParametri(repo, daCercare, parametro)) {
-                risultato.add(repo);
+            if(strict) {
+                if(confrontaElemConParametriStrict(repo, daCercare, parametro)) {
+                    risultato.add(repo);
+                }
+            } else {
+                if(confrontaElemConParametriNotStrict(repo, daCercare, parametro)) {
+                    risultato.add(repo);
+                }
             }
+
         }
         return risultato;
     }
 
-    private static boolean confrontaElemConParametri(Repository repo, String daCercare, String parametro) {
+    private static boolean confrontaElemConParametriStrict(Repository repo, String daCercare, String parametro) {
+        if(parametro.equals(Costanti.PARAM_LINGUA)) {
+            if(repo.getLingua().toLowerCase().equals(daCercare.toLowerCase().trim())) {
+                return true;
+            }
+        } else if(parametro.equals(Costanti.PARAM_LINGUAGGIO)) {
+            if(repo.getProgrammingLanguage().toLowerCase().equals(daCercare.toLowerCase().trim())) {
+                return true;
+            }
+        } else if(parametro.equals(Costanti.PARAM_DATA_COMMIT)) {
+            if(repo.getLastCommitDate().toString().toLowerCase().equals(daCercare.toLowerCase().trim())) {
+                return true;
+            }
+        } else if(parametro.equals(Costanti.PARAM_VERSIONE)) {
+            if (repo.getVersion().toLowerCase().equals(daCercare.toLowerCase().trim())) {
+                return true;
+            }
+
+        } else if(parametro.equals(Costanti.PARAM_URL)){
+            if(repo.getUrlProject().toLowerCase().equals(daCercare.toLowerCase().trim())) {
+                return true;
+            }
+        } else if (parametro.equals(Costanti.PARAM_DIMENSIONE)) {
+            String dimensione = repo.turnIntToStringProperty().get();
+            if(dimensione.equals(daCercare.trim())) {
+                return true;
+            }
+        } else {
+            if(repo.getName().toLowerCase().equals(daCercare.toLowerCase().trim())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean confrontaElemConParametriNotStrict(Repository repo, String daCercare, String parametro) {
         if(parametro.equals(Costanti.PARAM_LINGUA)) {
             if(repo.getLingua().toLowerCase().contains(daCercare.toLowerCase().trim())) {
                 return true;
