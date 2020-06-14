@@ -190,12 +190,12 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Button>
-                        <TextField fx:id="campoCercaTabella" layoutX="101.0" layoutY="14.0" prefHeight="27.0" prefWidth="494.0" promptText="Cerca nella tabella" style="-fx-background-color: #0b132b; -fx-border-color: #5bc0be; -fx-border-radius: 20; -fx-background-insets: 0;" stylesheets="@tableStyle.css" AnchorPane.leftAnchor="101.0" AnchorPane.rightAnchor="311.0">
+                        <TextField fx:id="campoCercaTabella" layoutX="76.0" layoutY="14.0" prefHeight="27.0" prefWidth="494.0" promptText="Cerca nella tabella" style="-fx-background-color: #0b132b; -fx-border-color: #5bc0be; -fx-border-radius: 20; -fx-background-insets: 0;" stylesheets="@tableStyle.css" AnchorPane.leftAnchor="76.0" AnchorPane.rightAnchor="336.0">
                            <font>
                               <Font name="System Bold Italic" size="12.0" />
                            </font>
                         </TextField>
-                        <ComboBox fx:id="comboParametriRicerca" layoutX="616.0" layoutY="15.0" prefHeight="26.0" prefWidth="111.0" promptText="Repositories" AnchorPane.rightAnchor="179.0" />
+                        <ComboBox fx:id="comboParametriRicerca" layoutX="590.0" layoutY="15.0" prefHeight="26.0" prefWidth="128.0" promptText="Repositories" AnchorPane.rightAnchor="188.0" />
                         <ImageView fx:id="iconFilter" fitHeight="27.0" fitWidth="36.0" layoutX="679.0" layoutY="511.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="15.600000000000023" AnchorPane.rightAnchor="200.39999999999998">
                            <image>
                               <Image url="@../../icons/filter-icon.png" />
@@ -206,11 +206,31 @@
                               <Image url="@../../icons/save-icon.png" />
                            </image>
                         </ImageView>
-                        <CheckBox fx:id="checkStrictMode" layoutX="746.0" layoutY="18.0" mnemonicParsing="false" text="Strict mode" textFill="WHITE" AnchorPane.rightAnchor="63.59999999999998">
+                        <CheckBox fx:id="checkStrictMode" layoutX="746.0" layoutY="18.0" mnemonicParsing="false" text="Strict mode" textFill="WHITE" AnchorPane.rightAnchor="76.0">
                            <font>
                               <Font name="System Bold" size="13.0" />
                            </font>
                         </CheckBox>
+                        <Button fx:id="bottoneEliminaSelezionato" alignment="CENTER_RIGHT" layoutX="487.0" layoutY="479.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="171.0" style="-fx-background-color: #cc3333; -fx-background-radius: 5;" text="Elimina selezionato" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="253.0">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="bottoneEliminaBulk" alignment="CENTER_RIGHT" layoutX="343.0" layoutY="478.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="125.0" style="-fx-background-color: #cc3333; -fx-background-radius: 5;" text="Elimina bulk" AnchorPane.bottomAnchor="15.600000000000023" AnchorPane.rightAnchor="437.79999999999995">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Button>
+                        <ImageView fx:id="iconDeleteSelected" fitHeight="27.0" fitWidth="36.0" layoutX="487.0" layoutY="481.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="392.4">
+                           <image>
+                              <Image url="@../../icons/criss-cross-icon.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="iconDeleteBulk" fitHeight="27.0" fitWidth="36.0" layoutX="343.0" layoutY="480.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="17.0" AnchorPane.rightAnchor="536.4">
+                           <image>
+                              <Image url="@../../icons/trash-icon.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </AnchorPane>
                </content>

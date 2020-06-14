@@ -23,7 +23,8 @@ import java.util.*;
 public class PrimaryController {
 
     @FXML
-    private Button bottoneCerca, bottoneFiltra, bottoneSalva, bottoneAggiungiQuery, bottoneEliminaQuery, bottoneStop;
+    private Button bottoneCerca, bottoneFiltra, bottoneSalva, bottoneAggiungiQuery,
+            bottoneEliminaQuery, bottoneStop, bottoneEliminaBulk, bottoneEliminaSelezionato;
 
     @FXML
     private TextField campoToken, campoParametroQ1, campoParametroQ2, campoParametroQ3,
@@ -48,7 +49,7 @@ public class PrimaryController {
     private ProgressBar progressBar;
 
     @FXML
-    private ImageView iconFilter, iconAddQuery, iconSave, iconSearch, iconRemoveQuery, iconStop;
+    private ImageView iconFilter, iconAddQuery, iconSave, iconSearch, iconRemoveQuery, iconStop, iconDeleteBulk, iconDeleteSelected;
 
     @FXML
     private CheckBox checkStrictMode;
@@ -78,9 +79,20 @@ public class PrimaryController {
         bottoneEliminaQuery.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaQuery, Costanti.COLORE_BUTTON);}});
         bottoneStop.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneStop, "#ff0000");}});
         bottoneStop.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneStop, "#cc3333");}});
+
+
         bottoneStop.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {stopThread();}});
+
+        bottoneEliminaSelezionato.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaSelezionato, "#ff0000");}});
+        bottoneEliminaSelezionato.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaSelezionato, "#cc3333");}});
+        bottoneEliminaSelezionato.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {deleteSelectedItem();}});
+        bottoneEliminaBulk.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaBulk, "#ff0000");}});
+        bottoneEliminaBulk.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaBulk, "#cc3333");}});
+        bottoneEliminaBulk.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {deleteInBulk();}});
+
         checkStrictMode.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {cercaInTabella();}});
         this.enableDisableRemoveButton(true);
+        this.bottoneEliminaSelezionato.setDisable(true);
         initIcons();
         initCombo();
         this.initTable();
@@ -168,6 +180,16 @@ public class PrimaryController {
         this.iconStop.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneStop, "#ff0000");}});
         this.iconStop.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneStop, "#cc3333");}});
         iconStop.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {stopThread();}});
+
+        iconDeleteBulk.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {deleteInBulk();}});
+        iconDeleteBulk.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaBulk, "#ff0000");}});
+        iconDeleteBulk.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaBulk, "#cc3333");}});
+
+        iconDeleteSelected.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {deleteSelectedItem();}});
+        iconDeleteSelected.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaSelezionato, "#ff0000");}});
+        iconDeleteSelected.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaSelezionato, "#cc3333");}});
+
+
     }
 
     private void enableDisableRemoveButton(boolean b) {
@@ -176,6 +198,12 @@ public class PrimaryController {
     }
 
     private void initTable() {
+        this.tableRepository.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                selectItemTableEvent();
+            }
+        });
         /*new Thread(() -> {
             ObservableList<Repository> listaRepo = FXCollections.observableArrayList(Applicazione.getInstance().getDaoRepositoryMock().loadRepositories(""));
             try {
@@ -221,6 +249,12 @@ public class PrimaryController {
         this.tableRepository.refresh();
     }
 
+    private void cercaInTabella() {
+        this.bottoneEliminaSelezionato.setDisable(true);
+        eventoCercaInTabella();
+        setTable();
+    }
+
     private void eventoCercaInTabella() {
         Modello modello = Applicazione.getInstance().getModello();
         ObservableList<Repository> listaOriginale = (ObservableList<Repository>) modello.getObject(Costanti.LISTA_REPO);
@@ -230,10 +264,6 @@ public class PrimaryController {
         modello.addObject(Costanti.LISTA_REPO_AGGIORNATA, listaAgg);
     }
 
-    private void cercaInTabella() {
-        eventoCercaInTabella();
-        setTable();
-    }
 
     private String getSelectedComboLanguage() {
         Object valore = this.comboParametriRicerca.getValue();
@@ -425,6 +455,44 @@ public class PrimaryController {
         return false;
     }
 
+    private void deleteInBulk() {
+        ObservableList<Repository> listaAgg = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Costanti.LISTA_REPO_AGGIORNATA);
+        ObservableList<Repository> listaCompleta = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Costanti.LISTA_REPO);
+        if(listaAgg == null) {
+            listaCompleta.clear();
+            this.tableRepository.setItems(listaCompleta);
+            return;
+        }
+        listaCompleta.removeAll(listaAgg);
+        listaAgg.removeAll(listaAgg);
+        this.tableRepository.setItems(listaAgg);
+    }
+
+    private void deleteSelectedItem() {
+        ObservableList<Repository> listaAgg = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Costanti.LISTA_REPO_AGGIORNATA);
+        ObservableList<Repository> listaCompleta = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Costanti.LISTA_REPO);
+        int selectedIndex = this.tableRepository.getSelectionModel().getSelectedIndex();
+        if(selectedIndex != -1) {
+            this.bottoneEliminaSelezionato.setDisable(true);
+            if(listaAgg == null) {
+                listaCompleta.remove(selectedIndex);
+                this.tableRepository.setItems(listaCompleta);
+                return;
+            }
+            Repository repo = listaAgg.get(selectedIndex);
+            listaCompleta.remove(repo);
+            listaAgg.remove(selectedIndex);
+            this.tableRepository.setItems(listaAgg);
+        }
+    }
+
+    private void selectItemTableEvent() {
+        if(this.tableRepository.getSelectionModel().getSelectedIndex() != -1) {
+            this.bottoneEliminaSelezionato.setDisable(false);
+        } else {
+            this.bottoneEliminaSelezionato.setDisable(true);
+        }
+    }
 
 
 }
