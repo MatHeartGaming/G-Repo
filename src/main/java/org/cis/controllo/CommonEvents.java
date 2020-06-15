@@ -116,7 +116,11 @@ public class CommonEvents {
         t.setStyle("-fx-border-color:" + color + ";" + "-fx-background-color:" + Costanti.COLORE_PRIMARIO + ";" + "-fx-background-insets: 0;" + "-fx-border-radius: 20; -fx-text-fill: #fff;");
     }
 
-    public void changeButtonColor(Button b, String color) {b.setStyle("-fx-background-color:" + color);}
+    public void changeButtonColor(Button b, String color) {
+        if(!b.isDisabled()) {
+            b.setStyle("-fx-background-color:" + color);
+        }
+    }
 
     public void hideWindow(ActionEvent event) {
         ((Node)(event.getSource())).getScene().getWindow().hide();

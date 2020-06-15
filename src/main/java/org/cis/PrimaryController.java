@@ -456,6 +456,7 @@ public class PrimaryController {
     }
 
     private void deleteInBulk() {
+        this.bottoneEliminaSelezionato.setDisable(true);
         ObservableList<Repository> listaAgg = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Costanti.LISTA_REPO_AGGIORNATA);
         ObservableList<Repository> listaCompleta = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Costanti.LISTA_REPO);
         if(listaAgg == null) {
@@ -472,8 +473,8 @@ public class PrimaryController {
         ObservableList<Repository> listaAgg = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Costanti.LISTA_REPO_AGGIORNATA);
         ObservableList<Repository> listaCompleta = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Costanti.LISTA_REPO);
         int selectedIndex = this.tableRepository.getSelectionModel().getSelectedIndex();
+        this.bottoneEliminaSelezionato.setDisable(true);
         if(selectedIndex != -1) {
-            this.bottoneEliminaSelezionato.setDisable(true);
             if(listaAgg == null) {
                 listaCompleta.remove(selectedIndex);
                 this.tableRepository.setItems(listaCompleta);

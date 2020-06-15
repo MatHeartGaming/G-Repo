@@ -34,6 +34,9 @@ public class Operatore {
     }
 
     private static boolean confrontaElemConParametriStrict(Repository repo, String daCercare, String parametro) {
+        if(daCercare.isEmpty()) {
+            return true;
+        }
         if(parametro.equals(Costanti.PARAM_LINGUA)) {
             if(repo.getLingua().toLowerCase().equals(daCercare.toLowerCase().trim())) {
                 return true;
