@@ -34,7 +34,7 @@ public class PrimaryController {
     private TableView<Repository> tableRepository;
 
     @FXML
-    private TableColumn<Repository, String> columnRepo, columnVersion, columnDataCommit, columnURL, columnLingua, columnLinguaggio, columnDimensione;
+    private TableColumn<Repository, String> columnRepo, columnDataCommit, columnURL, columnLingua, columnLinguaggio, columnDimensione;
 
     @FXML
     private ComboBox comboParametriRicerca;
@@ -54,16 +54,20 @@ public class PrimaryController {
     @FXML
     private CheckBox checkStrictMode;
 
+    @FXML
+    private DatePicker datePickerStart, datePickerEnd;
+
     private List<TextField> listaCampiQuery = new ArrayList<>();
     private List<TextField> listaCampiChiavi = new ArrayList<>();
 
 
     @FXML
-    public void initialize() {
+    private void initialize() {
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
         this.eventiCampi();
         bottoneCerca.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneCerca, Costanti.HOVER_COLOR);}});
         bottoneCerca.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneCerca, Costanti.COLORE_BUTTON);}});
+        bottoneCerca.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {actionCerca();}});
         bottoneFiltra.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {commonEvents.loadPanel("PannelloFiltra", Modality.APPLICATION_MODAL, false, "Filtro", StageStyle.UNDECORATED, true);}});
         bottoneFiltra.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneFiltra, Costanti.HOVER_COLOR);}});
         bottoneFiltra.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneFiltra, Costanti.COLORE_BUTTON);}});
@@ -73,14 +77,11 @@ public class PrimaryController {
         bottoneAggiungiQuery.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneAggiungiQuery, Costanti.COLORE_BUTTON);}});
         comboParametriRicerca.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {getSelectedComboLanguage(); cercaInTabella();});
         bottoneAggiungiQuery.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {aggiungiCampoQuery();}});
-        bottoneCerca.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {actionCerca();}});
         bottoneEliminaQuery.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {eliminaCampoQuery();}});
         bottoneEliminaQuery.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaQuery, Costanti.HOVER_COLOR);}});
         bottoneEliminaQuery.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaQuery, Costanti.COLORE_BUTTON);}});
         bottoneStop.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneStop, "#ff0000");}});
         bottoneStop.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneStop, "#cc3333");}});
-
-
         bottoneStop.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {stopThread();}});
 
         bottoneEliminaSelezionato.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaSelezionato, "#ff0000");}});
@@ -141,7 +142,6 @@ public class PrimaryController {
 
     private void initTableCells() {
         columnRepo.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-        columnVersion.setCellValueFactory(cellData -> cellData.getValue().versionProperty());
         columnDataCommit.setCellValueFactory(cellData -> cellData.getValue().getDataProperty());
         columnURL.setCellValueFactory(cellData -> cellData.getValue().urlProjectProperty());
         columnDimensione.setCellValueFactory(cellData -> cellData.getValue().turnIntToStringProperty());
@@ -198,12 +198,7 @@ public class PrimaryController {
     }
 
     private void initTable() {
-        this.tableRepository.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                selectItemTableEvent();
-            }
-        });
+        this.tableRepository.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {selectItemTableEvent();}});
         /*new Thread(() -> {
             ObservableList<Repository> listaRepo = FXCollections.observableArrayList(Applicazione.getInstance().getDaoRepositoryMock().loadRepositories(""));
             try {
@@ -274,7 +269,7 @@ public class PrimaryController {
     }
 
     public void initCombo() {
-        String parametri[] = {Costanti.PARAM_REPOSITORIES, Costanti.PARAM_LINGUA, Costanti.PARAM_LINGUAGGIO, Costanti.PARAM_DATA_COMMIT, Costanti.PARAM_URL, Costanti.PARAM_VERSIONE, Costanti.PARAM_DIMENSIONE};
+        String parametri[] = {Costanti.PARAM_REPOSITORIES, Costanti.PARAM_LINGUA, Costanti.PARAM_LINGUAGGIO, Costanti.PARAM_DATA_COMMIT, Costanti.PARAM_URL, Costanti.PARAM_DIMENSIONE};
         ObservableList<String> listaLinguaggi = FXCollections.observableArrayList(parametri);
         comboParametriRicerca.setItems(listaLinguaggi);
     }
@@ -444,7 +439,7 @@ public class PrimaryController {
     private void stopThread() {
         Thread thread = (Thread) Applicazione.getInstance().getModello().getObject(Costanti.THREAD_DOWNLOAD_REPO);
         if(thread != null) {
-            thread.stop();
+            thread.interrupt();
             Applicazione.getInstance().getCommonEvents().setProgressBar("Operazione interrotta dall'utente...", 0);
         }
         Applicazione.getInstance().getModello().addObject(Costanti.THREAD_DOWNLOAD_REPO, null);

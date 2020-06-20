@@ -16,7 +16,6 @@ public class Repository {
     private String file; // File JSON  a cui appartiene.
     // Proprietà da visualizzare.
     private StringProperty name;
-    private StringProperty version; // Non determinabile dal JSON.
     private LocalDate lastCommitDate; //Attributo JSON "pushed_at"?.
     private StringProperty urlProject;
     private LongProperty size; // Byte.
@@ -33,9 +32,8 @@ public class Repository {
         this.size = new SimpleLongProperty(size);
     }
 
-    public Repository(String name, String version, LocalDate lastCommitDate, String urlProject, long size, String lingua, String programmingLanguage) {
+    public Repository(String name, LocalDate lastCommitDate, String urlProject, long size, String lingua, String programmingLanguage) {
         this.name = new SimpleStringProperty(name);
-        this.version = new SimpleStringProperty(version);
         this.lastCommitDate = lastCommitDate;
         this.urlProject = new SimpleStringProperty(urlProject);
         this.size = new SimpleLongProperty(size);
@@ -45,7 +43,6 @@ public class Repository {
 
     public Repository(String name, String version) {
         this.name = new SimpleStringProperty(name);
-        this.version = new SimpleStringProperty(version);
     }
 
     public String getName() {
@@ -54,14 +51,6 @@ public class Repository {
 
     public StringProperty nameProperty() {
         return name;
-    }
-
-    public String getVersion() {
-        return version.get();
-    }
-
-    public StringProperty versionProperty() {
-        return version;
     }
 
     public LocalDate getLastCommitDate() {

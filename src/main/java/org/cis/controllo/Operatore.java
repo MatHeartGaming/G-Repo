@@ -49,11 +49,6 @@ public class Operatore {
             if(repo.getLastCommitDate().toString().toLowerCase().equals(daCercare.toLowerCase().trim())) {
                 return true;
             }
-        } else if(parametro.equals(Costanti.PARAM_VERSIONE)) {
-            if (repo.getVersion().toLowerCase().equals(daCercare.toLowerCase().trim())) {
-                return true;
-            }
-
         } else if(parametro.equals(Costanti.PARAM_URL)){
             if(repo.getUrlProject().toLowerCase().equals(daCercare.toLowerCase().trim())) {
                 return true;
@@ -84,11 +79,6 @@ public class Operatore {
             if(repo.getLastCommitDate().toString().toLowerCase().contains(daCercare.toLowerCase().trim())) {
                 return true;
             }
-        } else if(parametro.equals(Costanti.PARAM_VERSIONE)) {
-            if (repo.getVersion().toLowerCase().contains(daCercare.toLowerCase().trim())) {
-                return true;
-            }
-
         } else if(parametro.equals(Costanti.PARAM_URL)){
             if(repo.getUrlProject().toLowerCase().contains(daCercare.toLowerCase().trim())) {
                 return true;
