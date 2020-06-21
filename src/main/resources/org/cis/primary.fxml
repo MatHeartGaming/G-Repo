@@ -160,18 +160,18 @@
                                  </font>
                               </Label>
                               <Separator layoutX="109.0" layoutY="152.0" prefHeight="15.0" prefWidth="689.0" AnchorPane.leftAnchor="109.0" AnchorPane.rightAnchor="109.0" />
-                              <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="94.0" layoutY="130.0" prefHeight="18.0" prefWidth="126.0" text="Data inizio" textFill="WHITE">
+                              <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="94.0" layoutY="130.0" prefHeight="19.0" prefWidth="101.0" text="Data inizio" textFill="WHITE" AnchorPane.leftAnchor="94.0">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="453.0" layoutY="130.0" prefHeight="18.0" prefWidth="126.0" text="Data fine" textFill="WHITE">
+                              <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="463.0" layoutY="130.0" prefHeight="19.0" prefWidth="121.0" text="Data fine" textFill="WHITE" AnchorPane.leftAnchor="463.0">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <DatePicker fx:id="datePickerStart" layoutX="224.0" layoutY="127.0" />
-                              <DatePicker fx:id="datePickerEnd" layoutX="586.0" layoutY="127.0" />
+                              <DatePicker fx:id="datePickerStart" layoutX="207.0" layoutY="126.0" maxWidth="295.0" prefHeight="26.0" prefWidth="180.0" AnchorPane.leftAnchor="207.0" />
+                              <DatePicker fx:id="datePickerEnd" layoutX="612.0" layoutY="126.0" maxWidth="295.0" prefHeight="26.0" prefWidth="180.0" AnchorPane.leftAnchor="612.0" />
                            </children>
                         </AnchorPane>
                      </children>
@@ -240,7 +240,7 @@
                         </ImageView>
                         <ImageView fx:id="iconDeleteBulk" fitHeight="27.0" fitWidth="36.0" layoutX="343.0" layoutY="480.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="17.0" AnchorPane.rightAnchor="536.4">
                            <image>
-                              <Image url="@../../icons/trash-icon.png" />
+                              <Image url="@../../icons/deleteAll-icon.png" />
                            </image>
                         </ImageView>
                      </children>
