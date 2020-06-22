@@ -165,7 +165,7 @@
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="463.0" layoutY="130.0" prefHeight="19.0" prefWidth="121.0" text="Data fine" textFill="WHITE" AnchorPane.leftAnchor="463.0">
+                              <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="479.0" layoutY="130.0" prefHeight="19.0" prefWidth="121.0" text="Data fine" textFill="WHITE" AnchorPane.leftAnchor="479.0">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>

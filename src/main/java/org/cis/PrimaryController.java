@@ -18,6 +18,9 @@ import org.cis.controllo.CommonEvents;
 import org.cis.controllo.Operatore;
 import org.cis.modello.*;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
 public class PrimaryController {
@@ -75,7 +78,6 @@ public class PrimaryController {
         bottoneSalva.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneSalva, "#99ff33");}});
         bottoneAggiungiQuery.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneAggiungiQuery, Costanti.HOVER_COLOR);}});
         bottoneAggiungiQuery.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneAggiungiQuery, Costanti.COLORE_BUTTON);}});
-        comboParametriRicerca.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {getSelectedComboLanguage(); cercaInTabella();});
         bottoneAggiungiQuery.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {aggiungiCampoQuery();}});
         bottoneEliminaQuery.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {eliminaCampoQuery();}});
         bottoneEliminaQuery.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaQuery, Costanti.HOVER_COLOR);}});
@@ -92,10 +94,12 @@ public class PrimaryController {
         bottoneEliminaBulk.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {deleteInBulk();}});
 
         checkStrictMode.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {cercaInTabella();}});
+
         this.enableDisableRemoveButton(true);
         this.bottoneEliminaSelezionato.setDisable(true);
         initIcons();
         initCombo();
+        initDatePickers();
         this.initTable();
         this.initProgressBar();
     }
@@ -188,14 +192,55 @@ public class PrimaryController {
         iconDeleteSelected.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {deleteSelectedItem();}});
         iconDeleteSelected.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaSelezionato, "#ff0000");}});
         iconDeleteSelected.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaSelezionato, "#cc3333");}});
+    }
 
+    private LocalDate getValueDataPicker(DatePicker datePicker) {
+        if(datePicker.getValue() == null) {
+            return null;
+        }
+        LocalDate localDate = datePicker.getValue();
+        Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+        Date date = Date.from(instant);
+        System.out.println(localDate + "\n" + instant + "\n" + date);
+        return localDate;
+    }
 
+    private void initDatePickers() {
+        datePickerStart.valueProperty().addListener((ov, oldValue, newValue) -> {
+            LocalDate localDateStart = getValueDataPicker(datePickerStart);
+            LocalDate localDateEnd = getValueDataPicker(datePickerEnd);
+            if(datePickerEnd.getValue() == null || localDateStart.compareTo(localDateEnd) > 0) {
+                datePickerEnd.setValue(localDateStart);
+            }
+        });
+
+        datePickerEnd.valueProperty().addListener((ov, oldValue, newValuw) -> {
+            LocalDate localDateStart = getValueDataPicker(datePickerStart);
+            LocalDate localDateEnd = getValueDataPicker(datePickerEnd);
+            if(datePickerStart.getValue() == null || localDateEnd.compareTo(localDateStart) < 0) {
+                datePickerStart.setValue(localDateEnd);
+            }
+        });
+    }
+
+    public Instant getDatePickerStartInstant() {
+        LocalDate localDate = datePickerStart.getValue();
+        Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+        return instant;
+    }
+
+    public Instant getDatePickerEndInstant() {
+        LocalDate localDate = datePickerEnd.getValue();
+        Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+        return instant;
     }
 
     private void enableDisableRemoveButton(boolean b) {
         this.bottoneEliminaQuery.setDisable(b);
         this.iconRemoveQuery.setDisable(b);
     }
+
+
 
     private void initTable() {
         this.tableRepository.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {selectItemTableEvent();}});
@@ -269,6 +314,7 @@ public class PrimaryController {
     }
 
     public void initCombo() {
+        comboParametriRicerca.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {getSelectedComboLanguage(); cercaInTabella();});
         String parametri[] = {Costanti.PARAM_REPOSITORIES, Costanti.PARAM_LINGUA, Costanti.PARAM_LINGUAGGIO, Costanti.PARAM_DATA_COMMIT, Costanti.PARAM_URL, Costanti.PARAM_DIMENSIONE};
         ObservableList<String> listaLinguaggi = FXCollections.observableArrayList(parametri);
         comboParametriRicerca.setItems(listaLinguaggi);
