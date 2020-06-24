@@ -92,8 +92,8 @@ public class CommonEvents {
             stage.setScene(scene);
             stage.setTitle(title);
             stage.initStyle(stageStyle);
-            stage.setMinHeight(480);
-            stage.setMinWidth(640);
+            stage.setMinHeight(600);
+            stage.setMinWidth(850);
             if(moveWindow) {
                 Applicazione.getInstance().getCommonEvents().moveWindow(root, stage);
             }

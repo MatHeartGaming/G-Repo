@@ -1,6 +1,5 @@
 package org.cis;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -18,15 +17,14 @@ import org.cis.controllo.CommonEvents;
 import org.cis.controllo.Operatore;
 import org.cis.modello.*;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.time.*;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class PrimaryController {
 
     @FXML
-    private Button bottoneCerca, bottoneFiltra, bottoneSalva, bottoneAggiungiQuery,
+    private Button bottoneCerca, buttonFilterLanguage, bottoneSalva, bottoneAggiungiQuery,
             bottoneEliminaQuery, bottoneStop, bottoneEliminaBulk, bottoneEliminaSelezionato;
 
     @FXML
@@ -62,6 +60,7 @@ public class PrimaryController {
 
     private List<TextField> listaCampiQuery = new ArrayList<>();
     private List<TextField> listaCampiChiavi = new ArrayList<>();
+    private boolean hoursFlag = false;
 
 
     @FXML
@@ -71,9 +70,9 @@ public class PrimaryController {
         bottoneCerca.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneCerca, Costanti.HOVER_COLOR);}});
         bottoneCerca.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneCerca, Costanti.COLORE_BUTTON);}});
         bottoneCerca.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {actionCerca();}});
-        bottoneFiltra.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {commonEvents.loadPanel("WarningPanel", Modality.APPLICATION_MODAL, false, "Filtro", StageStyle.UNDECORATED, true);}});
-        bottoneFiltra.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneFiltra, Costanti.HOVER_COLOR);}});
-        bottoneFiltra.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneFiltra, Costanti.COLORE_BUTTON);}});
+        buttonFilterLanguage.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {commonEvents.loadPanel("WarningPanel", Modality.APPLICATION_MODAL, false, "Filtro", StageStyle.UNDECORATED, true);}});
+        buttonFilterLanguage.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonFilterLanguage, Costanti.HOVER_COLOR);}});
+        buttonFilterLanguage.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonFilterLanguage, Costanti.COLORE_BUTTON);}});
         bottoneSalva.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneSalva, "#00ff00");}});
         bottoneSalva.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneSalva, "#99ff33");}});
         bottoneAggiungiQuery.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneAggiungiQuery, Costanti.HOVER_COLOR);}});
@@ -169,8 +168,8 @@ public class PrimaryController {
         this.iconAddQuery.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneAggiungiQuery, Costanti.COLORE_BUTTON);}});
         this.iconSearch.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneCerca, Costanti.HOVER_COLOR);}});
         this.iconSearch.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneCerca, Costanti.COLORE_BUTTON);}});
-        this.iconFilter.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneFiltra, Costanti.HOVER_COLOR);}});
-        this.iconFilter.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneFiltra, Costanti.COLORE_BUTTON);}});
+        this.iconFilter.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonFilterLanguage, Costanti.HOVER_COLOR);}});
+        this.iconFilter.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonFilterLanguage, Costanti.COLORE_BUTTON);}});
         this.iconSave.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneSalva, "#00ff00");}});
         this.iconSave.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneSalva, "#99ff33");}});
 
@@ -198,10 +197,11 @@ public class PrimaryController {
         if(datePicker.getValue() == null) {
             return null;
         }
-        LocalDate localDate = datePicker.getValue();
+        LocalDate localDate =  datePicker.getValue();
+
         Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
         Date date = Date.from(instant);
-        System.out.println(localDate + "\n" + instant + "\n" + date);
+        //System.out.println(localDate + "\n" + instant + "\n" + date);
         return localDate;
     }
 
@@ -221,18 +221,34 @@ public class PrimaryController {
                 datePickerStart.setValue(localDateEnd);
             }
         });
+
+        LocalDate dateStart = LocalDate.of(2007, 10, 29);
+        datePickerStart.setValue(dateStart);
+        datePickerEnd.setValue(LocalDate.now());
     }
 
-    public Instant getDatePickerStartInstant() {
+    public String getDatePickerStartInstant() {
         LocalDate localDate = datePickerStart.getValue();
         Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
-        return instant;
+        instant = instant.plus(1, ChronoUnit.DAYS);
+        String dateInstant = instant.toString();
+        String formattedDate = dateInstant.substring(0, dateInstant.length() - 1) + "..";
+        formattedDate = formattedDate.replace("T23", "T00");
+        formattedDate = formattedDate.replace("T22", "T00");
+        System.out.println("Data formattata Start!!! *** " + formattedDate);
+        return formattedDate;
     }
 
-    public Instant getDatePickerEndInstant() {
+    public String getDatePickerEndInstant() {
         LocalDate localDate = datePickerEnd.getValue();
         Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
-        return instant;
+        instant = instant.plus(1, ChronoUnit.DAYS);
+        String dateInstant = instant.toString();
+        String formattedDate = dateInstant.substring(0, dateInstant.length() - 1);
+        formattedDate = formattedDate.replace("T22", "T00");
+        formattedDate = formattedDate.replace("T23", "T00");
+        System.out.println("Data formattata End!!! *** " + formattedDate);
+        return formattedDate;
     }
 
     private void enableDisableRemoveButton(boolean b) {
@@ -471,6 +487,7 @@ public class PrimaryController {
         if(!this.campoToken.getText().isEmpty()) {
             q.setToken(this.campoToken.getText());
         }
+        q.setDate(getDatePickerStartInstant() + getDatePickerEndInstant());
     }
 
     private boolean checkKeyPresence(String key) {

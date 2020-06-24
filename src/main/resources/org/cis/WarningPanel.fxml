@@ -39,7 +39,7 @@
             <Image url="@../../icons/ok.png" />
          </image>
       </ImageView>
-      <Label fx:id="labelMessage" layoutX="22.0" layoutY="54.0" prefHeight="59.0" prefWidth="618.0" text="Label" textFill="WHITE">
+      <Label fx:id="labelMessage" layoutX="22.0" layoutY="54.0" prefHeight="59.0" prefWidth="618.0" text="In order to start a new search we have to remove all of the files in the json folder.&#10;Do you want to proceed anyway?" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
