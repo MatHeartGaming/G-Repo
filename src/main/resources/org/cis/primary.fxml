@@ -178,7 +178,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="Results">
+            <Tab fx:id="tabResults" text="Results">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="554.0" prefWidth="925.0" style="-fx-background-color: #0b132b;" stylesheets="@tableStyle.css">
                      <children>

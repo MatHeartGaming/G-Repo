@@ -58,6 +58,9 @@ public class PrimaryController {
     @FXML
     private DatePicker datePickerStart, datePickerEnd;
 
+    @FXML
+    private Tab tabResults;
+
     private List<TextField> listaCampiQuery = new ArrayList<>();
     private List<TextField> listaCampiChiavi = new ArrayList<>();
     private boolean hoursFlag = false;
@@ -352,10 +355,7 @@ public class PrimaryController {
         nuovaKey.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {Applicazione.getInstance().getCommonEvents().changeBorderColor(nuovaKey, Costanti.HOVER_COLOR);}});
         nuovaKey.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {Applicazione.getInstance().getCommonEvents().changeBorderColor(nuovaKey, Costanti.COLORE_BUTTON);}});
 
-
-
         TextField ultimaInserita = this.listaCampiQuery.get(this.listaCampiQuery.size()-1);
-
         setTextFieldProperties(ultimaInserita, nuovaQuery, ultimaInserita.getPromptText());
         setTextFieldProperties(vecchiaKey, nuovaKey, "Key");
 
@@ -426,7 +426,7 @@ public class PrimaryController {
                 @Override
                 public void run() {
                     if(query.getToken() != null) {
-
+                        disableAllUIElements(true);
                         Operatore.createConfigProperties();
                         System.out.println("Properties! creato");
 
@@ -440,14 +440,12 @@ public class PrimaryController {
                         labelErrori.setText("Inserire il token!");
                         Applicazione.getInstance().getCommonEvents().changeBorderColor(campoToken, "#ff0000");
                     }
+                    disableAllUIElements(false);
                 }
             });
             Applicazione.getInstance().getModello().addObject(Costanti.THREAD_DOWNLOAD_REPO, thread);
             thread.start();
-
-
         }
-
     }
 
     private List<Qualifier> createListQualifiers() {
@@ -506,6 +504,7 @@ public class PrimaryController {
             Applicazione.getInstance().getCommonEvents().setProgressBar("Operazione interrotta dall'utente...", 0);
         }
         Applicazione.getInstance().getModello().addObject(Costanti.THREAD_DOWNLOAD_REPO, null);
+        disableAllUIElements(false);
     }
 
     private boolean verifyValueFields() {
@@ -553,5 +552,25 @@ public class PrimaryController {
         }
     }
 
+    private void disableAllUIElements(boolean value) {
+        for(int i = 0; i < listaCampiChiavi.size(); i++) {
+            listaCampiChiavi.get(i).setDisable(value);
+            listaCampiQuery.get(i).setDisable(value);
+        }
+        campoToken.setDisable(value);
+        campoSort.setDisable(value);
+        campoOrder.setDisable(value);
+        datePickerStart.setDisable(value);
+        datePickerEnd.setDisable(value);
+        iconRemoveQuery.setDisable(value);
+        iconAddQuery.setDisable(value);
+        bottoneEliminaQuery.setDisable(value);
+        bottoneAggiungiQuery.setDisable(value);
+        bottoneCerca.setDisable(value);
+        iconSearch.setDisable(value);
+        tabResults.setDisable(value);
+        campoKeyOrder.setDisable(value);
+        campoKeySort.setDisable(value);
+    }
 
 }
