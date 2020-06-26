@@ -43,6 +43,13 @@
             <artifactId>org.eclipse.jgit</artifactId>
             <version>5.4.2.201908231537-r</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.detectlanguage/detectlanguage -->
+        <dependency>
+            <groupId>com.detectlanguage</groupId>
+            <artifactId>detectlanguage</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>

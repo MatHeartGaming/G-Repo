@@ -13,6 +13,8 @@ import org.cis.modello.Session;
 
 import java.io.*;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Operatore {
 
@@ -219,6 +221,31 @@ public class Operatore {
         return true;
     }
 
+    public static String filterText(String text) {
+        //removes html tags
+        text = text.replaceAll("\\<.*?\\>", "");
+        //removes markdown code snippets
+        String regex = "(```.+?```)";
+        Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE | Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(text);
+        text = matcher.replaceAll("");
+        //removes markdown images
+        String regex2 = "!\\[[^\\]]+\\]\\([^)]+\\)";
+        Pattern pattern2 = Pattern.compile(regex2);
+        Matcher matcher2 = pattern2.matcher(text);
+        text = matcher2.replaceAll("");
+        //removes markdown links
+        String regex3 = "\\[(.*?)\\]\\(.*?\\)";
+        Pattern pattern3 = Pattern.compile(regex3);
+        Matcher matcher3 = pattern3.matcher(text);
+        while(matcher3.find() == true) {
+            String replaceString = matcher3.group(1);
+            String toBeReaplacedString = matcher3.group();
+            text = text.replace(toBeReaplacedString, replaceString);
+        }
+        //System.out.println(text);
+        return text;
+    }
 
 
 }
