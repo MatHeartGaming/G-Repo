@@ -235,8 +235,12 @@ public class Operatore {
             String s = null;
 
             while ((s = stdInput.readLine()) != null) {
-                Applicazione.getInstance().getModello().addObject(Costanti.MESSAGGIO_FINE_RICERCA,s);
-                System.out.println(s);
+                    if (s.contains("ERROR")){
+                        System.out.println(s);
+                        Applicazione.getInstance().getModello().addObject(Costanti.MESSAGGIO_FINE_RICERCA,"Token non valido");
+                        return false;
+                    }
+                    System.out.println(s);
             }
             // Read any errors from the attempted command
 
