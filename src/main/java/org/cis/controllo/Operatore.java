@@ -235,16 +235,13 @@ public class Operatore {
             String s = null;
 
             while ((s = stdInput.readLine()) != null) {
-                System.out.println(s);
-            }
-            // Read any errors from the attempted command
-
-
-            while ((s = stdError.readLine()) != null) {
                 Applicazione.getInstance().getModello().addObject(Costanti.MESSAGGIO_FINE_RICERCA,s);
                 System.out.println(s);
                 return false;
+
             }
+            // Read any errors from the attempted command
+
 
 
         } catch (IOException ex) {
