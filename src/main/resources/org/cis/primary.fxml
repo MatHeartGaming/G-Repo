@@ -210,7 +210,7 @@
                         <ComboBox fx:id="comboParametriRicerca" layoutX="590.0" layoutY="15.0" prefHeight="26.0" prefWidth="128.0" promptText="Repositories" AnchorPane.rightAnchor="188.0" />
                         <ImageView fx:id="iconFilter" fitHeight="27.0" fitWidth="36.0" layoutX="612.0" layoutY="481.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="267.4">
                            <image>
-                              <Image url="@../../icons/filter-icon.png" />
+                              <Image url="@../../icons/translate.png" />
                            </image>
                         </ImageView>
                         <ImageView fx:id="iconSave" fitHeight="27.0" fitWidth="36.0" layoutX="795.0" layoutY="511.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="15.600000000000023" AnchorPane.rightAnchor="84.39999999999998">
@@ -248,7 +248,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Button>
-                        <ImageView fx:id="iconFilter1" fitHeight="27.0" fitWidth="36.0" layoutX="431.0" layoutY="481.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="448.4">
+                        <ImageView fx:id="iconFilterProgr" fitHeight="27.0" fitWidth="36.0" layoutX="431.0" layoutY="481.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="448.4">
                            <image>
                               <Image url="@../../icons/filter-icon.png" />
                            </image>

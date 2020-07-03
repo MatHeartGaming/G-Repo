@@ -13,10 +13,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
+import org.cis.DAO.DAORepositoryJSON;
 import org.cis.controllo.CommonEvents;
 import org.cis.controllo.Operatore;
 import org.cis.modello.*;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -25,7 +29,7 @@ public class PrimaryController {
 
     @FXML
     private Button bottoneCerca, buttonFilterLanguage, bottoneSalva, bottoneAggiungiQuery,
-            bottoneEliminaQuery, bottoneStop, bottoneEliminaBulk, bottoneEliminaSelezionato;
+            bottoneEliminaQuery, bottoneStop, bottoneEliminaBulk, bottoneEliminaSelezionato, buttonFilterProgrLanguage;
 
     @FXML
     private TextField campoToken, campoParametroQ1, campoParametroQ2, campoParametroQ3,
@@ -50,7 +54,8 @@ public class PrimaryController {
     private ProgressBar progressBar;
 
     @FXML
-    private ImageView iconFilter, iconAddQuery, iconSave, iconSearch, iconRemoveQuery, iconStop, iconDeleteBulk, iconDeleteSelected;
+    private ImageView iconFilter, iconAddQuery, iconSave, iconSearch, iconRemoveQuery,
+            iconStop, iconDeleteBulk, iconDeleteSelected, iconFilterProgr;
 
     @FXML
     private CheckBox checkStrictMode;
@@ -94,6 +99,8 @@ public class PrimaryController {
         bottoneEliminaBulk.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaBulk, "#ff0000");}});
         bottoneEliminaBulk.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaBulk, "#cc3333");}});
         bottoneEliminaBulk.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {deleteInBulk();}});
+        buttonFilterProgrLanguage.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonFilterProgrLanguage, Costanti.HOVER_COLOR);}});
+        buttonFilterProgrLanguage.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonFilterProgrLanguage, Costanti.COLORE_BUTTON);}});
 
         checkStrictMode.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {cercaInTabella();}});
 
@@ -194,6 +201,9 @@ public class PrimaryController {
         iconDeleteSelected.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {deleteSelectedItem();}});
         iconDeleteSelected.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaSelezionato, "#ff0000");}});
         iconDeleteSelected.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaSelezionato, "#cc3333");}});
+
+        iconFilterProgr.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonFilterProgrLanguage, Costanti.HOVER_COLOR);}});
+        iconFilterProgr.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonFilterProgrLanguage, Costanti.COLORE_BUTTON);}});
     }
 
     private LocalDate getValueDataPicker(DatePicker datePicker) {
@@ -286,12 +296,12 @@ public class PrimaryController {
             @Override
             protected ObservableList<Repository> call() throws Exception {
                 //System.out.println(Thread.currentThread().getName());// Thread-3.
-                return FXCollections.observableArrayList(Applicazione.getInstance().getDaoRepositoryMock().loadRepositories(""));
+                return FXCollections.observableArrayList(new ArrayList<Repository>());
             }
         };
         task.setOnSucceeded(workerStateEvent -> {
             //System.out.println(Thread.currentThread().getName());// JavaFX Application Thread.
-            Applicazione.getInstance().getModello().addObject(Costanti.LISTA_REPO, workerStateEvent.getSource().getValue());
+            //Applicazione.getInstance().getModello().addObject(Costanti.LISTA_REPO, workerStateEvent.getSource().getValue());
             initTableCells();
             this.tableRepository.setItems(task.getValue());
         });
@@ -432,6 +442,13 @@ public class PrimaryController {
 
                         if (Operatore.avvioGHRepoSearcher()) {
                             System.out.println("fine GHrepoSearcher!");
+                            String path = new File("").getAbsolutePath();
+                            path = path + "\\risorse\\json";
+                            System.out.println("***Path: " + path + "***");
+                            List<Repository> lista = Applicazione.getInstance().getDaoRepositoryJSON().loadRepositories(path);
+                            ObservableList<Repository> tabList = FXCollections.observableArrayList(lista);
+                            Applicazione.getInstance().getModello().addObject(Costanti.LISTA_REPO_AGGIORNATA, tabList);
+                            setTable();
                         } else {
                             System.out.println("Errore GHrepoSearcher!");
                         }

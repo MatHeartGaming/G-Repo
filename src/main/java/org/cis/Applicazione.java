@@ -1,6 +1,7 @@
 package org.cis;
 
 import javafx.fxml.FXML;
+import org.cis.DAO.DAORepositoryJSON;
 import org.cis.DAO.DAORepositoryMock;
 import org.cis.controllo.CommonEvents;
 import org.cis.controllo.SingleThread;
@@ -16,6 +17,11 @@ public class Applicazione {
     private DAORepositoryMock daoRepositoryMock = new DAORepositoryMock();
     private SessionManager sessionManager = new SessionManager();
     private SingleThread singleThread = new SingleThread();
+    private DAORepositoryJSON daoRepositoryJSON = new DAORepositoryJSON();
+
+    public DAORepositoryJSON getDaoRepositoryJSON() {
+        return daoRepositoryJSON;
+    }
 
     public static Applicazione getInstance() {
         return applicazione;
