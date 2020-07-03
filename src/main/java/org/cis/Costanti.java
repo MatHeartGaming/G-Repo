@@ -20,6 +20,7 @@ public class Costanti {
     public static final String ULTIMO_CAMPO_KEY = "ultimo campo Q";
 
     public static final String THREAD_DOWNLOAD_REPO = "thread repo";
+    public static final String THREAD_REPO_SEARCHER = "Thread tool";
 
     public static final String PROGRESS_BAR = "progress bar";
     public static final Float[] values = new Float[] {-1.0f, 0f, 0.25f, 0.5f, 0.75f, 1.0f};

@@ -116,15 +116,16 @@ public class Operatore {
             PrintStream write = new PrintStream(output);
             write.println("output_path=../../json" );
             write.println("username=" + query.getToken());
+            write.println("q1=created:"+ query.getDate());
 
             Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Procede bene :)", 2);}});
+            int j = 2;
 
             for (int i=0; i < listaQualificatori.size(); i++){
 
                 Qualifier q = listaQualificatori.get(i);
-                int j = i +1;
                 write.println("q" + j + "=" + q.getKey() +":"+ q.getValue());
-
+                j = j +1;
                 if(i == Math.floor(listaQualificatori.size() / 2)) {
                     Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Siamo a metà!", 3);}});
                 }
@@ -188,6 +189,7 @@ public class Operatore {
             //setto il command
             String cmd = "java -jar GHRepoSearcher.jar config.properties";
             Process process = Runtime.getRuntime().exec(cmd, null, dir);
+            Applicazione.getInstance().getModello().addObject(Costanti.THREAD_REPO_SEARCHER, process);
 
             Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Lavorando dietro le quinte...", 3);}});
 
@@ -199,7 +201,6 @@ public class Operatore {
 
             // Read the output from the command
             String s = null;
-
 
             while ((s = stdInput.readLine()) != null) {
                 System.out.println(s);

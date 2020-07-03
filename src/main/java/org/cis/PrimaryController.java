@@ -442,6 +442,7 @@ public class PrimaryController {
 
                         if (Operatore.avvioGHRepoSearcher()) {
                             System.out.println("fine GHrepoSearcher!");
+<<<<<<< HEAD
                             String path = new File("").getAbsolutePath();
                             path = path + "\\risorse\\json";
                             System.out.println("***Path: " + path + "***");
@@ -449,6 +450,13 @@ public class PrimaryController {
                             ObservableList<Repository> tabList = FXCollections.observableArrayList(lista);
                             Applicazione.getInstance().getModello().addObject(Costanti.LISTA_REPO_AGGIORNATA, tabList);
                             setTable();
+=======
+                            //lancio loadRepo da Dao
+
+                            //ottengo lista Repo
+
+                            //Utilizzo dati per riempire Tabella
+>>>>>>> michele
                         } else {
                             System.out.println("Errore GHrepoSearcher!");
                         }
@@ -521,7 +529,9 @@ public class PrimaryController {
             Applicazione.getInstance().getCommonEvents().setProgressBar("Operazione interrotta dall'utente...", 0);
         }
         Applicazione.getInstance().getModello().addObject(Costanti.THREAD_DOWNLOAD_REPO, null);
+
         disableAllUIElements(false);
+
     }
 
     private boolean verifyValueFields() {
