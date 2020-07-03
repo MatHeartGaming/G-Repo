@@ -237,11 +237,15 @@ public class Operatore {
             while ((s = stdInput.readLine()) != null) {
                 Applicazione.getInstance().getModello().addObject(Costanti.MESSAGGIO_FINE_RICERCA,s);
                 System.out.println(s);
-                return false;
-
             }
             // Read any errors from the attempted command
 
+
+            while ((s = stdError.readLine()) != null) {
+                Applicazione.getInstance().getModello().addObject(Costanti.MESSAGGIO_FINE_RICERCA,s);
+                System.out.println(s);
+                return false;
+            }
 
 
         } catch (IOException ex) {
