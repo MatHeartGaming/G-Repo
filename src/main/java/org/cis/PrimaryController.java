@@ -525,6 +525,10 @@ public class PrimaryController {
             thread.interrupt();
             Applicazione.getInstance().getCommonEvents().setProgressBar("Operazione interrotta dall'utente...", 0);
         }
+        Process process = (Process) Applicazione.getInstance().getModello().getObject(Costanti.THREAD_REPO_SEARCHER);
+        if(process != null){
+            process.destroy();
+        }
         Applicazione.getInstance().getModello().addObject(Costanti.THREAD_DOWNLOAD_REPO, null);
 
         disableAllUIElements(false);
