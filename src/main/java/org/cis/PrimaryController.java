@@ -432,6 +432,11 @@ public class PrimaryController {
 
                         if (Operatore.avvioGHRepoSearcher()) {
                             System.out.println("fine GHrepoSearcher!");
+                            //lancio loadRepo da Dao
+
+                            //ottengo lista Repo
+
+                            //Utilizzo dati per riempire Tabella
                         } else {
                             System.out.println("Errore GHrepoSearcher!");
                         }
@@ -504,7 +509,9 @@ public class PrimaryController {
             Applicazione.getInstance().getCommonEvents().setProgressBar("Operazione interrotta dall'utente...", 0);
         }
         Applicazione.getInstance().getModello().addObject(Costanti.THREAD_DOWNLOAD_REPO, null);
+
         disableAllUIElements(false);
+
     }
 
     private boolean verifyValueFields() {
