@@ -92,7 +92,7 @@ public class PrimaryController {
         bottoneEliminaQuery.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaQuery, Costanti.COLORE_BUTTON);}});
         bottoneStop.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneStop, "#ff0000");}});
         bottoneStop.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneStop, "#cc3333");}});
-        bottoneStop.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {stopThread();}});
+        bottoneStop.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) { Applicazione.getInstance().getModello().addObject(Costanti.MESSAGGIO_FINE_RICERCA,"Ricerca Stoppata!");stopThread();}});
 
         bottoneEliminaSelezionato.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaSelezionato, "#ff0000");}});
         bottoneEliminaSelezionato.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaSelezionato, "#cc3333");}});
@@ -470,8 +470,13 @@ public class PrimaryController {
                             //ottengo lista Repo
 
                             //Utilizzo dati per riempire Tabella
+=======
+                            Applicazione.getInstance().getModello().addObject(Costanti.MESSAGGIO_FINE_RICERCA,"Ricerca Andata a buon Fine!");
+                            stopThread();
+>>>>>>> michele
                         } else {
                             System.out.println("Errore GHrepoSearcher!");
+                            stopThread();
                         }
 
                     } else {
@@ -544,15 +549,19 @@ public class PrimaryController {
 
     private void stopThread() {
         Thread thread = (Thread) Applicazione.getInstance().getModello().getObject(Costanti.THREAD_DOWNLOAD_REPO);
+        CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
         if(thread != null) {
             thread.interrupt();
-            Applicazione.getInstance().getCommonEvents().setProgressBar("Operazione interrotta dall'utente...", 0);
+            String messaggio = (String) Applicazione.getInstance().getModello().getObject(Costanti.MESSAGGIO_FINE_RICERCA);
+            Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar(messaggio, 5);}});
+            Applicazione.getInstance().getModello().addObject(Costanti.MESSAGGIO_FINE_RICERCA,null);
         }
         Process process = (Process) Applicazione.getInstance().getModello().getObject(Costanti.THREAD_REPO_SEARCHER);
         if(process != null){
             process.destroy();
         }
         Applicazione.getInstance().getModello().addObject(Costanti.THREAD_DOWNLOAD_REPO, null);
+        Applicazione.getInstance().getModello().addObject(Costanti.THREAD_REPO_SEARCHER, null);
 
         disableAllUIElements(false);
     }

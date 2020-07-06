@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextField;
 import org.cis.Applicazione;
 import org.cis.Costanti;
 import org.cis.modello.Qualifier;
@@ -12,6 +13,9 @@ import org.cis.modello.Repository;
 import org.cis.modello.Session;
 
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -99,7 +103,24 @@ public class Operatore {
     }
 
 
+    private static boolean netIsAvailable() {
+        try {
+            final URL url = new URL("https://www.github.com");
+            final URLConnection conn = url.openConnection();
+            conn.connect();
+            conn.getInputStream().close();
+            return true;
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
     public static void createConfigProperties(){
+
+
+
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
         Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Creazione file properties", 1);}});
 
@@ -155,8 +176,19 @@ public class Operatore {
 
 
     public static boolean avvioGHRepoSearcher(){
-        System.out.println("avvio GHRepoSearcher!");
+
+        //Controllo la connessione ad internet
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
+        System.out.println("controllo connessione internet!");
+
+        boolean connect = netIsAvailable();
+
+        if(connect == false){
+            Applicazione.getInstance().getModello().addObject(Costanti.MESSAGGIO_FINE_RICERCA,"Errore di Connessione!");
+            return false ;
+        }
+
+        System.out.println("avvio GHRepoSearcher!");
         Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Avvio GHRepoSearcher...", 1);}});
 
         try {
@@ -203,18 +235,25 @@ public class Operatore {
             String s = null;
 
             while ((s = stdInput.readLine()) != null) {
-                System.out.println(s);
+                    if (s.contains("ERROR")){
+                        System.out.println(s);
+                        Applicazione.getInstance().getModello().addObject(Costanti.MESSAGGIO_FINE_RICERCA,"Token non valido");
+                        return false;
+                    }
+                    System.out.println(s);
             }
             // Read any errors from the attempted command
 
 
             while ((s = stdError.readLine()) != null) {
+                Applicazione.getInstance().getModello().addObject(Costanti.MESSAGGIO_FINE_RICERCA,s);
                 System.out.println(s);
                 return false;
             }
 
         } catch (IOException ex) {
             Applicazione.getInstance().getCommonEvents().showExceptionDialog(ex);
+
             ex.printStackTrace();
         }
 
