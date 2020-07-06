@@ -444,9 +444,9 @@ public class PrimaryController {
                             ex.printStackTrace();
                         }
                     }
+                    Applicazione.getInstance().getSessionManager().getSessions().clear();
                     boolean delete = (boolean) Applicazione.getInstance().getModello().getObject(Costanti.ACCEPT_DELETION_PROCESS);
                     if(delete == false) {
-                        Applicazione.getInstance().getSessionManager().getSessions().clear();
                         Platform.runLater(new Runnable() {@Override public void run() {labelErrori.setText("Operazione interrotta.");}});
                         return;
                     }
