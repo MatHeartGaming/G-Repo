@@ -213,7 +213,6 @@ public class Operatore {
                 return false;
             }
 
-
         } catch (IOException ex) {
             Applicazione.getInstance().getCommonEvents().showExceptionDialog(ex);
             ex.printStackTrace();

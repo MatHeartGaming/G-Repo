@@ -1,5 +1,6 @@
 package org.cis;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -435,8 +436,23 @@ public class PrimaryController {
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    synchronized (Applicazione.getInstance().getModello().getObject(Costanti.THREAD_DOWNLOAD_REPO)) {
+                        try {
+                            Applicazione.getInstance().getModello().getObject(Costanti.THREAD_DOWNLOAD_REPO).wait();
+                        } catch (Exception ex) {
+                            Platform.runLater(new Runnable() {@Override public void run() {Applicazione.getInstance().getCommonEvents().showExceptionDialog(ex);}});
+                            ex.printStackTrace();
+                        }
+                    }
+                    boolean delete = (boolean) Applicazione.getInstance().getModello().getObject(Costanti.ACCEPT_DELETION_PROCESS);
+                    if(delete == false) {
+                        Applicazione.getInstance().getSessionManager().getSessions().clear();
+                        Platform.runLater(new Runnable() {@Override public void run() {labelErrori.setText("Operazione interrotta.");}});
+                        return;
+                    }
                     if(query.getToken() != null) {
                         disableAllUIElements(true);
+
                         Operatore.createConfigProperties();
                         System.out.println("Properties! creato");
 
@@ -465,8 +481,15 @@ public class PrimaryController {
                     disableAllUIElements(false);
                 }
             });
+
             Applicazione.getInstance().getModello().addObject(Costanti.THREAD_DOWNLOAD_REPO, thread);
+
+            Applicazione.getInstance().getCommonEvents().loadPanel("WarningPanel", Modality.APPLICATION_MODAL, false, "Filtro", StageStyle.UNDECORATED, true);
+            boolean delete = (boolean) Applicazione.getInstance().getModello().getObject(Costanti.ACCEPT_DELETION_PROCESS);
+            Object syncObj = new Object();
             thread.start();
+
+
         }
     }
 
@@ -532,7 +555,6 @@ public class PrimaryController {
         Applicazione.getInstance().getModello().addObject(Costanti.THREAD_DOWNLOAD_REPO, null);
 
         disableAllUIElements(false);
-
     }
 
     private boolean verifyValueFields() {
@@ -590,9 +612,11 @@ public class PrimaryController {
         campoOrder.setDisable(value);
         datePickerStart.setDisable(value);
         datePickerEnd.setDisable(value);
-        iconRemoveQuery.setDisable(value);
+        if(value == false && this.listaCampiQuery.size() > 3) {
+            iconRemoveQuery.setDisable(value);
+            bottoneEliminaQuery.setDisable(value);
+        }
         iconAddQuery.setDisable(value);
-        bottoneEliminaQuery.setDisable(value);
         bottoneAggiungiQuery.setDisable(value);
         bottoneCerca.setDisable(value);
         iconSearch.setDisable(value);

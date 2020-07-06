@@ -21,13 +21,14 @@ public class Costanti {
 
     public static final String THREAD_DOWNLOAD_REPO = "thread repo";
     public static final String THREAD_REPO_SEARCHER = "Thread tool";
+    public static final String ACCEPT_DELETION_PROCESS = "delete json";
 
     public static final String PROGRESS_BAR = "progress bar";
     public static final Float[] values = new Float[] {-1.0f, 0f, 0.25f, 0.5f, 0.75f, 1.0f};
     public static final String LABEL_PROGRESS = "label progress";
 
     public static final String[] LISTA_QUAL = {"in", "repo", "user", "org", "size", "followers", "fork",
-            "stars", "created", "pushed", "language", "topic", "topics", "license",
+            "stars", "pushed", "language", "topic", "topics", "license",
             "is", "mirror", "archived", "good-first-issues", "help-wanted-issues"};
 
 

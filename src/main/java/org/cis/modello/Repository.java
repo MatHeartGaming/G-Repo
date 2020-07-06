@@ -123,7 +123,8 @@ public class Repository {
     }
 
     public StringProperty getDataProperty() {
-        return new SimpleStringProperty(this.lastCommitDate.toString());
+        //return new SimpleStringProperty(this.lastCommitDate.toString());
+        return new SimpleStringProperty(LocalDate.now().toString());
     }
 
     public StringProperty turnIntToStringProperty() {
