@@ -444,7 +444,7 @@ public class PrimaryController {
                             ex.printStackTrace();
                         }
                     }
-                    Applicazione.getInstance().getSessionManager().getSessions().clear();
+                    //Applicazione.getInstance().getSessionManager().getSessions().clear();
                     boolean delete = (boolean) Applicazione.getInstance().getModello().getObject(Costanti.ACCEPT_DELETION_PROCESS);
                     if(delete == false) {
                         Platform.runLater(new Runnable() {@Override public void run() {labelErrori.setText("Operazione interrotta.");}});
@@ -470,10 +470,8 @@ public class PrimaryController {
                             //ottengo lista Repo
 
                             //Utilizzo dati per riempire Tabella
-=======
                             Applicazione.getInstance().getModello().addObject(Costanti.MESSAGGIO_FINE_RICERCA,"Ricerca Andata a buon Fine!");
                             stopThread();
->>>>>>> michele
                         } else {
                             System.out.println("Errore GHrepoSearcher!");
                             stopThread();
@@ -564,11 +562,6 @@ public class PrimaryController {
         Applicazione.getInstance().getModello().addObject(Costanti.THREAD_REPO_SEARCHER, null);
 
         disableAllUIElements(false);
-    }
-
-    private boolean verifyValueFields() {
-
-        return false;
     }
 
     private void deleteInBulk() {

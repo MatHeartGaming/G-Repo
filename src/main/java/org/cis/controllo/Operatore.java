@@ -118,12 +118,8 @@ public class Operatore {
     }
 
     public static void createConfigProperties(){
-
-
-
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
         Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Creazione file properties", 1);}});
-
 
         System.out.println("Avvio Creazione File Properties!");
 
