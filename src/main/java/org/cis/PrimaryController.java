@@ -79,7 +79,7 @@ public class PrimaryController {
         bottoneCerca.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneCerca, Costanti.HOVER_COLOR);}});
         bottoneCerca.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneCerca, Costanti.COLORE_BUTTON);}});
         bottoneCerca.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {actionCerca();}});
-        buttonFilterLanguage.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {commonEvents.loadPanel("WarningPanel", Modality.APPLICATION_MODAL, false, "Filtro", StageStyle.UNDECORATED, true);}});
+        buttonFilterLanguage.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {  }});
         buttonFilterLanguage.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonFilterLanguage, Costanti.HOVER_COLOR);}});
         buttonFilterLanguage.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonFilterLanguage, Costanti.COLORE_BUTTON);}});
         bottoneSalva.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneSalva, "#00ff00");}});
@@ -184,7 +184,7 @@ public class PrimaryController {
         this.iconSave.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneSalva, "#00ff00");}});
         this.iconSave.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneSalva, "#99ff33");}});
 
-        this.iconFilter.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.loadPanel("PannelloFiltra", Modality.APPLICATION_MODAL, false, "Filtro", StageStyle.UNDECORATED, true);}});
+        this.iconFilter.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {}});
         this.iconAddQuery.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {aggiungiCampoQuery();}});;
         this.iconSearch.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {actionCerca();}});
         this.iconRemoveQuery.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {eliminaCampoQuery();}});
@@ -627,6 +627,20 @@ public class PrimaryController {
         tabResults.setDisable(value);
         campoKeyOrder.setDisable(value);
         campoKeySort.setDisable(value);
+    }
+
+    private void filterByIdiom() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<Repository> lista = (List<Repository>) Applicazione.getInstance().getModello().getObject(Costanti.LISTA_REPO);
+                if(lista == null) {
+                    return;
+                }
+                Operatore.actionDetectIdiom();
+            }
+        });
+
     }
 
 }

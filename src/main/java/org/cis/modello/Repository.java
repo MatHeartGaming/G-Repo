@@ -23,13 +23,15 @@ public class Repository {
     private StringProperty type; // Tipologia repository (Software development, Experimental, Storage...).
     private StringProperty programmingLanguage;// Proprietà calcolata (linguaggio con maggior percentuale).
 
-    public Repository(long id, String name, String description, String urlProject,  String cloneUrl, long size) {
+    public Repository(long id, String name, String description, String urlProject,  String cloneUrl, long size, String programmingLanguage, String lingua) {
         this.id = id;
         this.cloneUrl = cloneUrl;
         this.description = description;
         this.name = new SimpleStringProperty(name);
         this.urlProject = new SimpleStringProperty(urlProject);
         this.size = new SimpleLongProperty(size);
+        this.lingua = new SimpleStringProperty(lingua);
+        this.programmingLanguage = new SimpleStringProperty(programmingLanguage);
     }
 
     public Repository(String name, LocalDate lastCommitDate, String urlProject, long size, String lingua, String programmingLanguage) {
@@ -74,6 +76,11 @@ public class Repository {
     }
 
     public String getLingua() {
+        String determined = "Not determined (yet)";
+        if(lingua == null) {
+            lingua = new SimpleStringProperty(determined);
+            return determined;
+        }
         return lingua.get();
     }
 
@@ -115,6 +122,11 @@ public class Repository {
     }
 
     public String getProgrammingLanguage() {
+        String determined = "Not determined (yet)";
+        if(programmingLanguage == null) {
+            programmingLanguage = new SimpleStringProperty("Not determined (yet)");
+            return determined;
+        }
         return programmingLanguage.get();
     }
 

@@ -16,6 +16,7 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -283,4 +284,24 @@ public class Operatore {
     }
 
 
+    public static void actionDetectIdiom() {
+        CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
+        System.out.println("Avvio processo di language detection");
+        try {
+            String absolutePath = new java.io.File("").getAbsolutePath();
+            String savePath = absolutePath + "\\risorse\\languageRepository";
+            System.out.println("Path salvataggio lingua: " + savePath);
+            File directoryLanguage = new File(savePath);
+            File[] files = directoryLanguage.listFiles();
+            for(File f : files) {
+                f.delete();
+            }
+            String cmd = "";
+            Process process = Runtime.getRuntime().exec(cmd, null, directoryLanguage);
+            Applicazione.getInstance().getModello().addObject(Costanti.THREAD_LANGUAGE, process);
+        } catch (Exception ex) {
+            commonEvents.showExceptionDialog(ex);
+            ex.printStackTrace();
+        }
+    }
 }

@@ -21,6 +21,8 @@ public class Costanti {
 
     public static final String THREAD_DOWNLOAD_REPO = "thread repo";
     public static final String THREAD_REPO_SEARCHER = "Thread tool";
+    public static final String THREAD_LANGUAGE = "thread language";
+
     public static final String ACCEPT_DELETION_PROCESS = "delete json";
     public static final String MESSAGGIO_FINE_RICERCA = "mex tool";
 

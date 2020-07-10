@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -107,7 +108,7 @@ public class DAORepositoryJSON implements IDAORepository {
             }
         }
         reader.endObject();
-        return new Repository(id, name, description, htmlUrl,  cloneUrl, size);
+        return new Repository(id, name, description, htmlUrl,  cloneUrl, size, "Not determined (yet)", "Not determined (yet)");
     }
 
     /**
