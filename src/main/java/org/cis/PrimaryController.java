@@ -314,6 +314,7 @@ public class PrimaryController {
 
     private void setTable() {
         ObservableList<Repository> listaRepoAgg = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Costanti.LISTA_REPO_AGGIORNATA);
+        System.out.println("Lista size: " + listaRepoAgg.size());
         initTableCells();
         this.tableRepository.setItems(listaRepoAgg);
         this.tableRepository.refresh();
@@ -464,6 +465,7 @@ public class PrimaryController {
                             List<Repository> lista = Applicazione.getInstance().getDaoRepositoryJSON().loadRepositories(path);
                             ObservableList<Repository> tabList = FXCollections.observableArrayList(lista);
                             Applicazione.getInstance().getModello().addObject(Costanti.LISTA_REPO_AGGIORNATA, tabList);
+                            Applicazione.getInstance().getModello().addObject(Costanti.LISTA_REPO, tabList);
                             setTable();
                             //lancio loadRepo da Dao
 
