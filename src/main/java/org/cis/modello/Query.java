@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Query {
 
-    private String token; // Opzionale.
+    private String token; // Non più Opzionale
     private List<Qualifier> qualifiers;
     private String sort;
     private String order;

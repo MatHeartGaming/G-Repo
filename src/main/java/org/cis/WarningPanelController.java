@@ -23,12 +23,12 @@ public class WarningPanelController {
         buttonCancel.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonCancel, "#cc3333");}});
         buttonCancel.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {actionCancel(actionEvent);}});
 
-        buttonAccept.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonAccept, Costanti.HOVER_COLOR);}});
-        buttonAccept.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonAccept, Costanti.COLORE_BUTTON);}});
+        buttonAccept.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonAccept, Constants.HOVER_COLOR);}});
+        buttonAccept.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonAccept, Constants.COLORE_BUTTON);}});
         buttonAccept.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {actionAccept(actionEvent);}});
 
 
-        Applicazione.getInstance().getModello().addObject(Costanti.ACCEPT_DELETION_PROCESS, false);
+        Applicazione.getInstance().getModello().addObject(Constants.ACCEPT_DELETION_PROCESS, false);
         initIcons();
     }
 
@@ -38,25 +38,25 @@ public class WarningPanelController {
         iconCancel.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonCancel, "#cc3333");}});
         iconCancel.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {buttonCancel.fire();}});
 
-        iconAccept.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonAccept, Costanti.HOVER_COLOR);}});
-        iconAccept.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonAccept, Costanti.COLORE_BUTTON);}});
+        iconAccept.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonAccept, Constants.HOVER_COLOR);}});
+        iconAccept.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonAccept, Constants.COLORE_BUTTON);}});
         iconAccept.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {buttonAccept.fire();}});
     }
 
     private void actionAccept(ActionEvent actionEvent) {
-        Applicazione.getInstance().getModello().addObject(Costanti.ACCEPT_DELETION_PROCESS, true);
+        Applicazione.getInstance().getModello().addObject(Constants.ACCEPT_DELETION_PROCESS, true);
         notifyThread();
         Applicazione.getInstance().getCommonEvents().hideWindow(actionEvent);
     }
 
     private void actionCancel(ActionEvent actionEvent) {
-        Applicazione.getInstance().getModello().addObject(Costanti.ACCEPT_DELETION_PROCESS, false);
+        Applicazione.getInstance().getModello().addObject(Constants.ACCEPT_DELETION_PROCESS, false);
         notifyThread();
         Applicazione.getInstance().getCommonEvents().hideWindow(actionEvent);
     }
 
     private void notifyThread() {
-        Thread thread = (Thread) Applicazione.getInstance().getModello().getObject(Costanti.THREAD_DOWNLOAD_REPO);
+        Thread thread = (Thread) Applicazione.getInstance().getModello().getObject(Constants.THREAD_DOWNLOAD_REPO);
         synchronized (thread) {
             thread.notify();
         }

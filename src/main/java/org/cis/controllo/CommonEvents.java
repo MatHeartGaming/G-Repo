@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.cis.App;
 import org.cis.Applicazione;
-import org.cis.Costanti;
+import org.cis.Constants;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -113,7 +113,7 @@ public class CommonEvents {
     }
 
     public void changeBorderColor(TextField t, String color) {
-        t.setStyle("-fx-border-color:" + color + ";" + "-fx-background-color:" + Costanti.COLORE_PRIMARIO + ";" + "-fx-background-insets: 0;" + "-fx-border-radius: 20; -fx-text-fill: #fff;");
+        t.setStyle("-fx-border-color:" + color + ";" + "-fx-background-color:" + Constants.COLORE_PRIMARIO + ";" + "-fx-background-insets: 0;" + "-fx-border-radius: 20; -fx-text-fill: #fff;");
     }
 
     public void changeButtonColor(Button b, String color) {
@@ -127,12 +127,12 @@ public class CommonEvents {
     }
 
     public void setProgressBar(String message, int index) {
-        ProgressBar pb = (ProgressBar) Applicazione.getInstance().getModello().getObject(Costanti.PROGRESS_BAR);
-        Label labelProgress = (Label) Applicazione.getInstance().getModello().getObject(Costanti.LABEL_PROGRESS);
+        ProgressBar pb = (ProgressBar) Applicazione.getInstance().getModello().getObject(Constants.PROGRESS_BAR);
+        Label labelProgress = (Label) Applicazione.getInstance().getModello().getObject(Constants.LABEL_PROGRESS);
         if(index > 5 || index < 0) {
-            pb.setProgress(Costanti.values[1]);
+            pb.setProgress(Constants.values[1]);
         } else {
-            pb.setProgress(Costanti.values[index]);
+            pb.setProgress(Constants.values[index]);
         }
         labelProgress.setText(message);
     }

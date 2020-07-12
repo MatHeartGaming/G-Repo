@@ -10,7 +10,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -27,17 +26,18 @@ public class DAORepositoryJSON implements IDAORepository {
      */
     @Override
     public List<Repository> loadRepositories(String directorySourceFiles) {
+        // todo: cancellare .collect().stream() e testare...sono di troppo se non parallelizzo.
         // .../folderX/folderDestination
         if (directorySourceFiles == null || directorySourceFiles.isEmpty()) {
             throw new IllegalArgumentException("directorySourceFiles cannot be null or empty");
         }
         try {
             return Files.list(Paths.get(directorySourceFiles))
-                    .collect(Collectors.toList())
-                    .stream()
-                    .map(nameFile -> this.readRepositories(nameFile.toString()))
-                    .flatMap(repository -> repository.stream())
-                    .collect(Collectors.toList());
+                        .collect(Collectors.toList())
+                        .stream()
+                        .map(nameFile -> this.readRepositories(nameFile.toString()))
+                        .flatMap(repository -> repository.stream())
+                        .collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -81,6 +81,7 @@ public class DAORepositoryJSON implements IDAORepository {
     }
 
     private Repository readRepository(JsonReader reader) throws IOException {
+        // todo: verificare l'esistenza di valori null per una deteminata chiave.
         long id = -1;
         String name = null;
         String htmlUrl = null;
@@ -108,7 +109,7 @@ public class DAORepositoryJSON implements IDAORepository {
             }
         }
         reader.endObject();
-        return new Repository(id, name, description, htmlUrl,  cloneUrl, size, "Not determined (yet)", "Not determined (yet)");
+        return new Repository(id, name, description, htmlUrl,  cloneUrl, size);
     }
 
     /**
@@ -195,7 +196,7 @@ public class DAORepositoryJSON implements IDAORepository {
         writer.name("html_url").value(repository.getUrlProject());
         writer.name("clone_url").value(repository.getCloneUrl());
         writer.name("lingua").value(repository.getLingua());
-        writer.name("programmingLanguage").value(repository.getProgrammingLanguage());
+        writer.name("programmingLanguage").value(repository.getProgrammingLanguages());
         writer.name("description").value(repository.getDescription());
         writer.endObject();
     }
