@@ -26,17 +26,18 @@ public class DAORepositoryJSON implements IDAORepository {
      */
     @Override
     public List<Repository> loadRepositories(String directorySourceFiles) {
+        // todo: cancellare .collect().stream() e testare...sono di troppo se non parallelizzo.
         // .../folderX/folderDestination
         if (directorySourceFiles == null || directorySourceFiles.isEmpty()) {
             throw new IllegalArgumentException("directorySourceFiles cannot be null or empty");
         }
         try {
             return Files.list(Paths.get(directorySourceFiles))
-                    .collect(Collectors.toList())
-                    .stream()
-                    .map(nameFile -> this.readRepositories(nameFile.toString()))
-                    .flatMap(repository -> repository.stream())
-                    .collect(Collectors.toList());
+                        .collect(Collectors.toList())
+                        .stream()
+                        .map(nameFile -> this.readRepositories(nameFile.toString()))
+                        .flatMap(repository -> repository.stream())
+                        .collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -80,6 +81,7 @@ public class DAORepositoryJSON implements IDAORepository {
     }
 
     private Repository readRepository(JsonReader reader) throws IOException {
+        // todo: verificare l'esistenza di valori null per una deteminata chiave.
         long id = -1;
         String name = null;
         String htmlUrl = null;
@@ -194,7 +196,7 @@ public class DAORepositoryJSON implements IDAORepository {
         writer.name("html_url").value(repository.getUrlProject());
         writer.name("clone_url").value(repository.getCloneUrl());
         writer.name("lingua").value(repository.getLingua());
-        writer.name("programmingLanguage").value(repository.getProgrammingLanguage());
+        writer.name("programmingLanguage").value(repository.getProgrammingLanguages());
         writer.name("description").value(repository.getDescription());
         writer.endObject();
     }

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class SessionManager {
 
-    private List<Session> sessions = new ArrayList<>(); // Accumula le sessioni per salvarle alla chiusura del tool.
+    private List<Session> sessions = new ArrayList<>(); // Accumula le sessioni per salvarle alla chiusura del tool?.
 
     public List<Session> getSessions() {
         return sessions;

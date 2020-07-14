@@ -6,6 +6,11 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Repository {
 
@@ -14,38 +19,32 @@ public class Repository {
     private String cloneDirectory;
     private String description;
     private String file; // File JSON  a cui appartiene.
+    private LocalDate lastCommitDate;
+    private String programmingLanguages;// Proprietà calcolata (linguaggio con maggior percentuale).
+    private List<String> listProgrammingLanguages;
     // Proprietà da visualizzare.
     private StringProperty name;
-    private StringProperty version; // Non determinabile dal JSON.
-    private LocalDate lastCommitDate; //Attributo JSON "pushed_at"?.
     private StringProperty urlProject;
+    private StringProperty lastCommitDateProperty; // display lastCommitDate.
     private LongProperty size; // Byte.
     private StringProperty lingua; // Lingua (English, Non English, Mixed).
-    private StringProperty type; // Tipologia repository (Software development, Experimental, Storage...).
-    private StringProperty programmingLanguage;// Proprietà calcolata (linguaggio con maggior percentuale).
+    private StringProperty programmingLanguagesProperty;// display programmingLanguages.
 
-    public Repository(long id, String name, String description, String urlProject,  String cloneUrl, long size) {
+    public Repository(long id, String name, String description, String urlProject, String cloneUrl, long size) {
+        String yet = "Not determined (yet)";
         this.id = id;
         this.cloneUrl = cloneUrl;
         this.description = description;
         this.name = new SimpleStringProperty(name);
         this.urlProject = new SimpleStringProperty(urlProject);
         this.size = new SimpleLongProperty(size);
-    }
-
-    public Repository(String name, String version, LocalDate lastCommitDate, String urlProject, long size, String lingua, String programmingLanguage) {
-        this.name = new SimpleStringProperty(name);
-        this.version = new SimpleStringProperty(version);
-        this.lastCommitDate = lastCommitDate;
-        this.urlProject = new SimpleStringProperty(urlProject);
-        this.size = new SimpleLongProperty(size);
-        this.lingua = new SimpleStringProperty(lingua);
-        this.programmingLanguage = new SimpleStringProperty(programmingLanguage);
-    }
-
-    public Repository(String name, String version) {
-        this.name = new SimpleStringProperty(name);
-        this.version = new SimpleStringProperty(version);
+        this.lingua = new SimpleStringProperty(yet);
+        this.programmingLanguagesProperty = new SimpleStringProperty(yet);
+        this.lastCommitDateProperty = new SimpleStringProperty(yet);
+        // todo: inizializzazioni da eliminare; il menù a discesa disattiverà le voci: Lingua, Linguaggio, Data Ultimo Commit.
+        this.programmingLanguages = yet;
+        this.lastCommitDate = LocalDate.EPOCH;
+        this.listProgrammingLanguages = new ArrayList<>();
     }
 
     public String getName() {
@@ -56,16 +55,16 @@ public class Repository {
         return name;
     }
 
-    public String getVersion() {
-        return version.get();
-    }
-
-    public StringProperty versionProperty() {
-        return version;
-    }
-
     public LocalDate getLastCommitDate() {
         return lastCommitDate;
+    }
+
+    public void setLastCommitDate(LocalDate lastCommitDate) {
+        this.lastCommitDate = lastCommitDate;
+    }
+
+    public void displayLastCommitDate() {
+        this.lastCommitDateProperty.set(this.getLastCommitDate().toString());
     }
 
     public StringProperty urlProjectProperty() {
@@ -117,24 +116,57 @@ public class Repository {
         return description;
     }
 
-    public StringProperty typeProperty() {
-        return type;
-    }
-
     public StringProperty linguaProperty() {
         return lingua;
     }
 
-    public String getProgrammingLanguage() {
-        return programmingLanguage.get();
+    public String getProgrammingLanguages() {
+        return programmingLanguages;
     }
 
-    public StringProperty programmingLanguageProperty() {
-        return programmingLanguage;
+    public void setProgrammingLanguages(String programmingLanguages) {
+        this.programmingLanguages = programmingLanguages;
+    }
+
+    public void displayProgrammingLanguages() {
+        this.programmingLanguagesProperty.set(this.getProgrammingLanguages());
+    }
+
+    public List<String> getListProgrammingLanguages() {
+        return listProgrammingLanguages;
+    }
+
+    public void setListProgrammingLanguages(List<String> listProgrammingLanguages) {
+        this.listProgrammingLanguages = listProgrammingLanguages;
+    }
+
+    public boolean existsProgrammingLanguage(Predicate<String> stringPredicate) {
+        if (stringPredicate == null) throw new IllegalArgumentException("The stringPredicate argument cannot be null");
+        if (this.getListProgrammingLanguages() == null) throw new IllegalStateException("List Programming Languages is empty");
+        return this.getListProgrammingLanguages()
+                   .stream()
+                   .anyMatch(stringPredicate);
+    }
+
+    public static List<String> programmingLanguagesToList(String programmingLanguages) {
+        // e.g. "Java, Assembly|C++|HTML|Motorola 68K Assembly|NASL|PHP|POV-Ray SDL|Pascal|Pawn|SourcePawn, Haskell, HTML" ->
+        // to List -> [Java,  Assembly, C++, HTML, Motorola 68K Assembly, NASL, PHP, POV-Ray SDL, Pascal, Pawn, SourcePawn, Haskell, HTML]
+        if (programmingLanguages == null) {
+            throw new IllegalArgumentException("The programmingLanguages argument cannot be null");
+        }
+
+        return Stream.of(programmingLanguages.split("\\,"))
+                     .map(s -> s.split("\\|"))
+                     .flatMap(strings -> Stream.of(strings))
+                     .collect(Collectors.toList());
+    }
+
+    public StringProperty programmingLanguagesPropertyProperty() {
+        return programmingLanguagesProperty;
     }
 
     public StringProperty getDataProperty() {
-        return new SimpleStringProperty(this.lastCommitDate.toString());
+        return this.lastCommitDateProperty;
     }
 
     public StringProperty turnIntToStringProperty() {
