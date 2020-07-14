@@ -1,9 +1,6 @@
 package org.cis.modello;
 
-import javafx.beans.property.LongProperty;
-import javafx.beans.property.SimpleLongProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -29,6 +26,25 @@ public class Repository {
     private LongProperty size; // Byte.
     private StringProperty lingua; // Lingua (English, Non English, Mixed).
     private StringProperty programmingLanguagesProperty;// display programmingLanguages.
+    private IntegerProperty stars;
+
+    public Repository(long id, String name, String description, String urlProject, String cloneUrl, long size, int stars) {
+        String yet = "Not determined (yet)";
+        this.id = id;
+        this.cloneUrl = cloneUrl;
+        this.description = description;
+        this.name = new SimpleStringProperty(name);
+        this.urlProject = new SimpleStringProperty(urlProject);
+        this.size = new SimpleLongProperty(size);
+        this.lingua = new SimpleStringProperty(yet);
+        this.programmingLanguagesProperty = new SimpleStringProperty(yet);
+        this.lastCommitDateProperty = new SimpleStringProperty(yet);
+        // todo: inizializzazioni da eliminare; il menù a discesa disattiverà le voci: Lingua, Linguaggio, Data Ultimo Commit.
+        this.programmingLanguages = yet;
+        this.lastCommitDate = LocalDate.EPOCH;
+        this.listProgrammingLanguages = new ArrayList<>();
+        this.stars = new SimpleIntegerProperty(stars);
+    }
 
     public Repository(long id, String name, String description, String urlProject, String cloneUrl, long size) {
         String yet = "Not determined (yet)";
@@ -126,6 +142,19 @@ public class Repository {
 
     public void setProgrammingLanguages(String programmingLanguages) {
         this.programmingLanguages = programmingLanguages;
+    }
+
+    public int getStars() {
+        return stars.get();
+    }
+
+    public SimpleStringProperty starsProperty() {
+        String stelline = String.valueOf(stars.get());
+        return new SimpleStringProperty(stelline);
+    }
+
+    public void setStars(int stars) {
+        this.stars.set(stars);
     }
 
     public void displayProgrammingLanguages() {

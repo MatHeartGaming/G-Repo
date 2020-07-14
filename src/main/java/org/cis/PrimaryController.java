@@ -38,7 +38,7 @@ public class PrimaryController {
     private TableView<Repository> tableRepository;
 
     @FXML
-    private TableColumn<Repository, String> columnRepo, columnDataCommit, columnURL, columnLingua, columnLinguaggio, columnDimensione;
+    private TableColumn<Repository, String> columnRepo, columnDataCommit, columnURL, columnLingua, columnLinguaggio, columnDimensione, columnStars;
 
     @FXML
     private ComboBox comboParametriRicerca;
@@ -64,6 +64,9 @@ public class PrimaryController {
 
     @FXML
     private Tab tabResults;
+
+    @FXML
+    private TabPane tabbedPane;
 
     private List<TextField> listaCampiQuery = new ArrayList<>();
     private List<TextField> listaCampiChiavi = new ArrayList<>();
@@ -107,6 +110,7 @@ public class PrimaryController {
 
         checkStrictMode.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {cercaInTabella();}});
 
+        this.bottoneCerca.setDisable(true);
         this.tabResults.setDisable(true);
         this.enableDisableRemoveButton(true);
         this.bottoneEliminaSelezionato.setDisable(true);
@@ -121,6 +125,8 @@ public class PrimaryController {
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
         campoToken.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoToken, Constants.HOVER_COLOR);}});
         campoToken.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoToken, Constants.COLORE_BUTTON);}});
+        campoToken.setOnKeyReleased(new EventHandler<KeyEvent>() {@Override public void handle(KeyEvent keyEvent) {enableDisableSearchButton();}});
+        campoToken.setOnKeyPressed(new EventHandler<KeyEvent>() {@Override public void handle(KeyEvent keyEvent) {enableDisableSearchButton();}});
         campoParametroQ1.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoParametroQ1, Constants.HOVER_COLOR);}});
         campoParametroQ1.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoParametroQ1, Constants.COLORE_BUTTON);}});
         campoParametroQ2.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoParametroQ2, Constants.HOVER_COLOR);}});
@@ -164,6 +170,7 @@ public class PrimaryController {
         columnDimensione.setCellValueFactory(cellData -> cellData.getValue().turnIntToStringProperty());
         columnLingua.setCellValueFactory(cellData -> cellData.getValue().linguaProperty());
         columnLinguaggio.setCellValueFactory(cellData -> cellData.getValue().programmingLanguagesPropertyProperty());
+        columnStars.setCellValueFactory(cellData -> cellData.getValue().starsProperty());
     }
 
     private void initListaTextField() {
@@ -182,6 +189,7 @@ public class PrimaryController {
         this.iconAddQuery.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneAggiungiQuery, Constants.COLORE_BUTTON);}});
         this.iconSearch.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneCerca, Constants.HOVER_COLOR);}});
         this.iconSearch.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneCerca, Constants.COLORE_BUTTON);}});
+        this.iconSearch.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {bottoneCerca.fire();}});
         this.iconFilterLang.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonFilterLanguage, Constants.HOVER_COLOR);}});
         this.iconFilterLang.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonFilterLanguage, Constants.COLORE_BUTTON);}});
         this.iconFilterLang.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {buttonFilterLanguage.fire();}});
@@ -190,7 +198,6 @@ public class PrimaryController {
 
         this.iconFilterLang.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {}});
         this.iconAddQuery.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {aggiungiCampoQuery();}});;
-        this.iconSearch.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {actionCerca();}});
         this.iconRemoveQuery.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {eliminaCampoQuery();}});
         this.iconRemoveQuery.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaQuery, Constants.HOVER_COLOR);}});
         this.iconRemoveQuery.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaQuery, Constants.COLORE_BUTTON);}});
@@ -199,11 +206,11 @@ public class PrimaryController {
         this.iconStop.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneStop, "#cc3333");}});
         iconStop.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {stopThread();}});
 
-        iconDeleteBulk.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {deleteInBulk();}});
+        iconDeleteBulk.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {bottoneEliminaBulk.fire();}});
         iconDeleteBulk.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaBulk, "#ff0000");}});
         iconDeleteBulk.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaBulk, "#cc3333");}});
 
-        iconDeleteSelected.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {deleteSelectedItem();}});
+        iconDeleteSelected.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {bottoneEliminaSelezionato.fire();}});
         iconDeleteSelected.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaSelezionato, "#ff0000");}});
         iconDeleteSelected.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaSelezionato, "#cc3333");}});
 
@@ -217,10 +224,6 @@ public class PrimaryController {
             return null;
         }
         LocalDate localDate =  datePicker.getValue();
-
-        Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
-        Date date = Date.from(instant);
-        //System.out.println(localDate + "\n" + instant + "\n" + date);
         return localDate;
     }
 
@@ -275,6 +278,14 @@ public class PrimaryController {
         this.iconRemoveQuery.setDisable(b);
     }
 
+    private void enableDisableSearchButton() {
+        if(campoToken.getText().isEmpty()) {
+            bottoneCerca.setDisable(true);
+        } else {
+            bottoneCerca.setDisable(false);
+        }
+    }
+
     private void initTable() {
         this.tableRepository.setOnMouseClicked(mouseEvent -> selectItemTableEvent());
     }
@@ -314,7 +325,7 @@ public class PrimaryController {
 
     public void initCombo() {
         comboParametriRicerca.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {getSelectedComboLanguage(); cercaInTabella();});
-        String parametri[] = {Constants.PARAM_REPOSITORIES, Constants.PARAM_LINGUA, Constants.PARAM_LINGUAGGIO, Constants.PARAM_DATA_COMMIT, Constants.PARAM_URL, Constants.PARAM_DIMENSIONE};
+        String parametri[] = {Constants.PARAM_REPOSITORIES, Constants.PARAM_LANGUAGE, Constants.PARAM_PROGR_LANGUAGE, Constants.PARAM_DATE_COMMIT, Constants.PARAM_URL, Constants.PARAM_DIMENSION, Constants.PARAM_STARS};
         ObservableList<String> listaLinguaggi = FXCollections.observableArrayList(parametri);
         comboParametriRicerca.setItems(listaLinguaggi);
     }
@@ -472,7 +483,7 @@ public class PrimaryController {
     private void actionCerca() {
         this.labelErrori.setText("");
         List<Qualifier> qualifiers = createListQualifiers();
-        if(qualifiers != null && !qualifiers.isEmpty()) {
+        if(qualifiers != null) {
             Query query = new Query(qualifiers);
             setOptionalFields(query);
             Session session = new Session(null);
@@ -480,27 +491,6 @@ public class PrimaryController {
             Applicazione.getInstance().getSessionManager().addSession(session);
             System.out.println("Session created!");
             System.out.println("Numero sessioni: " + Applicazione.getInstance().getSessionManager().getSessions().size());
-
-            /*Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    if(query.getToken() != null) {
-
-                        Operatore.createConfigProperties();
-                        System.out.println("Properties! creato");
-
-                        if (Operatore.avvioGHRepoSearcher()) {
-                            System.out.println("fine GHrepoSearcher!");
-                        } else {
-                            System.out.println("Errore GHrepoSearcher!");
-                        }
-
-                    } else {
-                        labelErrori.setText("Inserire il token!");
-                        Applicazione.getInstance().getCommonEvents().changeBorderColor(campoToken, "#ff0000");
-                    }
-                }
-            });*/
 
             Thread thread = new Thread(new Runnable() {
                 @Override
@@ -543,6 +533,7 @@ public class PrimaryController {
 
                             //Utilizzo dati per riempire Tabella
                             Applicazione.getInstance().getModello().addObject(Constants.MESSAGGIO_FINE_RICERCA,"Ricerca Andata a buon Fine!");
+
                             stopThread();
                         } else {
                             System.out.println("Errore GHrepoSearcher!");
@@ -550,21 +541,21 @@ public class PrimaryController {
                         }
 
                     } else {
-                        labelErrori.setText("Inserire il token!");
-                        Applicazione.getInstance().getCommonEvents().changeBorderColor(campoToken, "#ff0000");
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                labelErrori.setText("Inserire il token!");
+                                Applicazione.getInstance().getCommonEvents().changeBorderColor(campoToken, "#ff0000");
+                            }
+                        });
                     }
                     disableAllUIElements(false);
                 }
             });
 
             Applicazione.getInstance().getModello().addObject(Constants.THREAD_DOWNLOAD_REPO, thread);
-
             Applicazione.getInstance().getCommonEvents().loadPanel("WarningPanel", Modality.APPLICATION_MODAL, false, "Filtro", StageStyle.UNDECORATED, true);
-            boolean delete = (boolean) Applicazione.getInstance().getModello().getObject(Constants.ACCEPT_DELETION_PROCESS);
-            Object syncObj = new Object();
             thread.start();
-
-
         }
     }
 
@@ -573,9 +564,6 @@ public class PrimaryController {
         List<Qualifier> listQualifiers = new ArrayList<>();
         int i = 0;
         for(TextField t : this.listaCampiChiavi) {
-            if(t.getText().isEmpty() && i == 0) {
-                return null;
-            }
 
             boolean presenza = checkKeyPresence(t.getText());
             if(presenza && !t.getText().isEmpty() && !this.listaCampiQuery.get(i).getText().isEmpty()) {
@@ -585,8 +573,7 @@ public class PrimaryController {
                 return listQualifiers;
             } else {
                 commonEvents.changeBorderColor(t, "#ff0000");
-                this.labelErrori.setText("Controlla le query in rosso!");
-                return null;
+                this.labelErrori.setText("Check the queries in red!");
             }
             System.out.println("key: " + t.getText());
             System.out.println("valore: " + this.listaCampiQuery.get(i).getText());
@@ -625,6 +612,8 @@ public class PrimaryController {
             String messaggio = (String) Applicazione.getInstance().getModello().getObject(Constants.MESSAGGIO_FINE_RICERCA);
             Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar(messaggio, 5);}});
             Applicazione.getInstance().getModello().addObject(Constants.MESSAGGIO_FINE_RICERCA,null);
+        } else {
+            return;
         }
         Process process = (Process) Applicazione.getInstance().getModello().getObject(Constants.THREAD_REPO_SEARCHER);
         if(process != null){
@@ -632,7 +621,7 @@ public class PrimaryController {
         }
         Applicazione.getInstance().getModello().addObject(Constants.THREAD_DOWNLOAD_REPO, null);
         Applicazione.getInstance().getModello().addObject(Constants.THREAD_REPO_SEARCHER, null);
-
+        tabbedPane.getSelectionModel().select(tabResults);
         disableAllUIElements(false);
     }
 
@@ -663,7 +652,7 @@ public class PrimaryController {
             }
             Repository repo = listaAgg.get(selectedIndex);
             listaCompleta.remove(repo);
-            listaAgg.remove(selectedIndex);
+            listaAgg.remove(repo);
             this.tableRepository.setItems(listaAgg);
         }
     }

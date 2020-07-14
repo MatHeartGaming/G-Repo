@@ -87,6 +87,7 @@ public class DAORepositoryJSON implements IDAORepository {
         String htmlUrl = null;
         String description = null;
         String cloneUrl = null;
+        int stars = 0;
         long size = -1;
 
         reader.beginObject();
@@ -104,12 +105,14 @@ public class DAORepositoryJSON implements IDAORepository {
                 cloneUrl = reader.nextString();
             } else if (attribute.equals("size")) {
                 size = reader.nextLong();
+            } else if(attribute.equals("stargazers_count")) {
+                stars = reader.nextInt();
             } else {
                 reader.skipValue();
             }
         }
         reader.endObject();
-        return new Repository(id, name, description, htmlUrl,  cloneUrl, size);
+        return new Repository(id, name, description, htmlUrl,  cloneUrl, size, stars);
     }
 
     /**
