@@ -26,15 +26,14 @@ public class DAORepositoryJSON implements IDAORepository {
      */
     @Override
     public List<Repository> loadRepositories(String directorySourceFiles) {
-        // todo: cancellare .collect().stream() e testare...sono di troppo se non parallelizzo.
         // .../folderX/folderDestination
         if (directorySourceFiles == null || directorySourceFiles.isEmpty()) {
             throw new IllegalArgumentException("directorySourceFiles cannot be null or empty");
         }
         try {
             return Files.list(Paths.get(directorySourceFiles))
-                        .collect(Collectors.toList())
-                        .stream()
+                        //.collect(Collectors.toList())
+                        //.parallelStream()
                         .map(nameFile -> this.readRepositories(nameFile.toString()))
                         .flatMap(repository -> repository.stream())
                         .collect(Collectors.toList());
@@ -82,7 +81,7 @@ public class DAORepositoryJSON implements IDAORepository {
 
     private Repository readRepository(JsonReader reader) throws IOException {
         // todo: verificare l'esistenza di valori null per una deteminata chiave.
-        long id = -1;
+        String id = null;
         String name = null;
         String htmlUrl = null;
         String description = null;
@@ -94,7 +93,7 @@ public class DAORepositoryJSON implements IDAORepository {
         while (reader.hasNext()) {
             String attribute = reader.nextName();
             if (attribute.equals("id")) {
-                id = reader.nextLong();
+                id = reader.nextString();
             } else if (attribute.equals("name")) {
                 name = reader.nextString();
             } else if (attribute.equals("html_url")) {
@@ -123,7 +122,7 @@ public class DAORepositoryJSON implements IDAORepository {
      * @param repositories git repository to be saved in JSON file.
      */
     @Override
-    public void saveRepositories (String directoryDestinationFiles, List<Repository> repositories) {
+    public void saveRepositories(String directoryDestinationFiles, List<Repository> repositories) {
         // .../folderX/folderDestination
         if (directoryDestinationFiles == null || directoryDestinationFiles.isEmpty()) {
             throw new IllegalArgumentException("directorySourceFiles cannot be null or empty");
@@ -197,10 +196,12 @@ public class DAORepositoryJSON implements IDAORepository {
         writer.name("id").value(repository.getId());
         writer.name("name").value(repository.getName());
         writer.name("html_url").value(repository.getUrlProject());
-        writer.name("clone_url").value(repository.getCloneUrl());
-        writer.name("lingua").value(repository.getLingua());
-        writer.name("programmingLanguage").value(repository.getProgrammingLanguages());
         writer.name("description").value(repository.getDescription());
+        writer.name("last_committed_date").value(repository.getLastCommitDate().toString());
+        writer.name("clone_url").value(repository.getCloneUrl());
+        writer.name("language").value(repository.getLingua());
+        writer.name("size").value(repository.getSize());
+        writer.name("stargazers_count").value(repository.getStars());
         writer.endObject();
     }
 

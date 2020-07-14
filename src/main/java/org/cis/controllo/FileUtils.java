@@ -10,9 +10,23 @@ public class FileUtils {
     public static final String FILE_SEPARATOR = FileSystems.getDefault().getSeparator();
 
     public static Path createAbsolutePath(String relativePath) {
+        if (relativePath == null) throw new IllegalArgumentException("The relativePath argument cannot be null");
         // OS independent path.
         // The root is the path of the application
         return Paths.get(FileUtils.getRootPath() + FILE_SEPARATOR, relativePath.split("\\\\"));
+    }
+
+    public static Path move(Path from, Path to) {
+        if (from == null || to == null) throw new IllegalArgumentException("The argument from or to cannot be null");
+        if (!FileUtils.exists(from)) throw new IllegalStateException("The path " + from + " from does not exist");
+        if (FileUtils.exists(to)) throw new IllegalStateException("The path " + to + "to already exists");
+
+        try {
+            return Files.move(from, to);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     public static Path createDirectory(Path dir) {
@@ -41,11 +55,12 @@ public class FileUtils {
         }
     }
 
-    public static boolean exists (Path path) {
+    public static boolean exists(Path path) {
+        if (path == null) throw new IllegalArgumentException("The path argument cannot be null");
         return Files.exists(path);
     }
 
-    public static String getExtension (String fileName) {
+    public static String extension(String fileName) {
         // TODO: REFACTORING.
         char ch;
         int len;
@@ -62,7 +77,7 @@ public class FileUtils {
             return fileName.substring(dotInd+1).toLowerCase();
     }
 
-    public static boolean deleteDirTree (Path pathDir) {
+    public static boolean deleteDirTree(Path pathDir) {
         if (pathDir == null || pathDir.toString().isEmpty()) {
             throw new IllegalArgumentException("Path directory cannot be null or empty");
         }

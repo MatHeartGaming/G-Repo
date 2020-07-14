@@ -13,10 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
-import org.cis.controllo.CommonEvents;
-import org.cis.controllo.Operator;
-import org.cis.controllo.TaskSaveRepository;
-import org.cis.controllo.Utils;
+import org.cis.controllo.*;
 import org.cis.modello.*;
 
 import java.io.File;
@@ -81,7 +78,7 @@ public class PrimaryController {
         bottoneCerca.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneCerca, Constants.COLORE_BUTTON);}});
         bottoneCerca.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {actionCerca();}});
 
-        // Setting Listener Tap 2.
+        // Setting Listener Tab 2.
         buttonFilterProgrLanguage.setOnAction(actionEvent -> cloneRepositories(() -> filterByProgrammingLanguage()));
         buttonFilterLanguage.setOnAction(actionEvent -> cloneRepositories(() -> filterByLanguage()));
 
@@ -165,7 +162,7 @@ public class PrimaryController {
 
     private void initTableCells() {
         columnRepo.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-        columnDataCommit.setCellValueFactory(cellData -> cellData.getValue().getDataProperty());
+        columnDataCommit.setCellValueFactory(cellData -> cellData.getValue().getLastCommitDateProperty());
         columnURL.setCellValueFactory(cellData -> cellData.getValue().urlProjectProperty());
         columnDimensione.setCellValueFactory(cellData -> cellData.getValue().turnIntToStringProperty());
         columnLingua.setCellValueFactory(cellData -> cellData.getValue().linguaProperty());
@@ -442,7 +439,7 @@ public class PrimaryController {
         }
 
         String token = Applicazione.getInstance().getSessionManager().getCurrentSession().getQuery().getToken();
-        TaskSaveRepository task = new TaskSaveRepository(repositories, firstNonClonedRepositoryIndex, token);
+        TaskCloneRepositories task = new TaskCloneRepositories(repositories, firstNonClonedRepositoryIndex, token);
 
         //# Setting event handler on task
         task.setOnSucceeded(workerStateEvent -> {

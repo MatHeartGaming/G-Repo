@@ -44,7 +44,7 @@ public class RepositoryVisitor {
             }
 
             String fileName = file.getFileName().toString();
-            String ext = FileUtils.getExtension(fileName);
+            String ext = FileUtils.extension(fileName);
             if (ext == "") {
                 return FileVisitResult.CONTINUE;
             }

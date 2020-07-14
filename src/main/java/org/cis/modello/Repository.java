@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 public class Repository {
 
-    private long id;
+    private String id;
     private String cloneUrl;
     private String cloneDirectory;
     private String description;
@@ -24,11 +24,11 @@ public class Repository {
     private StringProperty urlProject;
     private StringProperty lastCommitDateProperty; // display lastCommitDate.
     private LongProperty size; // Byte.
-    private StringProperty lingua; // Lingua (English, Non English, Mixed).
+    private StringProperty lingua; // Language (English, Non English, Mixed).
     private StringProperty programmingLanguagesProperty;// display programmingLanguages.
     private IntegerProperty stars;
 
-    public Repository(long id, String name, String description, String urlProject, String cloneUrl, long size, int stars) {
+    public Repository(String id, String name, String description, String urlProject, String cloneUrl, long size, int stars) {
         String yet = "Not determined (yet)";
         this.id = id;
         this.cloneUrl = cloneUrl;
@@ -46,7 +46,7 @@ public class Repository {
         this.stars = new SimpleIntegerProperty(stars);
     }
 
-    public Repository(long id, String name, String description, String urlProject, String cloneUrl, long size) {
+    public Repository(String id, String name, String description, String urlProject, String cloneUrl, long size) {
         String yet = "Not determined (yet)";
         this.id = id;
         this.cloneUrl = cloneUrl;
@@ -124,7 +124,7 @@ public class Repository {
         this.cloneDirectory = cloneDirectory;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
@@ -194,7 +194,7 @@ public class Repository {
         return programmingLanguagesProperty;
     }
 
-    public StringProperty getDataProperty() {
+    public StringProperty getLastCommitDateProperty() {
         return this.lastCommitDateProperty;
     }
 
