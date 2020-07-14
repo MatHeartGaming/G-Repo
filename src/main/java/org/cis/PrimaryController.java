@@ -108,6 +108,7 @@ public class PrimaryController {
 
         checkStrictMode.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {cercaInTabella();}});
 
+        this.tabResults.setDisable(true);
         this.enableDisableRemoveButton(true);
         this.bottoneEliminaSelezionato.setDisable(true);
         initIcons();
