@@ -22,6 +22,9 @@ public class Operator {
 
     public static ObservableList<Repository> cercaPerNome(ObservableList<Repository> lista, String daCercare, String parametro, boolean strict) {
         ObservableList<Repository> risultato = FXCollections.observableArrayList();
+        if(lista == null) {
+            return risultato;
+        }
         for(Repository repo : lista) {
             if(strict) {
                 if(confrontaElemConParametriStrict(repo, daCercare, parametro)) {
@@ -41,15 +44,15 @@ public class Operator {
         if(daCercare.isEmpty()) {
             return true;
         }
-        if(parametro.equals(Constants.PARAM_LINGUA)) {
+        if(parametro.equals(Constants.PARAM_LANGUAGE)) {
             if(repo.getLingua() != null && repo.getLingua().toLowerCase().equals(daCercare.toLowerCase().trim())) {
                 return true;
             }
-        } else if(parametro.equals(Constants.PARAM_LINGUAGGIO)) {
+        } else if(parametro.equals(Constants.PARAM_PROGR_LANGUAGE)) {
             if(repo.existsProgrammingLanguage(language -> language.toLowerCase().equals(daCercare.toLowerCase().trim()))) {
                 return true;
             }
-        } else if(parametro.equals(Constants.PARAM_DATA_COMMIT)) {
+        } else if(parametro.equals(Constants.PARAM_DATE_COMMIT)) {
             if(repo.getLastCommitDate() != null && repo.getLastCommitDate().toString().toLowerCase().equals(daCercare.toLowerCase().trim())) {
                 return true;
             }
@@ -57,9 +60,14 @@ public class Operator {
             if(repo.getUrlProject().toLowerCase().equals(daCercare.toLowerCase().trim())) {
                 return true;
             }
-        } else if (parametro.equals(Constants.PARAM_DIMENSIONE)) {
+        } else if (parametro.equals(Constants.PARAM_DIMENSION)) {
             String dimensione = repo.turnIntToStringProperty().get();
             if(dimensione.equals(daCercare.trim())) {
+                return true;
+            }
+        } else if(parametro.equals(Constants.PARAM_STARS)) {
+            String stars = repo.starsProperty().toString();
+            if(stars.equals(daCercare.trim())) {
                 return true;
             }
         } else {
@@ -71,15 +79,15 @@ public class Operator {
     }
 
     private static boolean confrontaElemConParametriNotStrict(Repository repo, String daCercare, String parametro) {
-        if(parametro.equals(Constants.PARAM_LINGUA)) {
+        if(parametro.equals(Constants.PARAM_LANGUAGE)) {
             if(repo.getLingua() != null && repo.getLingua().toLowerCase().contains(daCercare.toLowerCase().trim())) {
                 return true;
             }
-        } else if(parametro.equals(Constants.PARAM_LINGUAGGIO)) {
+        } else if(parametro.equals(Constants.PARAM_PROGR_LANGUAGE)) {
             if(repo.existsProgrammingLanguage(language -> language.toLowerCase().contains(daCercare.toLowerCase().trim()))) {
                 return true;
             }
-        } else if(parametro.equals(Constants.PARAM_DATA_COMMIT)) {
+        } else if(parametro.equals(Constants.PARAM_DATE_COMMIT)) {
             if(repo.getLastCommitDate() != null && repo.getLastCommitDate().toString().toLowerCase().contains(daCercare.toLowerCase().trim())) {
                 return true;
             }
@@ -87,9 +95,14 @@ public class Operator {
             if(repo.getUrlProject().toLowerCase().contains(daCercare.toLowerCase().trim())) {
                 return true;
             }
-        } else if (parametro.equals(Constants.PARAM_DIMENSIONE)) {
+        } else if (parametro.equals(Constants.PARAM_DIMENSION)) {
             String dimensione = repo.turnIntToStringProperty().get();
             if(dimensione.contains(daCercare.trim())) {
+                return true;
+            }
+        } else if(parametro.equals(Constants.PARAM_STARS)) {
+            String stars = repo.starsProperty().toString();
+            if(stars.contains(daCercare.trim())) {
                 return true;
             }
         } else {

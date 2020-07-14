@@ -18,13 +18,13 @@ public class Constants {
 
     public static final String[] LINGUA = {"Inglese", "Non-Inglese", "Misto"};
 
-    public static final String PARAM_LINGUA = "Lingua";
-    public static final String PARAM_LINGUAGGIO = "Linguaggio";
-    public static final String PARAM_DATA_COMMIT = "Data ultimo commit";
+    public static final String PARAM_LANGUAGE = "Lingua";
+    public static final String PARAM_PROGR_LANGUAGE = "Linguaggio";
+    public static final String PARAM_DATE_COMMIT = "Data ultimo commit";
     public static final String PARAM_URL = "URL";
     public static final String PARAM_REPOSITORIES = "Repositories";
-    public static final String PARAM_VERSIONE = "Versione";
-    public static final String PARAM_DIMENSIONE = "Dimensione";
+    public static final String PARAM_DIMENSION = "Dimensione";
+    public static final String PARAM_STARS = "Stars";
 
     public static final String ULTIMO_CAMPO_KEY = "ultimo campo Q";
 

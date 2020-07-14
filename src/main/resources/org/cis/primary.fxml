@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -80,7 +81,7 @@
                         </ScrollPane>
                         <AnchorPane layoutY="495.0" prefHeight="58.0" prefWidth="906.0" style="-fx-background-color: #0b132b;" AnchorPane.bottomAnchor="0.20000000000002416" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
-                              <Button fx:id="bottoneCerca" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" style="-fx-background-color: #5bc0be; -fx-background-radius: 5;" text="Cerca" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="22.0">
+                              <Button fx:id="bottoneCerca" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" style="-fx-background-color: #5bc0be; -fx-background-radius: 5;" text="Search" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="22.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -113,16 +114,6 @@
                               <ImageView fx:id="iconRemoveQuery" fitHeight="27.0" fitWidth="30.0" layoutX="689.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="16.4" AnchorPane.rightAnchor="190.39999999999998">
                                  <image>
                                     <Image url="@../../icons/minus.png" />
-                                 </image>
-                              </ImageView>
-                              <Button fx:id="bottoneStop" alignment="CENTER_RIGHT" layoutX="402.0" layoutY="13.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="262.0" style="-fx-background-color: #cc3333; -fx-background-radius: 5;" text="Interrompi Download Repository" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="242.0">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Button>
-                              <ImageView fx:id="iconStop" fitHeight="27.0" fitWidth="30.0" layoutX="406.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="16.4" AnchorPane.rightAnchor="473.4">
-                                 <image>
-                                    <Image url="@../../icons/icon-interrupt.png" />
                                  </image>
                               </ImageView>
                            </children>
@@ -160,12 +151,12 @@
                                  </font>
                               </Label>
                               <Separator layoutX="109.0" layoutY="152.0" prefHeight="15.0" prefWidth="689.0" AnchorPane.leftAnchor="109.0" AnchorPane.rightAnchor="109.0" />
-                              <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="94.0" layoutY="130.0" prefHeight="19.0" prefWidth="101.0" text="Data inizio" textFill="WHITE" AnchorPane.leftAnchor="94.0">
+                              <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="94.0" layoutY="130.0" prefHeight="19.0" prefWidth="101.0" text="Start date" textFill="WHITE" AnchorPane.leftAnchor="94.0">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="479.0" layoutY="130.0" prefHeight="19.0" prefWidth="121.0" text="Data fine" textFill="WHITE" AnchorPane.leftAnchor="479.0">
+                              <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="479.0" layoutY="130.0" prefHeight="19.0" prefWidth="121.0" text="End date" textFill="WHITE" AnchorPane.leftAnchor="479.0">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
@@ -185,19 +176,20 @@
                         <TableView fx:id="tableRepository" layoutY="59.0" prefHeight="440.0" prefWidth="906.0" stylesheets="@tableStyle.css" AnchorPane.bottomAnchor="54.60000000000002" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="59.0">
                           <columns>
                             <TableColumn fx:id="columnRepo" prefWidth="181.60000002384186" text="Repositories" />
-                              <TableColumn fx:id="columnDataCommit" prefWidth="488.8000183105469" text="Data ultimo commit" />
+                              <TableColumn fx:id="columnDataCommit" prefWidth="488.8000183105469" text="Last commit date" />
                               <TableColumn fx:id="columnURL" prefWidth="75.0" text="URL" />
-                              <TableColumn fx:id="columnDimensione" prefWidth="75.0" text="Dimensione" />
-                              <TableColumn fx:id="columnLingua" prefWidth="75.0" text="Lingua" />
-                              <TableColumn fx:id="columnLinguaggio" prefWidth="75.0" text="Linguaggio" />
+                              <TableColumn fx:id="columnDimensione" prefWidth="75.0" text="Dimension" />
+                              <TableColumn fx:id="columnLingua" prefWidth="75.0" text="Language" />
+                              <TableColumn fx:id="columnLinguaggio" prefWidth="75.0" text="Progr. Language" />
+                              <TableColumn fx:id="columnStars" prefWidth="75.0" text="Stars" />
                           </columns>
                         </TableView>
-                        <Button fx:id="bottoneSalva" alignment="CENTER_RIGHT" layoutX="782.0" layoutY="509.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="102.0" style="-fx-background-color: #99ff33; -fx-background-radius: 5;" text="Salva" AnchorPane.bottomAnchor="14.200000000000024" AnchorPane.rightAnchor="21.99999999999997">
+                        <Button fx:id="bottoneSalva" alignment="CENTER_RIGHT" layoutX="782.0" layoutY="509.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="102.0" style="-fx-background-color: #99ff33; -fx-background-radius: 5;" text="Save" AnchorPane.bottomAnchor="14.200000000000024" AnchorPane.rightAnchor="21.99999999999997">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="buttonFilterLanguage" alignment="CENTER_RIGHT" layoutX="666.0" layoutY="509.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="156.0" style="-fx-background-color: #5bc0be; -fx-background-radius: 5;" text="Filtra by Language" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="138.0">
+                        <Button fx:id="buttonFilterLanguage" alignment="CENTER_RIGHT" layoutX="666.0" layoutY="509.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="163.0" style="-fx-background-color: #5bc0be; -fx-background-radius: 5;" text="Filter by Language" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="138.0">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -208,7 +200,7 @@
                            </font>
                         </TextField>
                         <ComboBox fx:id="comboParametriRicerca" layoutX="590.0" layoutY="15.0" prefHeight="26.0" prefWidth="128.0" promptText="Repositories" AnchorPane.rightAnchor="188.0" />
-                        <ImageView fx:id="iconFilterLang" fitHeight="27.0" fitWidth="36.0" layoutX="612.0" layoutY="481.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="267.4">
+                        <ImageView fx:id="iconFilterLang" fitHeight="27.0" fitWidth="36.0" layoutX="605.0" layoutY="481.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="274.4">
                            <image>
                               <Image url="@../../icons/translate.png" />
                            </image>
@@ -223,12 +215,12 @@
                               <Font name="System Bold" size="13.0" />
                            </font>
                         </CheckBox>
-                        <Button fx:id="bottoneEliminaSelezionato" alignment="CENTER_RIGHT" layoutX="154.0" layoutY="479.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="171.0" style="-fx-background-color: #cc3333; -fx-background-radius: 5;" text="Elimina selezionato" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="158.0">
+                        <Button fx:id="bottoneEliminaSelezionato" alignment="CENTER_RIGHT" layoutX="154.0" layoutY="479.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="146.0" style="-fx-background-color: #cc3333; -fx-background-radius: 5;" text="Delete Selected" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="158.0">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="bottoneEliminaBulk" alignment="CENTER_RIGHT" layoutX="15.0" layoutY="479.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="125.0" style="-fx-background-color: #cc3333; -fx-background-radius: 5;" text="Elimina bulk" AnchorPane.bottomAnchor="14.600000000000001" AnchorPane.leftAnchor="15.0">
+                        <Button fx:id="bottoneEliminaBulk" alignment="CENTER_RIGHT" layoutX="15.0" layoutY="479.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="125.0" style="-fx-background-color: #cc3333; -fx-background-radius: 5;" text="Bulk Delete" AnchorPane.bottomAnchor="14.600000000000001" AnchorPane.leftAnchor="15.0">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -243,12 +235,12 @@
                               <Image url="@../../icons/deleteAll-icon.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="buttonFilterProgrLanguage" alignment="CENTER_RIGHT" layoutX="423.0" layoutY="480.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="170.0" style="-fx-background-color: #5bc0be; -fx-background-radius: 5;" text="Filtra by program. L" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="305.0">
+                        <Button fx:id="buttonFilterProgrLanguage" alignment="CENTER_RIGHT" layoutX="419.0" layoutY="480.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="170.0" style="-fx-background-color: #5bc0be; -fx-background-radius: 5;" text="Filter by program. L" AnchorPane.bottomAnchor="13.600000000000023" AnchorPane.rightAnchor="317.0">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Button>
-                        <ImageView fx:id="iconFilterProgr" fitHeight="27.0" fitWidth="36.0" layoutX="431.0" layoutY="481.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="448.4">
+                        <ImageView fx:id="iconFilterProgr" fitHeight="27.0" fitWidth="36.0" layoutX="419.0" layoutY="481.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="460.4">
                            <image>
                               <Image url="@../../icons/filter-icon.png" />
                            </image>
@@ -261,12 +253,26 @@
       </TabPane>
       <AnchorPane fx:id="anchorProgress" layoutY="670.0" prefHeight="33.0" prefWidth="906.0" style="-fx-background-color: #1c2541;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <ProgressBar fx:id="progressBar" layoutX="14.0" layoutY="4.0" prefHeight="18.0" prefWidth="377.0" progress="0.0" />
-            <Label fx:id="labelProgress" layoutX="402.0" layoutY="5.0" prefHeight="18.0" prefWidth="484.0" text="Aspetto che mi dia qualcosa da fare..." textFill="WHITE">
+            <ProgressBar fx:id="progressBar" layoutX="14.0" layoutY="9.0" prefHeight="18.0" prefWidth="377.0" progress="0.0" stylesheets="@progressBar.css">
+               <styleClass>
+                  <String fx:value="bar" />
+                  <String fx:value="progress-bar" />
+               </styleClass></ProgressBar>
+            <Label fx:id="labelProgress" layoutX="402.0" layoutY="9.0" prefHeight="18.0" prefWidth="484.0" text="Aspetto che mi dia qualcosa da fare..." textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
+            <Button fx:id="bottoneStop" alignment="CENTER_RIGHT" layoutX="623.0" layoutY="5.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="163.0" style="-fx-background-color: #cc3333; -fx-background-radius: 5;" text="Stop Current Op." AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="21.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <ImageView fx:id="iconStop" fitHeight="27.0" fitWidth="30.0" layoutX="728.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="7.799999999999997" AnchorPane.rightAnchor="151.0">
+               <image>
+                  <Image url="@../../icons/icon-interrupt.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>
