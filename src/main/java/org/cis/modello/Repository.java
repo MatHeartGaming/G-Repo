@@ -1,6 +1,7 @@
 package org.cis.modello;
 
 import javafx.beans.property.*;
+import javafx.beans.value.ObservableValue;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -24,11 +25,8 @@ public class Repository {
     private StringProperty urlProject;
     private StringProperty lastCommitDateProperty; // display lastCommitDate.
     private LongProperty size; // Byte.
-<<<<<<< HEAD
     private StringProperty lingua; // Lingua (English, Non English, Mixed).
-=======
     private StringProperty languageProperty; // Language (English, Non English, Mixed).
->>>>>>> MasterLeo
     private StringProperty programmingLanguagesProperty;// display programmingLanguages.
     private IntegerProperty stars;
 
@@ -212,4 +210,5 @@ public class Repository {
         dimensione = dimensione.substring(dimensione.indexOf(":") + 1, dimensione.lastIndexOf("]"));
         return new SimpleStringProperty(dimensione);
     }
+
 }

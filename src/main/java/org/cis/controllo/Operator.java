@@ -139,7 +139,7 @@ public class Operator {
         Query query = session.getQuery();
         List<Qualifier> listaQualificatori = query.getQualifiers();
 
-        String separator = FileUtils.FILE_SEPARATOR;
+        String separator = FileUtils.PATH_SEPARATOR;
         String relativePath = "risorse" + separator + "GHRepoSearcher" + separator + "jar" + separator +"config.properties";
         System.out.println(relativePath);
 
@@ -207,7 +207,7 @@ public class Operator {
         System.out.println("avvio GHRepoSearcher!");
         Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Launching GHRepoSearcher...", 1);}});
 
-        String separetor = FileUtils.FILE_SEPARATOR;
+        String separetor = FileUtils.PATH_SEPARATOR;
         try {
 
             String relativePath = separetor +"risorse" + separetor + "GHRepoSearcher" + separetor + "jar";

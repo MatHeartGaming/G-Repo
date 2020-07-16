@@ -31,7 +31,7 @@ public class TaskCloneRepositories extends Task<Void> {
         //# Clearing the repositories in the cacheCloneRepositories directory.
         if (this.firstNonClonedRepositoryIndex == 0) {
             System.out.println("Cancellazione cache repository");
-            Files.list(Paths.get(Constants.CLONING_DIRECTORY)).forEach(FileUtils::deleteDirTree);
+            Files.list(Paths.get(Constants.RELATIVE_PATH_CLONING_DIRECTORY)).forEach(FileUtils::deleteDirTree);
             //FileUtils.deleteDirTree(Paths.get(Constants.CLONING_DIRECTORY));
         }
 
@@ -50,7 +50,7 @@ public class TaskCloneRepositories extends Task<Void> {
                 //todo: fare refactoring di queste fasi.
                 //# Cloning.
                 currentNameRepository = repository.getName();
-                String cloneDirectory = Constants.CLONING_DIRECTORY + "\\" + repository.getName();
+                String cloneDirectory = Constants.RELATIVE_PATH_CLONING_DIRECTORY + "\\" + repository.getName();
                 System.out.println("Clonazione del repo: " + cloneDirectory);
                 gitCommand.cloneRepository(repository.getCloneUrl(), cloneDirectory, this.token, monitor);
                 //## I imposed the clone Directory if and only if the cloning was successful.

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/risorse/cacheCloneRepositories/Jetpack-MVVM-Best-Practice" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/risorse/cacheCloneRepositories/tsunami-security-scanner" vcs="Git" />
   </component>
 </project>
