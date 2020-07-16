@@ -1,18 +1,27 @@
 package org.cis;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
+import javafx.util.Callback;
+import javafx.util.Duration;
 import org.cis.controllo.CommonEvents;
 import org.cis.controllo.Operator;
 import org.cis.controllo.TaskSaveRepository;
@@ -161,6 +170,22 @@ public class PrimaryController {
         Applicazione.getInstance().getModello().addObject(Constants.PROGRESS_BAR, progressBar);
         Applicazione.getInstance().getModello().addObject(Constants.LABEL_PROGRESS, labelProgress);
         progressBar.setProgress(values[0]);
+        int maxStatus = 12;
+        // Create the Property that holds the current status count
+        IntegerProperty statusCountProperty = new SimpleIntegerProperty(1);
+        // Create the timeline that loops the statusCount till the maxStatus
+        Timeline timelineBar = new Timeline(new KeyFrame(Duration.millis(1000), new KeyValue(statusCountProperty, maxStatus)));
+        // The animation should be infinite
+        timelineBar.setCycleCount(Timeline.INDEFINITE);
+        timelineBar.play();
+        // Add a listener to the statusproperty
+        statusCountProperty.addListener((ov, statusOld, statusNewNumber) -> {
+            int statusNew = statusNewNumber.intValue();
+            // Remove old status pseudo from progress-bar
+            progressBar.pseudoClassStateChanged(PseudoClass.getPseudoClass("status" + statusOld.intValue()), false);
+            // Add current status pseudo from progress-bar
+            progressBar.pseudoClassStateChanged(PseudoClass.getPseudoClass("status" + statusNew), true);
+        });
     }
 
     private void initTableCells() {
@@ -621,8 +646,14 @@ public class PrimaryController {
         }
         Applicazione.getInstance().getModello().addObject(Constants.THREAD_DOWNLOAD_REPO, null);
         Applicazione.getInstance().getModello().addObject(Constants.THREAD_REPO_SEARCHER, null);
-        tabbedPane.getSelectionModel().select(tabResults);
+        ObservableList<Repository> lista = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
+        if(lista == null) {
+            return;
+        }
         disableAllUIElements(false);
+        if(!lista.isEmpty()) {
+            tabbedPane.getSelectionModel().select(tabResults);
+        }
     }
 
     private void deleteInBulk() {
@@ -683,9 +714,17 @@ public class PrimaryController {
         bottoneAggiungiQuery.setDisable(value);
         bottoneCerca.setDisable(value);
         iconSearch.setDisable(value);
-        tabResults.setDisable(value);
         campoKeyOrder.setDisable(value);
         campoKeySort.setDisable(value);
+        ObservableList<Repository> lista = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
+        if(value == false) {
+            if(lista != null && !lista.isEmpty()) {
+                tabResults.setDisable(value);
+                tabbedPane.getSelectionModel().select(tabResults);
+            }
+        } else {
+            tabResults.setDisable(value);
+        }
     }
 
     private void filterByIdiom() {
