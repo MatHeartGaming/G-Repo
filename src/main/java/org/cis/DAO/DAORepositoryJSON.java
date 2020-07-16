@@ -2,6 +2,7 @@ package org.cis.DAO;
 
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import org.cis.controllo.FileUtils;
 import org.cis.modello.Repository;
 
 import java.io.FileNotFoundException;
@@ -142,11 +143,11 @@ public class DAORepositoryJSON implements IDAORepository {
          */
 
         Function<Repository, String> classifierByExternalName = repository -> {
-            return repository.getFile().substring(repository.getFile().lastIndexOf("/") + 1, repository.getFile().lastIndexOf("_"));
+            return repository.getFile().substring(repository.getFile().lastIndexOf(FileUtils.PATH_SEPARATOR) + 1, repository.getFile().lastIndexOf("_"));
         };
 
         Function<Repository, String> classifierByInternalName = repository -> {
-            return repository.getFile().substring(repository.getFile().lastIndexOf("/") + 1);
+            return repository.getFile().substring(repository.getFile().lastIndexOf(FileUtils.PATH_SEPARATOR) + 1);
         };
 
         Map<String, Map<String, List<Repository>>> mapClassExternalName =
@@ -160,7 +161,7 @@ public class DAORepositoryJSON implements IDAORepository {
             mapClassInternalName.forEach((internalName, listRepository) -> {
                 JsonWriter writer = null;
                 try {
-                    writer = new JsonWriter(new FileWriter(directoryDestinationFiles + "/" + internalName));
+                    writer = new JsonWriter(new FileWriter(directoryDestinationFiles + FileUtils.PATH_SEPARATOR + internalName));
                     writer.setIndent("  ");
 
                     writer.beginObject();
@@ -197,9 +198,9 @@ public class DAORepositoryJSON implements IDAORepository {
         writer.name("name").value(repository.getName());
         writer.name("html_url").value(repository.getUrlProject());
         writer.name("description").value(repository.getDescription());
-        writer.name("last_committed_date").value(repository.getLastCommitDate().toString());
+        writer.name("last_committed_date").value(String.valueOf(repository.getLastCommitDate()));
         writer.name("clone_url").value(repository.getCloneUrl());
-        writer.name("language").value(repository.getLingua());
+        writer.name("language").value(repository.getLanguageProperty());
         writer.name("size").value(repository.getSize());
         writer.name("stargazers_count").value(repository.getStars());
         writer.endObject();

@@ -1,9 +1,6 @@
 package org.cis;
 
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,13 +9,12 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.cis.controllo.CommonEvents;
 import org.cis.controllo.FileUtils;
-import org.cis.controllo.SingleThread;
 import org.cis.modello.Repository;
 
+import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
+import java.nio.file.Path;
+import java.util.ArrayList;
 
 /**
  * JavaFX App
@@ -30,9 +26,14 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         Applicazione.getInstance().getSingleThread().start();
-        // By cloning.
-        FileUtils.createDirectory(Paths.get(Constants.CLONING_DIRECTORY));
-        // Init GUI.
+        //# Init Folder:
+        //## By cloning.
+        FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY));
+
+        //##By Language Detection
+        FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_LANGUAGE_REPOSITORIES));
+
+        //# Init GUI.
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
         commonEvents.loadPanel("primary", Modality.NONE, true, "G-Repo", StageStyle.DECORATED, false);
         /*scene = new Scene(loadFXML("primary"));
@@ -41,6 +42,8 @@ public class App extends Application {
         Applicazione.getInstance().getCommonEvents().moveWindow(root, stage);
         //stage.setResizable(false);
         stage.setTitle("G-Repo");*/
+        //todo: rimuovere dopo i test.
+        //Applicazione.getInstance().getModello().addObject(Constants.INDEX_LAST_CLONED_REPOSITORY, -1);
     }
 
     static void setRoot(String fxml) throws IOException {

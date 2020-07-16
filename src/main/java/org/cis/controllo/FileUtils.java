@@ -7,13 +7,15 @@ import java.nio.file.attribute.BasicFileAttributes;
 
 public class FileUtils {
 
-    public static final String FILE_SEPARATOR = FileSystems.getDefault().getSeparator();
+    public static final String PATH_SEPARATOR = FileSystems.getDefault().getSeparator();
 
     public static Path createAbsolutePath(String relativePath) {
-        if (relativePath == null) throw new IllegalArgumentException("The relativePath argument cannot be null");
         // OS independent path.
-        // The root is the path of the application
-        return Paths.get(FileUtils.getRootPath() + FILE_SEPARATOR, relativePath.split("\\\\"));
+        // The root is the path of the application.
+        // e.g. "\\risorse\\cacheCloneRepositories" -> Windows: "C:\Users\leo\Documents\G-Repo\risorse\cacheCloneRepositories";
+        // Linux: /home/leo/Documenti/G-Repo/risorse/cacheCloneRepositories.
+        if (relativePath == null) throw new IllegalArgumentException("The relativePath argument cannot be null");
+        return Paths.get(FileUtils.getRootPath() + PATH_SEPARATOR, relativePath.split("\\\\"));
     }
 
     public static Path move(Path from, Path to) {

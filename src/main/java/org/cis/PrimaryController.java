@@ -3,6 +3,7 @@ package org.cis;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,10 +14,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
+import org.cis.DAO.DAORepositoryCSV;
 import org.cis.controllo.*;
 import org.cis.modello.*;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -108,7 +112,9 @@ public class PrimaryController {
         checkStrictMode.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {cercaInTabella();}});
 
         this.bottoneCerca.setDisable(true);
+        // todo: settare a true dopo i test.
         this.tabResults.setDisable(true);
+
         this.enableDisableRemoveButton(true);
         this.bottoneEliminaSelezionato.setDisable(true);
         initIcons();
@@ -165,7 +171,7 @@ public class PrimaryController {
         columnDataCommit.setCellValueFactory(cellData -> cellData.getValue().getLastCommitDateProperty());
         columnURL.setCellValueFactory(cellData -> cellData.getValue().urlProjectProperty());
         columnDimensione.setCellValueFactory(cellData -> cellData.getValue().turnIntToStringProperty());
-        columnLingua.setCellValueFactory(cellData -> cellData.getValue().linguaProperty());
+        columnLingua.setCellValueFactory(cellData -> cellData.getValue().languagePropertyProperty());
         columnLinguaggio.setCellValueFactory(cellData -> cellData.getValue().programmingLanguagesPropertyProperty());
         columnStars.setCellValueFactory(cellData -> cellData.getValue().starsProperty());
     }
@@ -285,6 +291,13 @@ public class PrimaryController {
 
     private void initTable() {
         this.tableRepository.setOnMouseClicked(mouseEvent -> selectItemTableEvent());
+        //todo: rimuovere dopo i test.
+        /*List<Repository> listMock = Applicazione.getInstance().getDaoRepositoryMock().loadRepositories("");
+        ObservableList<Repository> observableList =  FXCollections.observableList(listMock);
+        Applicazione.getInstance().getModello().addObject(Constants.LISTA_REPO, observableList);
+        Applicazione.getInstance().getModello().addObject(Constants.LISTA_REPO_AGGIORNATA, observableList);
+        this.tableRepository.setItems(observableList);
+        initTableCells();*/
     }
 
 
@@ -380,8 +393,37 @@ public class PrimaryController {
     private void filterByLanguage() {
         Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Rilevamento del linguaggio in corso...")), 1500);
         // ANAS CODE...
-        Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Rilevamento del linguaggio completato")), 1500);
-        Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Aspetto che mi dia qualcosa da fare...")), 2500);
+        Task<Void> task = new Task<>() {
+            @Override
+            protected Void call() throws Exception {
+                // NOTA: questa è una bozza di codice...
+                List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
+                // Create CSV file...
+                // In quale percorso salvare il file???.
+                Path csvPath = Paths.get("");
+                DAORepositoryCSV daoRepositoryCSV = Applicazione.getInstance().getDaoRepositoryCSV();
+                daoRepositoryCSV.saveRepositories(csvPath, repositories, new String[]{"Index", "CloneDirectory"}, (repository, index) -> {
+                    return String.join(",", "" + index, repository.getCloneDirectory());
+                });
+                // Language Detection.
+                //Operator.actionDetectIdiom();
+                // Update repositories from CSV [Index, CloneDirectory, Language]...
+                daoRepositoryCSV.updateRepositories(csvPath, s -> {
+                    String[] values = s.split(",");
+                    Repository repository = repositories.get(Integer.parseInt(values[0]));
+                    repository.setCloneDirectory(values[1]);
+                    repository.setLanguageProperty(values[2]);
+                });
+                return null;
+            }
+        };
+        task.setOnSucceeded(workerStateEvent -> {
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Rilevamento del linguaggio completato")), 1500);
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Aspetto che mi dia qualcosa da fare...")), 2500);
+        });
+        Thread exe = new Thread(task);
+        exe.setName("Thread-FilterByLanguage");
+        exe.start();
     }
 
     private void filterByProgrammingLanguage() {
@@ -439,6 +481,7 @@ public class PrimaryController {
         }
 
         String token = Applicazione.getInstance().getSessionManager().getCurrentSession().getQuery().getToken();
+        //todo: rimuovere stringa vuota token dopo i test.
         TaskCloneRepositories task = new TaskCloneRepositories(repositories, firstNonClonedRepositoryIndex, token);
 
         //# Setting event handler on task

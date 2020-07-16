@@ -24,7 +24,7 @@ public class Repository {
     private StringProperty urlProject;
     private StringProperty lastCommitDateProperty; // display lastCommitDate.
     private LongProperty size; // Byte.
-    private StringProperty lingua; // Language (English, Non English, Mixed).
+    private StringProperty languageProperty; // Language (English, Non English, Mixed).
     private StringProperty programmingLanguagesProperty;// display programmingLanguages.
     private IntegerProperty stars;
 
@@ -36,7 +36,7 @@ public class Repository {
         this.name = new SimpleStringProperty(name);
         this.urlProject = new SimpleStringProperty(urlProject);
         this.size = new SimpleLongProperty(size);
-        this.lingua = new SimpleStringProperty(yet);
+        this.languageProperty = new SimpleStringProperty(yet);
         this.programmingLanguagesProperty = new SimpleStringProperty(yet);
         this.lastCommitDateProperty = new SimpleStringProperty(yet);
         // todo: inizializzazioni da eliminare; il menù a discesa disattiverà le voci: Lingua, Linguaggio, Data Ultimo Commit.
@@ -54,13 +54,14 @@ public class Repository {
         this.name = new SimpleStringProperty(name);
         this.urlProject = new SimpleStringProperty(urlProject);
         this.size = new SimpleLongProperty(size);
-        this.lingua = new SimpleStringProperty(yet);
+        this.languageProperty = new SimpleStringProperty(yet);
         this.programmingLanguagesProperty = new SimpleStringProperty(yet);
         this.lastCommitDateProperty = new SimpleStringProperty(yet);
         // todo: inizializzazioni da eliminare; il menù a discesa disattiverà le voci: Lingua, Linguaggio, Data Ultimo Commit.
         this.programmingLanguages = yet;
         this.lastCommitDate = LocalDate.EPOCH;
         this.listProgrammingLanguages = new ArrayList<>();
+        this.stars = new SimpleIntegerProperty(0);
     }
 
     public String getName() {
@@ -99,8 +100,8 @@ public class Repository {
         return size;
     }
 
-    public String getLingua() {
-        return lingua.get();
+    public String getLanguageProperty() {
+        return languageProperty.get();
     }
 
     public String getFile() {
@@ -132,8 +133,12 @@ public class Repository {
         return description;
     }
 
-    public StringProperty linguaProperty() {
-        return lingua;
+    public StringProperty languagePropertyProperty() {
+        return languageProperty;
+    }
+
+    public void setLanguageProperty(String languageProperty) {
+        this.languageProperty.set(languageProperty);
     }
 
     public String getProgrammingLanguages() {
