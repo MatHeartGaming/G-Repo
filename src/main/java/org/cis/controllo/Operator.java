@@ -152,12 +152,7 @@ public class Operator {
             write.println("username=" + query.getToken());
             write.println("q1=created:"+ query.getDate());
 
-<<<<<<< HEAD
             Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Everything is going fine :)", 2);}});
-=======
-
-            Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Procede bene :)", 2);}});
->>>>>>> michele
             int j = 2;
 
             for (int i=0; i < listaQualificatori.size(); i++){
@@ -210,13 +205,9 @@ public class Operator {
         }
 
         System.out.println("avvio GHRepoSearcher!");
-<<<<<<< HEAD
         Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Launching GHRepoSearcher...", 1);}});
 
-=======
-        Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Avvio GHRepoSearcher...", 1);}});
         String separetor = FileUtils.FILE_SEPARATOR;
->>>>>>> michele
         try {
 
             String relativePath = separetor +"risorse" + separetor + "GHRepoSearcher" + separetor + "jar";

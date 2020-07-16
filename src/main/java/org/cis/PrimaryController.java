@@ -13,30 +13,26 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
-<<<<<<< HEAD
-import javafx.util.Callback;
 import javafx.util.Duration;
 import org.cis.controllo.CommonEvents;
 import org.cis.controllo.Operator;
 import org.cis.controllo.TaskSaveRepository;
 import org.cis.controllo.Utils;
-=======
-import org.cis.controllo.*;
->>>>>>> michele
 import org.cis.modello.*;
 
 import java.io.File;
-import java.nio.file.Path;
-import java.time.*;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PrimaryController {
 
@@ -419,6 +415,8 @@ public class PrimaryController {
     }
 
     private void filterByProgrammingLanguage() {
+
+
         Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Rilevamento del linguaggio di programmazione/markup in corso...")), 1500);
 
         List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
@@ -447,14 +445,22 @@ public class PrimaryController {
 
         Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Detecting programming language completed")), 1500);
         Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 2500);
+        disableAllUIElementsResults(false);
+
     }
 
     private void cloneRepositories(Runnable postExecute) {
+
+        disableAllUIElementsResults(true);
+
+
         List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
+
         if (repositories == null || repositories.isEmpty()) {
             System.out.println("Esegui prima una query di ricerca \uD83D\uDE0E");
             labelProgress.setText("You must run a search query first");
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 1500);
+            disableAllUIElementsResults(false);
             return;
         }
 
@@ -476,7 +482,6 @@ public class PrimaryController {
 
         String token = Applicazione.getInstance().getSessionManager().getCurrentSession().getQuery().getToken();
         TaskSaveRepository task = new TaskSaveRepository(repositories, firstNonClonedRepositoryIndex, token);
-        Applicazione.getInstance().getModello().addObject(Constants.TASK_CLONE, task);
         //# Setting event handler on task
         task.setOnSucceeded(workerStateEvent -> {
             // Reset progressBar, labelProgress.
@@ -750,10 +755,6 @@ public class PrimaryController {
         }
     }
 
-
-
-<<<<<<< HEAD
-=======
     private void disableAllUIElementsResults(boolean value) {
         System.out.println("disabilito");
 
@@ -769,7 +770,6 @@ public class PrimaryController {
         tabbedPane.setDisable(value);
     }
 
->>>>>>> michele
     private void filterByIdiom() {
         Thread thread = new Thread(new Runnable() {
             @Override
