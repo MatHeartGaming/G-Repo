@@ -386,6 +386,8 @@ public class PrimaryController {
     }
 
     private void filterByProgrammingLanguage() {
+
+
         Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Rilevamento del linguaggio di programmazione/markup in corso...")), 1500);
 
         List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
@@ -414,14 +416,23 @@ public class PrimaryController {
 
         Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Rilevamento del linguaggio di programmazione/markup completato")), 1500);
         Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Aspetto che mi dia qualcosa da fare...")), 2500);
+        disableAllUIElementsResults(false);
+
     }
 
     private void cloneRepositories(Runnable postExecute) {
+
+        disableAllUIElementsResults(true);
+
+
         List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
+
         if (repositories == null || repositories.isEmpty()) {
             System.out.println("Esegui prima una query di ricerca \uD83D\uDE0E");
             labelProgress.setText("Esegui prima una query di ricerca");
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Aspetto che mi dia qualcosa da fare...")), 1500);
+            disableAllUIElementsResults(false);
+
             return;
         }
 
@@ -430,6 +441,8 @@ public class PrimaryController {
         if ((indexLastClonedRepository + 1) == repositories.size()) {
             //Tutti i repository sono già stati clonati per questa sessione di ricerca.
             postExecute.run();
+            disableAllUIElementsResults(false);
+
             return;
         }
 
@@ -441,7 +454,7 @@ public class PrimaryController {
 
         String token = Applicazione.getInstance().getSessionManager().getCurrentSession().getQuery().getToken();
         TaskSaveRepository task = new TaskSaveRepository(repositories, firstNonClonedRepositoryIndex, token);
-
+        Applicazione.getInstance().getModello().addObject(Constants.TASK_CLONE, task);
         //# Setting event handler on task
         task.setOnSucceeded(workerStateEvent -> {
             // Reset progressBar, labelProgress.
@@ -612,6 +625,7 @@ public class PrimaryController {
     }
 
     private void stopThread() {
+
         Thread thread = (Thread) Applicazione.getInstance().getModello().getObject(Constants.THREAD_DOWNLOAD_REPO);
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
         if(thread != null) {
@@ -693,6 +707,23 @@ public class PrimaryController {
         tabResults.setDisable(value);
         campoKeyOrder.setDisable(value);
         campoKeySort.setDisable(value);
+    }
+
+
+
+    private void disableAllUIElementsResults(boolean value) {
+        System.out.println("disabilito");
+
+        tableRepository.setDisable(value);
+        iconFilterLang.setDisable(value);
+        iconDeleteBulk.setDisable(value);
+        iconSave.setDisable(value);
+        iconSearch.setDisable(value);
+        iconFilterProgr.setDisable(value);
+        buttonFilterLanguage.setDisable(value);
+        buttonFilterProgrLanguage.setDisable(value);
+        bottoneEliminaBulk.setDisable(value);
+        tabbedPane.setDisable(value);
     }
 
     private void filterByIdiom() {
