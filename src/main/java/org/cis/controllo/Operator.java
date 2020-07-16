@@ -14,6 +14,7 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -138,7 +139,12 @@ public class Operator {
         Query query = session.getQuery();
         List<Qualifier> listaQualificatori = query.getQualifiers();
 
-        try (OutputStream output = new FileOutputStream("risorse/GHRepoSearcher/jar/config.properties")) {
+        String separator = FileUtils.FILE_SEPARATOR;
+        String relativePath = "risorse" + separator + "GHRepoSearcher" + separator + "jar" + separator +"config.properties";
+        System.out.println(relativePath);
+
+
+        try (OutputStream output = new FileOutputStream(relativePath)) {
 
 
             PrintStream write = new PrintStream(output);
@@ -146,13 +152,21 @@ public class Operator {
             write.println("username=" + query.getToken());
             write.println("q1=created:"+ query.getDate());
 
+<<<<<<< HEAD
             Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Everything is going fine :)", 2);}});
+=======
+
+            Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Procede bene :)", 2);}});
+>>>>>>> michele
             int j = 2;
 
             for (int i=0; i < listaQualificatori.size(); i++){
 
                 Qualifier q = listaQualificatori.get(i);
-                write.println("q" + j + "=" + q.getKey() +":"+ q.getValue());
+                if(q.getValue().equals("C#")) {
+                    q.setValue("Csharp");
+                }
+                write.println("q" + j + "=" + q.getKey() .trim()+":"+ q.getValue().trim());
                 j = j +1;
                 if(i == Math.floor(listaQualificatori.size() / 2)) {
                     Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("We're half way through!", 3);}});
@@ -196,23 +210,30 @@ public class Operator {
         }
 
         System.out.println("avvio GHRepoSearcher!");
+<<<<<<< HEAD
         Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Launching GHRepoSearcher...", 1);}});
 
+=======
+        Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Avvio GHRepoSearcher...", 1);}});
+        String separetor = FileUtils.FILE_SEPARATOR;
+>>>>>>> michele
         try {
 
-            String path = new java.io.File("").getAbsolutePath();
-            path = path + "\\risorse\\GHRepoSearcher\\jar";
-            //System.out.println(path);
+            String relativePath = separetor +"risorse" + separetor + "GHRepoSearcher" + separetor + "jar";
+            Path path = FileUtils.createAbsolutePath(relativePath);
+            System.out.println(path.toString());
 
-            File dir = new File(path);
+            File dir = new File(path.toString());
             //System.out.println(dir);
 
             // ripulisco la cartella Json
             Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Cleaning up JSON folder...", 1);}});
 
-            String pathJson = new java.io.File("").getAbsolutePath();
-            pathJson = pathJson + "\\risorse\\json";
-            File dir2 = new File(pathJson);
+            String relativePathJson = separetor +"risorse" + separetor + "json";
+            Path pathJson = FileUtils.createAbsolutePath(relativePathJson);
+            System.out.println(pathJson.toString());
+
+            File dir2 = new File(pathJson.toString());
             File[] files = dir2.listFiles();
             int i = 0;
             for (File f : files) {
@@ -242,12 +263,12 @@ public class Operator {
             String s = null;
 
             while ((s = stdInput.readLine()) != null) {
-                    if (s.contains("ERROR")){
-                        System.out.println(s);
-                        Applicazione.getInstance().getModello().addObject(Constants.MESSAGGIO_FINE_RICERCA,"Token non valido");
-                        return false;
-                    }
+                if (s.contains("ERROR")){
                     System.out.println(s);
+                    Applicazione.getInstance().getModello().addObject(Constants.MESSAGGIO_FINE_RICERCA,"Token non valido");
+                    return false;
+                }
+                System.out.println(s);
             }
             // Read any errors from the attempted command
 

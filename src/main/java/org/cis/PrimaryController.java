@@ -20,15 +20,20 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
+<<<<<<< HEAD
 import javafx.util.Callback;
 import javafx.util.Duration;
 import org.cis.controllo.CommonEvents;
 import org.cis.controllo.Operator;
 import org.cis.controllo.TaskSaveRepository;
 import org.cis.controllo.Utils;
+=======
+import org.cis.controllo.*;
+>>>>>>> michele
 import org.cis.modello.*;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -458,6 +463,8 @@ public class PrimaryController {
         if ((indexLastClonedRepository + 1) == repositories.size()) {
             //Tutti i repository sono già stati clonati per questa sessione di ricerca.
             postExecute.run();
+            disableAllUIElementsResults(false);
+
             return;
         }
 
@@ -469,7 +476,7 @@ public class PrimaryController {
 
         String token = Applicazione.getInstance().getSessionManager().getCurrentSession().getQuery().getToken();
         TaskSaveRepository task = new TaskSaveRepository(repositories, firstNonClonedRepositoryIndex, token);
-
+        Applicazione.getInstance().getModello().addObject(Constants.TASK_CLONE, task);
         //# Setting event handler on task
         task.setOnSucceeded(workerStateEvent -> {
             // Reset progressBar, labelProgress.
@@ -745,6 +752,24 @@ public class PrimaryController {
 
 
 
+<<<<<<< HEAD
+=======
+    private void disableAllUIElementsResults(boolean value) {
+        System.out.println("disabilito");
+
+        tableRepository.setDisable(value);
+        iconFilterLang.setDisable(value);
+        iconDeleteBulk.setDisable(value);
+        iconSave.setDisable(value);
+        iconSearch.setDisable(value);
+        iconFilterProgr.setDisable(value);
+        buttonFilterLanguage.setDisable(value);
+        buttonFilterProgrLanguage.setDisable(value);
+        bottoneEliminaBulk.setDisable(value);
+        tabbedPane.setDisable(value);
+    }
+
+>>>>>>> michele
     private void filterByIdiom() {
         Thread thread = new Thread(new Runnable() {
             @Override
