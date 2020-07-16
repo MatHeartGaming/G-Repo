@@ -30,6 +30,9 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         Applicazione.getInstance().getSingleThread().start();
+        // By cloning.
+        FileUtils.createDirectory(Paths.get(Constants.CLONING_DIRECTORY));
+        // Init GUI.
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
         commonEvents.loadPanel("primary", Modality.NONE, true, "G-Repo", StageStyle.DECORATED, false);
         /*scene = new Scene(loadFXML("primary"));

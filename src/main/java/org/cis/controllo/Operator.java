@@ -46,7 +46,7 @@ public class Operator {
             return true;
         }
         if(parametro.equals(Constants.PARAM_LANGUAGE)) {
-            if(repo.getLingua() != null && repo.getLingua().toLowerCase().equals(daCercare.toLowerCase().trim())) {
+            if(repo.getLanguageProperty() != null && repo.getLanguageProperty().toLowerCase().equals(daCercare.toLowerCase().trim())) {
                 return true;
             }
         } else if(parametro.equals(Constants.PARAM_PROGR_LANGUAGE)) {
@@ -81,7 +81,7 @@ public class Operator {
 
     private static boolean confrontaElemConParametriNotStrict(Repository repo, String daCercare, String parametro) {
         if(parametro.equals(Constants.PARAM_LANGUAGE)) {
-            if(repo.getLingua() != null && repo.getLingua().toLowerCase().contains(daCercare.toLowerCase().trim())) {
+            if(repo.getLanguageProperty() != null && repo.getLanguageProperty().toLowerCase().contains(daCercare.toLowerCase().trim())) {
                 return true;
             }
         } else if(parametro.equals(Constants.PARAM_PROGR_LANGUAGE)) {
