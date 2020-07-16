@@ -37,7 +37,7 @@
       </AnchorPane>
       <TabPane fx:id="tabbedPane" layoutY="91.0" prefHeight="562.0" prefWidth="906.0" stylesheets="@tabStyle.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="91.0">
         <tabs>
-            <Tab text="Queries">
+            <Tab fx:id="tabQueries" text="Queries">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="906.0" style="-fx-background-color: #0b132b;">
                      <children>
@@ -91,7 +91,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Button>
-                              <Label fx:id="labelErrori" layoutX="14.0" layoutY="18.0" prefHeight="20.0" prefWidth="270.0" textFill="RED">
+                              <Label fx:id="labelErrori" layoutX="14.0" layoutY="18.0" prefHeight="20.0" prefWidth="382.0" textFill="RED">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -253,12 +253,12 @@
       </TabPane>
       <AnchorPane fx:id="anchorProgress" layoutY="670.0" prefHeight="33.0" prefWidth="906.0" style="-fx-background-color: #1c2541;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <ProgressBar fx:id="progressBar" layoutX="14.0" layoutY="9.0" prefHeight="18.0" prefWidth="377.0" progress="0.0" stylesheets="@progressBar.css">
+            <ProgressBar fx:id="progressBar" layoutX="14.0" layoutY="9.0" prefHeight="18.0" prefWidth="332.0" progress="0.0" stylesheets="@progressBar.css">
                <styleClass>
                   <String fx:value="bar" />
                   <String fx:value="progress-bar" />
                </styleClass></ProgressBar>
-            <Label fx:id="labelProgress" layoutX="402.0" layoutY="9.0" prefHeight="18.0" prefWidth="484.0" text="Aspetto che mi dia qualcosa da fare..." textFill="WHITE">
+            <Label fx:id="labelProgress" layoutX="352.0" layoutY="9.0" prefHeight="18.0" prefWidth="498.0" text="Waiting for something to do..." textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

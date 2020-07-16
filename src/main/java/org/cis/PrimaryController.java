@@ -20,15 +20,20 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
+<<<<<<< HEAD
 import javafx.util.Callback;
 import javafx.util.Duration;
 import org.cis.controllo.CommonEvents;
 import org.cis.controllo.Operator;
 import org.cis.controllo.TaskSaveRepository;
 import org.cis.controllo.Utils;
+=======
+import org.cis.controllo.*;
+>>>>>>> michele
 import org.cis.modello.*;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -72,7 +77,7 @@ public class PrimaryController {
     private DatePicker datePickerStart, datePickerEnd;
 
     @FXML
-    private Tab tabResults;
+    private Tab tabResults, tabQueries;
 
     @FXML
     private TabPane tabbedPane;
@@ -220,8 +225,9 @@ public class PrimaryController {
         this.iconFilterLang.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {buttonFilterLanguage.fire();}});
         this.iconSave.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneSalva, "#00ff00");}});
         this.iconSave.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneSalva, "#99ff33");}});
+        this.iconSave.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {bottoneSalva.fire();}});
 
-        this.iconFilterLang.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {}});
+        this.iconFilterLang.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {buttonFilterLanguage.fire();}});
         this.iconAddQuery.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {aggiungiCampoQuery();}});;
         this.iconRemoveQuery.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {eliminaCampoQuery();}});
         this.iconRemoveQuery.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaQuery, Constants.HOVER_COLOR);}});
@@ -406,10 +412,10 @@ public class PrimaryController {
     }
 
     private void filterByLanguage() {
-        Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Rilevamento del linguaggio in corso...")), 1500);
+        Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Detecting language in progress...")), 1500);
         // ANAS CODE...
-        Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Rilevamento del linguaggio completato")), 1500);
-        Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Aspetto che mi dia qualcosa da fare...")), 2500);
+        Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Detecting language complete")), 1500);
+        Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 2500);
     }
 
     private void filterByProgrammingLanguage() {
@@ -439,16 +445,16 @@ public class PrimaryController {
         // Reset progressBar.
         progressBar.setProgress(Constants.values[0]);
 
-        Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Rilevamento del linguaggio di programmazione/markup completato")), 1500);
-        Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Aspetto che mi dia qualcosa da fare...")), 2500);
+        Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Detecting programming language completed")), 1500);
+        Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 2500);
     }
 
     private void cloneRepositories(Runnable postExecute) {
         List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
         if (repositories == null || repositories.isEmpty()) {
             System.out.println("Esegui prima una query di ricerca \uD83D\uDE0E");
-            labelProgress.setText("Esegui prima una query di ricerca");
-            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Aspetto che mi dia qualcosa da fare...")), 1500);
+            labelProgress.setText("You must run a search query first");
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 1500);
             return;
         }
 
@@ -457,6 +463,8 @@ public class PrimaryController {
         if ((indexLastClonedRepository + 1) == repositories.size()) {
             //Tutti i repository sono già stati clonati per questa sessione di ricerca.
             postExecute.run();
+            disableAllUIElementsResults(false);
+
             return;
         }
 
@@ -468,7 +476,7 @@ public class PrimaryController {
 
         String token = Applicazione.getInstance().getSessionManager().getCurrentSession().getQuery().getToken();
         TaskSaveRepository task = new TaskSaveRepository(repositories, firstNonClonedRepositoryIndex, token);
-
+        Applicazione.getInstance().getModello().addObject(Constants.TASK_CLONE, task);
         //# Setting event handler on task
         task.setOnSucceeded(workerStateEvent -> {
             // Reset progressBar, labelProgress.
@@ -478,7 +486,7 @@ public class PrimaryController {
 
 
             System.out.println("Tutti i repository sono stati clonati correttamente per questa sessione di ricerca");
-            labelProgress.setText("Tutti i repository sono stati clonati correttamente");
+            labelProgress.setText("Repositories cloned correctly");
 
             postExecute.run();
         });
@@ -493,8 +501,8 @@ public class PrimaryController {
             labelProgress.textProperty().unbind();
 
             System.out.println("Qualcosa è andato storto...limit rate raggiunto o problemi di connessione");
-            labelProgress.setText("Qualcosa è andato storto...limit rate raggiunto o problemi di connessione");
-            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Aspetto che mi dia qualcosa da fare...")), 1500);
+            labelProgress.setText("Something went wrong...limit rate reached or connection issues");
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 1500);
         });
 
         progressBar.progressProperty().bind(task.progressProperty());
@@ -531,7 +539,7 @@ public class PrimaryController {
                     //Applicazione.getInstance().getSessionManager().getSessions().clear();
                     boolean delete = (boolean) Applicazione.getInstance().getModello().getObject(Constants.ACCEPT_DELETION_PROCESS);
                     if(delete == false) {
-                        Platform.runLater(new Runnable() {@Override public void run() {labelErrori.setText("Operazione interrotta.");}});
+                        Platform.runLater(new Runnable() {@Override public void run() {labelErrori.setText("Operation aborted.");}});
                         return;
                     }
                     if(query.getToken() != null) {
@@ -551,13 +559,13 @@ public class PrimaryController {
                             Applicazione.getInstance().getModello().addObject(Constants.LISTA_REPO, tabList);
                             // Init Cloning.
                             Applicazione.getInstance().getModello().addObject(Constants.INDEX_LAST_CLONED_REPOSITORY, -1);
-                            setTable();
+                            Platform.runLater(new Runnable() {@Override public void run() {setTable();}});
                             //lancio loadRepo da Dao
 
                             //ottengo lista Repo
 
                             //Utilizzo dati per riempire Tabella
-                            Applicazione.getInstance().getModello().addObject(Constants.MESSAGGIO_FINE_RICERCA,"Ricerca Andata a buon Fine!");
+                            Applicazione.getInstance().getModello().addObject(Constants.MESSAGGIO_FINE_RICERCA,"The search went just AWSOME!");
 
                             stopThread();
                         } else {
@@ -569,7 +577,7 @@ public class PrimaryController {
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
-                                labelErrori.setText("Inserire il token!");
+                                labelErrori.setText("Insert token!");
                                 Applicazione.getInstance().getCommonEvents().changeBorderColor(campoToken, "#ff0000");
                             }
                         });
@@ -594,11 +602,16 @@ public class PrimaryController {
             if(presenza && !t.getText().isEmpty() && !this.listaCampiQuery.get(i).getText().isEmpty()) {
                 listQualifiers.add(new Qualifier(t.getText(), this.listaCampiQuery.get(i).getText()));
                 System.out.println("qual added");
+            } else if(presenza && !t.getText().isEmpty() && this.listaCampiQuery.get(i).getText().isEmpty()) {
+                commonEvents.changeBorderColor(t, "#ff0000");
+                this.labelErrori.setText("If you put a key you must put a value too!");
+                return null;
             } else if(listQualifiers.size() > 0 && t.getText().isEmpty()) {
                 return listQualifiers;
             } else {
                 commonEvents.changeBorderColor(t, "#ff0000");
                 this.labelErrori.setText("Check the queries in red!");
+                return null;
             }
             System.out.println("key: " + t.getText());
             System.out.println("valore: " + this.listaCampiQuery.get(i).getText());
@@ -668,6 +681,7 @@ public class PrimaryController {
         listaCompleta.removeAll(listaAgg);
         listaAgg.removeAll(listaAgg);
         this.tableRepository.setItems(listaAgg);
+        checkListEmpty();
     }
 
     private void deleteSelectedItem() {
@@ -685,6 +699,15 @@ public class PrimaryController {
             listaCompleta.remove(repo);
             listaAgg.remove(repo);
             this.tableRepository.setItems(listaAgg);
+        }
+        checkListEmpty();
+    }
+
+    private void checkListEmpty() {
+        ObservableList<Repository> lista = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
+        if(lista.isEmpty()) {
+            tabbedPane.getSelectionModel().select(tabQueries);
+            tabResults.setDisable(true);
         }
     }
 
@@ -727,6 +750,26 @@ public class PrimaryController {
         }
     }
 
+
+
+<<<<<<< HEAD
+=======
+    private void disableAllUIElementsResults(boolean value) {
+        System.out.println("disabilito");
+
+        tableRepository.setDisable(value);
+        iconFilterLang.setDisable(value);
+        iconDeleteBulk.setDisable(value);
+        iconSave.setDisable(value);
+        iconSearch.setDisable(value);
+        iconFilterProgr.setDisable(value);
+        buttonFilterLanguage.setDisable(value);
+        buttonFilterProgrLanguage.setDisable(value);
+        bottoneEliminaBulk.setDisable(value);
+        tabbedPane.setDisable(value);
+    }
+
+>>>>>>> michele
     private void filterByIdiom() {
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -738,7 +781,6 @@ public class PrimaryController {
                 Operator.actionDetectIdiom();
             }
         });
-
     }
 
 }
