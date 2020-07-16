@@ -1,9 +1,7 @@
 package org.cis.DAO;
 
-import org.cis.Constants;
 import org.cis.modello.Repository;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +12,17 @@ public class DAORepositoryMock implements IDAORepository{
             List<Repository> repositories = new ArrayList<>();
 
             if (true) {
+<<<<<<< HEAD
                 repositories.add(new Repository(1, "repodriller", "bla bla", "https://github.com/mauricioaniche/repodriller", "https://github.com/mauricioaniche/repodriller.git", 25169));
                 repositories.add(new Repository(4, "2", "bla^3", "", "https://github.com/tomlongo/Flickable.js.git", 321));
                 repositories.add(new Repository(4, "456", "bla^3", "", "https://github.com/emergingstack/es-dev-stack.git", 321));
                 repositories.add(new Repository(4, "GRTFGR", "bla^3", "", "https://github.com/JazzCore/ctrlp-cmatcher.git", 321));
+=======
+                repositories.add(new Repository("1", "repodriller", "bla bla", "https://github.com/mauricioaniche/repodriller", "https://github.com/mauricioaniche/repodriller.git", 25169));
+                repositories.add(new Repository("2", "Flickable.js", "bla^3", "", "https://github.com/tomlongo/Flickable.js.git", 3215));
+                repositories.add(new Repository("3", "es-dev-stack", "bla^3", "", "https://github.com/emergingstack/es-dev-stack.git", 3201));
+                repositories.add(new Repository("4", "ctrlp-cmatcher", "bla^3", "", "https://github.com/JazzCore/ctrlp-cmatcher.git", 31));
+>>>>>>> MasterLeo
                 return repositories;
             }
 
