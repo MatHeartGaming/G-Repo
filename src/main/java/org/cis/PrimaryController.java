@@ -13,13 +13,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
-import org.cis.controllo.CommonEvents;
-import org.cis.controllo.Operator;
-import org.cis.controllo.TaskSaveRepository;
-import org.cis.controllo.Utils;
+import org.cis.controllo.*;
 import org.cis.modello.*;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -517,10 +515,19 @@ public class PrimaryController {
 
                         if (Operator.avvioGHRepoSearcher()) {
                             System.out.println("fine GHrepoSearcher!");
+
+                          /*
                             String path = new File("").getAbsolutePath();
                             path = path + "\\risorse\\json";
                             System.out.println("***Path: " + path + "***");
-                            List<Repository> lista = Applicazione.getInstance().getDaoRepositoryJSON().loadRepositories(path);
+                            */
+
+                            String separetor = FileUtils.FILE_SEPARATOR;
+                            String relativePath = separetor +"risorse" + separetor + "json";
+                            Path path = FileUtils.createAbsolutePath(relativePath);
+                            System.out.println(path.toString());
+
+                            List<Repository> lista = Applicazione.getInstance().getDaoRepositoryJSON().loadRepositories(path.toString());
                             ObservableList<Repository> tabList = FXCollections.observableArrayList(lista);
                             Applicazione.getInstance().getModello().addObject(Constants.LISTA_REPO_AGGIORNATA, tabList);
                             Applicazione.getInstance().getModello().addObject(Constants.LISTA_REPO, tabList);
