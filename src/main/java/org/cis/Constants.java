@@ -49,4 +49,5 @@ public class Constants {
     public static final String HOVER_COLOR = "#6fffe9";
     public static final String COLORE_BUTTON = "#5bc0be";
 
+    public static final String CLONING_DIRECTORY = "cloning directory";
 }
