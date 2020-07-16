@@ -130,7 +130,7 @@ public class Operator {
 
     public static void createConfigProperties(){
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
-        Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Creazione file properties", 1);}});
+        Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Creating properties file", 1);}});
 
         System.out.println("Avvio Creazione File Properties!");
 
@@ -146,7 +146,7 @@ public class Operator {
             write.println("username=" + query.getToken());
             write.println("q1=created:"+ query.getDate());
 
-            Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Procede bene :)", 2);}});
+            Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Everything is going fine :)", 2);}});
             int j = 2;
 
             for (int i=0; i < listaQualificatori.size(); i++){
@@ -155,11 +155,11 @@ public class Operator {
                 write.println("q" + j + "=" + q.getKey() +":"+ q.getValue());
                 j = j +1;
                 if(i == Math.floor(listaQualificatori.size() / 2)) {
-                    Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Siamo a metà!", 3);}});
+                    Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("We're half way through!", 3);}});
                 }
             }
 
-            Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Ci siamo quasi!! :D", 4);}});
+            Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("We're almost there!! :D", 4);}});
 
             if(query.getSort() != null) {
                 write.println("sort=" + query.getSort());
@@ -177,7 +177,7 @@ public class Operator {
             io.printStackTrace();
         }
 
-        Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("File properties creato! E' stato un piacere lavorare per lei!", 5);}});
+        Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Properties file  creato! It's been a pleasure working for you!", 5);}});
 
     }
 
@@ -186,17 +186,17 @@ public class Operator {
 
         //Controllo la connessione ad internet
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
-        System.out.println("controllo connessione internet!");
+        System.out.println("Checking internet connection!");
 
         boolean connect = netIsAvailable();
 
         if(connect == false){
-            Applicazione.getInstance().getModello().addObject(Constants.MESSAGGIO_FINE_RICERCA,"Errore di Connessione!");
+            Applicazione.getInstance().getModello().addObject(Constants.MESSAGGIO_FINE_RICERCA,"Connection error!");
             return false ;
         }
 
         System.out.println("avvio GHRepoSearcher!");
-        Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Avvio GHRepoSearcher...", 1);}});
+        Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Launching GHRepoSearcher...", 1);}});
 
         try {
 
@@ -208,7 +208,7 @@ public class Operator {
             //System.out.println(dir);
 
             // ripulisco la cartella Json
-            Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Ripulisco la cartella dei file JSON...", 1);}});
+            Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Cleaning up JSON folder...", 1);}});
 
             String pathJson = new java.io.File("").getAbsolutePath();
             pathJson = pathJson + "\\risorse\\json";
@@ -218,19 +218,19 @@ public class Operator {
             for (File f : files) {
                 f.delete();
                 if(i == Math.floor(files.length / 2)) {
-                    Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Siamo a metà pulizia e non accenno a fermarmi! :)", 2);}});
+                    Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("We're half way through the cleaning process and I'm not gonna stop! :)", 2);}});
                 }
                 i++;
             }
 
-            Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Pulizia terminata!", 3);}});
+            Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Cleaning up terminated!", 3);}});
 
             //setto il command
             String cmd = "java -jar GHRepoSearcher.jar config.properties";
             Process process = Runtime.getRuntime().exec(cmd, null, dir);
             Applicazione.getInstance().getModello().addObject(Constants.THREAD_REPO_SEARCHER, process);
 
-            Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Lavorando dietro le quinte...", 3);}});
+            Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Working behind the scenes...", 3);}});
 
             BufferedReader stdInput = new BufferedReader(new
                     InputStreamReader(process.getInputStream()));
