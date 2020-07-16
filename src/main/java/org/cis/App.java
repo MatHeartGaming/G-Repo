@@ -31,7 +31,8 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         Applicazione.getInstance().getSingleThread().start();
         // By cloning.
-        FileUtils.createDirectory(Paths.get(Constants.RELATIVE_PATH_CLONING_DIRECTORY));
+        FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY));
+        FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_LANGUAGE_DIRECTORY));
         // Init GUI.
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
         commonEvents.loadPanel("primary", Modality.NONE, true, "G-Repo", StageStyle.DECORATED, false);
