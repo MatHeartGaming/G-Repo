@@ -20,44 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6bde7750-00b3-4e09-a111-5bb9d8534863" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_detectlanguage_detectlanguage_1_1_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_8_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_googlecode_javaewah_JavaEWAH_1_1_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_jcraft_jsch_0_1_55.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_jcraft_jzlib_1_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_jfoenix_jfoenix_9_0_9.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_bouncycastle_bcpg_jdk15on_1_61.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_bouncycastle_bcpkix_jdk15on_1_61.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_bouncycastle_bcprov_jdk15on_1_61.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_jgit_org_eclipse_jgit_5_4_2_201908231537_r.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_base_14.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_base_win_14.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_controls_14.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_controls_win_14.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_fxml_12.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_fxml_win_12.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_graphics_14.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_graphics_win_14.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/G-Repo GitHub.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/G-Repo GitHub.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_16_07_2020_12_42__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_16_07_2020_12_42__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/risorse/GHRepoSearcher/jar/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/risorse/GHRepoSearcher/jar/config.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/risorse/cacheCloneRepositories/CACHE.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/risorse/json/2010-11-21T00-00-01_2013-12-14T00-00-01_4.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/cis/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/cis/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/cis/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/cis/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/cis/DAO/DAORepositoryJSON.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/cis/DAO/DAORepositoryJSON.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/cis/DAO/DAORepositoryMock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/cis/DAO/DAORepositoryMock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/cis/PrimaryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/cis/PrimaryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/cis/controllo/Operator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/cis/controllo/Operator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/cis/controllo/TaskCloneRepositories.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/cis/controllo/TaskCloneRepositories.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/cis/modello/Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/cis/modello/Repository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,6 +87,7 @@
       <option name="ALTERNATIVE_JRE_PATH" value="14" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="org.cis.App" />
+      <module name="G-Repo GitHub" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="org.cis.*" />
@@ -185,7 +151,8 @@
       <workItem from="1594891565344" duration="12636000" />
       <workItem from="1594924267296" duration="661000" />
       <workItem from="1594926593848" duration="1533000" />
-      <workItem from="1594928261055" duration="284000" />
+      <workItem from="1594928261055" duration="675000" />
+      <workItem from="1594970378269" duration="54000" />
     </task>
     <servers />
   </component>
@@ -205,10 +172,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="464" y="16" key="#App" timestamp="1594928112030">
+    <state x="464" y="16" key="#App" timestamp="1594970430710">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="464" y="16" key="#App/0.0.1536.824@0.0.1536.824" timestamp="1594928112030" />
+    <state x="464" y="16" key="#App/0.0.1536.824@0.0.1536.824" timestamp="1594970430710" />
     <state x="574" y="113" key="#com.intellij.ide.util.MemberChooser" timestamp="1594894340529">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -229,22 +196,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="114" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1594924197738" />
-    <state width="1493" height="371" key="GridCell.Tab.0.bottom" timestamp="1594928139664">
+    <state width="1493" height="527" key="GridCell.Tab.0.bottom" timestamp="1594928942933">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="371" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1594928139664" />
-    <state width="1493" height="371" key="GridCell.Tab.0.center" timestamp="1594928139664">
+    <state width="1493" height="527" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1594928942933" />
+    <state width="1493" height="527" key="GridCell.Tab.0.center" timestamp="1594928942933">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="371" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1594928139664" />
-    <state width="1493" height="371" key="GridCell.Tab.0.left" timestamp="1594928139664">
+    <state width="1493" height="527" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1594928942933" />
+    <state width="1493" height="527" key="GridCell.Tab.0.left" timestamp="1594928942933">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="371" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1594928139664" />
-    <state width="1493" height="371" key="GridCell.Tab.0.right" timestamp="1594928139664">
+    <state width="1493" height="527" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1594928942933" />
+    <state width="1493" height="527" key="GridCell.Tab.0.right" timestamp="1594928942933">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="371" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1594928139664" />
+    <state width="1493" height="527" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1594928942933" />
     <state x="299" y="67" key="Maven.ArtifactSearchDialog" timestamp="1593165527603">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
