@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="182.0" prefWidth="650.0" style="-fx-background-color: #1c2541;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.cis.WarningPanelController">
+<AnchorPane prefHeight="182.0" prefWidth="650.0" style="-fx-background-color: #212529;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.cis.WarningPanelController">
    <children>
       <Label layoutX="275.0" layoutY="14.0" text="Warning" textFill="WHITE">
          <font>
@@ -19,7 +19,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="buttonAccept" layoutX="340.0" layoutY="128.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="296.0" style="-fx-background-color: #5bc0be; -fx-background-radius: 5;" text="Accept">
+      <Button fx:id="buttonAccept" layoutX="340.0" layoutY="128.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="296.0" style="-fx-background-color: #90E0EF; -fx-background-radius: 5;" text="Accept">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

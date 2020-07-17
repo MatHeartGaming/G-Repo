@@ -23,7 +23,7 @@
 
 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="687.0" prefWidth="906.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.cis.PrimaryController">
    <children>
-      <AnchorPane prefHeight="129.0" prefWidth="906.0" style="-fx-background-color: #5bc0be;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <AnchorPane prefHeight="129.0" prefWidth="906.0" style="-fx-background-color: #F8F9FA;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <ImageView fitHeight="122.0" fitWidth="1000.0" layoutX="735.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="14.736175537109375">
                <image>
@@ -39,38 +39,38 @@
         <tabs>
             <Tab fx:id="tabQueries" text="Queries">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="906.0" style="-fx-background-color: #0b132b;">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="906.0" style="-fx-background-color: #E9ECEF;">
                      <children>
-                        <ScrollPane fx:id="scrollPaneQueries" fitToWidth="true" layoutY="202.0" prefHeight="263.0" prefWidth="906.0" style="-fx-background-color: #0b132b;" stylesheets="@tableStyle.css" AnchorPane.bottomAnchor="59.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="202.0">
+                        <ScrollPane fx:id="scrollPaneQueries" fitToWidth="true" layoutY="202.0" prefHeight="263.0" prefWidth="906.0" style="-fx-background-color: #E9ECEF;" stylesheets="@tableStyle.css" AnchorPane.bottomAnchor="59.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="202.0">
                           <content>
                             <AnchorPane fx:id="anchorQuery" minHeight="0.0" minWidth="0.0" prefWidth="891.0" AnchorPane.bottomAnchor="0.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <TextField fx:id="campoParametroQ1" layoutY="14.0" prefHeight="27.0" prefWidth="577.0" promptText="Value" style="-fx-background-color: #0b132b; -fx-border-color: #5bc0be; -fx-border-radius: 20; -fx-background-insets: 0;" stylesheets="@tableStyle.css" AnchorPane.leftAnchor="236.0" AnchorPane.rightAnchor="94.0">
+                                    <TextField fx:id="campoParametroQ1" layoutY="14.0" prefHeight="27.0" prefWidth="577.0" promptText="Value" style="-fx-background-color: #E9ECEF; -fx-border-color: #6C757D; -fx-border-radius: 20; -fx-background-insets: 0;" stylesheets="@tableStyle.css" AnchorPane.leftAnchor="236.0" AnchorPane.rightAnchor="94.0">
                                        <font>
                                           <Font name="System Bold Italic" size="12.0" />
                                        </font>
                                     </TextField>
-                                    <TextField fx:id="campoParametroQ2" layoutX="237.0" layoutY="54.0" prefHeight="27.0" prefWidth="575.0" promptText="Value" style="-fx-background-color: #0b132b; -fx-border-color: #5bc0be; -fx-border-radius: 20; -fx-background-insets: 0;" stylesheets="@tableStyle.css" AnchorPane.leftAnchor="236.0" AnchorPane.rightAnchor="94.0">
+                                    <TextField fx:id="campoParametroQ2" layoutX="237.0" layoutY="54.0" prefHeight="27.0" prefWidth="575.0" promptText="Value" style="-fx-background-color: #E9ECEF; -fx-border-color: #6C757D; -fx-border-radius: 20; -fx-background-insets: 0;" stylesheets="@tableStyle.css" AnchorPane.leftAnchor="236.0" AnchorPane.rightAnchor="94.0">
                                        <font>
                                           <Font name="System Bold Italic" size="12.0" />
                                        </font>
                                     </TextField>
-                                    <TextField fx:id="campoParametroQ3" layoutX="237.0" layoutY="94.0" prefHeight="27.0" prefWidth="574.0" promptText="Value" style="-fx-background-color: #0b132b; -fx-border-color: #5bc0be; -fx-border-radius: 20; -fx-background-insets: 0; -fx-text-fill: #fff;" stylesheets="@tableStyle.css" AnchorPane.leftAnchor="236.0" AnchorPane.rightAnchor="94.0">
+                                    <TextField fx:id="campoParametroQ3" layoutX="237.0" layoutY="94.0" prefHeight="27.0" prefWidth="574.0" promptText="Value" style="-fx-background-color: #E9ECEF; -fx-border-color: #6C757D; -fx-border-radius: 20; -fx-background-insets: 0;" stylesheets="@tableStyle.css" AnchorPane.leftAnchor="236.0" AnchorPane.rightAnchor="94.0">
                                        <font>
                                           <Font name="System Bold Italic" size="12.0" />
                                        </font>
                                     </TextField>
-                                    <TextField fx:id="campoQ1" layoutX="92.0" layoutY="14.0" prefHeight="27.0" prefWidth="132.0" promptText="Key" style="-fx-background-color: #0b132b; -fx-border-color: #5bc0be; -fx-border-radius: 20; -fx-background-insets: 0;" stylesheets="@tableStyle.css" AnchorPane.leftAnchor="92.0">
+                                    <TextField fx:id="campoQ1" layoutX="92.0" layoutY="14.0" prefHeight="27.0" prefWidth="132.0" promptText="Key" style="-fx-background-color: #E9ECEF; -fx-border-color: #6C757D; -fx-border-radius: 20; -fx-background-insets: 0;" stylesheets="@tableStyle.css" AnchorPane.leftAnchor="92.0">
                                        <font>
                                           <Font name="System Bold Italic" size="12.0" />
                                        </font>
                                     </TextField>
-                                    <TextField fx:id="campoQ2" layoutX="92.0" layoutY="54.0" prefHeight="27.0" prefWidth="132.0" promptText="Key" style="-fx-background-color: #0b132b; -fx-border-color: #5bc0be; -fx-border-radius: 20; -fx-background-insets: 0;" stylesheets="@tableStyle.css" AnchorPane.leftAnchor="92.0">
+                                    <TextField fx:id="campoQ2" layoutX="92.0" layoutY="54.0" prefHeight="27.0" prefWidth="132.0" promptText="Key" style="-fx-background-color: #E9ECEF; -fx-border-color: #6C757D; -fx-border-radius: 20; -fx-background-insets: 0;" stylesheets="@tableStyle.css" AnchorPane.leftAnchor="92.0">
                                        <font>
                                           <Font name="System Bold Italic" size="12.0" />
                                        </font>
                                     </TextField>
-                                    <TextField fx:id="campoQ3" layoutX="92.0" layoutY="94.0" prefHeight="27.0" prefWidth="129.0" promptText="Key" style="-fx-background-color: #0b132b; -fx-border-color: #5bc0be; -fx-border-radius: 20; -fx-background-insets: 0;" stylesheets="@tableStyle.css" AnchorPane.leftAnchor="92.0">
+                                    <TextField fx:id="campoQ3" layoutX="92.0" layoutY="94.0" prefHeight="27.0" prefWidth="129.0" promptText="Key" style="-fx-background-color: #E9ECEF; -fx-border-color: #6C757D; -fx-border-radius: 20; -fx-background-insets: 0;" stylesheets="@tableStyle.css" AnchorPane.leftAnchor="92.0">
                                        <font>
                                           <Font name="System Bold Italic" size="12.0" />
                                        </font>
@@ -79,14 +79,14 @@
                               </AnchorPane>
                           </content>
                         </ScrollPane>
-                        <AnchorPane layoutY="495.0" prefHeight="58.0" prefWidth="906.0" style="-fx-background-color: #0b132b;" AnchorPane.bottomAnchor="0.20000000000002416" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                        <AnchorPane layoutY="495.0" prefHeight="58.0" prefWidth="906.0" style="-fx-background-color: #DEE2E6;" AnchorPane.bottomAnchor="0.20000000000002416" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
-                              <Button fx:id="bottoneCerca" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" style="-fx-background-color: #5bc0be; -fx-background-radius: 5;" text="Search" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="22.0">
+                              <Button fx:id="bottoneCerca" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" style="-fx-background-color: #90E0EF; -fx-background-radius: 5;" text="Search" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="22.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="bottoneAggiungiQuery" alignment="CENTER_RIGHT" layoutX="733.0" layoutY="13.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="46.0" style="-fx-background-color: #5bc0be; -fx-background-radius: 5;" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="127.0">
+                              <Button fx:id="bottoneAggiungiQuery" alignment="CENTER_RIGHT" layoutX="733.0" layoutY="13.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="46.0" style="-fx-background-color: #90E0EF; -fx-background-radius: 5;" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="127.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -106,7 +106,7 @@
                                     <Image url="@../../icons/search-icon.png" />
                                  </image>
                               </ImageView>
-                              <Button fx:id="bottoneEliminaQuery" alignment="CENTER_RIGHT" layoutX="679.0" layoutY="13.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="46.0" style="-fx-background-color: #5bc0be; -fx-background-radius: 5;" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="181.0">
+                              <Button fx:id="bottoneEliminaQuery" alignment="CENTER_RIGHT" layoutX="679.0" layoutY="13.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="46.0" style="-fx-background-color: #90E0EF; -fx-background-radius: 5;" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="181.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -120,43 +120,43 @@
                         </AnchorPane>
                         <AnchorPane layoutY="7.0" prefHeight="172.0" prefWidth="906.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="7.0">
                            <children>
-                              <TextField fx:id="campoToken" layoutX="92.0" layoutY="14.0" prefHeight="27.0" prefWidth="719.0" promptText="Inserisci il tuo token" style="-fx-background-color: #0b132b; -fx-border-color: #5bc0be; -fx-border-radius: 20; -fx-background-insets: 0;" stylesheets="@tableStyle.css" AnchorPane.leftAnchor="92.0" AnchorPane.rightAnchor="93.0">
+                              <TextField fx:id="campoToken" layoutX="92.0" layoutY="14.0" prefHeight="27.0" prefWidth="719.0" promptText="Inserisci il tuo token" style="-fx-background-color: #E9ECEF; -fx-border-color: #6C757D; -fx-border-radius: 20; -fx-background-insets: 0;" stylesheets="@tableStyle.css" AnchorPane.leftAnchor="92.0" AnchorPane.rightAnchor="93.0">
                                  <font>
                                     <Font name="System Bold Italic" size="12.0" />
                                  </font>
                               </TextField>
-                              <TextField fx:id="campoSort" layoutX="236.0" layoutY="49.0" prefHeight="27.0" prefWidth="577.0" promptText="Sort parameters" style="-fx-background-color: #0b132b; -fx-border-color: #5bc0be; -fx-border-radius: 20; -fx-background-insets: 0;" stylesheets="@tableStyle.css" AnchorPane.leftAnchor="236.0" AnchorPane.rightAnchor="94.0">
+                              <TextField fx:id="campoSort" layoutX="236.0" layoutY="49.0" prefHeight="27.0" prefWidth="577.0" promptText="Sort parameters" style="-fx-background-color: #E9ECEF; -fx-border-color: #6C757D; -fx-border-radius: 20; -fx-background-insets: 0;" stylesheets="@tableStyle.css" AnchorPane.leftAnchor="236.0" AnchorPane.rightAnchor="94.0">
                                  <font>
                                     <Font name="System Bold Italic" size="12.0" />
                                  </font>
                               </TextField>
-                              <TextField fx:id="campoKeySort" editable="false" layoutX="92.0" layoutY="49.0" prefHeight="27.0" prefWidth="132.0" promptText="Q1" style="-fx-background-color: #0b132b; -fx-border-color: #5bc0be; -fx-border-radius: 20; -fx-background-insets: 0;" stylesheets="@tableStyle.css" text="Sort" AnchorPane.leftAnchor="92.0">
+                              <TextField fx:id="campoKeySort" editable="false" layoutX="92.0" layoutY="49.0" prefHeight="27.0" prefWidth="132.0" promptText="Q1" style="-fx-background-color: #E9ECEF; -fx-border-color: #6C757D; -fx-border-radius: 20; -fx-background-insets: 0;" stylesheets="@tableStyle.css" text="Sort" AnchorPane.leftAnchor="92.0">
                                  <font>
                                     <Font name="System Bold Italic" size="12.0" />
                                  </font>
                               </TextField>
-                              <TextField fx:id="campoOrder" layoutX="236.0" layoutY="84.0" prefHeight="27.0" prefWidth="577.0" promptText="Order parameters" style="-fx-background-color: #0b132b; -fx-border-color: #5bc0be; -fx-border-radius: 20; -fx-background-insets: 0;" stylesheets="@tableStyle.css" AnchorPane.leftAnchor="236.0" AnchorPane.rightAnchor="94.0">
+                              <TextField fx:id="campoOrder" layoutX="236.0" layoutY="84.0" prefHeight="27.0" prefWidth="577.0" promptText="Order parameters" style="-fx-background-color: #E9ECEF; -fx-border-color: #6C757D; -fx-border-radius: 20; -fx-background-insets: 0;" stylesheets="@tableStyle.css" AnchorPane.leftAnchor="236.0" AnchorPane.rightAnchor="94.0">
                                  <font>
                                     <Font name="System Bold Italic" size="12.0" />
                                  </font>
                               </TextField>
-                              <TextField fx:id="campoKeyOrder" editable="false" layoutX="92.0" layoutY="84.0" prefHeight="27.0" prefWidth="132.0" promptText="Q1" style="-fx-background-color: #0b132b; -fx-border-color: #5bc0be; -fx-border-radius: 20; -fx-background-insets: 0;" stylesheets="@tableStyle.css" text="Order" AnchorPane.leftAnchor="92.0">
+                              <TextField fx:id="campoKeyOrder" editable="false" layoutX="92.0" layoutY="84.0" prefHeight="27.0" prefWidth="132.0" promptText="Q1" style="-fx-background-color: #E9ECEF; -fx-border-color: #6C757D; -fx-border-radius: 20; -fx-background-insets: 0;" stylesheets="@tableStyle.css" text="Order" AnchorPane.leftAnchor="92.0">
                                  <font>
                                     <Font name="System Bold Italic" size="12.0" />
                                  </font>
                               </TextField>
-                              <Label alignment="CENTER" layoutY="160.0" prefHeight="19.0" prefWidth="906.0" text="Qualificatori" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                              <Label alignment="CENTER" layoutY="160.0" prefHeight="19.0" prefWidth="906.0" text="Qualificatori" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
                               <Separator layoutX="109.0" layoutY="152.0" prefHeight="15.0" prefWidth="689.0" AnchorPane.leftAnchor="109.0" AnchorPane.rightAnchor="109.0" />
-                              <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="94.0" layoutY="130.0" prefHeight="19.0" prefWidth="101.0" text="Start date" textFill="WHITE" AnchorPane.leftAnchor="94.0">
+                              <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="94.0" layoutY="130.0" prefHeight="19.0" prefWidth="101.0" text="Start date" AnchorPane.leftAnchor="94.0">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="479.0" layoutY="130.0" prefHeight="19.0" prefWidth="121.0" text="End date" textFill="WHITE" AnchorPane.leftAnchor="479.0">
+                              <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="479.0" layoutY="130.0" prefHeight="19.0" prefWidth="121.0" text="End date" AnchorPane.leftAnchor="479.0">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
@@ -171,7 +171,7 @@
             </Tab>
             <Tab fx:id="tabResults" text="Results">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="554.0" prefWidth="925.0" style="-fx-background-color: #0b132b;" stylesheets="@tableStyle.css">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="554.0" prefWidth="925.0" style="-fx-background-color: #E9ECEF;" stylesheets="@tableStyle.css">
                      <children>
                         <TableView fx:id="tableRepository" layoutY="59.0" prefHeight="440.0" prefWidth="906.0" stylesheets="@tableStyle.css" AnchorPane.bottomAnchor="54.60000000000002" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="59.0">
                           <columns>
@@ -189,12 +189,12 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="buttonFilterLanguage" alignment="CENTER_RIGHT" layoutX="666.0" layoutY="509.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="163.0" style="-fx-background-color: #5bc0be; -fx-background-radius: 5;" text="Filter by Language" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="138.0">
+                        <Button fx:id="buttonFilterLanguage" alignment="CENTER_RIGHT" layoutX="666.0" layoutY="509.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="163.0" style="-fx-background-color: #90E0EF; -fx-background-radius: 5;" text="Filter by Language" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="138.0">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Button>
-                        <TextField fx:id="campoCercaTabella" layoutX="76.0" layoutY="14.0" prefHeight="27.0" prefWidth="494.0" promptText="Cerca nella tabella" style="-fx-background-color: #0b132b; -fx-border-color: #5bc0be; -fx-border-radius: 20; -fx-background-insets: 0;" stylesheets="@tableStyle.css" AnchorPane.leftAnchor="76.0" AnchorPane.rightAnchor="336.0">
+                        <TextField fx:id="campoCercaTabella" layoutX="76.0" layoutY="14.0" prefHeight="27.0" prefWidth="494.0" promptText="Cerca nella tabella" style="-fx-background-color: #E9ECEF; -fx-border-color: #6C757D; -fx-border-radius: 20; -fx-background-insets: 0;" stylesheets="@tableStyle.css" AnchorPane.leftAnchor="76.0" AnchorPane.rightAnchor="336.0">
                            <font>
                               <Font name="System Bold Italic" size="12.0" />
                            </font>
@@ -210,7 +210,7 @@
                               <Image url="@../../icons/save-icon.png" />
                            </image>
                         </ImageView>
-                        <CheckBox fx:id="checkStrictMode" layoutX="746.0" layoutY="18.0" mnemonicParsing="false" text="Strict mode" textFill="WHITE" AnchorPane.rightAnchor="76.0">
+                        <CheckBox fx:id="checkStrictMode" layoutX="746.0" layoutY="18.0" mnemonicParsing="false" stylesheets="@tableStyle.css" text="Strict mode" textFill="WHITE" AnchorPane.rightAnchor="76.0">
                            <font>
                               <Font name="System Bold" size="13.0" />
                            </font>
@@ -235,7 +235,7 @@
                               <Image url="@../../icons/deleteAll-icon.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="buttonFilterProgrLanguage" alignment="CENTER_RIGHT" layoutX="419.0" layoutY="480.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="170.0" style="-fx-background-color: #5bc0be; -fx-background-radius: 5;" text="Filter by program. L" AnchorPane.bottomAnchor="13.600000000000023" AnchorPane.rightAnchor="317.0">
+                        <Button fx:id="buttonFilterProgrLanguage" alignment="CENTER_RIGHT" layoutX="419.0" layoutY="480.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="170.0" style="-fx-background-color: #90E0EF; -fx-background-radius: 5;" text="Filter by program. L" AnchorPane.bottomAnchor="13.600000000000023" AnchorPane.rightAnchor="317.0">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -251,14 +251,14 @@
             </Tab>
         </tabs>
       </TabPane>
-      <AnchorPane fx:id="anchorProgress" layoutY="670.0" prefHeight="33.0" prefWidth="906.0" style="-fx-background-color: #1c2541;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <AnchorPane fx:id="anchorProgress" layoutY="670.0" prefHeight="33.0" prefWidth="906.0" style="-fx-background-color: #CED4DA;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <ProgressBar fx:id="progressBar" layoutX="14.0" layoutY="9.0" prefHeight="18.0" prefWidth="332.0" progress="0.0" stylesheets="@progressBar.css">
                <styleClass>
                   <String fx:value="bar" />
                   <String fx:value="progress-bar" />
                </styleClass></ProgressBar>
-            <Label fx:id="labelProgress" layoutX="352.0" layoutY="9.0" prefHeight="18.0" prefWidth="498.0" text="Waiting for something to do..." textFill="WHITE">
+            <Label fx:id="labelProgress" layoutX="352.0" layoutY="9.0" prefHeight="18.0" prefWidth="498.0" text="Waiting for something to do...">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

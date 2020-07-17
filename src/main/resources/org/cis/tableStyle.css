@@ -1,11 +1,11 @@
 .table-view {
-    -fx-background-color: #474747;
+    -fx-background-color: #ADB5BD;
     -fx-background-radius: 5;
     -fx-fill: white;
 }
 
 .table-view .column-header-background {
-    -fx-background-color: #575757;
+    -fx-background-color: #6C757D;
     -fx-background-radius: 5;
     -fx-background-insets: 0 0 10 0;
     -fx-padding: 0 0 10 0;
@@ -23,29 +23,29 @@
 }
 
 .table-row-cell{
-    -fx-background-color: -fx-table-cell-border-color,  #3D4956;
+    -fx-background-color: -fx-table-cell-border-color,  #ADB5BD;
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0.0em; /* 0 */
 }
 
 .table-view .table-cell{
-    -fx-text-fill: white;
+    -fx-text-fill: black;
 }
 
 .table-row-cell:odd{
-    -fx-background-color: -fx-table-cell-border-color, #424242;
+    -fx-background-color: -fx-table-cell-border-color, #CED4DA;
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0.0em; /* 0 */
 }
 
 .table-row-cell:selected {
-    -fx-background-color: #005797;
+    -fx-background-color: #F8F9FA;
     -fx-background-insets: 0;
     -fx-background-radius: 1;
 }
 
 .text-input {
-    -fx-text-fill: #fff;
+    -fx-text-fill: #000;
 }
 
 .check-box .box {
@@ -60,11 +60,11 @@
 }
 
 .check-box:selected .box {
-    -fx-background-color: #6fffe9;
+    -fx-background-color: #495057;
 }
 
 .check-box:hover .box {
-    -fx-border-color:  #6fffe9;
+    -fx-border-color:  #495057;
 }
 
 .scroll-pane > .viewport {
