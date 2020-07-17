@@ -194,7 +194,7 @@ public class PrimaryController {
         columnDataCommit.setCellValueFactory(cellData -> cellData.getValue().getDataProperty());
         columnURL.setCellValueFactory(cellData -> cellData.getValue().urlProjectProperty());
         columnDimensione.setCellValueFactory(cellData -> cellData.getValue().turnIntToStringProperty());
-        columnLingua.setCellValueFactory(cellData -> cellData.getValue().linguaProperty());
+        columnLingua.setCellValueFactory(cellData -> cellData.getValue().languagePropertyProperty());
         columnLinguaggio.setCellValueFactory(cellData -> cellData.getValue().programmingLanguagesPropertyProperty());
         columnStars.setCellValueFactory(cellData -> cellData.getValue().starsProperty());
     }
