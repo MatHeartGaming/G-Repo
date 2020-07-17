@@ -4,13 +4,8 @@ import org.cis.controllo.FileUtils;
 
 public class Constants {
 
-    static {
-        root = FileUtils.getRootPath();
-    }
-
-    public static final String root;
-
-    public static final String CLONING_DIRECTORY = root + "\\risorse\\cacheCloneRepositories";
+    public static final String RELATIVE_PATH_CLONING_DIRECTORY = "\\risorse\\cacheCloneRepositories";
+    public static final String RELATIVE_PATH_LANGUAGE_DIRECTORY = "\\risorse\\languageRepositories";
 
     public static final String INDEX_LAST_CLONED_REPOSITORY = "INDEX_LAST_CLONED_REPOSITORY";
     public static final String LISTA_REPO = "lista repo";

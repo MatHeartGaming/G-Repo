@@ -46,7 +46,7 @@ public class Operator {
             return true;
         }
         if(parametro.equals(Constants.PARAM_LANGUAGE)) {
-            if(repo.getLingua() != null && repo.getLingua().toLowerCase().equals(daCercare.toLowerCase().trim())) {
+            if(repo.getLanguageProperty() != null && repo.getLanguageProperty().toLowerCase().equals(daCercare.toLowerCase().trim())) {
                 return true;
             }
         } else if(parametro.equals(Constants.PARAM_PROGR_LANGUAGE)) {
@@ -81,7 +81,7 @@ public class Operator {
 
     private static boolean confrontaElemConParametriNotStrict(Repository repo, String daCercare, String parametro) {
         if(parametro.equals(Constants.PARAM_LANGUAGE)) {
-            if(repo.getLingua() != null && repo.getLingua().toLowerCase().contains(daCercare.toLowerCase().trim())) {
+            if(repo.getLanguageProperty() != null && repo.getLanguageProperty().toLowerCase().contains(daCercare.toLowerCase().trim())) {
                 return true;
             }
         } else if(parametro.equals(Constants.PARAM_PROGR_LANGUAGE)) {
@@ -139,7 +139,7 @@ public class Operator {
         Query query = session.getQuery();
         List<Qualifier> listaQualificatori = query.getQualifiers();
 
-        String separator = FileUtils.FILE_SEPARATOR;
+        String separator = FileUtils.PATH_SEPARATOR;
         String relativePath = "risorse" + separator + "GHRepoSearcher" + separator + "jar" + separator +"config.properties";
         System.out.println(relativePath);
 
@@ -207,7 +207,7 @@ public class Operator {
         System.out.println("avvio GHRepoSearcher!");
         Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Launching GHRepoSearcher...", 1);}});
 
-        String separetor = FileUtils.FILE_SEPARATOR;
+        String separetor = FileUtils.PATH_SEPARATOR;
         try {
 
             String relativePath = separetor +"risorse" + separetor + "GHRepoSearcher" + separetor + "jar";
