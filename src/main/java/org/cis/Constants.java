@@ -39,9 +39,11 @@ public class Constants {
             "is", "mirror", "archived", "good-first-issues", "help-wanted-issues"};
 
 
-    public static final String COLORE_PRIMARIO = "#0b132b";
+    public static final String COLORE_PRIMARIO = "#E9ECEF";
     public static final String COLORE_SECONDARIO = "#1c2541";
-    public static final String HOVER_COLOR = "#6fffe9";
-    public static final String COLORE_BUTTON = "#5bc0be";
+    public static final String BUTTON_HOVER_COLOR = "#48CAE4";
+    public static final String COLORE_BUTTON = "#90E0EF";
+    public static final String COLOR_HOVER_TEXTFIELD = "#212529";
+    public static final String COLOR_TEXTFIELD = "#6C757D";
 
 }

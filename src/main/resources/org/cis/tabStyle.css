@@ -13,27 +13,27 @@
 }
 
 .tab-pane .tab {
-    -fx-background-color: #3c3c3c;
+    -fx-background-color: #CED4DA;
 }
 
 .tab-pane .tab:selected {
-    -fx-background-color: #0b132b;
+    -fx-background-color: #E9ECEF;
 }
 
 .tab .tab-label {
     -fx-alignment: CENTER;
-    -fx-text-fill:  #5bc0be;
+    -fx-text-fill:  black;
     -fx-font-size: 12px;
     -fx-font-weight: bold;
 }
 
 .tab:selected .tab-label {
     -fx-alignment: CENTER;
-    -fx-text-fill:  #5bc0be;
+    -fx-text-fill:  black;
 }
 
 .tab-pane .tab:hover {
-    -fx-background-color: #575757;
+    -fx-background-color: #DEE2E6;
 }
 
 .tab-pane:top *.tab-header-area {
