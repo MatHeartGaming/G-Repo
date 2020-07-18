@@ -34,6 +34,10 @@ public class Constants {
     public static final Float[] values = new Float[] {-1.0f, 0f, 0.25f, 0.5f, 0.75f, 1.0f};
     public static final String LABEL_PROGRESS = "label progress";
 
+    public static final String PRIMARY_STAGE = "primary stage";
+    public static final String SAVE_PATH = "save path";
+    public static final String THREAD_SAVE = "thread save";
+
     public static final String[] LISTA_QUAL = {"in", "repo", "user", "org", "size", "followers", "fork",
             "stars", "pushed", "language", "topic", "topics", "license",
             "is", "mirror", "archived", "good-first-issues", "help-wanted-issues"};

@@ -245,6 +245,11 @@
                               <Image url="@../../icons/filter-icon.png" />
                            </image>
                         </ImageView>
+                        <Label fx:id="labelRepoNumber" layoutX="15.0" layoutY="41.0" prefHeight="20.0" prefWidth="435.0" text="Total amount of repos: " AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="41.0">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                </content>

@@ -17,8 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
-import javafx.stage.StageStyle;
+import javafx.stage.*;
 import javafx.util.Duration;
 import org.cis.controllo.CommonEvents;
 import org.cis.controllo.Operator;
@@ -27,6 +26,7 @@ import org.cis.controllo.Utils;
 import org.cis.modello.*;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -34,7 +34,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PrimaryController {
+public class PrimaryController extends Window {
 
     @FXML
     private Button bottoneCerca, buttonFilterLanguage, bottoneSalva, bottoneAggiungiQuery,
@@ -57,7 +57,7 @@ public class PrimaryController {
     private AnchorPane anchorQuery;
 
     @FXML
-    private Label labelErrori, labelProgress;
+    private Label labelErrori, labelProgress, labelRepoNumber;
 
     @FXML
     private ProgressBar progressBar;
@@ -258,7 +258,7 @@ public class PrimaryController {
         datePickerStart.valueProperty().addListener((ov, oldValue, newValue) -> {
             LocalDate localDateStart = getValueDataPicker(datePickerStart);
             LocalDate localDateEnd = getValueDataPicker(datePickerEnd);
-            if(datePickerEnd.getValue() == null || localDateStart.compareTo(localDateEnd) > 0) {
+            if (datePickerEnd.getValue() == null || localDateStart.compareTo(localDateEnd) > 0) {
                 datePickerEnd.setValue(localDateStart);
             }
         });
@@ -266,7 +266,7 @@ public class PrimaryController {
         datePickerEnd.valueProperty().addListener((ov, oldValue, newValuw) -> {
             LocalDate localDateStart = getValueDataPicker(datePickerStart);
             LocalDate localDateEnd = getValueDataPicker(datePickerEnd);
-            if(datePickerStart.getValue() == null || localDateEnd.compareTo(localDateStart) < 0) {
+            if (datePickerStart.getValue() == null || localDateEnd.compareTo(localDateStart) < 0) {
                 datePickerStart.setValue(localDateEnd);
             }
         });
@@ -306,7 +306,7 @@ public class PrimaryController {
     }
 
     private void enableDisableSearchButton() {
-        if(campoToken.getText().isEmpty()) {
+        if (campoToken.getText().isEmpty()) {
             bottoneCerca.setDisable(true);
         } else {
             bottoneCerca.setDisable(false);
@@ -314,14 +314,15 @@ public class PrimaryController {
     }
 
     private void initTable() {
+        initTableCells();
         this.tableRepository.setOnMouseClicked(mouseEvent -> selectItemTableEvent());
     }
 
 
-    private void setTable() {
+    private void updateTable() {
         ObservableList<Repository> listaRepoAgg = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO_AGGIORNATA);
-        System.out.println("Lista size: " + listaRepoAgg.size());
-        initTableCells();
+        ObservableList<Repository> listaRepoCompl = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
+        this.labelRepoNumber.setText("Total amount of repos: " + listaRepoCompl.size() + ", Displayed: " + listaRepoAgg.size());
         this.tableRepository.setItems(listaRepoAgg);
         this.tableRepository.refresh();
     }
@@ -329,7 +330,7 @@ public class PrimaryController {
     private void cercaInTabella() {
         this.bottoneEliminaSelezionato.setDisable(true);
         eventoCercaInTabella();
-        setTable();
+        updateTable();
     }
 
     private void eventoCercaInTabella() {
@@ -341,17 +342,19 @@ public class PrimaryController {
         modello.addObject(Constants.LISTA_REPO_AGGIORNATA, listaAgg);
     }
 
-
     private String getSelectedComboLanguage() {
         Object valore = this.comboParametriRicerca.getValue();
-        if(valore != null) {
+        if (valore != null) {
             return valore.toString();
         }
         return Constants.PARAM_REPOSITORIES;
     }
 
     public void initCombo() {
-        comboParametriRicerca.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {getSelectedComboLanguage(); cercaInTabella();});
+        comboParametriRicerca.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            getSelectedComboLanguage();
+            cercaInTabella();
+        });
         String parametri[] = {Constants.PARAM_REPOSITORIES, Constants.PARAM_LANGUAGE, Constants.PARAM_PROGR_LANGUAGE, Constants.PARAM_DATE_COMMIT, Constants.PARAM_URL, Constants.PARAM_DIMENSION, Constants.PARAM_STARS};
         ObservableList<String> listaLinguaggi = FXCollections.observableArrayList(parametri);
         comboParametriRicerca.setItems(listaLinguaggi);
@@ -368,12 +371,32 @@ public class PrimaryController {
         anchorQuery.setRightAnchor(nuovaQuery, 90.0);
         anchorQuery.setLeftAnchor(nuovaKey, 95.0);
 
-        nuovaQuery.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {Applicazione.getInstance().getCommonEvents().changeBorderColor(nuovaQuery, Constants.COLOR_HOVER_TEXTFIELD);}});
-        nuovaQuery.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {Applicazione.getInstance().getCommonEvents().changeBorderColor(nuovaQuery, Constants.COLOR_TEXTFIELD);}});
-        nuovaKey.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {Applicazione.getInstance().getCommonEvents().changeBorderColor(nuovaKey, Constants.COLOR_HOVER_TEXTFIELD);}});
-        nuovaKey.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {Applicazione.getInstance().getCommonEvents().changeBorderColor(nuovaKey, Constants.COLOR_TEXTFIELD);}});
+        nuovaQuery.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Applicazione.getInstance().getCommonEvents().changeBorderColor(nuovaQuery, Constants.COLOR_HOVER_TEXTFIELD);
+            }
+        });
+        nuovaQuery.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Applicazione.getInstance().getCommonEvents().changeBorderColor(nuovaQuery, Constants.COLOR_TEXTFIELD);
+            }
+        });
+        nuovaKey.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Applicazione.getInstance().getCommonEvents().changeBorderColor(nuovaKey, Constants.COLOR_HOVER_TEXTFIELD);
+            }
+        });
+        nuovaKey.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Applicazione.getInstance().getCommonEvents().changeBorderColor(nuovaKey, Constants.COLOR_TEXTFIELD);
+            }
+        });
 
-        TextField ultimaInserita = this.listaCampiQuery.get(this.listaCampiQuery.size()-1);
+        TextField ultimaInserita = this.listaCampiQuery.get(this.listaCampiQuery.size() - 1);
         setTextFieldProperties(ultimaInserita, nuovaQuery, ultimaInserita.getPromptText());
         setTextFieldProperties(vecchiaKey, nuovaKey, "Key");
 
@@ -389,7 +412,7 @@ public class PrimaryController {
         nuova.setPrefWidth(ultimaInserita.getPrefWidth());
         nuova.setFont(ultimaInserita.getFont());
         nuova.setPromptText(promptText);
-        nuova.setStyle("-fx-background-color:" + Constants.COLORE_PRIMARIO + ";" + " -fx-border-color:" + Constants.COLOR_TEXTFIELD + ";" +" -fx-border-radius: 20; -fx-background-insets: 0; -fx-text-fill: #000;");
+        nuova.setStyle("-fx-background-color:" + Constants.COLORE_PRIMARIO + ";" + " -fx-border-color:" + Constants.COLOR_TEXTFIELD + ";" + " -fx-border-radius: 20; -fx-background-insets: 0; -fx-text-fill: #000;");
         nuova.setLayoutX(ultimaInserita.getLayoutX());
         nuova.setMaxHeight(ultimaInserita.getMaxHeight());
         nuova.setMaxWidth(ultimaInserita.getMaxWidth());
@@ -397,12 +420,12 @@ public class PrimaryController {
     }
 
     private void eliminaCampoQuery() {
-        this.anchorQuery.getChildren().remove(this.listaCampiQuery.get(this.listaCampiQuery.size()-1));
-        this.anchorQuery.getChildren().remove(this.listaCampiChiavi.get(this.listaCampiChiavi.size()-1));
-        this.listaCampiQuery.remove(this.listaCampiQuery.size()-1);
-        this.listaCampiChiavi.remove(this.listaCampiChiavi.size()-1);
-        Applicazione.getInstance().getModello().addObject(Constants.ULTIMO_CAMPO_KEY, this.listaCampiChiavi.get(this.listaCampiChiavi.size()-1));
-        if(this.listaCampiChiavi.size() == 3) {
+        this.anchorQuery.getChildren().remove(this.listaCampiQuery.get(this.listaCampiQuery.size() - 1));
+        this.anchorQuery.getChildren().remove(this.listaCampiChiavi.get(this.listaCampiChiavi.size() - 1));
+        this.listaCampiQuery.remove(this.listaCampiQuery.size() - 1);
+        this.listaCampiChiavi.remove(this.listaCampiChiavi.size() - 1);
+        Applicazione.getInstance().getModello().addObject(Constants.ULTIMO_CAMPO_KEY, this.listaCampiChiavi.get(this.listaCampiChiavi.size() - 1));
+        if (this.listaCampiChiavi.size() == 3) {
             this.enableDisableRemoveButton(true);
         }
     }
@@ -415,12 +438,10 @@ public class PrimaryController {
     }
 
     private void filterByProgrammingLanguage() {
-
-
-        Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Rilevamento del linguaggio di programmazione/markup in corso...")), 1500);
+        Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Detecting programming language in progress...")), 1500);
 
         List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
-        for (int i = 0; i < repositories.size(); i++) {
+        for(int i = 0; i < repositories.size(); i++ {
             repositories.get(i).displayProgrammingLanguages();
             int taskWorkProgress = (int) ((100.0 / repositories.size()) * (i + 1));
             // todo: rivedi come settare il valore della progressBar.
@@ -440,6 +461,7 @@ public class PrimaryController {
 
             System.out.println("Percentuale progressBar: " + taskWorkProgress);
         }
+
         // Reset progressBar.
         progressBar.setProgress(Constants.values[0]);
 
@@ -449,13 +471,9 @@ public class PrimaryController {
 
     }
 
-    private void cloneRepositories(Runnable postExecute) {
-
+    private void cloneRepositories(Thread postExecute) {
         disableAllUIElementsResults(true);
-
-
         List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
-
         if (repositories == null || repositories.isEmpty()) {
             System.out.println("Esegui prima una query di ricerca \uD83D\uDE0E");
             labelProgress.setText("You must run a search query first");
@@ -521,7 +539,7 @@ public class PrimaryController {
     private void actionCerca() {
         this.labelErrori.setText("");
         List<Qualifier> qualifiers = createListQualifiers();
-        if(qualifiers != null) {
+        if (qualifiers != null) {
             Query query = new Query(qualifiers);
             setOptionalFields(query);
             Session session = new Session(null);
@@ -601,17 +619,17 @@ public class PrimaryController {
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
         List<Qualifier> listQualifiers = new ArrayList<>();
         int i = 0;
-        for(TextField t : this.listaCampiChiavi) {
+        for (TextField t : this.listaCampiChiavi) {
 
             boolean presenza = checkKeyPresence(t.getText());
-            if(presenza && !t.getText().isEmpty() && !this.listaCampiQuery.get(i).getText().isEmpty()) {
+            if (presenza && !t.getText().isEmpty() && !this.listaCampiQuery.get(i).getText().isEmpty()) {
                 listQualifiers.add(new Qualifier(t.getText(), this.listaCampiQuery.get(i).getText()));
                 System.out.println("qual added");
-            } else if(presenza && !t.getText().isEmpty() && this.listaCampiQuery.get(i).getText().isEmpty()) {
+            } else if (presenza && !t.getText().isEmpty() && this.listaCampiQuery.get(i).getText().isEmpty()) {
                 commonEvents.changeBorderColor(t, "#ff0000");
                 this.labelErrori.setText("If you put a key you must put a value too!");
                 return null;
-            } else if(listQualifiers.size() > 0 && t.getText().isEmpty()) {
+            } else if (listQualifiers.size() > 0 && t.getText().isEmpty()) {
                 return listQualifiers;
             } else {
                 commonEvents.changeBorderColor(t, "#ff0000");
@@ -626,21 +644,21 @@ public class PrimaryController {
     }
 
     private void setOptionalFields(Query q) {
-        if(!this.campoOrder.getText().isEmpty()) {
+        if (!this.campoOrder.getText().isEmpty()) {
             q.setOrder(this.campoOrder.getText());
         }
-        if(!this.campoSort.getText().isEmpty()) {
+        if (!this.campoSort.getText().isEmpty()) {
             q.setSort(this.campoSort.getText());
         }
-        if(!this.campoToken.getText().isEmpty()) {
+        if (!this.campoToken.getText().isEmpty()) {
             q.setToken(this.campoToken.getText());
         }
         q.setDate(getDatePickerStartInstant() + getDatePickerEndInstant());
     }
 
     private boolean checkKeyPresence(String key) {
-        for(int i = 0; i < Constants.LISTA_QUAL.length; i++) {
-            if(Constants.LISTA_QUAL[i].equalsIgnoreCase(key.trim())) {
+        for (int i = 0; i < Constants.LISTA_QUAL.length; i++) {
+            if (Constants.LISTA_QUAL[i].equalsIgnoreCase(key.trim())) {
                 return true;
             }
         }
@@ -678,14 +696,17 @@ public class PrimaryController {
         this.bottoneEliminaSelezionato.setDisable(true);
         ObservableList<Repository> listaAgg = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO_AGGIORNATA);
         ObservableList<Repository> listaCompleta = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
-        if(listaAgg == null) {
+        if (listaCompleta == null || listaCompleta.size() == 0) {
+            return;
+        }
+        if (listaAgg == null) {
             listaCompleta.clear();
             this.tableRepository.setItems(listaCompleta);
             return;
         }
         listaCompleta.removeAll(listaAgg);
         listaAgg.removeAll(listaAgg);
-        this.tableRepository.setItems(listaAgg);
+        updateTable();
         checkListEmpty();
     }
 
@@ -694,8 +715,8 @@ public class PrimaryController {
         ObservableList<Repository> listaCompleta = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
         int selectedIndex = this.tableRepository.getSelectionModel().getSelectedIndex();
         this.bottoneEliminaSelezionato.setDisable(true);
-        if(selectedIndex != -1) {
-            if(listaAgg == null) {
+        if (selectedIndex != -1) {
+            if (listaAgg == null) {
                 listaCompleta.remove(selectedIndex);
                 this.tableRepository.setItems(listaCompleta);
                 return;
@@ -703,21 +724,21 @@ public class PrimaryController {
             Repository repo = listaAgg.get(selectedIndex);
             listaCompleta.remove(repo);
             listaAgg.remove(repo);
-            this.tableRepository.setItems(listaAgg);
+            updateTable();
         }
         checkListEmpty();
     }
 
     private void checkListEmpty() {
         ObservableList<Repository> lista = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
-        if(lista.isEmpty()) {
+        if (lista.isEmpty()) {
             tabbedPane.getSelectionModel().select(tabQueries);
             tabResults.setDisable(true);
         }
     }
 
     private void selectItemTableEvent() {
-        if(this.tableRepository.getSelectionModel().getSelectedIndex() != -1) {
+        if (this.tableRepository.getSelectionModel().getSelectedIndex() != -1) {
             this.bottoneEliminaSelezionato.setDisable(false);
         } else {
             this.bottoneEliminaSelezionato.setDisable(true);
@@ -725,7 +746,7 @@ public class PrimaryController {
     }
 
     private void disableAllUIElements(boolean value) {
-        for(int i = 0; i < listaCampiChiavi.size(); i++) {
+        for (int i = 0; i < listaCampiChiavi.size(); i++) {
             listaCampiChiavi.get(i).setDisable(value);
             listaCampiQuery.get(i).setDisable(value);
         }
@@ -734,7 +755,7 @@ public class PrimaryController {
         campoOrder.setDisable(value);
         datePickerStart.setDisable(value);
         datePickerEnd.setDisable(value);
-        if(value == false && this.listaCampiQuery.size() > 3) {
+        if (value == false && this.listaCampiQuery.size() > 3) {
             iconRemoveQuery.setDisable(value);
             bottoneEliminaQuery.setDisable(value);
         }
@@ -745,8 +766,8 @@ public class PrimaryController {
         campoKeyOrder.setDisable(value);
         campoKeySort.setDisable(value);
         ObservableList<Repository> lista = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
-        if(value == false) {
-            if(lista != null && !lista.isEmpty()) {
+        if (value == false) {
+            if (lista != null && !lista.isEmpty()) {
                 tabResults.setDisable(value);
                 tabbedPane.getSelectionModel().select(tabResults);
             }
@@ -756,8 +777,6 @@ public class PrimaryController {
     }
 
     private void disableAllUIElementsResults(boolean value) {
-        System.out.println("disabilito");
-
         tableRepository.setDisable(value);
         iconFilterLang.setDisable(value);
         iconDeleteBulk.setDisable(value);
@@ -770,12 +789,26 @@ public class PrimaryController {
         tabbedPane.setDisable(value);
     }
 
+    private void actionSaveClone() {
+        Stage stage = (Stage) Applicazione.getInstance().getModello().getObject(Constants.PRIMARY_STAGE);
+        DirectoryChooser chooser = new DirectoryChooser();
+        chooser.setTitle("G-Repo - Choose where to save your repos");
+        String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
+        chooser.setInitialDirectory(new File(currentPath));
+        disableAllUIElementsResults(true);
+        File selectedDirectory = chooser.showDialog(stage);
+        Applicazione.getInstance().getModello().addObject(Constants.SAVE_PATH, selectedDirectory);
+        disableAllUIElementsResults(false);
+        String path = Applicazione.getInstance().getModello().getObject(Constants.SAVE_PATH).toString();
+        System.out.println("Choosen path: " + path);
+    }
+
     private void filterByIdiom() {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 List<Repository> lista = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
-                if(lista == null) {
+                if (lista == null) {
                     return;
                 }
                 Operator.actionDetectIdiom();
