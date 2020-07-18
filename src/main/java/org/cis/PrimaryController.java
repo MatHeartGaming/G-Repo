@@ -99,6 +99,7 @@ public class PrimaryController extends Window {
         buttonFilterLanguage.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonFilterLanguage, Constants.COLORE_BUTTON);}});
         bottoneSalva.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneSalva, "#00ff00");}});
         bottoneSalva.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneSalva, "#99ff33");}});
+        bottoneSalva.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {actionSaveClone();}});
         bottoneAggiungiQuery.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneAggiungiQuery, Constants.BUTTON_HOVER_COLOR);}});
         bottoneAggiungiQuery.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneAggiungiQuery, Constants.COLORE_BUTTON);}});
         bottoneAggiungiQuery.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {aggiungiCampoQuery();}});
@@ -441,7 +442,7 @@ public class PrimaryController extends Window {
         Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Detecting programming language in progress...")), 1500);
 
         List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
-        for(int i = 0; i < repositories.size(); i++ {
+        for(int i = 0; i < repositories.size(); i++) {
             repositories.get(i).displayProgrammingLanguages();
             int taskWorkProgress = (int) ((100.0 / repositories.size()) * (i + 1));
             // todo: rivedi come settare il valore della progressBar.
@@ -471,7 +472,7 @@ public class PrimaryController extends Window {
 
     }
 
-    private void cloneRepositories(Thread postExecute) {
+    private void cloneRepositories(Runnable postExecute) {
         disableAllUIElementsResults(true);
         List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
         if (repositories == null || repositories.isEmpty()) {
@@ -582,7 +583,7 @@ public class PrimaryController extends Window {
                             Applicazione.getInstance().getModello().addObject(Constants.LISTA_REPO, tabList);
                             // Init Cloning.
                             Applicazione.getInstance().getModello().addObject(Constants.INDEX_LAST_CLONED_REPOSITORY, -1);
-                            Platform.runLater(new Runnable() {@Override public void run() {setTable();}});
+                            Platform.runLater(new Runnable() {@Override public void run() {updateTable();}});
                             //lancio loadRepo da Dao
 
                             //ottengo lista Repo
