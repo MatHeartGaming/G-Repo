@@ -1,11 +1,21 @@
 package org.cis;
 
-import org.cis.controllo.FileUtils;
-
 public class Constants {
 
     public static final String RELATIVE_PATH_CLONING_DIRECTORY = "\\risorse\\cacheCloneRepositories";
-    public static final String RELATIVE_PATH_LANGUAGE_DIRECTORY = "\\risorse\\languageRepositories";
+
+    public static final String RELATIVE_PATH_INPUT_CSV = "\\risorse\\GHLanguageDetection\\input.csv";
+    public static final String RELATIVE_PATH_OUTPUT_CSV = "\\risorse\\GHLanguageDetection\\output.csv";
+
+    public static final String RELATIVE_PATH_LANGUAGE_REPOSITORIES = "\\risorse\\lingua";
+    public static final String RELATIVE_PATH_ENGLISH = RELATIVE_PATH_LANGUAGE_REPOSITORIES + "\\" + "english";
+    public static final String RELATIVE_PATH_MIXED = RELATIVE_PATH_LANGUAGE_REPOSITORIES + "\\" + "mixed";
+    public static final String RELATIVE_PATH_NOT_ENGLISH = RELATIVE_PATH_LANGUAGE_REPOSITORIES + "\\" + "not_english";
+    public static final String RELATIVE_PATH_UNKNOWN = RELATIVE_PATH_LANGUAGE_REPOSITORIES + "\\" + "unknown";
+
+    public static final String TASK_CLONE_REPOSITORIES = "TASK_CLONE_REPOSITORIES";
+
+    public static final String MAP_REPOSITORY_PROGRAMMING_LANGUAGE = "MAP_REPOSITORY_LANGUAGE_PROGRAMMING";
 
     public static final String INDEX_LAST_CLONED_REPOSITORY = "INDEX_LAST_CLONED_REPOSITORY";
     public static final String LISTA_REPO = "lista repo";

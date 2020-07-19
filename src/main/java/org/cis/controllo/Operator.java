@@ -5,10 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.cis.Applicazione;
 import org.cis.Constants;
-import org.cis.modello.Qualifier;
-import org.cis.modello.Query;
-import org.cis.modello.Repository;
-import org.cis.modello.Session;
+import org.cis.modello.*;
 
 import java.io.*;
 import java.net.MalformedURLException;
@@ -16,6 +13,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -50,7 +48,10 @@ public class Operator {
                 return true;
             }
         } else if(parametro.equals(Constants.PARAM_PROGR_LANGUAGE)) {
-            if(repo.existsProgrammingLanguage(language -> language.toLowerCase().equals(daCercare.toLowerCase().trim()))) {
+            Map<String, StatisticsProgrammingLanguage> languageProgrammingMap =
+                    (Map<String, StatisticsProgrammingLanguage>) Applicazione.getInstance().getModello().getObject(Constants.MAP_REPOSITORY_PROGRAMMING_LANGUAGE);
+            StatisticsProgrammingLanguage statisticsProgrammingLanguage = languageProgrammingMap.get(repo.getId());
+            if(statisticsProgrammingLanguage.existsProgrammingLanguage(language -> language.toLowerCase().equals(daCercare.toLowerCase().trim()))) {
                 return true;
             }
         } else if(parametro.equals(Constants.PARAM_DATE_COMMIT)) {
@@ -85,7 +86,10 @@ public class Operator {
                 return true;
             }
         } else if(parametro.equals(Constants.PARAM_PROGR_LANGUAGE)) {
-            if(repo.existsProgrammingLanguage(language -> language.toLowerCase().contains(daCercare.toLowerCase().trim()))) {
+            Map<String, StatisticsProgrammingLanguage> languageProgrammingMap =
+                    (Map<String, StatisticsProgrammingLanguage>) Applicazione.getInstance().getModello().getObject(Constants.MAP_REPOSITORY_PROGRAMMING_LANGUAGE);
+            StatisticsProgrammingLanguage statisticsProgrammingLanguage = languageProgrammingMap.get(repo.getId());
+            if(statisticsProgrammingLanguage.existsProgrammingLanguage(language -> language.toLowerCase().contains(daCercare.toLowerCase().trim()))) {
                 return true;
             }
         } else if(parametro.equals(Constants.PARAM_DATE_COMMIT)) {

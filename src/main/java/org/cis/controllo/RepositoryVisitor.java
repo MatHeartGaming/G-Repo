@@ -1,6 +1,7 @@
 package org.cis.controllo;
 
 import org.cis.DAO.ProgrammingLanguage;
+import org.cis.modello.StatisticsProgrammingLanguage;
 
 import java.io.IOException;
 import java.nio.file.*;
@@ -11,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 
 public class RepositoryVisitor {
+
+    //todo: refactoring dei nomi...sono infelici.
 
     // Init map<Key=Ext, Value=LanguageName>.
     private static Map<String, String> mapExtLanguages = new ProgrammingLanguage().loadMapExtLanguages();
@@ -44,7 +47,7 @@ public class RepositoryVisitor {
             }
 
             String fileName = file.getFileName().toString();
-            String ext = FileUtils.getExtension(fileName);
+            String ext = FileUtils.extension(fileName);
             if (ext == "") {
                 return FileVisitResult.CONTINUE;
             }
@@ -68,21 +71,32 @@ public class RepositoryVisitor {
         }
     }
 
-    public String programmingLanguageDetection(String cloneDirectoryRepository) {
+    public StatisticsProgrammingLanguage programmingLanguageDetection(String cloneDirectoryRepository) {
         Map<String, Integer> languageProgrammingOccurrence = this.computeLanguagesProgramming(cloneDirectoryRepository);
 
         // The repository can be empty, or not contain files related to programming languages ​​or markup.
         if (languageProgrammingOccurrence.isEmpty()) {
-            return "N.C.";
+            List<String> languagesMaximumOccurrences = new ArrayList<>();
+            languagesMaximumOccurrences.add("N.C.");
+            return new StatisticsProgrammingLanguage(0, languagesMaximumOccurrences);
         }
+
         String languageNameMax = this.max(languageProgrammingOccurrence);
 
-        List<String> otherLanguagesNameMax = this.checkForMoreMax(languageProgrammingOccurrence, languageNameMax);
-        if (otherLanguagesNameMax.size() > 1) {
-            languageNameMax = String.join(", ", otherLanguagesNameMax);
+        List<String> languagesMaximumOccurrences = this.checkForMoreMax(languageProgrammingOccurrence, languageNameMax);
+
+        int totalOccurrences = 0;
+        for (Integer occurrence: languageProgrammingOccurrence.values()) {
+            totalOccurrences = totalOccurrences + occurrence;
         }
 
-        return languageNameMax;
+        int occurrenceMax = languageProgrammingOccurrence.get(languageNameMax);
+
+        double percentage = ((100.0 / totalOccurrences)
+                * occurrenceMax);
+        percentage = Utils.round(percentage, 1);
+
+        return new StatisticsProgrammingLanguage(percentage, languagesMaximumOccurrences);
     }
 
     private List<String> checkForMoreMax(Map<String, Integer> languageProgrammingOccurrence, String languageNameMax) {
@@ -124,5 +138,5 @@ public class RepositoryVisitor {
 
         return languageProgrammingOccurrence;
     }
-    
+
 }
