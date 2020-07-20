@@ -11,6 +11,7 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
@@ -310,24 +311,77 @@ public class Operator {
     }
 
 
-    public static void actionDetectIdiom() {
+    public static boolean actionDetectIdiom() {
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
         System.out.println("Avvio processo di language detection");
         try {
-            String absolutePath = new java.io.File("").getAbsolutePath();
-            String savePath = absolutePath + "\\risorse\\languageRepository";
-            System.out.println("Path salvataggio lingua: " + savePath);
-            File directoryLanguage = new File(savePath);
-            File[] files = directoryLanguage.listFiles();
-            for(File f : files) {
-                f.delete();
+
+            String separetor = FileUtils.PATH_SEPARATOR;
+
+            String savePath = "risorse" + separetor + "lingua";
+            System.out.println("Path salvataggio lingua: " + FileUtils.createAbsolutePath(savePath));
+
+            String pathEnRel = savePath + separetor + "english";
+            Path pathEn = FileUtils.createAbsolutePath(pathEnRel);
+            System.out.println("Path salvataggio lingua english delete: " + pathEn);
+            Files.list(pathEn).forEach(FileUtils::deleteDirTree);
+
+
+            String pathNotEnRel = savePath + separetor + "not_english";
+            Path pathNotEn = FileUtils.createAbsolutePath(pathNotEnRel);
+            System.out.println("Path salvataggio lingua not english delete: " + pathNotEn);
+            Files.list(pathNotEn).forEach(FileUtils::deleteDirTree);
+
+            String pathMixRel = savePath + separetor + "mixed";
+            Path pathMix = FileUtils.createAbsolutePath(pathMixRel);
+            System.out.println("Path salvataggio lingua mixed delete: " + pathMix);
+            Files.list(pathMix).forEach(FileUtils::deleteDirTree);
+
+            String pathUnRel = savePath + separetor + "unknown";
+            Path pathUn = FileUtils.createAbsolutePath(pathUnRel);
+            System.out.println("Path salvataggio lingua unknown delete: " + pathUn);
+            Files.list(pathUn).forEach(FileUtils::deleteDirTree);
+
+            String cmd = "python detector.py";
+            String toolPathRel = "risorse" + separetor + "GHLanguageDetection";
+            Path toolPath = FileUtils.createAbsolutePath(toolPathRel);
+            File dir = new File(toolPath.toString());
+            System.out.println("Path salvataggio lingua unknown delete: " + toolPath);
+
+            Process process = Runtime.getRuntime().exec(cmd, null, dir);
+            Applicazione.getInstance().getModello().addObject(Constants.PROCESS_LANGUAGE_DETECTION, process);
+
+            BufferedReader stdInput = new BufferedReader(new
+                    InputStreamReader(process.getInputStream()));
+
+            BufferedReader stdError = new BufferedReader(new
+                    InputStreamReader(process.getErrorStream()));
+
+            // Read the output from the command
+
+            String s;
+
+            while ((s = stdInput.readLine()) != null) {
+                if (s.contains("ERROR")){
+                    System.out.println(s);
+                    Applicazione.getInstance().getModello().addObject(Constants.MESSAGGIO_LANGUAGE_DETECTION,s);
+                    return false;
+                }
+                System.out.println(s);
             }
-            String cmd = "";
-            Process process = Runtime.getRuntime().exec(cmd, null, directoryLanguage);
-            Applicazione.getInstance().getModello().addObject(Constants.THREAD_LANGUAGE, process);
+            // Read any errors from the attempted command
+
+            while ((s = stdError.readLine()) != null) {
+                Applicazione.getInstance().getModello().addObject(Constants.MESSAGGIO_LANGUAGE_DETECTION,s);
+                System.out.println(s);
+                return false;
+            }
+
+
         } catch (Exception ex) {
-            commonEvents.showExceptionDialog(ex);
+            Applicazione.getInstance().getCommonEvents().showExceptionDialog(ex);
             ex.printStackTrace();
         }
+        return true;
     }
 }

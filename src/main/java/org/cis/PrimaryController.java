@@ -447,9 +447,11 @@ public class PrimaryController extends Window {
                     return String.join(",", "" + index, repository.getCloneDirectory());
                 });
                 // Language Detection.
-                /*if (!Operator.actionDetectIdiom()) {
-                    throw new RuntimeException("Error detecting language");
-                }*/
+
+                if (!Operator.actionDetectIdiom()) {
+                    throw new RuntimeException((String) Applicazione.getInstance().getModello().getObject(Constants.MESSAGGIO_LANGUAGE_DETECTION));
+                }
+
                 // Update repositories from CSV [Index, CloneDirectory, Language,...]
                 Path outputCSV = FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_OUTPUT_CSV);
                 daoRepositoryCSV.updateRepositories(outputCSV, s -> {
@@ -732,6 +734,18 @@ public class PrimaryController extends Window {
     }
 
     private void stopThread() {
+
+
+        Task task = (Task) Applicazione.getInstance().getModello().getObject(Constants.TASK_CLONE_REPOSITORIES);
+        if(task!=null){
+            task.cancel();
+        }
+
+       /* Process processoLan = (Process) Applicazione.getInstance().getModello().getObject(Constants.PROCESS_LANGUAGE_DETECTION);
+        if(processoLan!=null){
+            processoLan.destroy();
+        }*/
+
         Thread thread = (Thread) Applicazione.getInstance().getModello().getObject(Constants.THREAD_DOWNLOAD_REPO);
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
         if(thread != null) {
@@ -739,15 +753,20 @@ public class PrimaryController extends Window {
             String messaggio = (String) Applicazione.getInstance().getModello().getObject(Constants.MESSAGGIO_FINE_RICERCA);
             Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar(messaggio, 5);}});
             Applicazione.getInstance().getModello().addObject(Constants.MESSAGGIO_FINE_RICERCA,null);
-        } else {
-            return;
         }
+
+
         Process process = (Process) Applicazione.getInstance().getModello().getObject(Constants.THREAD_REPO_SEARCHER);
         if(process != null){
             process.destroy();
         }
+
+
         Applicazione.getInstance().getModello().addObject(Constants.THREAD_DOWNLOAD_REPO, null);
         Applicazione.getInstance().getModello().addObject(Constants.THREAD_REPO_SEARCHER, null);
+        Applicazione.getInstance().getModello().addObject(Constants.PROCESS_LANGUAGE_DETECTION,null);
+        Applicazione.getInstance().getModello().addObject(Constants.TASK_CLONE_REPOSITORIES,null);
+
         ObservableList<Repository> lista = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
         if(lista == null) {
             return;
