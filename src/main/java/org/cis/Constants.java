@@ -18,6 +18,7 @@ public class Constants {
     public static final String TASK_CLONE_REPOSITORIES = "TASK_CLONE_REPOSITORIES";
 
     public static final String MAP_REPOSITORY_PROGRAMMING_LANGUAGE = "MAP_REPOSITORY_LANGUAGE_PROGRAMMING";
+    public static final String MAP_REPOSITORY_LANGUAGE = "MAP_REPOSITORY_LANGUAGE";
 
     public static final String INDEX_LAST_CLONED_REPOSITORY = "INDEX_LAST_CLONED_REPOSITORY";
     public static final String LISTA_REPO = "lista repo";

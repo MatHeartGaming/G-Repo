@@ -18,7 +18,6 @@ public class TaskCloneRepositories extends Task<Void> {
     private ProgressMonitor monitor = new Monitor();
     private String currentNameRepository;
     private boolean cancel = false;
-    private boolean cancelled = false;
     private int firstNonClonedRepositoryIndex;
     private List<Repository> repositories;
     private String token;
@@ -58,7 +57,6 @@ public class TaskCloneRepositories extends Task<Void> {
                 } catch (Exception e) {
                     if (this.cancel == true) {
                         updateMessage("Stop Cloning");
-                        this.cancelled = true;
                         this.cancel(true);
                         break;
                     }
