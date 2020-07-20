@@ -736,9 +736,9 @@ public class PrimaryController extends Window {
     private void stopThread() {
 
 
-        Task task = (Task) Applicazione.getInstance().getModello().getObject(Constants.TASK_CLONE_REPOSITORIES);
-        if(task!=null){
-            task.cancel();
+        TaskCloneRepositories task = (TaskCloneRepositories) Applicazione.getInstance().getModello().getObject(Constants.TASK_CLONE_REPOSITORIES);
+        if(task != null){
+            task.close();
         }
 
        /* Process processoLan = (Process) Applicazione.getInstance().getModello().getObject(Constants.PROCESS_LANGUAGE_DETECTION);
