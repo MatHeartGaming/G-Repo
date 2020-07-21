@@ -467,9 +467,13 @@ public class PrimaryController extends Window {
 
                     RepositoryLanguage repositoryLanguage = new RepositoryLanguage();
                     repositoryLanguage.setLanguage(values[2]);
-                    repositoryLanguage.setDetection1(values[3], Double.parseDouble(values[4]));
-                    if (values.length > 5) {
-                        // Reading the columns: Code2, Percentage2.
+
+                    if (values.length == 5) {
+                        // Reading the columns: Code1, Percentage1.
+                        repositoryLanguage.setDetection1(values[3], Double.parseDouble(values[4]));
+                    } else if (values.length == 7) {
+                        // Reading the columns:  Code1, Percentage1, Code2, Percentage2.
+                        repositoryLanguage.setDetection1(values[3], Double.parseDouble(values[4]));
                         repositoryLanguage.setDetection2(values[5], Double.parseDouble(values[6]));
                     }
                     // Displays the date in the table.

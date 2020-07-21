@@ -23,8 +23,8 @@ public class RepositoryLanguage {
 
     @Override
     public String toString() {
-        return this.language + " (" + this.detection1.toString()
-                + (this.detection2 == null ? ")" : ", " + this.detection2.toString() + ")");
+        return this.detection1 == null ? this.language : (this.language + " (" + this.detection1.toString()
+                + (this.detection2 == null ? ")" : ", " + this.detection2.toString() + ")"));
     }
 
     public static class Detection {
