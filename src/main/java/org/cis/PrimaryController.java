@@ -532,11 +532,8 @@ public class PrimaryController extends Window {
     }
 
     private void cloneRepositories(Runnable postExecute) {
-<<<<<<< HEAD
-=======
         Runnable runnable = postExecute == null ? () -> {} : postExecute;
 
->>>>>>> origin/MasterLeov2
         disableAllUIElementsResults(true);
         List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
         if (repositories == null || repositories.isEmpty()) {
