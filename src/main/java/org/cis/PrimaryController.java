@@ -472,7 +472,7 @@ public class PrimaryController extends Window {
         task.setOnSucceeded(workerStateEvent -> {
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Rilevamento del linguaggio completato")), 1500);
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Aspetto che mi dia qualcosa da fare...")), 2500);
-     stopThread();
+            stopThread();
         });
 
         task.setOnFailed(workerStateEvent -> {
@@ -482,7 +482,7 @@ public class PrimaryController extends Window {
             System.out.println("Qualcosa è andato storto...limit rate raggiunto o problemi di connessione");
             labelProgress.setText("Qualcosa è andato storto...limit rate raggiunto o problemi di connessione");
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Aspetto che mi dia qualcosa da fare...")), 1500);
-       stopThread();
+            stopThread();
         });
         Thread exe = new Thread(task);
         exe.setName("Thread-FilterByLanguage");
@@ -532,7 +532,7 @@ public class PrimaryController extends Window {
     }
 
     private void cloneRepositories(Runnable postExecute) {
-        //disableAllUIElementsResults(true);
+        disableAllUIElementsResults(true);
         List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
         if (repositories == null || repositories.isEmpty()) {
             System.out.println("Esegui prima una query di ricerca \uD83D\uDE0E");
@@ -584,6 +584,7 @@ public class PrimaryController extends Window {
 
             System.out.println("Stop Cloning...");
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 1500);
+            disableAllUIElementsResults(false);
         });
 
         task.setOnFailed(workerStateEvent -> {
@@ -744,11 +745,7 @@ public class PrimaryController extends Window {
 
 
         TaskCloneRepositories task = (TaskCloneRepositories) Applicazione.getInstance().getModello().getObject(Constants.TASK_CLONE_REPOSITORIES);
-<<<<<<< HEAD
-        if(task != null){
-=======
         if(task!=null){
->>>>>>> michele
             task.close();
         }
 
