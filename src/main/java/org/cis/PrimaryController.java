@@ -457,13 +457,27 @@ public class PrimaryController extends Window {
                     throw new RuntimeException((String) Applicazione.getInstance().getModello().getObject(Constants.MESSAGGIO_LANGUAGE_DETECTION));
                 }
 
-                // Update repositories from CSV [Index, CloneDirectory, Language,...]
+                // Update repositories from CSV [Index, CloneDirectory, Language, Code1, Percentage1, Code2, Percentage2]
                 Path outputCSV = FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_OUTPUT_CSV);
                 daoRepositoryCSV.updateRepositories(outputCSV, s -> {
                     String[] values = s.split(",");
+
                     Repository repository = repositories.get(Integer.parseInt(values[0]));
                     repository.setCloneDirectory(values[1]);
-                    repository.setLanguageProperty(values[2]);
+
+                    RepositoryLanguage repositoryLanguage = new RepositoryLanguage();
+                    repositoryLanguage.setLanguage(values[2]);
+                    repositoryLanguage.setDetection1(values[3], Double.parseDouble(values[4]));
+                    if (values.length > 5) {
+                        // Reading the columns: Code2, Percentage2.
+                        repositoryLanguage.setDetection2(values[5], Double.parseDouble(values[6]));
+                    }
+                    // Displays the date in the table.
+                    repository.setLanguageProperty(repositoryLanguage.toString());
+
+                    Map<String, RepositoryLanguage> repositoryLanguageMap =
+                            (Map<String, RepositoryLanguage>) Applicazione.getInstance().getModello().getObject(Constants.MAP_REPOSITORY_LANGUAGE);
+                    repositoryLanguageMap.put(repository.getId(), repositoryLanguage);
                 });
                 return null;
             }
@@ -479,8 +493,8 @@ public class PrimaryController extends Window {
             workerStateEvent.getSource().getException().printStackTrace();
             task.cancel(true);
 
-            System.out.println("Qualcosa è andato storto...limit rate raggiunto o problemi di connessione");
-            labelProgress.setText("Qualcosa è andato storto...limit rate raggiunto o problemi di connessione");
+            System.out.println("Qualcosa è andato storto...");
+            labelProgress.setText("Qualcosa è andato storto...");
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Aspetto che mi dia qualcosa da fare...")), 1500);
             stopThread();
         });
@@ -656,10 +670,16 @@ public class PrimaryController extends Window {
                             Applicazione.getInstance().getModello().addObject(Constants.LISTA_REPO, tabList);
                             // Init Cloning.
                             Applicazione.getInstance().getModello().addObject(Constants.INDEX_LAST_CLONED_REPOSITORY, -1);
+
                             // Init by Programming Language.
                             // map<Key=IDRepository, Value=StatisticsLanguageProgramming>
                             Map<String, StatisticsProgrammingLanguage> mapRepositoryLangProg = new HashMap<>();
                             Applicazione.getInstance().getModello().addObject(Constants.MAP_REPOSITORY_PROGRAMMING_LANGUAGE, mapRepositoryLangProg);
+
+                            // Init by Language Detection
+                            // map<Key=IDRepository, Value=RepositoryLanguage>
+                            Map<String, RepositoryLanguage> repositoryLanguageMap = new HashMap<>();
+                            Applicazione.getInstance().getModello().addObject(Constants.MAP_REPOSITORY_LANGUAGE, repositoryLanguageMap);
 
                             Platform.runLater(new Runnable() {@Override public void run() {updateTable();}});
                             //lancio loadRepo da Dao
@@ -744,10 +764,16 @@ public class PrimaryController extends Window {
     }
 
     private void stopThread() {
+        // TODO: 20/07/2020 controllare
 
+<<<<<<< HEAD
 
         TaskCloneRepositories task = (TaskCloneRepositories) Applicazione.getInstance().getModello().getObject(Constants.TASK_CLONE_REPOSITORIES);
         if(task!=null){
+=======
+        TaskCloneRepositories task = (TaskCloneRepositories) Applicazione.getInstance().getModello().getObject(Constants.TASK_CLONE_REPOSITORIES);
+        if(task != null){
+>>>>>>> 01eab99c6356af80e4fae7357c84162644f11e63
             task.close();
         }
 
