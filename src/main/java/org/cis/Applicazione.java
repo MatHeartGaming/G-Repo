@@ -1,6 +1,7 @@
 package org.cis;
 
 import javafx.fxml.FXML;
+import org.cis.DAO.DAORepositoryCSV;
 import org.cis.DAO.DAORepositoryJSON;
 import org.cis.DAO.DAORepositoryMock;
 import org.cis.controllo.CommonEvents;
@@ -18,6 +19,11 @@ public class Applicazione {
     private SessionManager sessionManager = new SessionManager();
     private SingleThread singleThread = new SingleThread();
     private DAORepositoryJSON daoRepositoryJSON = new DAORepositoryJSON();
+    private DAORepositoryCSV daoRepositoryCSV = new DAORepositoryCSV();
+
+    public DAORepositoryCSV getDaoRepositoryCSV() {
+        return daoRepositoryCSV;
+    }
 
     public DAORepositoryJSON getDaoRepositoryJSON() {
         return daoRepositoryJSON;

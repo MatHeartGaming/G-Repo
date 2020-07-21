@@ -1,5 +1,7 @@
 package org.cis.controllo;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -16,15 +18,12 @@ public class Utils {
         }, delay);
     }
 
-    /*public static void setTimeout(Runnable runnable, long delay){
-        new Thread(() -> {
-            try {
-                Thread.sleep(delay);
-                runnable.run();
-            }
-            catch (Exception e){
-                System.err.println(e);
-            }
-        }).start();
-    }*/
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(Double.toString(value));
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+
 }

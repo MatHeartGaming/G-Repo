@@ -25,14 +25,12 @@ import java.util.List;
  */
 public class App extends Application {
 
-    private static Scene scene;
-
     @Override
     public void start(Stage stage) throws IOException {
         Applicazione.getInstance().getSingleThread().start();
-        // By cloning.
-        FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY));
-        FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_LANGUAGE_DIRECTORY));
+        //# Init Folder:
+        initFolder();
+
         // Init GUI.
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
         commonEvents.loadPanel("primary", Modality.NONE, true, "G-Repo", StageStyle.DECORATED, false);
@@ -45,13 +43,16 @@ public class App extends Application {
         stage.setTitle("G-Repo");*/
     }
 
-    static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
-    }
+    private void initFolder() {
+        //## By cloning.
+        FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY));
 
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
+        //## By Language Detection
+        FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_LANGUAGE_REPOSITORIES));
+        FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_ENGLISH));
+        FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_MIXED));
+        FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_NOT_ENGLISH));
+        FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_UNKNOWN));
     }
 
     public static void main(String[] args) {

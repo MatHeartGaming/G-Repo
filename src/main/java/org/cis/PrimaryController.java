@@ -8,6 +8,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,20 +20,18 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.*;
 import javafx.util.Duration;
-import org.cis.controllo.CommonEvents;
-import org.cis.controllo.Operator;
-import org.cis.controllo.TaskSaveRepository;
-import org.cis.controllo.Utils;
+import org.cis.DAO.DAORepositoryCSV;
+import org.cis.controllo.*;
 import org.cis.modello.*;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class PrimaryController extends Window {
 
@@ -108,6 +107,7 @@ public class PrimaryController extends Window {
         bottoneEliminaQuery.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaQuery, Constants.COLORE_BUTTON);}});
         bottoneStop.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneStop, "#ff0000");}});
         bottoneStop.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneStop, "#cc3333");}});
+
         bottoneStop.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) { Applicazione.getInstance().getModello().addObject(Constants.MESSAGGIO_FINE_RICERCA,"Ricerca Stoppata!");stopThread();}});
 
         bottoneEliminaSelezionato.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaSelezionato, "#ff0000");}});
@@ -122,7 +122,9 @@ public class PrimaryController extends Window {
         checkStrictMode.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {cercaInTabella();}});
 
         this.bottoneCerca.setDisable(true);
+        //todo: ripristinare a true.
         this.tabResults.setDisable(true);
+
         this.enableDisableRemoveButton(true);
         this.bottoneEliminaSelezionato.setDisable(true);
         initIcons();
@@ -198,6 +200,11 @@ public class PrimaryController extends Window {
         columnLingua.setCellValueFactory(cellData -> cellData.getValue().languagePropertyProperty());
         columnLinguaggio.setCellValueFactory(cellData -> cellData.getValue().programmingLanguagesPropertyProperty());
         columnStars.setCellValueFactory(cellData -> cellData.getValue().starsProperty());
+
+        Sorter sorter = new Sorter();
+
+        columnStars.setComparator(sorter.new SortByStars());
+        columnDimensione.setComparator(sorter.new SortByDimension());
     }
 
     private void initListaTextField() {
@@ -432,18 +439,87 @@ public class PrimaryController extends Window {
     }
 
     private void filterByLanguage() {
-        Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Detecting language in progress...")), 1500);
+        Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Rilevamento del linguaggio in corso...")), 1500);
         // ANAS CODE...
-        Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Detecting language complete")), 1500);
-        Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 2500);
+        Task<Void> task = new Task<>() {
+            @Override
+            protected Void call() throws Exception {
+                List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
+                // Create CSV file...
+                Path inputCSV = FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_INPUT_CSV);
+                DAORepositoryCSV daoRepositoryCSV = Applicazione.getInstance().getDaoRepositoryCSV();
+                daoRepositoryCSV.saveRepositories(inputCSV, repositories, new String[]{"Index", "CloneDirectory"}, (repository, index) -> {
+                    return String.join(",", "" + index, repository.getCloneDirectory());
+                });
+                // Language Detection.
+
+                if (!Operator.actionDetectIdiom()) {
+                    throw new RuntimeException((String) Applicazione.getInstance().getModello().getObject(Constants.MESSAGGIO_LANGUAGE_DETECTION));
+                }
+
+                // Update repositories from CSV [Index, CloneDirectory, Language, Code1, Percentage1, Code2, Percentage2]
+                Path outputCSV = FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_OUTPUT_CSV);
+                daoRepositoryCSV.updateRepositories(outputCSV, s -> {
+                    String[] values = s.split(",");
+
+                    Repository repository = repositories.get(Integer.parseInt(values[0]));
+                    repository.setCloneDirectory(values[1]);
+
+                    RepositoryLanguage repositoryLanguage = new RepositoryLanguage();
+                    repositoryLanguage.setLanguage(values[2]);
+
+                    if (values.length == 5) {
+                        // Reading the columns: Code1, Percentage1.
+                        repositoryLanguage.setDetection1(values[3], Double.parseDouble(values[4]));
+                    } else if (values.length == 7) {
+                        // Reading the columns:  Code1, Percentage1, Code2, Percentage2.
+                        repositoryLanguage.setDetection1(values[3], Double.parseDouble(values[4]));
+                        repositoryLanguage.setDetection2(values[5], Double.parseDouble(values[6]));
+                    }
+                    // Displays the date in the table.
+                    repository.setLanguageProperty(repositoryLanguage.toString());
+
+                    Map<String, RepositoryLanguage> repositoryLanguageMap =
+                            (Map<String, RepositoryLanguage>) Applicazione.getInstance().getModello().getObject(Constants.MAP_REPOSITORY_LANGUAGE);
+                    repositoryLanguageMap.put(repository.getId(), repositoryLanguage);
+                });
+                return null;
+            }
+        };
+
+        task.setOnSucceeded(workerStateEvent -> {
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Rilevamento del linguaggio completato")), 1500);
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Aspetto che mi dia qualcosa da fare...")), 2500);
+            stopThread();
+        });
+
+        task.setOnFailed(workerStateEvent -> {
+            workerStateEvent.getSource().getException().printStackTrace();
+            task.cancel(true);
+
+            System.out.println("Qualcosa è andato storto...");
+            labelProgress.setText("Qualcosa è andato storto...");
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Aspetto che mi dia qualcosa da fare...")), 1500);
+            stopThread();
+        });
+        Thread exe = new Thread(task);
+        exe.setName("Thread-FilterByLanguage");
+        exe.start();
     }
 
     private void filterByProgrammingLanguage() {
-        Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Detecting programming language in progress...")), 1500);
+        Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Rilevamento del linguaggio di programmazione/markup in corso...")), 1500);
 
         List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
-        for(int i = 0; i < repositories.size(); i++) {
-            repositories.get(i).displayProgrammingLanguages();
+        Map<String, StatisticsProgrammingLanguage> languageProgrammingMap =
+                (Map<String, StatisticsProgrammingLanguage>) Applicazione.getInstance().getModello().getObject(Constants.MAP_REPOSITORY_PROGRAMMING_LANGUAGE);
+
+        for (int i = 0; i < repositories.size(); i++) {
+
+            Repository repository = repositories.get(i);
+            StatisticsProgrammingLanguage statisticsProgrammingLanguage = languageProgrammingMap.get(repository.getId());
+            repository.displayProgrammingLanguages(statisticsProgrammingLanguage.toString());
+
             int taskWorkProgress = (int) ((100.0 / repositories.size()) * (i + 1));
             // todo: rivedi come settare il valore della progressBar.
             if (taskWorkProgress < 17) {
@@ -463,16 +539,19 @@ public class PrimaryController extends Window {
             System.out.println("Percentuale progressBar: " + taskWorkProgress);
         }
 
-        // Reset progressBar.
-        progressBar.setProgress(Constants.values[0]);
-
-        Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Detecting programming language completed")), 1500);
-        Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 2500);
+        Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Rilevamento del linguaggio di programmazione/markup completato")), 1500);
+        Utils.setTimeout(() -> Platform.runLater(() -> {
+            labelProgress.setText("Aspetto che mi dia qualcosa da fare...");
+            // Reset progressBar.
+            progressBar.setProgress(Constants.values[0]);
+        }), 2500);
         disableAllUIElementsResults(false);
 
     }
 
     private void cloneRepositories(Runnable postExecute) {
+        Runnable runnable = postExecute == null ? () -> {} : postExecute;
+
         disableAllUIElementsResults(true);
         List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
         if (repositories == null || repositories.isEmpty()) {
@@ -487,7 +566,7 @@ public class PrimaryController extends Window {
 
         if ((indexLastClonedRepository + 1) == repositories.size()) {
             //Tutti i repository sono già stati clonati per questa sessione di ricerca.
-            postExecute.run();
+            runnable.run();
             disableAllUIElementsResults(false);
 
             return;
@@ -500,7 +579,10 @@ public class PrimaryController extends Window {
         }
 
         String token = Applicazione.getInstance().getSessionManager().getCurrentSession().getQuery().getToken();
-        TaskSaveRepository task = new TaskSaveRepository(repositories, firstNonClonedRepositoryIndex, token);
+        TaskCloneRepositories task = new TaskCloneRepositories(repositories, firstNonClonedRepositoryIndex, token);
+
+        Applicazione.getInstance().getModello().addObject(Constants.TASK_CLONE_REPOSITORIES, task);
+
         //# Setting event handler on task
         task.setOnSucceeded(workerStateEvent -> {
             // Reset progressBar, labelProgress.
@@ -510,9 +592,19 @@ public class PrimaryController extends Window {
 
 
             System.out.println("Tutti i repository sono stati clonati correttamente per questa sessione di ricerca");
-            labelProgress.setText("Repositories cloned correctly");
 
-            postExecute.run();
+            runnable.run();
+        });
+
+        task.setOnCancelled(workerStateEvent -> {
+            // Reset progressBar, labelProgress.
+            progressBar.progressProperty().unbind();
+            progressBar.setProgress(Constants.values[0]);
+            labelProgress.textProperty().unbind();
+
+            System.out.println("Stop Cloning...");
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 1500);
+            disableAllUIElementsResults(false);
         });
 
         task.setOnFailed(workerStateEvent -> {
@@ -524,8 +616,7 @@ public class PrimaryController extends Window {
             progressBar.setProgress(Constants.values[0]);
             labelProgress.textProperty().unbind();
 
-            System.out.println("Qualcosa è andato storto...limit rate raggiunto o problemi di connessione");
-            labelProgress.setText("Something went wrong...limit rate reached or connection issues");
+            System.out.println("Qualcosa è andato storto...");
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 1500);
         });
 
@@ -583,6 +674,17 @@ public class PrimaryController extends Window {
                             Applicazione.getInstance().getModello().addObject(Constants.LISTA_REPO, tabList);
                             // Init Cloning.
                             Applicazione.getInstance().getModello().addObject(Constants.INDEX_LAST_CLONED_REPOSITORY, -1);
+
+                            // Init by Programming Language.
+                            // map<Key=IDRepository, Value=StatisticsLanguageProgramming>
+                            Map<String, StatisticsProgrammingLanguage> mapRepositoryLangProg = new HashMap<>();
+                            Applicazione.getInstance().getModello().addObject(Constants.MAP_REPOSITORY_PROGRAMMING_LANGUAGE, mapRepositoryLangProg);
+
+                            // Init by Language Detection
+                            // map<Key=IDRepository, Value=RepositoryLanguage>
+                            Map<String, RepositoryLanguage> repositoryLanguageMap = new HashMap<>();
+                            Applicazione.getInstance().getModello().addObject(Constants.MAP_REPOSITORY_LANGUAGE, repositoryLanguageMap);
+
                             Platform.runLater(new Runnable() {@Override public void run() {updateTable();}});
                             //lancio loadRepo da Dao
 
@@ -666,6 +768,16 @@ public class PrimaryController extends Window {
     }
 
     private void stopThread() {
+        TaskCloneRepositories task = (TaskCloneRepositories) Applicazione.getInstance().getModello().getObject(Constants.TASK_CLONE_REPOSITORIES);
+        if(task != null){
+            task.close();
+        }
+
+       /* Process processoLan = (Process) Applicazione.getInstance().getModello().getObject(Constants.PROCESS_LANGUAGE_DETECTION);
+        if(processoLan!=null){
+            processoLan.destroy();
+        }*/
+
         Thread thread = (Thread) Applicazione.getInstance().getModello().getObject(Constants.THREAD_DOWNLOAD_REPO);
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
         if(thread != null) {
@@ -673,15 +785,20 @@ public class PrimaryController extends Window {
             String messaggio = (String) Applicazione.getInstance().getModello().getObject(Constants.MESSAGGIO_FINE_RICERCA);
             Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar(messaggio, 5);}});
             Applicazione.getInstance().getModello().addObject(Constants.MESSAGGIO_FINE_RICERCA,null);
-        } else {
-            return;
         }
+
+
         Process process = (Process) Applicazione.getInstance().getModello().getObject(Constants.THREAD_REPO_SEARCHER);
         if(process != null){
             process.destroy();
         }
+
+
         Applicazione.getInstance().getModello().addObject(Constants.THREAD_DOWNLOAD_REPO, null);
         Applicazione.getInstance().getModello().addObject(Constants.THREAD_REPO_SEARCHER, null);
+        Applicazione.getInstance().getModello().addObject(Constants.PROCESS_LANGUAGE_DETECTION,null);
+        Applicazione.getInstance().getModello().addObject(Constants.TASK_CLONE_REPOSITORIES,null);
+
         ObservableList<Repository> lista = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
         if(lista == null) {
             return;

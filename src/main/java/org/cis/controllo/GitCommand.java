@@ -85,19 +85,23 @@ public class GitCommand {
         if (monitor != null)
             cloneCommand.setProgressMonitor(monitor);
 
+        Git git = null;
         try {
-            Git git = cloneCommand.setURI(cloneUrl)
-                                //.setBare(false)
-                                  .setDirectory(pathCloneDirectory.toFile())
-                                //.setCloneAllBranches(true)
-                                //.setNoCheckout(false)
-                                  .call();
-            git.getRepository().close();
-            git.close();
-        } catch (GitAPIException e) {
+            git = cloneCommand.setURI(cloneUrl)
+                            //.setBare(false)
+                              .setDirectory(pathCloneDirectory.toFile())
+                            //.setCloneAllBranches(true)
+                            //.setNoCheckout(false)
+                              .call();
+        } catch (Exception e) {
             // Rollback.
             FileUtils.deleteDirTree(pathCloneDirectory);
             throw e;
+        } finally {
+            if (git != null) {
+                git.getRepository().close();
+                git.close();
+            }
         }
     }
 }

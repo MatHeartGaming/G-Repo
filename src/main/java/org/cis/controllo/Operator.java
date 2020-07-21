@@ -5,17 +5,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.cis.Applicazione;
 import org.cis.Constants;
-import org.cis.modello.Qualifier;
-import org.cis.modello.Query;
-import org.cis.modello.Repository;
-import org.cis.modello.Session;
+import org.cis.modello.*;
 
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,11 +46,16 @@ public class Operator {
             return true;
         }
         if(parametro.equals(Constants.PARAM_LANGUAGE)) {
+            // TODO: 20/07/2020 gestire la ricerca con l'oggetto RepositoryLanguage e quindi usare la mappa Constants.MAP_REPOSITORY_LANGUAGE.
             if(repo.getLanguageProperty() != null && repo.getLanguageProperty().toLowerCase().equals(daCercare.toLowerCase().trim())) {
                 return true;
             }
         } else if(parametro.equals(Constants.PARAM_PROGR_LANGUAGE)) {
-            if(repo.existsProgrammingLanguage(language -> language.toLowerCase().equals(daCercare.toLowerCase().trim()))) {
+            Map<String, StatisticsProgrammingLanguage> languageProgrammingMap =
+                    (Map<String, StatisticsProgrammingLanguage>) Applicazione.getInstance().getModello().getObject(Constants.MAP_REPOSITORY_PROGRAMMING_LANGUAGE);
+            StatisticsProgrammingLanguage statisticsProgrammingLanguage = languageProgrammingMap.get(repo.getId());
+            String finalDaCercare = daCercare;
+            if(statisticsProgrammingLanguage.existsProgrammingLanguage(language -> language.toLowerCase().equals(finalDaCercare.toLowerCase().trim()))) {
                 return true;
             }
         } else if(parametro.equals(Constants.PARAM_DATE_COMMIT)) {
@@ -62,13 +67,25 @@ public class Operator {
                 return true;
             }
         } else if (parametro.equals(Constants.PARAM_DIMENSION)) {
-            String dimensione = repo.turnIntToStringProperty().get();
-            if(dimensione.equals(daCercare.trim())) {
+            daCercare = daCercare.trim();
+            if(daCercare.equals("")) {
+                return true;
+            }
+            String dimensione = repo.getSizeString();
+            Sorter.SortByDimension sorter = new Sorter().new SortByDimension();
+
+            if(sorter.compare(dimensione, daCercare) == 0) {
                 return true;
             }
         } else if(parametro.equals(Constants.PARAM_STARS)) {
-            String stars = repo.starsProperty().toString();
-            if(stars.equals(daCercare.trim())) {
+            daCercare = daCercare.trim();
+            if(daCercare.equals("")) {
+                return true;
+            }
+            String stars = repo.starsProperty().get().trim();
+            Sorter.SortByStars sorter = new Sorter().new SortByStars();
+
+            if(sorter.compare(stars, daCercare) == 0) {
                 return true;
             }
         } else {
@@ -81,11 +98,16 @@ public class Operator {
 
     private static boolean confrontaElemConParametriNotStrict(Repository repo, String daCercare, String parametro) {
         if(parametro.equals(Constants.PARAM_LANGUAGE)) {
+            // TODO: 20/07/2020 gestire la ricerca con l'oggetto RepositoryLanguage e quindi usare la mappa Constants.MAP_REPOSITORY_LANGUAGE.
             if(repo.getLanguageProperty() != null && repo.getLanguageProperty().toLowerCase().contains(daCercare.toLowerCase().trim())) {
                 return true;
             }
         } else if(parametro.equals(Constants.PARAM_PROGR_LANGUAGE)) {
-            if(repo.existsProgrammingLanguage(language -> language.toLowerCase().contains(daCercare.toLowerCase().trim()))) {
+            Map<String, StatisticsProgrammingLanguage> languageProgrammingMap =
+                    (Map<String, StatisticsProgrammingLanguage>) Applicazione.getInstance().getModello().getObject(Constants.MAP_REPOSITORY_PROGRAMMING_LANGUAGE);
+            StatisticsProgrammingLanguage statisticsProgrammingLanguage = languageProgrammingMap.get(repo.getId());
+            String finalDaCercare = daCercare;
+            if(statisticsProgrammingLanguage.existsProgrammingLanguage(language -> language.toLowerCase().contains(finalDaCercare.toLowerCase().trim()))) {
                 return true;
             }
         } else if(parametro.equals(Constants.PARAM_DATE_COMMIT)) {
@@ -97,13 +119,25 @@ public class Operator {
                 return true;
             }
         } else if (parametro.equals(Constants.PARAM_DIMENSION)) {
-            String dimensione = repo.turnIntToStringProperty().get();
-            if(dimensione.contains(daCercare.trim())) {
+            daCercare = daCercare.trim();
+            if(daCercare.equals("")) {
+                return true;
+            }
+            String dimensione = repo.getSizeString();
+            Sorter.SortByDimension sorter = new Sorter().new SortByDimension();
+
+            if(sorter.compare(dimensione, daCercare) >= 0) {
                 return true;
             }
         } else if(parametro.equals(Constants.PARAM_STARS)) {
-            String stars = repo.starsProperty().toString();
-            if(stars.contains(daCercare.trim())) {
+            daCercare = daCercare.trim();
+            if(daCercare.equals("")) {
+                return true;
+            }
+            String stars = repo.starsProperty().get().trim();
+            Sorter.SortByStars sorter = new Sorter().new SortByStars();
+
+            if(sorter.compare(stars, daCercare) >= 0) {
                 return true;
             }
         } else {
@@ -279,51 +313,79 @@ public class Operator {
         return true;
     }
 
-    public static String filterText(String text) {
-        //removes html tags
-        text = text.replaceAll("\\<.*?\\>", "");
-        //removes markdown code snippets
-        String regex = "(```.+?```)";
-        Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE | Pattern.DOTALL);
-        Matcher matcher = pattern.matcher(text);
-        text = matcher.replaceAll("");
-        //removes markdown images
-        String regex2 = "!\\[[^\\]]+\\]\\([^)]+\\)";
-        Pattern pattern2 = Pattern.compile(regex2);
-        Matcher matcher2 = pattern2.matcher(text);
-        text = matcher2.replaceAll("");
-        //removes markdown links
-        String regex3 = "\\[(.*?)\\]\\(.*?\\)";
-        Pattern pattern3 = Pattern.compile(regex3);
-        Matcher matcher3 = pattern3.matcher(text);
-        while(matcher3.find() == true) {
-            String replaceString = matcher3.group(1);
-            String toBeReaplacedString = matcher3.group();
-            text = text.replace(toBeReaplacedString, replaceString);
-        }
-        //System.out.println(text);
-        return text;
-    }
-
-
-    public static void actionDetectIdiom() {
+    public static boolean actionDetectIdiom() {
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
         System.out.println("Avvio processo di language detection");
         try {
-            String absolutePath = new java.io.File("").getAbsolutePath();
-            String savePath = absolutePath + "\\risorse\\languageRepository";
-            System.out.println("Path salvataggio lingua: " + savePath);
-            File directoryLanguage = new File(savePath);
-            File[] files = directoryLanguage.listFiles();
-            for(File f : files) {
-                f.delete();
+
+            String separetor = FileUtils.PATH_SEPARATOR;
+
+            String savePath = "risorse" + separetor + "lingua";
+            System.out.println("Path salvataggio lingua: " + FileUtils.createAbsolutePath(savePath));
+
+            String pathEnRel = savePath + separetor + "english";
+            Path pathEn = FileUtils.createAbsolutePath(pathEnRel);
+            System.out.println("Path salvataggio lingua english delete: " + pathEn);
+            Files.list(pathEn).forEach(FileUtils::deleteDirTree);
+
+
+            String pathNotEnRel = savePath + separetor + "not_english";
+            Path pathNotEn = FileUtils.createAbsolutePath(pathNotEnRel);
+            System.out.println("Path salvataggio lingua not english delete: " + pathNotEn);
+            Files.list(pathNotEn).forEach(FileUtils::deleteDirTree);
+
+            String pathMixRel = savePath + separetor + "mixed";
+            Path pathMix = FileUtils.createAbsolutePath(pathMixRel);
+            System.out.println("Path salvataggio lingua mixed delete: " + pathMix);
+            Files.list(pathMix).forEach(FileUtils::deleteDirTree);
+
+            String pathUnRel = savePath + separetor + "unknown";
+            Path pathUn = FileUtils.createAbsolutePath(pathUnRel);
+            System.out.println("Path salvataggio lingua unknown delete: " + pathUn);
+            Files.list(pathUn).forEach(FileUtils::deleteDirTree);
+
+            String cmd = "python detector.py";
+            String toolPathRel = "risorse" + separetor + "GHLanguageDetection";
+            Path toolPath = FileUtils.createAbsolutePath(toolPathRel);
+            File dir = new File(toolPath.toString());
+            System.out.println("Path salvataggio lingua unknown delete: " + toolPath);
+
+            Process process = Runtime.getRuntime().exec(cmd, null, dir);
+            Applicazione.getInstance().getModello().addObject(Constants.PROCESS_LANGUAGE_DETECTION, process);
+
+            BufferedReader stdInput = new BufferedReader(new
+                    InputStreamReader(process.getInputStream()));
+
+            BufferedReader stdError = new BufferedReader(new
+                    InputStreamReader(process.getErrorStream()));
+
+            // Read the output from the command
+
+            String s;
+
+            while ((s = stdInput.readLine()) != null) {
+                if (s.contains("ERROR")){
+                    System.out.println(s);
+                    Applicazione.getInstance().getModello().addObject(Constants.MESSAGGIO_LANGUAGE_DETECTION,s);
+                    return false;
+                }
+                System.out.println(s);
             }
-            String cmd = "";
-            Process process = Runtime.getRuntime().exec(cmd, null, directoryLanguage);
-            Applicazione.getInstance().getModello().addObject(Constants.THREAD_LANGUAGE, process);
+            // Read any errors from the attempted command
+
+            while ((s = stdError.readLine()) != null) {
+                Applicazione.getInstance().getModello().addObject(Constants.MESSAGGIO_LANGUAGE_DETECTION,s);
+                System.out.println(s);
+                return false;
+            }
+
+
         } catch (Exception ex) {
-            commonEvents.showExceptionDialog(ex);
+            Applicazione.getInstance().getCommonEvents().showExceptionDialog(ex);
             ex.printStackTrace();
         }
+        return true;
     }
+
+
 }
