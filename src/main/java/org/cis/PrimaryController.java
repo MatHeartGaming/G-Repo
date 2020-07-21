@@ -532,6 +532,11 @@ public class PrimaryController extends Window {
     }
 
     private void cloneRepositories(Runnable postExecute) {
+<<<<<<< HEAD
+=======
+        Runnable runnable = postExecute == null ? () -> {} : postExecute;
+
+>>>>>>> origin/MasterLeov2
         disableAllUIElementsResults(true);
         List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
         if (repositories == null || repositories.isEmpty()) {
@@ -546,7 +551,7 @@ public class PrimaryController extends Window {
 
         if ((indexLastClonedRepository + 1) == repositories.size()) {
             //Tutti i repository sono già stati clonati per questa sessione di ricerca.
-            postExecute.run();
+            runnable.run();
             disableAllUIElementsResults(false);
 
             return;
@@ -573,7 +578,7 @@ public class PrimaryController extends Window {
 
             System.out.println("Tutti i repository sono stati clonati correttamente per questa sessione di ricerca");
 
-            postExecute.run();
+            runnable.run();
         });
 
         task.setOnCancelled(workerStateEvent -> {
