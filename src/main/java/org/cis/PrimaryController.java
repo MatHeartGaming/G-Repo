@@ -764,16 +764,8 @@ public class PrimaryController extends Window {
     }
 
     private void stopThread() {
-        // TODO: 20/07/2020 controllare
-
-<<<<<<< HEAD
-
-        TaskCloneRepositories task = (TaskCloneRepositories) Applicazione.getInstance().getModello().getObject(Constants.TASK_CLONE_REPOSITORIES);
-        if(task!=null){
-=======
         TaskCloneRepositories task = (TaskCloneRepositories) Applicazione.getInstance().getModello().getObject(Constants.TASK_CLONE_REPOSITORIES);
         if(task != null){
->>>>>>> 01eab99c6356af80e4fae7357c84162644f11e63
             task.close();
         }
 
