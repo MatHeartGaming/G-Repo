@@ -83,6 +83,10 @@ public class Repository {
         return size.get();
     }
 
+    public String getSizeString() {
+        return String.valueOf(size.get());
+    }
+
     public LongProperty sizeProperty() {
         return size;
     }

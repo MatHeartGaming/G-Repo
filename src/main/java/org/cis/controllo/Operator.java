@@ -52,7 +52,8 @@ public class Operator {
             Map<String, StatisticsProgrammingLanguage> languageProgrammingMap =
                     (Map<String, StatisticsProgrammingLanguage>) Applicazione.getInstance().getModello().getObject(Constants.MAP_REPOSITORY_PROGRAMMING_LANGUAGE);
             StatisticsProgrammingLanguage statisticsProgrammingLanguage = languageProgrammingMap.get(repo.getId());
-            if(statisticsProgrammingLanguage.existsProgrammingLanguage(language -> language.toLowerCase().equals(daCercare.toLowerCase().trim()))) {
+            String finalDaCercare = daCercare;
+            if(statisticsProgrammingLanguage.existsProgrammingLanguage(language -> language.toLowerCase().equals(finalDaCercare.toLowerCase().trim()))) {
                 return true;
             }
         } else if(parametro.equals(Constants.PARAM_DATE_COMMIT)) {
@@ -64,13 +65,25 @@ public class Operator {
                 return true;
             }
         } else if (parametro.equals(Constants.PARAM_DIMENSION)) {
-            String dimensione = repo.turnIntToStringProperty().get();
-            if(dimensione.equals(daCercare.trim())) {
+            daCercare = daCercare.trim();
+            if(daCercare.equals("")) {
+                return true;
+            }
+            String dimensione = repo.getSizeString();
+            Sorter.SortByDimension sorter = new Sorter().new SortByDimension();
+
+            if(sorter.compare(dimensione, daCercare) == 0) {
                 return true;
             }
         } else if(parametro.equals(Constants.PARAM_STARS)) {
-            String stars = repo.starsProperty().toString();
-            if(stars.equals(daCercare.trim())) {
+            daCercare = daCercare.trim();
+            if(daCercare.equals("")) {
+                return true;
+            }
+            String stars = repo.starsProperty().get().trim();
+            Sorter.SortByStars sorter = new Sorter().new SortByStars();
+
+            if(sorter.compare(stars, daCercare) == 0) {
                 return true;
             }
         } else {
@@ -90,7 +103,8 @@ public class Operator {
             Map<String, StatisticsProgrammingLanguage> languageProgrammingMap =
                     (Map<String, StatisticsProgrammingLanguage>) Applicazione.getInstance().getModello().getObject(Constants.MAP_REPOSITORY_PROGRAMMING_LANGUAGE);
             StatisticsProgrammingLanguage statisticsProgrammingLanguage = languageProgrammingMap.get(repo.getId());
-            if(statisticsProgrammingLanguage.existsProgrammingLanguage(language -> language.toLowerCase().contains(daCercare.toLowerCase().trim()))) {
+            String finalDaCercare = daCercare;
+            if(statisticsProgrammingLanguage.existsProgrammingLanguage(language -> language.toLowerCase().contains(finalDaCercare.toLowerCase().trim()))) {
                 return true;
             }
         } else if(parametro.equals(Constants.PARAM_DATE_COMMIT)) {
@@ -102,13 +116,25 @@ public class Operator {
                 return true;
             }
         } else if (parametro.equals(Constants.PARAM_DIMENSION)) {
-            String dimensione = repo.turnIntToStringProperty().get();
-            if(dimensione.contains(daCercare.trim())) {
+            daCercare = daCercare.trim();
+            if(daCercare.equals("")) {
+                return true;
+            }
+            String dimensione = repo.getSizeString();
+            Sorter.SortByDimension sorter = new Sorter().new SortByDimension();
+
+            if(sorter.compare(dimensione, daCercare) >= 0) {
                 return true;
             }
         } else if(parametro.equals(Constants.PARAM_STARS)) {
-            String stars = repo.starsProperty().toString();
-            if(stars.contains(daCercare.trim())) {
+            daCercare = daCercare.trim();
+            if(daCercare.equals("")) {
+                return true;
+            }
+            String stars = repo.starsProperty().get().trim();
+            Sorter.SortByStars sorter = new Sorter().new SortByStars();
+
+            if(sorter.compare(stars, daCercare) >= 0) {
                 return true;
             }
         } else {

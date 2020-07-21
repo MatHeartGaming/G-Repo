@@ -200,6 +200,11 @@ public class PrimaryController extends Window {
         columnLingua.setCellValueFactory(cellData -> cellData.getValue().languagePropertyProperty());
         columnLinguaggio.setCellValueFactory(cellData -> cellData.getValue().programmingLanguagesPropertyProperty());
         columnStars.setCellValueFactory(cellData -> cellData.getValue().starsProperty());
+
+        Sorter sorter = new Sorter();
+
+        columnStars.setComparator(sorter.new SortByStars());
+        columnDimensione.setComparator(sorter.new SortByDimension());
     }
 
     private void initListaTextField() {
