@@ -25,6 +25,7 @@ import org.cis.controllo.*;
 import org.cis.modello.*;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Instant;
@@ -32,6 +33,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class PrimaryController extends Window {
 
@@ -907,6 +909,7 @@ public class PrimaryController extends Window {
     }
 
     private void actionSaveClone() {
+        // TODO: 21/07/2020 se la cache è vuota bloccare il bottone?.
         Stage stage = (Stage) Applicazione.getInstance().getModello().getObject(Constants.PRIMARY_STAGE);
         DirectoryChooser chooser = new DirectoryChooser();
         chooser.setTitle("G-Repo - Choose where to save your repos");
@@ -914,6 +917,62 @@ public class PrimaryController extends Window {
         chooser.setInitialDirectory(new File(currentPath));
         disableAllUIElementsResults(true);
         File selectedDirectory = chooser.showDialog(stage);
+
+        Task<Void> task = new Task<>() {
+            @Override
+            protected Void call() throws Exception {
+                // TODO: 21/07/2020 mancano i 4 casi da gestire...fare delle variabili di stato (IS_CLONE, IS_LANGUAGE_DETECTION, IS_PROGRAMMING_LANGUAGE_DETECTION)
+
+                // NOTA: controllo direttamente in cacheCloneRepositories. Non passo dalla lista di repository.
+                Path pathSelectedDirectory = selectedDirectory.toPath();
+                List<Path> pathsRepositories = Files.list(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY))
+                                                    .collect(Collectors.toList());
+                
+                updateProgress(0, pathsRepositories.size());
+                for (int i = 0; i < pathsRepositories.size(); i++) {
+                    Path path = pathsRepositories.get(i);
+                    String message = "Moving " + path.getFileName() + " to the " + pathSelectedDirectory.getFileName() + " folder";
+                    System.out.println(message);
+                    updateMessage(message);
+                    FileUtils.moveDirTree(path, Paths.get(pathSelectedDirectory.toString(), path.getFileName().toString()));
+                    updateProgress(i + 1, pathsRepositories.size());
+                }
+                updateMessage("All repositories moved");
+                return null;
+            }
+        };
+
+        //# Setting event handler on task
+        task.setOnSucceeded(workerStateEvent -> {
+            // Reset progressBar, labelProgress.
+            progressBar.progressProperty().unbind();
+            progressBar.setProgress(Constants.values[0]);
+            labelProgress.textProperty().unbind();
+
+
+            System.out.println("Tutte le Repository spostate");
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 2500);
+        });
+
+        task.setOnFailed(workerStateEvent -> {
+            workerStateEvent.getSource().getException().printStackTrace();
+            task.cancel(true);
+
+            // Reset progressBar, labelProgress.
+            progressBar.progressProperty().unbind();
+            progressBar.setProgress(Constants.values[0]);
+            labelProgress.textProperty().unbind();
+
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Something went wrong...")), 1500);
+        });
+
+        progressBar.progressProperty().bind(task.progressProperty());
+        labelProgress.textProperty().bind(task.messageProperty());
+
+        Thread exe = new Thread(task);
+        exe.setName("Thread-Save-Repository");
+        exe.start();
+
         Applicazione.getInstance().getModello().addObject(Constants.SAVE_PATH, selectedDirectory);
         disableAllUIElementsResults(false);
         String path = Applicazione.getInstance().getModello().getObject(Constants.SAVE_PATH).toString();

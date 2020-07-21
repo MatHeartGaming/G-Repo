@@ -41,7 +41,7 @@ public class TaskCloneRepositories extends Task<Void> {
         RepositoryVisitor repositoryVisitor = new RepositoryVisitor();
 
         updateMessage(this.firstNonClonedRepositoryIndex == 0 ? "Clone all repositories" : "Cloning resumption");
-        // Inizializzo la barra o con 0 oppure con l'elemento già clonato (che a partire da 1 coincide con firstNonClonedRepositoryIndex, rispetto a size()).
+
         updateProgress(this.firstNonClonedRepositoryIndex, this.repositories.size());
         System.out.println(" Inizio Clonazione");
         for (int i = this.firstNonClonedRepositoryIndex; i < this.repositories.size(); i++) {
