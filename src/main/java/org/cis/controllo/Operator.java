@@ -13,6 +13,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -284,33 +285,6 @@ public class Operator {
         return true;
     }
 
-    public static String filterText(String text) {
-        //removes html tags
-        text = text.replaceAll("\\<.*?\\>", "");
-        //removes markdown code snippets
-        String regex = "(```.+?```)";
-        Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE | Pattern.DOTALL);
-        Matcher matcher = pattern.matcher(text);
-        text = matcher.replaceAll("");
-        //removes markdown images
-        String regex2 = "!\\[[^\\]]+\\]\\([^)]+\\)";
-        Pattern pattern2 = Pattern.compile(regex2);
-        Matcher matcher2 = pattern2.matcher(text);
-        text = matcher2.replaceAll("");
-        //removes markdown links
-        String regex3 = "\\[(.*?)\\]\\(.*?\\)";
-        Pattern pattern3 = Pattern.compile(regex3);
-        Matcher matcher3 = pattern3.matcher(text);
-        while(matcher3.find() == true) {
-            String replaceString = matcher3.group(1);
-            String toBeReaplacedString = matcher3.group();
-            text = text.replace(toBeReaplacedString, replaceString);
-        }
-        //System.out.println(text);
-        return text;
-    }
-
-
     public static boolean actionDetectIdiom() {
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
         System.out.println("Avvio processo di language detection");
@@ -384,4 +358,6 @@ public class Operator {
         }
         return true;
     }
+
+
 }
