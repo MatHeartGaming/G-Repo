@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="182.0" prefWidth="650.0" style="-fx-background-color: #212529;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.cis.WarningPanelController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="182.0" prefWidth="650.0" style="-fx-background-color: #212529;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.cis.WarningPanelController">
    <children>
       <Label layoutX="275.0" layoutY="14.0" text="Warning" textFill="WHITE">
          <font>
