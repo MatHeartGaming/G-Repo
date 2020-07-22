@@ -31,8 +31,10 @@ public class Constants {
     public static final String PARAM_DATE_COMMIT = "Data ultimo commit";
     public static final String PARAM_URL = "URL";
     public static final String PARAM_REPOSITORIES = "Repositories";
-    public static final String PARAM_DIMENSION = "Dimensione";
-    public static final String PARAM_STARS = "Stars";
+    public static final String PARAM_DIMENSION_GREATER = "Dimensione >=";
+    public static final String PARAM_DIMENSION_SMALLER = "Dimensione <";
+    public static final String PARAM_STARS_GREATER = "Stars >=";
+    public static final String PARAM_STARS_SMALLER = "Stars <";
 
     public static final String ULTIMO_CAMPO_KEY = "ultimo campo Q";
 

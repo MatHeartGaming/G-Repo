@@ -13,11 +13,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Operator {
 
@@ -66,7 +63,7 @@ public class Operator {
             if(repo.getUrlProject().toLowerCase().equals(daCercare.toLowerCase().trim())) {
                 return true;
             }
-        } else if (parametro.equals(Constants.PARAM_DIMENSION)) {
+        } else if (parametro.equals(Constants.PARAM_DIMENSION_GREATER)) {
             daCercare = daCercare.trim();
             if(daCercare.equals("")) {
                 return true;
@@ -77,7 +74,18 @@ public class Operator {
             if(sorter.compare(dimensione, daCercare) == 0) {
                 return true;
             }
-        } else if(parametro.equals(Constants.PARAM_STARS)) {
+        } else if(parametro.equals(Constants.PARAM_DIMENSION_SMALLER)) {
+            daCercare = daCercare.trim();
+            if(daCercare.equals("")) {
+                return true;
+            }
+            String dimensione = repo.getSizeString();
+            Sorter.SortByDimension sorter = new Sorter().new SortByDimension();
+
+            if(sorter.compare(dimensione, daCercare) < 0) {
+                return true;
+            }
+        } else if(parametro.equals(Constants.PARAM_STARS_GREATER)) {
             daCercare = daCercare.trim();
             if(daCercare.equals("")) {
                 return true;
@@ -88,9 +96,20 @@ public class Operator {
             if(sorter.compare(stars, daCercare) == 0) {
                 return true;
             }
-        } else {
-            if(repo.getName().toLowerCase().equals(daCercare.toLowerCase().trim())) {
+        } else if(parametro.equals(Constants.PARAM_STARS_SMALLER)) {
+            daCercare = daCercare.trim();
+            if(daCercare.equals("")) {
                 return true;
+            }
+            String stars = repo.starsProperty().get().trim();
+            Sorter.SortByStars sorter = new Sorter().new SortByStars();
+
+            if(sorter.compare(stars, daCercare) < 0) {
+                return true;
+            } else {
+                if (repo.getName().toLowerCase().equals(daCercare.toLowerCase().trim())) {
+                    return true;
+                }
             }
         }
         return false;
@@ -118,7 +137,7 @@ public class Operator {
             if(repo.getUrlProject().toLowerCase().contains(daCercare.toLowerCase().trim())) {
                 return true;
             }
-        } else if (parametro.equals(Constants.PARAM_DIMENSION)) {
+        } else if (parametro.equals(Constants.PARAM_DIMENSION_GREATER)) {
             daCercare = daCercare.trim();
             if(daCercare.equals("")) {
                 return true;
@@ -129,7 +148,18 @@ public class Operator {
             if(sorter.compare(dimensione, daCercare) >= 0) {
                 return true;
             }
-        } else if(parametro.equals(Constants.PARAM_STARS)) {
+        } else if(parametro.equals(Constants.PARAM_DIMENSION_SMALLER)) {
+            daCercare = daCercare.trim();
+            if(daCercare.equals("")) {
+                return true;
+            }
+            String dimensione = repo.getSizeString();
+            Sorter.SortByDimension sorter = new Sorter().new SortByDimension();
+
+            if(sorter.compare(dimensione, daCercare) < 0) {
+                return true;
+            }
+        }  else if(parametro.equals(Constants.PARAM_STARS_GREATER)) {
             daCercare = daCercare.trim();
             if(daCercare.equals("")) {
                 return true;
@@ -140,9 +170,20 @@ public class Operator {
             if(sorter.compare(stars, daCercare) >= 0) {
                 return true;
             }
-        } else {
-            if(repo.getName().toLowerCase().contains(daCercare.toLowerCase().trim())) {
+        } else if(parametro.equals(Constants.PARAM_STARS_SMALLER)) {
+            daCercare = daCercare.trim();
+            if(daCercare.equals("")) {
                 return true;
+            }
+            String stars = repo.starsProperty().get().trim();
+            Sorter.SortByStars sorter = new Sorter().new SortByStars();
+
+            if(sorter.compare(stars, daCercare) < 0) {
+                return true;
+            } else {
+                if (repo.getName().toLowerCase().contains(daCercare.toLowerCase().trim())) {
+                    return true;
+                }
             }
         }
         return false;
