@@ -39,12 +39,17 @@ public class Operator {
     }
 
     private static boolean confrontaElemConParametriStrict(Repository repo, String daCercare, String parametro) {
+        daCercare = daCercare.trim();
         if(daCercare.isEmpty()) {
             return true;
         }
         if(parametro.equals(Constants.PARAM_LANGUAGE)) {
             // TODO: 20/07/2020 gestire la ricerca con l'oggetto RepositoryLanguage e quindi usare la mappa Constants.MAP_REPOSITORY_LANGUAGE.
-            if(repo.getLanguageProperty() != null && repo.getLanguageProperty().toLowerCase().equals(daCercare.toLowerCase().trim())) {
+            if(repo.getLanguageProperty() != null && repo.getLanguageProperty().equalsIgnoreCase(daCercare)) {
+                return true;
+            }
+        } else if(parametro.equals(Constants.PARAM_REPOSITORIES)) {
+            if(repo.getName().equalsIgnoreCase(daCercare)) {
                 return true;
             }
         } else if(parametro.equals(Constants.PARAM_PROGR_LANGUAGE)) {
@@ -60,11 +65,10 @@ public class Operator {
                 return true;
             }
         } else if(parametro.equals(Constants.PARAM_URL)){
-            if(repo.getUrlProject().toLowerCase().equals(daCercare.toLowerCase().trim())) {
+            if(repo.getUrlProject().equalsIgnoreCase(daCercare)) {
                 return true;
             }
         } else if (parametro.equals(Constants.PARAM_DIMENSION_GREATER)) {
-            daCercare = daCercare.trim();
             if(daCercare.equals("")) {
                 return true;
             }
@@ -75,7 +79,6 @@ public class Operator {
                 return true;
             }
         } else if(parametro.equals(Constants.PARAM_DIMENSION_SMALLER)) {
-            daCercare = daCercare.trim();
             if(daCercare.equals("")) {
                 return true;
             }
@@ -86,7 +89,6 @@ public class Operator {
                 return true;
             }
         } else if(parametro.equals(Constants.PARAM_STARS_GREATER)) {
-            daCercare = daCercare.trim();
             if(daCercare.equals("")) {
                 return true;
             }
@@ -97,7 +99,6 @@ public class Operator {
                 return true;
             }
         } else if(parametro.equals(Constants.PARAM_STARS_SMALLER)) {
-            daCercare = daCercare.trim();
             if(daCercare.equals("")) {
                 return true;
             }
@@ -106,16 +107,20 @@ public class Operator {
 
             if(sorter.compare(stars, daCercare) < 0) {
                 return true;
-            } else {
-                if (repo.getName().toLowerCase().equals(daCercare.toLowerCase().trim())) {
-                    return true;
-                }
+            }
+        } else {
+            if (repo.getName().equalsIgnoreCase(daCercare)) {
+                return true;
             }
         }
         return false;
     }
 
     private static boolean confrontaElemConParametriNotStrict(Repository repo, String daCercare, String parametro) {
+        daCercare = daCercare.trim();
+        if(daCercare.isEmpty()) {
+            return true;
+        }
         if(parametro.equals(Constants.PARAM_LANGUAGE)) {
             // TODO: 20/07/2020 gestire la ricerca con l'oggetto RepositoryLanguage e quindi usare la mappa Constants.MAP_REPOSITORY_LANGUAGE.
             if(repo.getLanguageProperty() != null && repo.getLanguageProperty().toLowerCase().contains(daCercare.toLowerCase().trim())) {
@@ -138,7 +143,6 @@ public class Operator {
                 return true;
             }
         } else if (parametro.equals(Constants.PARAM_DIMENSION_GREATER)) {
-            daCercare = daCercare.trim();
             if(daCercare.equals("")) {
                 return true;
             }
@@ -149,7 +153,6 @@ public class Operator {
                 return true;
             }
         } else if(parametro.equals(Constants.PARAM_DIMENSION_SMALLER)) {
-            daCercare = daCercare.trim();
             if(daCercare.equals("")) {
                 return true;
             }
@@ -160,7 +163,6 @@ public class Operator {
                 return true;
             }
         }  else if(parametro.equals(Constants.PARAM_STARS_GREATER)) {
-            daCercare = daCercare.trim();
             if(daCercare.equals("")) {
                 return true;
             }
@@ -171,7 +173,6 @@ public class Operator {
                 return true;
             }
         } else if(parametro.equals(Constants.PARAM_STARS_SMALLER)) {
-            daCercare = daCercare.trim();
             if(daCercare.equals("")) {
                 return true;
             }
@@ -180,10 +181,10 @@ public class Operator {
 
             if(sorter.compare(stars, daCercare) < 0) {
                 return true;
-            } else {
-                if (repo.getName().toLowerCase().contains(daCercare.toLowerCase().trim())) {
-                    return true;
-                }
+            }
+        } else {
+            if (repo.getName().toLowerCase().contains(daCercare.toLowerCase())) {
+                return true;
             }
         }
         return false;

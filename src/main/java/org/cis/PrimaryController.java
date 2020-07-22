@@ -36,7 +36,7 @@ import java.util.*;
 public class PrimaryController extends Window {
 
     @FXML
-    private Button bottoneCerca, buttonFilterLanguage, bottoneSalva, bottoneAggiungiQuery,
+    private Button bottoneCerca, buttonFilterLanguage, bottoneSalva, bottoneAggiungiQuery, buttonClone,
             bottoneEliminaQuery, bottoneStop, bottoneEliminaBulk, bottoneEliminaSelezionato, buttonFilterProgrLanguage;
 
     @FXML
@@ -63,7 +63,7 @@ public class PrimaryController extends Window {
 
     @FXML
     private ImageView iconFilterLang, iconAddQuery, iconSave, iconSearch, iconRemoveQuery,
-            iconStop, iconDeleteBulk, iconDeleteSelected, iconFilterProgr;
+            iconStop, iconDeleteBulk, iconDeleteSelected, iconFilterProgr, iconClone;
 
     @FXML
     private CheckBox checkStrictMode;
@@ -121,6 +121,11 @@ public class PrimaryController extends Window {
 
         checkStrictMode.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {cercaInTabella();}});
 
+        buttonClone.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {  }});
+        buttonClone.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonClone, "#00ff00");}});
+        buttonClone.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonClone, "#99ff33");}});
+
+
         this.bottoneCerca.setDisable(true);
         //todo: ripristinare a true.
         this.tabResults.setDisable(true);
@@ -132,6 +137,7 @@ public class PrimaryController extends Window {
         initDatePickers();
         this.initTable();
         this.initProgressBar();
+        this.setToolTipTexts();
     }
 
     private void eventiCampi() {
@@ -142,6 +148,32 @@ public class PrimaryController extends Window {
         campoCercaTabella.setOnKeyReleased(new EventHandler<KeyEvent>() {@Override public void handle(KeyEvent keyEvent) {cercaInTabella();}});
         Applicazione.getInstance().getModello().addObject(Constants.ULTIMO_CAMPO_KEY, campoQ3);
         initListaTextField();
+    }
+
+    private void setToolTipTexts() {
+        bottoneEliminaQuery.setTooltip(new Tooltip("Remove last inserted query field."));
+        Tooltip.install(iconRemoveQuery, new Tooltip("Remove last inserted query field."));
+        bottoneAggiungiQuery.setTooltip(new Tooltip("Add a query field."));
+        Tooltip.install(iconAddQuery, new Tooltip("Add a query field."));
+        bottoneCerca.setTooltip(new Tooltip("Start a search with parameters and queries you set above."));
+        Tooltip.install(iconSearch, new Tooltip("Start a search with parameters and queries you set above."));
+        bottoneStop.setTooltip(new Tooltip("Stop and Kill current thread/operation."));
+        Tooltip.install(iconStop, new Tooltip("Stop and Kill current thread/operation."));
+        bottoneEliminaBulk.setTooltip(new Tooltip("Delete all of the items currently displayed in the table."));
+        Tooltip.install(iconDeleteBulk, new Tooltip("Delete all of the items currently displayed in the table."));
+        bottoneEliminaSelezionato.setTooltip(new Tooltip("Delete the selected item in the table (if any)."));
+        Tooltip.install(iconDeleteSelected, new Tooltip("Delete the selected item in the table (if any)."));
+        buttonFilterProgrLanguage.setTooltip(new Tooltip("Detect the programming language of every repo (Cloning required)."));
+        Tooltip.install(iconFilterProgr, new Tooltip("Detect the programming language of every repo (Cloning required)."));
+        bottoneSalva.setTooltip(new Tooltip("Choose a dir where to move/save currently cloned repos."));
+        Tooltip.install(iconSave, new Tooltip("Choose a dir where to move/save currently cloned repos."));
+        buttonFilterLanguage.setTooltip(new Tooltip("Install Python first to use this function."));
+        Tooltip.install(iconFilterLang, new Tooltip("Install Python first to use this function."));
+        buttonClone.setTooltip(new Tooltip("Start the cloning process."));
+        Tooltip.install(iconClone, new Tooltip("Start the cloning process."));
+
+        comboParametriRicerca.setTooltip(new Tooltip("Choose a search parameter to be applied when using the search bar."));
+        checkStrictMode.setTooltip(new Tooltip("Forces the search to work only on exact matches."));
     }
 
     private void initProgressBar() {
@@ -227,6 +259,10 @@ public class PrimaryController extends Window {
         iconFilterProgr.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonFilterProgrLanguage, Constants.BUTTON_HOVER_COLOR);}});
         iconFilterProgr.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonFilterProgrLanguage, Constants.COLORE_BUTTON);}});
         iconFilterProgr.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {buttonFilterProgrLanguage.fire();}});
+
+        iconClone.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {buttonClone.fire();}});
+        iconClone.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonClone, "#00ff00");}});
+        iconClone.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonClone, "#99ff33");}});
     }
 
     private LocalDate getValueDataPicker(DatePicker datePicker) {
@@ -464,8 +500,8 @@ public class PrimaryController extends Window {
         };
 
         task.setOnSucceeded(workerStateEvent -> {
-            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Rilevamento del linguaggio completato")), 1500);
-            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Aspetto che mi dia qualcosa da fare...")), 2500);
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Language detection completed!")), 1500);
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 2500);
             stopThread();
         });
 
@@ -474,8 +510,8 @@ public class PrimaryController extends Window {
             task.cancel(true);
 
             System.out.println("Qualcosa è andato storto...");
-            labelProgress.setText("Qualcosa è andato storto...");
-            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Aspetto che mi dia qualcosa da fare...")), 1500);
+            labelProgress.setText("Something went wrong...");
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 1500);
             stopThread();
         });
         Thread exe = new Thread(task);
@@ -619,16 +655,16 @@ public class PrimaryController extends Window {
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    synchronized (Applicazione.getInstance().getModello().getObject(Constants.THREAD_DOWNLOAD_REPO)) {
+                    synchronized (Applicazione.getInstance().getModello().getObject(Constants.THREAD_WARNING_PANEL)) {
                         try {
-                            Applicazione.getInstance().getModello().getObject(Constants.THREAD_DOWNLOAD_REPO).wait();
+                            Applicazione.getInstance().getModello().getObject(Constants.THREAD_WARNING_PANEL).wait();
                         } catch (Exception ex) {
                             Platform.runLater(new Runnable() {@Override public void run() {Applicazione.getInstance().getCommonEvents().showExceptionDialog(ex);}});
                             ex.printStackTrace();
                         }
                     }
                     //Applicazione.getInstance().getSessionManager().getSessions().clear();
-                    boolean delete = (boolean) Applicazione.getInstance().getModello().getObject(Constants.ACCEPT_DELETION_PROCESS);
+                    boolean delete = (boolean) Applicazione.getInstance().getModello().getObject(Constants.ACCEPT_WARNING_MEX);
                     if(delete == false) {
                         Platform.runLater(new Runnable() {@Override public void run() {labelErrori.setText("Operation aborted.");}});
                         return;
@@ -688,7 +724,7 @@ public class PrimaryController extends Window {
                 }
             });
 
-            Applicazione.getInstance().getModello().addObject(Constants.THREAD_DOWNLOAD_REPO, thread);
+            Applicazione.getInstance().getModello().addObject(Constants.THREAD_WARNING_PANEL, thread);
             Applicazione.getInstance().getCommonEvents().loadPanel("WarningPanel", Modality.APPLICATION_MODAL, false, "Filtro", StageStyle.UNDECORATED, true);
             thread.start();
         }
@@ -770,7 +806,7 @@ public class PrimaryController extends Window {
             processoLan.destroy();
         }*/
 
-        Thread thread = (Thread) Applicazione.getInstance().getModello().getObject(Constants.THREAD_DOWNLOAD_REPO);
+        Thread thread = (Thread) Applicazione.getInstance().getModello().getObject(Constants.THREAD_WARNING_PANEL);
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
         if(thread != null) {
             thread.interrupt();
@@ -786,7 +822,7 @@ public class PrimaryController extends Window {
         }
 
 
-        Applicazione.getInstance().getModello().addObject(Constants.THREAD_DOWNLOAD_REPO, null);
+        Applicazione.getInstance().getModello().addObject(Constants.THREAD_WARNING_PANEL, null);
         Applicazione.getInstance().getModello().addObject(Constants.THREAD_REPO_SEARCHER, null);
         Applicazione.getInstance().getModello().addObject(Constants.PROCESS_LANGUAGE_DETECTION,null);
         Applicazione.getInstance().getModello().addObject(Constants.TASK_CLONE_REPOSITORIES,null);
