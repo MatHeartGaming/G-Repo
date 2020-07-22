@@ -1,0 +1,18 @@
+
+.button {
+    -fx-background-color:  #cc3333;
+    -fx-background-radius: 5;
+}
+
+.button:hover {
+    -fx-background-color: #ff0000;
+}
+
+#bottoneSalva {
+    -fx-background-color:  #99ff33;
+    -fx-background-radius: 5;
+}
+
+#bottoneSalva:hover {
+    -fx-background-color: #00ff00;
+}

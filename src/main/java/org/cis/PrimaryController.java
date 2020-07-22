@@ -136,35 +136,10 @@ public class PrimaryController extends Window {
 
     private void eventiCampi() {
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
-        campoToken.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoToken, Constants.COLOR_HOVER_TEXTFIELD);}});
-        campoToken.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoToken, Constants.COLOR_TEXTFIELD);}});
         campoToken.setOnKeyReleased(new EventHandler<KeyEvent>() {@Override public void handle(KeyEvent keyEvent) {enableDisableSearchButton();}});
         campoToken.setOnKeyPressed(new EventHandler<KeyEvent>() {@Override public void handle(KeyEvent keyEvent) {enableDisableSearchButton();}});
-        campoParametroQ1.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoParametroQ1, Constants.COLOR_HOVER_TEXTFIELD);}});
-        campoParametroQ1.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoParametroQ1, Constants.COLOR_TEXTFIELD);}});
-        campoParametroQ2.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoParametroQ2, Constants.COLOR_HOVER_TEXTFIELD);}});
-        campoParametroQ2.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoParametroQ2, Constants.COLOR_TEXTFIELD);}});
-        campoParametroQ3.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoParametroQ3, Constants.COLOR_HOVER_TEXTFIELD);}});
-        campoParametroQ3.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoParametroQ3, Constants.COLOR_TEXTFIELD);}});
         campoCercaTabella.setOnKeyPressed(new EventHandler<KeyEvent>() {@Override public void handle(KeyEvent keyEvent) {cercaInTabella();}});
         campoCercaTabella.setOnKeyReleased(new EventHandler<KeyEvent>() {@Override public void handle(KeyEvent keyEvent) {cercaInTabella();}});
-        campoCercaTabella.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoCercaTabella, Constants.COLOR_HOVER_TEXTFIELD);}});
-        campoCercaTabella.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoCercaTabella, Constants.COLOR_TEXTFIELD);}});
-        campoQ1.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoQ1, Constants.COLOR_HOVER_TEXTFIELD);}});
-        campoQ1.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoQ1, Constants.COLOR_TEXTFIELD);}});
-        campoQ2.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoQ2, Constants.COLOR_HOVER_TEXTFIELD);}});
-        campoQ2.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoQ2, Constants.COLOR_TEXTFIELD);}});
-        campoQ3.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoQ3, Constants.COLOR_HOVER_TEXTFIELD);}});
-        campoQ3.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoQ3, Constants.COLOR_TEXTFIELD);}});
-        campoSort.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoSort, Constants.COLOR_HOVER_TEXTFIELD);}});
-        campoSort.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoSort, Constants.COLOR_TEXTFIELD);}});
-        campoOrder.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoOrder, Constants.COLOR_HOVER_TEXTFIELD);}});
-        campoOrder.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoOrder, Constants.COLOR_TEXTFIELD);}});
-        campoKeyOrder.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoKeyOrder, Constants.COLOR_HOVER_TEXTFIELD);}});
-        campoKeyOrder.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoKeyOrder, Constants.COLOR_TEXTFIELD);}});
-        campoKeySort.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoKeySort, Constants.COLOR_HOVER_TEXTFIELD);}});
-        campoKeySort.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoKeySort, Constants.COLOR_TEXTFIELD);}});
-
         Applicazione.getInstance().getModello().addObject(Constants.ULTIMO_CAMPO_KEY, campoQ3);
         initListaTextField();
     }

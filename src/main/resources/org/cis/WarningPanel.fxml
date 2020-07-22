@@ -14,12 +14,12 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="buttonCancel" layoutX="22.0" layoutY="128.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="296.0" style="-fx-background-color: #cc3333; -fx-background-radius: 5;" text="Cancel">
+      <Button fx:id="buttonCancel" layoutX="22.0" layoutY="128.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="296.0" stylesheets="@ButtonRed.css" text="Cancel">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="buttonAccept" layoutX="340.0" layoutY="128.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="296.0" style="-fx-background-color: #90E0EF; -fx-background-radius: 5;" text="Accept">
+      <Button fx:id="buttonAccept" layoutX="340.0" layoutY="128.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="296.0" stylesheets="@ButtonBlue.css" text="Accept">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
