@@ -21,6 +21,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.*;
 import javafx.util.Duration;
 import org.cis.DAO.DAORepositoryCSV;
+import org.cis.DAO.DAORepositoryJSON;
 import org.cis.controllo.*;
 import org.cis.modello.*;
 
@@ -491,7 +492,7 @@ public class PrimaryController extends Window {
 
         task.setOnSucceeded(workerStateEvent -> {
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Rilevamento del linguaggio completato")), 1500);
-            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Aspetto che mi dia qualcosa da fare...")), 2500);
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 2500);
             stopThread();
         });
 
@@ -501,7 +502,7 @@ public class PrimaryController extends Window {
 
             System.out.println("Qualcosa è andato storto...");
             labelProgress.setText("Qualcosa è andato storto...");
-            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Aspetto che mi dia qualcosa da fare...")), 1500);
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 1500);
             stopThread();
         });
         Thread exe = new Thread(task);
@@ -543,10 +544,10 @@ public class PrimaryController extends Window {
 
         Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Rilevamento del linguaggio di programmazione/markup completato")), 1500);
         Utils.setTimeout(() -> Platform.runLater(() -> {
-            labelProgress.setText("Aspetto che mi dia qualcosa da fare...");
+            labelProgress.setText("Waiting for something to do...");
             // Reset progressBar.
             progressBar.setProgress(Constants.values[0]);
-        }), 2500);
+        }), 3500);
         disableAllUIElementsResults(false);
 
     }
@@ -909,7 +910,14 @@ public class PrimaryController extends Window {
     }
 
     private void actionSaveClone() {
-        // TODO: 21/07/2020 se la cache è vuota bloccare il bottone?.
+        int indexLastClonedRepository = (int) Applicazione.getInstance().getModello().getObject(Constants.INDEX_LAST_CLONED_REPOSITORY);
+        if (indexLastClonedRepository == -1) {
+            // No cloning started.
+            labelProgress.setText("You must clone first");
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 2500);
+            return;
+        }
+
         Stage stage = (Stage) Applicazione.getInstance().getModello().getObject(Constants.PRIMARY_STAGE);
         DirectoryChooser chooser = new DirectoryChooser();
         chooser.setTitle("G-Repo - Choose where to save your repos");
@@ -918,29 +926,13 @@ public class PrimaryController extends Window {
         disableAllUIElementsResults(true);
         File selectedDirectory = chooser.showDialog(stage);
 
-        Task<Void> task = new Task<>() {
-            @Override
-            protected Void call() throws Exception {
-                // TODO: 21/07/2020 mancano i 4 casi da gestire...fare delle variabili di stato (IS_CLONE, IS_LANGUAGE_DETECTION, IS_PROGRAMMING_LANGUAGE_DETECTION)
+        if (selectedDirectory == null) {
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Canceled operation")), 1500);
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 3500);
+            return;
+        }
 
-                // NOTA: controllo direttamente in cacheCloneRepositories. Non passo dalla lista di repository.
-                Path pathSelectedDirectory = selectedDirectory.toPath();
-                List<Path> pathsRepositories = Files.list(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY))
-                                                    .collect(Collectors.toList());
-                
-                updateProgress(0, pathsRepositories.size());
-                for (int i = 0; i < pathsRepositories.size(); i++) {
-                    Path path = pathsRepositories.get(i);
-                    String message = "Moving " + path.getFileName() + " to the " + pathSelectedDirectory.getFileName() + " folder";
-                    System.out.println(message);
-                    updateMessage(message);
-                    FileUtils.moveDirTree(path, Paths.get(pathSelectedDirectory.toString(), path.getFileName().toString()));
-                    updateProgress(i + 1, pathsRepositories.size());
-                }
-                updateMessage("All repositories moved");
-                return null;
-            }
-        };
+        TaskSaveRepository task = new TaskSaveRepository(selectedDirectory.toPath());
 
         //# Setting event handler on task
         task.setOnSucceeded(workerStateEvent -> {
@@ -951,7 +943,8 @@ public class PrimaryController extends Window {
 
 
             System.out.println("Tutte le Repository spostate");
-            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 2500);
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("All repositories moved")), 1500);
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 3500);
         });
 
         task.setOnFailed(workerStateEvent -> {
@@ -964,6 +957,7 @@ public class PrimaryController extends Window {
             labelProgress.textProperty().unbind();
 
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Something went wrong...")), 1500);
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 3500);
         });
 
         progressBar.progressProperty().bind(task.progressProperty());
@@ -977,19 +971,6 @@ public class PrimaryController extends Window {
         disableAllUIElementsResults(false);
         String path = Applicazione.getInstance().getModello().getObject(Constants.SAVE_PATH).toString();
         System.out.println("Choosen path: " + path);
-    }
-
-    private void filterByIdiom() {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                List<Repository> lista = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
-                if (lista == null) {
-                    return;
-                }
-                Operator.actionDetectIdiom();
-            }
-        });
     }
 
 }

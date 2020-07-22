@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileAttribute;
 
 public class FileUtils {
 
@@ -29,7 +30,6 @@ public class FileUtils {
             e.printStackTrace();
             return false;
         }
-        System.out.println("FINE");
         return true;
     }
 
