@@ -8,11 +8,11 @@
     -fx-background-color: #ff0000;
 }
 
-#bottoneSalva {
+#bottoneSalva, #buttonClone {
     -fx-background-color:  #99ff33;
     -fx-background-radius: 5;
 }
 
-#bottoneSalva:hover {
+#bottoneSalva:hover, #buttonClone:hover {
     -fx-background-color: #00ff00;
 }

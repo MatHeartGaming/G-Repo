@@ -21,7 +21,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="687.0" prefWidth="906.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.cis.PrimaryController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="687.0" prefWidth="1158.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.cis.PrimaryController">
    <children>
       <AnchorPane prefHeight="129.0" prefWidth="906.0" style="-fx-background-color: #F8F9FA;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
@@ -184,28 +184,28 @@
                               <TableColumn fx:id="columnStars" prefWidth="75.0" text="Stars" />
                           </columns>
                         </TableView>
-                        <Button fx:id="bottoneSalva" alignment="CENTER_RIGHT" layoutX="782.0" layoutY="509.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="102.0" stylesheets="@ButtonRed.css" text="Save" AnchorPane.bottomAnchor="14.200000000000024" AnchorPane.rightAnchor="21.99999999999997">
+                        <Button fx:id="bottoneSalva" alignment="CENTER_RIGHT" layoutX="782.0" layoutY="509.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0" stylesheets="@ButtonRed.css" text="Save" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="22.0">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="buttonFilterLanguage" alignment="CENTER_RIGHT" layoutX="666.0" layoutY="509.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="163.0" stylesheets="@ButtonBlue.css" text="Filter by Language" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="138.0">
+                        <Button fx:id="buttonFilterLanguage" alignment="CENTER_RIGHT" layoutX="773.0" layoutY="479.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="163.0" stylesheets="@ButtonBlue.css" text="Filter by Language" AnchorPane.bottomAnchor="14.600000000000023" AnchorPane.rightAnchor="222.20000000000005">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Button>
-                        <TextField fx:id="campoCercaTabella" layoutX="76.0" layoutY="14.0" prefHeight="27.0" prefWidth="494.0" promptText="Cerca nella tabella" style="-fx-background-color: #E9ECEF; -fx-border-color: #6C757D; -fx-border-radius: 20; -fx-background-insets: 0;" stylesheets="@TextField.css" AnchorPane.leftAnchor="76.0" AnchorPane.rightAnchor="336.0">
+                        <TextField fx:id="campoCercaTabella" layoutX="76.0" layoutY="14.0" prefHeight="27.0" prefWidth="494.0" promptText="Cerca nella tabella" stylesheets="@TextField.css" AnchorPane.leftAnchor="76.0" AnchorPane.rightAnchor="336.0">
                            <font>
                               <Font name="System Bold Italic" size="12.0" />
                            </font>
                         </TextField>
                         <ComboBox fx:id="comboParametriRicerca" layoutX="590.0" layoutY="15.0" prefHeight="26.0" prefWidth="128.0" promptText="Repositories" AnchorPane.rightAnchor="188.0" />
-                        <ImageView fx:id="iconFilterLang" fitHeight="27.0" fitWidth="36.0" layoutX="605.0" layoutY="481.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="274.4">
+                        <ImageView fx:id="iconFilterLang" fitHeight="27.0" fitWidth="36.0" layoutX="772.0" layoutY="480.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="17.0" AnchorPane.rightAnchor="359.4000000000001">
                            <image>
                               <Image url="@../../icons/translate.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="iconSave" fitHeight="27.0" fitWidth="36.0" layoutX="795.0" layoutY="511.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="15.600000000000023" AnchorPane.rightAnchor="84.39999999999998">
+                        <ImageView fx:id="iconSave" fitHeight="27.0" fitWidth="36.0" layoutX="1056.0" layoutY="482.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="75.40000000000009">
                            <image>
                               <Image url="@../../icons/save-icon.png" />
                            </image>
@@ -235,12 +235,12 @@
                               <Image url="@../../icons/deleteAll-icon.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="buttonFilterProgrLanguage" alignment="CENTER_RIGHT" layoutX="419.0" layoutY="480.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="170.0" stylesheets="@ButtonBlue.css" text="Filter by program. L" AnchorPane.bottomAnchor="13.600000000000023" AnchorPane.rightAnchor="317.0">
+                        <Button fx:id="buttonFilterProgrLanguage" alignment="CENTER_RIGHT" layoutX="586.0" layoutY="479.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="170.0" stylesheets="@ButtonBlue.css" text="Filter by program. L" AnchorPane.bottomAnchor="14.600000000000023" AnchorPane.rightAnchor="402.0000000000001">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Button>
-                        <ImageView fx:id="iconFilterProgr" fitHeight="27.0" fitWidth="36.0" layoutX="419.0" layoutY="481.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="460.4">
+                        <ImageView fx:id="iconFilterProgr" fitHeight="27.0" fitWidth="36.0" layoutX="586.0" layoutY="480.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="17.0" AnchorPane.rightAnchor="545.4000000000001">
                            <image>
                               <Image url="@../../icons/filter-icon.png" />
                            </image>
@@ -250,6 +250,16 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
+                        <Button fx:id="buttonClone" alignment="CENTER_RIGHT" layoutX="949.0" layoutY="478.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0" stylesheets="@ButtonRed.css" text="Clone" AnchorPane.bottomAnchor="15.600000000000001" AnchorPane.rightAnchor="123.8000000000001">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Button>
+                        <ImageView fx:id="iconClone" fitHeight="30.0" fitWidth="41.0" layoutX="955.0" layoutY="478.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="174.0">
+                           <image>
+                              <Image url="@../../icons/human-being.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </AnchorPane>
                </content>

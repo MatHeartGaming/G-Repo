@@ -92,8 +92,8 @@ public class CommonEvents {
             stage.setScene(scene);
             stage.setTitle(title);
             stage.initStyle(stageStyle);
-            stage.setMinHeight(600);
-            stage.setMinWidth(850);
+            stage.setMinHeight(800);
+            stage.setMinWidth(1200);
             if(moveWindow) {
                 Applicazione.getInstance().getCommonEvents().moveWindow(root, stage);
             }
@@ -137,5 +137,23 @@ public class CommonEvents {
         labelProgress.setText(message);
     }
 
+    private void notifyThread() {
+        Thread thread = (Thread) Applicazione.getInstance().getModello().getObject(Constants.THREAD_WARNING_PANEL);
+        synchronized (thread) {
+            thread.notify();
+        }
+    }
+
+    public void actionAccept(ActionEvent actionEvent) {
+        Applicazione.getInstance().getModello().addObject(Constants.ACCEPT_WARNING_MEX, true);
+        notifyThread();
+        Applicazione.getInstance().getCommonEvents().hideWindow(actionEvent);
+    }
+
+    public void actionCancel(ActionEvent actionEvent) {
+        Applicazione.getInstance().getModello().addObject(Constants.ACCEPT_WARNING_MEX, false);
+        notifyThread();
+        Applicazione.getInstance().getCommonEvents().hideWindow(actionEvent);
+    }
 
 }
