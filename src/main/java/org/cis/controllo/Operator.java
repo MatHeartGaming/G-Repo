@@ -18,6 +18,8 @@ import java.util.Map;
 
 public class Operator {
 
+
+
     public static ObservableList<Repository> cercaPerNome(ObservableList<Repository> lista, String daCercare, String parametro, boolean strict) {
         ObservableList<Repository> risultato = FXCollections.observableArrayList();
         if(lista == null) {
@@ -206,8 +208,6 @@ public class Operator {
     }
 
     public static void createConfigProperties(){
-        CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
-        Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Creating properties file", 1);}});
 
         System.out.println("Avvio Creazione File Properties!");
 
@@ -228,7 +228,6 @@ public class Operator {
             write.println("username=" + query.getToken());
             write.println("q1=created:"+ query.getDate());
 
-            Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Everything is going fine :)", 2);}});
             int j = 2;
 
             for (int i=0; i < listaQualificatori.size(); i++){
@@ -239,12 +238,9 @@ public class Operator {
                 }
                 write.println("q" + j + "=" + q.getKey() .trim()+":"+ q.getValue().trim());
                 j = j +1;
-                if(i == Math.floor(listaQualificatori.size() / 2)) {
-                    Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("We're half way through!", 3);}});
-                }
+
             }
 
-            Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("We're almost there!! :D", 4);}});
 
             if(query.getSort() != null) {
                 write.println("sort=" + query.getSort());
@@ -262,7 +258,6 @@ public class Operator {
             io.printStackTrace();
         }
 
-        Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Properties file  creato! It's been a pleasure working for you!", 5);}});
 
     }
 
@@ -390,7 +385,7 @@ public class Operator {
             String toolPathRel = "risorse" + separetor + "GHLanguageDetection";
             Path toolPath = FileUtils.createAbsolutePath(toolPathRel);
             File dir = new File(toolPath.toString());
-            System.out.println("Path salvataggio lingua unknown delete: " + toolPath);
+            System.out.println("Path tool: " + toolPath);
 
             Process process = Runtime.getRuntime().exec(cmd, null, dir);
             Applicazione.getInstance().getModello().addObject(Constants.PROCESS_LANGUAGE_DETECTION, process);

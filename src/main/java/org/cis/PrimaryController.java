@@ -35,6 +35,7 @@ import java.util.*;
 
 public class PrimaryController extends Window {
 
+
     @FXML
     private Button bottoneCerca, buttonFilterLanguage, bottoneSalva, bottoneAggiungiQuery, buttonClone,
             bottoneEliminaQuery, bottoneStop, bottoneEliminaBulk, bottoneEliminaSelezionato, buttonFilterProgrLanguage;
@@ -69,7 +70,7 @@ public class PrimaryController extends Window {
     private CheckBox checkStrictMode;
 
     @FXML
-    private DatePicker datePickerStart, datePickerEnd;
+    public DatePicker datePickerStart, datePickerEnd;
 
     @FXML
     private Tab tabResults, tabQueries;
@@ -273,7 +274,7 @@ public class PrimaryController extends Window {
         return localDate;
     }
 
-    private void initDatePickers() {
+    public void initDatePickers() {
         datePickerStart.valueProperty().addListener((ov, oldValue, newValue) -> {
             LocalDate localDateStart = getValueDataPicker(datePickerStart);
             LocalDate localDateEnd = getValueDataPicker(datePickerEnd);
@@ -500,8 +501,14 @@ public class PrimaryController extends Window {
         };
 
         task.setOnSucceeded(workerStateEvent -> {
+<<<<<<< HEAD
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Language detection completed!")), 1500);
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 2500);
+=======
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Rilevamento del linguaggio completato")), 1500);
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Aspetto che mi dia qualcosa da fare...")), 2500);
+            disableAllUIElementsResults(false);
+>>>>>>> 75cdfc8288230ca7d01002bd4d21ac076f7b4699
             stopThread();
         });
 
@@ -509,9 +516,16 @@ public class PrimaryController extends Window {
             workerStateEvent.getSource().getException().printStackTrace();
             task.cancel(true);
 
+<<<<<<< HEAD
             System.out.println("Qualcosa è andato storto...");
             labelProgress.setText("Something went wrong...");
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 1500);
+=======
+            System.out.println(Applicazione.getInstance().getModello().getObject(Constants.MESSAGGIO_LANGUAGE_DETECTION));
+            labelProgress.setText((String) Applicazione.getInstance().getModello().getObject(Constants.MESSAGGIO_LANGUAGE_DETECTION));
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Aspetto che mi dia qualcosa da fare...")), 4000);
+            disableAllUIElementsResults(false);
+>>>>>>> 75cdfc8288230ca7d01002bd4d21ac076f7b4699
             stopThread();
         });
         Thread exe = new Thread(task);
@@ -672,7 +686,11 @@ public class PrimaryController extends Window {
                     if(query.getToken() != null) {
                         disableAllUIElements(true);
 
+                        CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
+                        Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Creating properties file", 1);}});
                         Operator.createConfigProperties();
+                        Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Properties file  creato! It's been a pleasure working for you!", 5);}});
+
                         System.out.println("Properties! creato");
 
                         if (Operator.avvioGHRepoSearcher()) {
@@ -801,12 +819,22 @@ public class PrimaryController extends Window {
             task.close();
         }
 
+<<<<<<< HEAD
        /* Process processoLan = (Process) Applicazione.getInstance().getModello().getObject(Constants.PROCESS_LANGUAGE_DETECTION);
         if(processoLan!=null){
             processoLan.destroy();
         }*/
 
         Thread thread = (Thread) Applicazione.getInstance().getModello().getObject(Constants.THREAD_WARNING_PANEL);
+=======
+        /*
+       Process processLan = (Process) Applicazione.getInstance().getModello().getObject(Constants.PROCESS_LANGUAGE_DETECTION);
+        if(processLan!=null){
+            processLan.destroy();
+        }
+        */
+        Thread thread = (Thread) Applicazione.getInstance().getModello().getObject(Constants.THREAD_DOWNLOAD_REPO);
+>>>>>>> 75cdfc8288230ca7d01002bd4d21ac076f7b4699
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
         if(thread != null) {
             thread.interrupt();
@@ -832,6 +860,7 @@ public class PrimaryController extends Window {
             return;
         }
         disableAllUIElements(false);
+        disableAllUIElementsResults(false);
         if(!lista.isEmpty()) {
             tabbedPane.getSelectionModel().select(tabResults);
         }
