@@ -702,6 +702,7 @@ public class PrimaryController extends Window {
             boolean presenza = checkKeyPresence(t.getText());
             if (presenza && !t.getText().isEmpty() && !this.listaCampiQuery.get(i).getText().isEmpty()) {
                 listQualifiers.add(new Qualifier(t.getText(), this.listaCampiQuery.get(i).getText()));
+                restoreStockColorTextFields();
                 System.out.println("qual added");
             } else if (presenza && !t.getText().isEmpty() && this.listaCampiQuery.get(i).getText().isEmpty()) {
                 commonEvents.changeBorderColor(t, "#ff0000");
@@ -718,6 +719,21 @@ public class PrimaryController extends Window {
             i++;
         }
         return listQualifiers;
+    }
+
+    private void restoreStockColorTextFields() {
+        CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
+        int i = 0;
+        for (TextField t : this.listaCampiChiavi) {
+            TextField query = this.listaCampiQuery.get(i);
+            commonEvents.changeBorderColor(t, Constants.COLOR_TEXTFIELD);
+            commonEvents.changeBorderColor(query, Constants.COLOR_TEXTFIELD);
+            t.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(t, Constants.COLOR_HOVER_TEXTFIELD);}});
+            t.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(t, Constants.COLOR_TEXTFIELD);}});
+            query.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(query, Constants.COLOR_HOVER_TEXTFIELD);}});
+            query.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(query, Constants.COLOR_TEXTFIELD);}});
+        }
+
     }
 
     private void setOptionalFields(Query q) {
