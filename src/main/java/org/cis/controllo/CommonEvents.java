@@ -92,7 +92,7 @@ public class CommonEvents {
             stage.setScene(scene);
             stage.setTitle(title);
             stage.initStyle(stageStyle);
-            if(fxmlFile.equals("primary.fxml")) {
+            if(fxmlFile.equals("primary")) {
                 stage.setMinHeight(800);
                 stage.setMinWidth(1200);
             }
