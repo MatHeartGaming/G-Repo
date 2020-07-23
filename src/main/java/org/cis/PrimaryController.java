@@ -275,6 +275,8 @@ public class PrimaryController extends Window {
     }
 
     public void initDatePickers() {
+        datePickerStart.setEditable(false);
+        datePickerEnd.setEditable(false);
         datePickerStart.valueProperty().addListener((ov, oldValue, newValue) -> {
             LocalDate localDateStart = getValueDataPicker(datePickerStart);
             LocalDate localDateEnd = getValueDataPicker(datePickerEnd);
@@ -355,10 +357,11 @@ public class PrimaryController extends Window {
 
     private void eventoCercaInTabella() {
         Modello modello = Applicazione.getInstance().getModello();
+        String percent = this.fieldPercentage.getText();
         ObservableList<Repository> listaOriginale = (ObservableList<Repository>) modello.getObject(Constants.LISTA_REPO);
         boolean strict = this.checkStrictMode.isSelected();
         String daCercare = this.campoCercaTabella.getText();
-        ObservableList<Repository> listaAgg = Operator.cercaPerNome(listaOriginale, daCercare, getSelectedComboLanguage(), strict);
+        ObservableList<Repository> listaAgg = Operator.cercaPerNome(listaOriginale, daCercare, getSelectedComboLanguage(), strict, percent);
         modello.addObject(Constants.LISTA_REPO_AGGIORNATA, listaAgg);
     }
 
@@ -372,7 +375,7 @@ public class PrimaryController extends Window {
 
     public void initCombo() {
         comboParametriRicerca.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
-            if(newValue.equals(Constants.PARAM_PROGR_LANGUAGE) || newValue.equals(Constants.PARAM_LANGUAGE)) {
+            if(newValue.equals(Constants.PARAM_PROGR_LANGUAGE)) {
                 fieldPercentage.setVisible(true);
             } else {
                 fieldPercentage.setVisible(false);

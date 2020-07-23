@@ -1,8 +1,12 @@
 package org.cis.controllo;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.cis.Applicazione;
+import org.cis.Constants;
 import org.cis.modello.Qualifier;
 import org.cis.modello.Query;
+import org.cis.modello.Repository;
 import org.cis.modello.Session;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +26,8 @@ class OperatorTest {
     Path path;
     String separetor = FileUtils.PATH_SEPARATOR;
     boolean trovato = false;
-    CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
+    List<Repository> listaRep = new ArrayList<>();
+    Repository repositories,repositories2,repositories3,repositories4;
 
 
     @BeforeEach
@@ -43,10 +48,31 @@ class OperatorTest {
          path = FileUtils.createAbsolutePath(relativePath);
         dir = new File(path.toString());
 
+        repositories = new Repository("1", "repodriller", "bla bla", "https://github.com/mauricioaniche/repodriller", "https://github.com/mauricioaniche/repodriller.git", 25169);
+        repositories2 = new Repository("2", "top", "bla^3", "", "https://github.com/tomlongo/Flickable.js.git", 2000);
+        repositories3 = new Repository("3", "456", "bla^3", "", "https://github.com/emergingstack/es-dev-stack.git", 5000);
+        repositories4 = new Repository("4", "GRTFGR", "bla^3", "", "https://github.com/JazzCore/ctrlp-cmatcher.git", 8800);
+        repositories.setStars(1700);
+        repositories2.setStars(1800);
+        repositories3.setStars(1500);
+        repositories3.setStars(1400);
+
+        listaRep.add(repositories);
+        listaRep.add(repositories2);
+        listaRep.add(repositories3);
+        listaRep.add(repositories4);
+
+        ObservableList<Repository> tabList = FXCollections.observableArrayList(listaRep);
+        Applicazione.getInstance().getModello().addObject(Constants.LISTA_REPO_AGGIORNATA, tabList);
+        Applicazione.getInstance().getModello().addObject(Constants.LISTA_REPO, tabList);
+
+
     }
 
     @Test
     void testCreateConfigProperties() {
+        System.out.println("Test Creazione del File Properties");
+
         Operator.createConfigProperties();
         File[] files = dir.listFiles();
         trovato= false;
@@ -60,6 +86,8 @@ class OperatorTest {
 
     @Test
     void testConfigToken() throws IOException {
+        System.out.println("Test Token in file Properties");
+
         Operator.createConfigProperties();
         Properties props = new Properties();
         Object obj = null;
@@ -85,6 +113,7 @@ class OperatorTest {
 
     @Test
     void testConfigLanguageAttributeSpecialCharacter() throws IOException  {
+        System.out.println("Test Language con # in file Properties");
         Operator.createConfigProperties();
         Properties props = new Properties();
         Object obj = null;
@@ -112,6 +141,7 @@ class OperatorTest {
 
     @Test
     void testConfigPerPageAttribute() throws IOException{
+        System.out.println("Test per_page attributes in file Properties");
         Operator.createConfigProperties();
         Properties props = new Properties();
         Object obj = null;
@@ -136,5 +166,128 @@ class OperatorTest {
         assertEquals(true,trovato);
     }
 
+    @Test
+    void testconfrontaElemConParametriNotStrictNome(){
+        System.out.println("Test confronta Repo per Nome");
 
+        Repository repository = new Repository("1", "repodriller", "bla bla", "https://github.com/mauricioaniche/repodriller", "https://github.com/mauricioaniche/repodriller.git", 25169);
+        String daCercare = "repodriller";
+        String parametro = "Repositories";
+        boolean ris = false;
+        ris = Operator.confrontaElemConParametriNotStrict(repository,daCercare,parametro);
+        assertEquals(true,ris);
+    }
+
+    @Test
+    void testconfrontaElemNomeNotFound(){
+        System.out.println("Test confronta Repo per Nome fallito");
+
+        Repository repository = new Repository("1", "repodriller", "bla bla", "https://github.com/mauricioaniche/repodriller", "https://github.com/mauricioaniche/repodriller.git", 25169);
+        String daCercare = "ciao";
+        String parametro = "Repositories";
+        boolean ris = false;
+        ris = Operator.confrontaElemConParametriNotStrict(repository,daCercare,parametro);
+        assertEquals(false,ris);
+    }
+
+    @Test
+    void testconfrontaElemDimensioneSogliaInferiore(){
+        System.out.println("Test dimensione Repo inferiore a soglia");
+
+        Repository repository = new Repository("1", "repodriller", "bla bla", "https://github.com/mauricioaniche/repodriller", "https://github.com/mauricioaniche/repodriller.git", 25169);
+        String daCercare = "30000";
+        String parametro = "Dimensione <";
+        boolean ris = false;
+        ris = Operator.confrontaElemConParametriNotStrict(repository,daCercare,parametro);
+        assertEquals(true,ris);
+    }
+
+    @Test
+    void testconfrontaElemDimensioneSogliaSuperiore(){
+        System.out.println("Test dimensione Repo superiore a soglia");
+
+        Repository repository = new Repository("1", "repodriller", "bla bla", "https://github.com/mauricioaniche/repodriller", "https://github.com/mauricioaniche/repodriller.git", 25169);
+        String daCercare = "30000";
+        String parametro = "Dimensione >";
+        boolean ris = false;
+        ris = Operator.confrontaElemConParametriNotStrict(repository,daCercare,parametro);
+        assertEquals(false,ris);
+    }
+
+    @Test
+    void testconfrontaElemStarsSogliaSuperiore(){
+        System.out.println("Test Stars Repo superiore a soglia");
+
+        Repository repository = new Repository("1", "repodriller", "bla bla", "https://github.com/mauricioaniche/repodriller", "https://github.com/mauricioaniche/repodriller.git", 25169);
+        repository.setStars(1700);
+        String daCercare = "1700";
+        String parametro = "Stars >=";
+        boolean ris = false;
+        ris = Operator.confrontaElemConParametriNotStrict(repository,daCercare,parametro);
+        assertEquals(true,ris);
+    }
+
+    @Test
+    void testconfrontaElemStarsSogliaInferiore(){
+        System.out.println("Test Stars Repo inferiore a soglia");
+
+        Repository repository = new Repository("1", "repodriller", "bla bla", "https://github.com/mauricioaniche/repodriller", "https://github.com/mauricioaniche/repodriller.git", 25169);
+        repository.setStars(1700);
+        String daCercare = "1700";
+        String parametro = "Stars <";
+        boolean ris = false;
+        ris = Operator.confrontaElemConParametriNotStrict(repository,daCercare,parametro);
+        assertEquals(false,ris);
+    }
+
+    @Test
+    void testCercaPerNomeStarsMinori(){
+
+        System.out.println("Test Stars ListaRepo inferiori a soglia");
+
+        String daCercare = "1700";
+        String parametro = "Stars <";
+
+        daCercare = "1700";
+        parametro = "Stars <";
+        boolean strict = false;
+
+        ObservableList<Repository> listaRis = Operator.cercaPerNome((ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO), daCercare,parametro,strict);
+        assertEquals(2,listaRis.size());
+
+    }
+
+    @Test
+    void testCercaPerNomeStarsMaggiori(){
+
+        System.out.println("Test Stars ListaRepo superiori a soglia");
+
+        String daCercare = "1700";
+        String parametro = "Stars >=";
+
+        daCercare = "1700";
+        parametro = "Stars >=";
+        boolean strict = false;
+
+        ObservableList<Repository> listaRis = Operator.cercaPerNome((ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO), daCercare,parametro,strict);
+        assertEquals(2,listaRis.size());
+
+    }
+
+    @Test
+    void testCercaPerNomeStarsMaggioriNome(){
+
+        System.out.println("Test Stars ListaRepo superiore a soglia nome Repo");
+
+        String daCercare = "1700";
+        String parametro = "Stars >=";
+
+        daCercare = "1500";
+        parametro = "Stars >=";
+        boolean strict = false;
+
+        ObservableList<Repository> listaRis = Operator.cercaPerNome((ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO), daCercare,parametro,strict);
+        assertEquals("repodriller",listaRis.get(0).getName());
+
+    }
 }
