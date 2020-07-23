@@ -41,7 +41,7 @@ public class PrimaryController extends Window {
             bottoneEliminaQuery, bottoneStop, bottoneEliminaBulk, bottoneEliminaSelezionato, buttonFilterProgrLanguage;
 
     @FXML
-    private TextField campoToken, campoParametroQ1, campoParametroQ2, campoParametroQ3,
+    private TextField campoToken, campoParametroQ1, campoParametroQ2, campoParametroQ3, fieldPercentage,
             campoCercaTabella, campoQ3, campoSort, campoOrder, campoQ1, campoQ2, campoKeyOrder, campoKeySort;
 
     @FXML
@@ -130,7 +130,7 @@ public class PrimaryController extends Window {
         this.bottoneCerca.setDisable(true);
         //todo: ripristinare a true.
         this.tabResults.setDisable(true);
-
+        fieldPercentage.setVisible(false);
         this.enableDisableRemoveButton(true);
         this.bottoneEliminaSelezionato.setDisable(true);
         initIcons();
@@ -372,6 +372,11 @@ public class PrimaryController extends Window {
 
     public void initCombo() {
         comboParametriRicerca.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            if(newValue.equals(Constants.PARAM_PROGR_LANGUAGE) || newValue.equals(Constants.PARAM_LANGUAGE)) {
+                fieldPercentage.setVisible(true);
+            } else {
+                fieldPercentage.setVisible(false);
+            }
             getSelectedComboLanguage();
             cercaInTabella();
         });

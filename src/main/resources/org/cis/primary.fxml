@@ -194,7 +194,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Button>
-                        <TextField fx:id="campoCercaTabella" layoutX="76.0" layoutY="14.0" prefHeight="27.0" prefWidth="685.0" promptText="Cerca nella tabella" stylesheets="@TextField.css" AnchorPane.leftAnchor="76.0" AnchorPane.rightAnchor="397.0">
+                        <TextField fx:id="campoCercaTabella" layoutX="76.0" layoutY="14.0" prefHeight="27.0" prefWidth="683.0" promptText="Search in the table" stylesheets="@TextField.css" AnchorPane.leftAnchor="76.0" AnchorPane.rightAnchor="399.0">
                            <font>
                               <Font name="System Bold Italic" size="12.0" />
                            </font>
@@ -260,6 +260,11 @@
                               <Image url="@../../icons/human-being.png" />
                            </image>
                         </ImageView>
+                        <TextField fx:id="fieldPercentage" layoutX="630.0" layoutY="14.0" prefHeight="27.0" prefWidth="129.0" promptText="Percentage" stylesheets="@TextField.css" AnchorPane.leftAnchor="630.0" AnchorPane.rightAnchor="398.80000000000007">
+                           <font>
+                              <Font name="System Bold Italic" size="12.0" />
+                           </font>
+                        </TextField>
                      </children>
                   </AnchorPane>
                </content>
