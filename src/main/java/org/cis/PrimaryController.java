@@ -506,13 +506,7 @@ public class PrimaryController extends Window {
         task.setOnSucceeded(workerStateEvent -> {
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Language detection completed!")), 1500);
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 2500);
-            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Rilevamento del linguaggio completato")), 1500);
-<<<<<<< HEAD
-            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Aspetto che mi dia qualcosa da fare...")), 2500);
             disableAllUIElementsResults(false);
-=======
-            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 2500);
->>>>>>> aba864f0f227638e609153c20d18f747887ca3a8
             stopThread();
         });
 
@@ -520,18 +514,11 @@ public class PrimaryController extends Window {
             workerStateEvent.getSource().getException().printStackTrace();
             task.cancel(true);
 
-            System.out.println("Qualcosa è andato storto...");
-<<<<<<< HEAD
             labelProgress.setText("Something went wrong...");
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 1500);
             System.out.println(Applicazione.getInstance().getModello().getObject(Constants.MESSAGGIO_LANGUAGE_DETECTION));
             labelProgress.setText((String) Applicazione.getInstance().getModello().getObject(Constants.MESSAGGIO_LANGUAGE_DETECTION));
-            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Aspetto che mi dia qualcosa da fare...")), 4000);
             disableAllUIElementsResults(false);
-=======
-            labelProgress.setText("Qualcosa è andato storto...");
-            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 1500);
->>>>>>> aba864f0f227638e609153c20d18f747887ca3a8
             stopThread();
         });
         Thread exe = new Thread(task);
@@ -540,7 +527,7 @@ public class PrimaryController extends Window {
     }
 
     private void filterByProgrammingLanguage() {
-        Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Rilevamento del linguaggio di programmazione/markup in corso...")), 1500);
+        Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Detecting of programming language in progress...")), 1500);
 
         List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
         Map<String, StatisticsProgrammingLanguage> languageProgrammingMap =
