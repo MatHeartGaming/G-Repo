@@ -6,6 +6,10 @@ public class RepositoryLanguage {
     private Detection detection1;
     private Detection detection2;
 
+    public String getLanguage() {
+        return language;
+    }
+
     public RepositoryLanguage setLanguage(String language) {
         this.language = language;
         return this;
