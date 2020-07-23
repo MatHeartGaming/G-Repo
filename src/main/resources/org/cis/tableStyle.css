@@ -44,10 +44,6 @@
     -fx-background-radius: 1;
 }
 
-.text-input {
-    -fx-text-fill: #000;
-}
-
 .check-box .box {
     -fx-background-color: white;
     -fx-border-color: grey;

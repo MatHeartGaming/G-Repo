@@ -13,13 +13,12 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Operator {
+
+
 
     public static ObservableList<Repository> cercaPerNome(ObservableList<Repository> lista, String daCercare, String parametro, boolean strict) {
         ObservableList<Repository> risultato = FXCollections.observableArrayList();
@@ -42,60 +41,78 @@ public class Operator {
     }
 
     private static boolean confrontaElemConParametriStrict(Repository repo, String daCercare, String parametro) {
-        if(daCercare.isEmpty()) {
+        daCercare = daCercare.trim();
+        if (daCercare.isEmpty()) {
             return true;
         }
-        if(parametro.equals(Constants.PARAM_LANGUAGE)) {
-            if(repo.getLanguageProperty() != null && repo.getLanguageProperty().toLowerCase().equals(daCercare.toLowerCase().trim())) {
+        if (parametro.equals(Constants.PARAM_LANGUAGE)) {
+            // TODO: 20/07/2020 gestire la ricerca con l'oggetto RepositoryLanguage e quindi usare la mappa Constants.MAP_REPOSITORY_LANGUAGE.
+            if (repo.getLanguageProperty() != null && repo.getLanguageProperty().equalsIgnoreCase(daCercare)) {
                 return true;
             }
-        } else if(parametro.equals(Constants.PARAM_PROGR_LANGUAGE)) {
-            Map<String, StatisticsProgrammingLanguage> languageProgrammingMap =
-                    (Map<String, StatisticsProgrammingLanguage>) Applicazione.getInstance().getModello().getObject(Constants.MAP_REPOSITORY_PROGRAMMING_LANGUAGE);
-            StatisticsProgrammingLanguage statisticsProgrammingLanguage = languageProgrammingMap.get(repo.getId());
-            String finalDaCercare = daCercare;
-            if(statisticsProgrammingLanguage.existsProgrammingLanguage(language -> language.toLowerCase().equals(finalDaCercare.toLowerCase().trim()))) {
-                return true;
-            }
-        } else if(parametro.equals(Constants.PARAM_DATE_COMMIT)) {
-            if(repo.getLastCommitDate() != null && repo.getLastCommitDate().toString().toLowerCase().equals(daCercare.toLowerCase().trim())) {
-                return true;
-            }
-        } else if(parametro.equals(Constants.PARAM_URL)){
-            if(repo.getUrlProject().toLowerCase().equals(daCercare.toLowerCase().trim())) {
-                return true;
-            }
-        } else if (parametro.equals(Constants.PARAM_DIMENSION)) {
-            daCercare = daCercare.trim();
-            if(daCercare.equals("")) {
-                return true;
-            }
-            String dimensione = repo.getSizeString();
-            Sorter.SortByDimension sorter = new Sorter().new SortByDimension();
+        } else if (parametro.equals(Constants.PARAM_REPOSITORIES)) {
+            if (repo.getName().equalsIgnoreCase(daCercare)) {
+                if (repo.getLanguageProperty() != null && repo.getLanguageProperty().toLowerCase().equals(daCercare.toLowerCase().trim())) {
+                    return true;
+                }
+            } else if (parametro.equals(Constants.PARAM_PROGR_LANGUAGE)) {
+                Map<String, StatisticsProgrammingLanguage> languageProgrammingMap =
+                        (Map<String, StatisticsProgrammingLanguage>) Applicazione.getInstance().getModello().getObject(Constants.MAP_REPOSITORY_PROGRAMMING_LANGUAGE);
+                StatisticsProgrammingLanguage statisticsProgrammingLanguage = languageProgrammingMap.get(repo.getId());
+                String finalDaCercare = daCercare;
+                if (statisticsProgrammingLanguage != null && statisticsProgrammingLanguage.existsProgrammingLanguage(language -> language.toLowerCase().equals(finalDaCercare.toLowerCase().trim()))) {
+                    return true;
+                }
+            } else if (parametro.equals(Constants.PARAM_DATE_COMMIT)) {
+                if (repo.getLastCommitDate() != null && repo.getLastCommitDate().toString().toLowerCase().equals(daCercare.toLowerCase().trim())) {
+                    return true;
+                }
+            } else if (parametro.equals(Constants.PARAM_URL)) {
+                if (repo.getUrlProject().equalsIgnoreCase(daCercare)) {
+                    return true;
+                }
+            } else if (parametro.equals(Constants.PARAM_DIMENSION_GREATER)) {
+                String dimensione = repo.getSizeString();
+                Sorter.SortByDimension sorter = new Sorter().new SortByDimension();
 
-            if(sorter.compare(dimensione, daCercare) == 0) {
-                return true;
-            }
-        } else if(parametro.equals(Constants.PARAM_STARS)) {
-            daCercare = daCercare.trim();
-            if(daCercare.equals("")) {
-                return true;
-            }
-            String stars = repo.starsProperty().get().trim();
-            Sorter.SortByStars sorter = new Sorter().new SortByStars();
+                if (sorter.compare(dimensione, daCercare) == 0) {
+                    return true;
+                }
+            } else if (parametro.equals(Constants.PARAM_DIMENSION_SMALLER)) {
+                String dimensione = repo.getSizeString();
+                Sorter.SortByDimension sorter = new Sorter().new SortByDimension();
 
-            if(sorter.compare(stars, daCercare) == 0) {
-                return true;
-            }
-        } else {
-            if(repo.getName().toLowerCase().equals(daCercare.toLowerCase().trim())) {
-                return true;
+                if (sorter.compare(dimensione, daCercare) < 0) {
+                    return true;
+                }
+            } else if (parametro.equals(Constants.PARAM_STARS_GREATER)) {
+                String stars = repo.starsProperty().get().trim();
+                Sorter.SortByStars sorter = new Sorter().new SortByStars();
+
+                if (sorter.compare(stars, daCercare) == 0) {
+                    return true;
+                }
+            } else if (parametro.equals(Constants.PARAM_STARS_SMALLER)) {
+                String stars = repo.starsProperty().get().trim();
+                Sorter.SortByStars sorter = new Sorter().new SortByStars();
+
+                if (sorter.compare(stars, daCercare) < 0) {
+                    return true;
+                }
+            } else {
+                if (repo.getName().equalsIgnoreCase(daCercare)) {
+                    return true;
+                }
             }
         }
         return false;
     }
 
     private static boolean confrontaElemConParametriNotStrict(Repository repo, String daCercare, String parametro) {
+        daCercare = daCercare.trim();
+        if(daCercare.isEmpty()) {
+            return true;
+        }
         if(parametro.equals(Constants.PARAM_LANGUAGE)) {
             if(repo.getLanguageProperty() != null && repo.getLanguageProperty().toLowerCase().contains(daCercare.toLowerCase().trim())) {
                 return true;
@@ -116,8 +133,7 @@ public class Operator {
             if(repo.getUrlProject().toLowerCase().contains(daCercare.toLowerCase().trim())) {
                 return true;
             }
-        } else if (parametro.equals(Constants.PARAM_DIMENSION)) {
-            daCercare = daCercare.trim();
+        } else if (parametro.equals(Constants.PARAM_DIMENSION_GREATER)) {
             if(daCercare.equals("")) {
                 return true;
             }
@@ -127,19 +143,29 @@ public class Operator {
             if(sorter.compare(dimensione, daCercare) >= 0) {
                 return true;
             }
-        } else if(parametro.equals(Constants.PARAM_STARS)) {
-            daCercare = daCercare.trim();
-            if(daCercare.equals("")) {
+        } else if(parametro.equals(Constants.PARAM_DIMENSION_SMALLER)) {
+            String dimensione = repo.getSizeString();
+            Sorter.SortByDimension sorter = new Sorter().new SortByDimension();
+
+            if(sorter.compare(dimensione, daCercare) < 0) {
                 return true;
             }
+        }  else if(parametro.equals(Constants.PARAM_STARS_GREATER)) {
             String stars = repo.starsProperty().get().trim();
             Sorter.SortByStars sorter = new Sorter().new SortByStars();
 
             if(sorter.compare(stars, daCercare) >= 0) {
                 return true;
             }
+        } else if(parametro.equals(Constants.PARAM_STARS_SMALLER)) {
+            String stars = repo.starsProperty().get().trim();
+            Sorter.SortByStars sorter = new Sorter().new SortByStars();
+
+            if(sorter.compare(stars, daCercare) < 0) {
+                return true;
+            }
         } else {
-            if(repo.getName().toLowerCase().contains(daCercare.toLowerCase().trim())) {
+            if (repo.getName().toLowerCase().contains(daCercare.toLowerCase())) {
                 return true;
             }
         }
@@ -162,8 +188,6 @@ public class Operator {
     }
 
     public static void createConfigProperties(){
-        CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
-        Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Creating properties file", 1);}});
 
         System.out.println("Avvio Creazione File Properties!");
 
@@ -184,7 +208,6 @@ public class Operator {
             write.println("username=" + query.getToken());
             write.println("q1=created:"+ query.getDate());
 
-            Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Everything is going fine :)", 2);}});
             int j = 2;
 
             for (int i=0; i < listaQualificatori.size(); i++){
@@ -195,12 +218,9 @@ public class Operator {
                 }
                 write.println("q" + j + "=" + q.getKey() .trim()+":"+ q.getValue().trim());
                 j = j +1;
-                if(i == Math.floor(listaQualificatori.size() / 2)) {
-                    Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("We're half way through!", 3);}});
-                }
+
             }
 
-            Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("We're almost there!! :D", 4);}});
 
             if(query.getSort() != null) {
                 write.println("sort=" + query.getSort());
@@ -218,7 +238,6 @@ public class Operator {
             io.printStackTrace();
         }
 
-        Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Properties file  creato! It's been a pleasure working for you!", 5);}});
 
     }
 
@@ -347,7 +366,7 @@ public class Operator {
             String toolPathRel = "risorse" + separetor + "GHLanguageDetection";
             Path toolPath = FileUtils.createAbsolutePath(toolPathRel);
             File dir = new File(toolPath.toString());
-            System.out.println("Path salvataggio lingua unknown delete: " + toolPath);
+            System.out.println("Path tool: " + toolPath);
 
             Process process = Runtime.getRuntime().exec(cmd, null, dir);
             Applicazione.getInstance().getModello().addObject(Constants.PROCESS_LANGUAGE_DETECTION, process);

@@ -35,12 +35,13 @@ import java.util.*;
 
 public class PrimaryController extends Window {
 
+
     @FXML
-    private Button bottoneCerca, buttonFilterLanguage, bottoneSalva, bottoneAggiungiQuery,
+    private Button bottoneCerca, buttonFilterLanguage, bottoneSalva, bottoneAggiungiQuery, buttonClone,
             bottoneEliminaQuery, bottoneStop, bottoneEliminaBulk, bottoneEliminaSelezionato, buttonFilterProgrLanguage;
 
     @FXML
-    private TextField campoToken, campoParametroQ1, campoParametroQ2, campoParametroQ3,
+    private TextField campoToken, campoParametroQ1, campoParametroQ2, campoParametroQ3, fieldPercentage,
             campoCercaTabella, campoQ3, campoSort, campoOrder, campoQ1, campoQ2, campoKeyOrder, campoKeySort;
 
     @FXML
@@ -63,13 +64,13 @@ public class PrimaryController extends Window {
 
     @FXML
     private ImageView iconFilterLang, iconAddQuery, iconSave, iconSearch, iconRemoveQuery,
-            iconStop, iconDeleteBulk, iconDeleteSelected, iconFilterProgr;
+            iconStop, iconDeleteBulk, iconDeleteSelected, iconFilterProgr, iconClone;
 
     @FXML
     private CheckBox checkStrictMode;
 
     @FXML
-    private DatePicker datePickerStart, datePickerEnd;
+    public DatePicker datePickerStart, datePickerEnd;
 
     @FXML
     private Tab tabResults, tabQueries;
@@ -121,10 +122,15 @@ public class PrimaryController extends Window {
 
         checkStrictMode.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {cercaInTabella();}});
 
+        buttonClone.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {  }});
+        buttonClone.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonClone, "#00ff00");}});
+        buttonClone.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonClone, "#99ff33");}});
+
+
         this.bottoneCerca.setDisable(true);
         //todo: ripristinare a true.
         this.tabResults.setDisable(true);
-
+        fieldPercentage.setVisible(false);
         this.enableDisableRemoveButton(true);
         this.bottoneEliminaSelezionato.setDisable(true);
         initIcons();
@@ -132,41 +138,43 @@ public class PrimaryController extends Window {
         initDatePickers();
         this.initTable();
         this.initProgressBar();
+        this.setToolTipTexts();
     }
 
     private void eventiCampi() {
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
-        campoToken.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoToken, Constants.COLOR_HOVER_TEXTFIELD);}});
-        campoToken.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoToken, Constants.COLOR_TEXTFIELD);}});
         campoToken.setOnKeyReleased(new EventHandler<KeyEvent>() {@Override public void handle(KeyEvent keyEvent) {enableDisableSearchButton();}});
         campoToken.setOnKeyPressed(new EventHandler<KeyEvent>() {@Override public void handle(KeyEvent keyEvent) {enableDisableSearchButton();}});
-        campoParametroQ1.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoParametroQ1, Constants.COLOR_HOVER_TEXTFIELD);}});
-        campoParametroQ1.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoParametroQ1, Constants.COLOR_TEXTFIELD);}});
-        campoParametroQ2.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoParametroQ2, Constants.COLOR_HOVER_TEXTFIELD);}});
-        campoParametroQ2.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoParametroQ2, Constants.COLOR_TEXTFIELD);}});
-        campoParametroQ3.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoParametroQ3, Constants.COLOR_HOVER_TEXTFIELD);}});
-        campoParametroQ3.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoParametroQ3, Constants.COLOR_TEXTFIELD);}});
         campoCercaTabella.setOnKeyPressed(new EventHandler<KeyEvent>() {@Override public void handle(KeyEvent keyEvent) {cercaInTabella();}});
         campoCercaTabella.setOnKeyReleased(new EventHandler<KeyEvent>() {@Override public void handle(KeyEvent keyEvent) {cercaInTabella();}});
-        campoCercaTabella.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoCercaTabella, Constants.COLOR_HOVER_TEXTFIELD);}});
-        campoCercaTabella.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoCercaTabella, Constants.COLOR_TEXTFIELD);}});
-        campoQ1.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoQ1, Constants.COLOR_HOVER_TEXTFIELD);}});
-        campoQ1.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoQ1, Constants.COLOR_TEXTFIELD);}});
-        campoQ2.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoQ2, Constants.COLOR_HOVER_TEXTFIELD);}});
-        campoQ2.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoQ2, Constants.COLOR_TEXTFIELD);}});
-        campoQ3.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoQ3, Constants.COLOR_HOVER_TEXTFIELD);}});
-        campoQ3.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoQ3, Constants.COLOR_TEXTFIELD);}});
-        campoSort.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoSort, Constants.COLOR_HOVER_TEXTFIELD);}});
-        campoSort.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoSort, Constants.COLOR_TEXTFIELD);}});
-        campoOrder.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoOrder, Constants.COLOR_HOVER_TEXTFIELD);}});
-        campoOrder.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoOrder, Constants.COLOR_TEXTFIELD);}});
-        campoKeyOrder.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoKeyOrder, Constants.COLOR_HOVER_TEXTFIELD);}});
-        campoKeyOrder.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoKeyOrder, Constants.COLOR_TEXTFIELD);}});
-        campoKeySort.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoKeySort, Constants.COLOR_HOVER_TEXTFIELD);}});
-        campoKeySort.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoKeySort, Constants.COLOR_TEXTFIELD);}});
-
         Applicazione.getInstance().getModello().addObject(Constants.ULTIMO_CAMPO_KEY, campoQ3);
         initListaTextField();
+    }
+
+    private void setToolTipTexts() {
+        bottoneEliminaQuery.setTooltip(new Tooltip("Remove last inserted query field."));
+        Tooltip.install(iconRemoveQuery, new Tooltip("Remove last inserted query field."));
+        bottoneAggiungiQuery.setTooltip(new Tooltip("Add a query field."));
+        Tooltip.install(iconAddQuery, new Tooltip("Add a query field."));
+        bottoneCerca.setTooltip(new Tooltip("Start a search with parameters and queries you set above."));
+        Tooltip.install(iconSearch, new Tooltip("Start a search with parameters and queries you set above."));
+        bottoneStop.setTooltip(new Tooltip("Stop and Kill current thread/operation."));
+        Tooltip.install(iconStop, new Tooltip("Stop and Kill current thread/operation."));
+        bottoneEliminaBulk.setTooltip(new Tooltip("Delete all of the items currently displayed in the table."));
+        Tooltip.install(iconDeleteBulk, new Tooltip("Delete all of the items currently displayed in the table."));
+        bottoneEliminaSelezionato.setTooltip(new Tooltip("Delete the selected item in the table (if any)."));
+        Tooltip.install(iconDeleteSelected, new Tooltip("Delete the selected item in the table (if any)."));
+        buttonFilterProgrLanguage.setTooltip(new Tooltip("Detect the programming language of every repo (Cloning required)."));
+        Tooltip.install(iconFilterProgr, new Tooltip("Detect the programming language of every repo (Cloning required)."));
+        bottoneSalva.setTooltip(new Tooltip("Choose a dir where to move/save currently cloned repos."));
+        Tooltip.install(iconSave, new Tooltip("Choose a dir where to move/save currently cloned repos."));
+        buttonFilterLanguage.setTooltip(new Tooltip("Install Python first to use this function."));
+        Tooltip.install(iconFilterLang, new Tooltip("Install Python first to use this function."));
+        buttonClone.setTooltip(new Tooltip("Start the cloning process."));
+        Tooltip.install(iconClone, new Tooltip("Start the cloning process."));
+
+        comboParametriRicerca.setTooltip(new Tooltip("Choose a search parameter to be applied when using the search bar."));
+        checkStrictMode.setTooltip(new Tooltip("Forces the search to work only on exact matches."));
     }
 
     private void initProgressBar() {
@@ -252,6 +260,10 @@ public class PrimaryController extends Window {
         iconFilterProgr.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonFilterProgrLanguage, Constants.BUTTON_HOVER_COLOR);}});
         iconFilterProgr.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonFilterProgrLanguage, Constants.COLORE_BUTTON);}});
         iconFilterProgr.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {buttonFilterProgrLanguage.fire();}});
+
+        iconClone.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {buttonClone.fire();}});
+        iconClone.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonClone, "#00ff00");}});
+        iconClone.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonClone, "#99ff33");}});
     }
 
     private LocalDate getValueDataPicker(DatePicker datePicker) {
@@ -262,7 +274,7 @@ public class PrimaryController extends Window {
         return localDate;
     }
 
-    private void initDatePickers() {
+    public void initDatePickers() {
         datePickerStart.valueProperty().addListener((ov, oldValue, newValue) -> {
             LocalDate localDateStart = getValueDataPicker(datePickerStart);
             LocalDate localDateEnd = getValueDataPicker(datePickerEnd);
@@ -360,10 +372,16 @@ public class PrimaryController extends Window {
 
     public void initCombo() {
         comboParametriRicerca.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            if(newValue.equals(Constants.PARAM_PROGR_LANGUAGE) || newValue.equals(Constants.PARAM_LANGUAGE)) {
+                fieldPercentage.setVisible(true);
+            } else {
+                fieldPercentage.setVisible(false);
+            }
             getSelectedComboLanguage();
             cercaInTabella();
         });
-        String parametri[] = {Constants.PARAM_REPOSITORIES, Constants.PARAM_LANGUAGE, Constants.PARAM_PROGR_LANGUAGE, Constants.PARAM_DATE_COMMIT, Constants.PARAM_URL, Constants.PARAM_DIMENSION, Constants.PARAM_STARS};
+        String parametri[] = {Constants.PARAM_REPOSITORIES, Constants.PARAM_LANGUAGE, Constants.PARAM_PROGR_LANGUAGE, Constants.PARAM_DATE_COMMIT,
+                Constants.PARAM_URL, Constants.PARAM_DIMENSION_GREATER, Constants.PARAM_DIMENSION_SMALLER, Constants.PARAM_STARS_GREATER, Constants.PARAM_STARS_SMALLER};
         ObservableList<String> listaLinguaggi = FXCollections.observableArrayList(parametri);
         comboParametriRicerca.setItems(listaLinguaggi);
     }
@@ -490,8 +508,9 @@ public class PrimaryController extends Window {
         };
 
         task.setOnSucceeded(workerStateEvent -> {
-            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Rilevamento del linguaggio completato")), 1500);
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Language detection completed!")), 1500);
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 2500);
+            disableAllUIElementsResults(false);
             stopThread();
         });
 
@@ -499,9 +518,11 @@ public class PrimaryController extends Window {
             workerStateEvent.getSource().getException().printStackTrace();
             task.cancel(true);
 
-            System.out.println("Qualcosa è andato storto...");
-            labelProgress.setText("Qualcosa è andato storto...");
+            labelProgress.setText("Something went wrong...");
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 1500);
+            System.out.println(Applicazione.getInstance().getModello().getObject(Constants.MESSAGGIO_LANGUAGE_DETECTION));
+            labelProgress.setText((String) Applicazione.getInstance().getModello().getObject(Constants.MESSAGGIO_LANGUAGE_DETECTION));
+            disableAllUIElementsResults(false);
             stopThread();
         });
         Thread exe = new Thread(task);
@@ -510,7 +531,7 @@ public class PrimaryController extends Window {
     }
 
     private void filterByProgrammingLanguage() {
-        Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Rilevamento del linguaggio di programmazione/markup in corso...")), 1500);
+        Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Detecting of programming language in progress...")), 1500);
 
         List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
         Map<String, StatisticsProgrammingLanguage> languageProgrammingMap =
@@ -645,16 +666,16 @@ public class PrimaryController extends Window {
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    synchronized (Applicazione.getInstance().getModello().getObject(Constants.THREAD_DOWNLOAD_REPO)) {
+                    synchronized (Applicazione.getInstance().getModello().getObject(Constants.THREAD_WARNING_PANEL)) {
                         try {
-                            Applicazione.getInstance().getModello().getObject(Constants.THREAD_DOWNLOAD_REPO).wait();
+                            Applicazione.getInstance().getModello().getObject(Constants.THREAD_WARNING_PANEL).wait();
                         } catch (Exception ex) {
                             Platform.runLater(new Runnable() {@Override public void run() {Applicazione.getInstance().getCommonEvents().showExceptionDialog(ex);}});
                             ex.printStackTrace();
                         }
                     }
                     //Applicazione.getInstance().getSessionManager().getSessions().clear();
-                    boolean delete = (boolean) Applicazione.getInstance().getModello().getObject(Constants.ACCEPT_DELETION_PROCESS);
+                    boolean delete = (boolean) Applicazione.getInstance().getModello().getObject(Constants.ACCEPT_WARNING_MEX);
                     if(delete == false) {
                         Platform.runLater(new Runnable() {@Override public void run() {labelErrori.setText("Operation aborted.");}});
                         return;
@@ -662,7 +683,11 @@ public class PrimaryController extends Window {
                     if(query.getToken() != null) {
                         disableAllUIElements(true);
 
+                        CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
+                        Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Creating properties file", 1);}});
                         Operator.createConfigProperties();
+                        Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Properties file  creato! It's been a pleasure working for you!", 5);}});
+
                         System.out.println("Properties! creato");
 
                         if (Operator.avvioGHRepoSearcher()) {
@@ -713,7 +738,7 @@ public class PrimaryController extends Window {
                 }
             });
 
-            Applicazione.getInstance().getModello().addObject(Constants.THREAD_DOWNLOAD_REPO, thread);
+            Applicazione.getInstance().getModello().addObject(Constants.THREAD_WARNING_PANEL, thread);
             Applicazione.getInstance().getCommonEvents().loadPanel("WarningPanel", Modality.APPLICATION_MODAL, false, "Filtro", StageStyle.UNDECORATED, true);
             thread.start();
         }
@@ -728,6 +753,7 @@ public class PrimaryController extends Window {
             boolean presenza = checkKeyPresence(t.getText());
             if (presenza && !t.getText().isEmpty() && !this.listaCampiQuery.get(i).getText().isEmpty()) {
                 listQualifiers.add(new Qualifier(t.getText(), this.listaCampiQuery.get(i).getText()));
+                restoreStockColorTextFields();
                 System.out.println("qual added");
             } else if (presenza && !t.getText().isEmpty() && this.listaCampiQuery.get(i).getText().isEmpty()) {
                 commonEvents.changeBorderColor(t, "#ff0000");
@@ -738,12 +764,28 @@ public class PrimaryController extends Window {
             } else {
                 commonEvents.changeBorderColor(t, "#ff0000");
                 this.labelErrori.setText("Check the queries in red!");
+                return null;
             }
             System.out.println("key: " + t.getText());
             System.out.println("valore: " + this.listaCampiQuery.get(i).getText());
             i++;
         }
         return listQualifiers;
+    }
+
+    private void restoreStockColorTextFields() {
+        CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
+        int i = 0;
+        for (TextField t : this.listaCampiChiavi) {
+            TextField query = this.listaCampiQuery.get(i);
+            commonEvents.changeBorderColor(t, Constants.COLOR_TEXTFIELD);
+            commonEvents.changeBorderColor(query, Constants.COLOR_TEXTFIELD);
+            t.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(t, Constants.COLOR_HOVER_TEXTFIELD);}});
+            t.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(t, Constants.COLOR_TEXTFIELD);}});
+            query.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(query, Constants.COLOR_HOVER_TEXTFIELD);}});
+            query.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(query, Constants.COLOR_TEXTFIELD);}});
+        }
+
     }
 
     private void setOptionalFields(Query q) {
@@ -779,7 +821,13 @@ public class PrimaryController extends Window {
             processoLan.destroy();
         }*/
 
-        Thread thread = (Thread) Applicazione.getInstance().getModello().getObject(Constants.THREAD_DOWNLOAD_REPO);
+        Thread thread = (Thread) Applicazione.getInstance().getModello().getObject(Constants.THREAD_WARNING_PANEL);
+        /*
+       Process processLan = (Process) Applicazione.getInstance().getModello().getObject(Constants.PROCESS_LANGUAGE_DETECTION);
+        if(processLan!=null){
+            processLan.destroy();
+        }
+        */
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
         if(thread != null) {
             thread.interrupt();
@@ -795,7 +843,7 @@ public class PrimaryController extends Window {
         }
 
 
-        Applicazione.getInstance().getModello().addObject(Constants.THREAD_DOWNLOAD_REPO, null);
+        Applicazione.getInstance().getModello().addObject(Constants.THREAD_WARNING_PANEL, null);
         Applicazione.getInstance().getModello().addObject(Constants.THREAD_REPO_SEARCHER, null);
         Applicazione.getInstance().getModello().addObject(Constants.PROCESS_LANGUAGE_DETECTION,null);
         Applicazione.getInstance().getModello().addObject(Constants.TASK_CLONE_REPOSITORIES,null);
@@ -805,6 +853,7 @@ public class PrimaryController extends Window {
             return;
         }
         disableAllUIElements(false);
+        disableAllUIElementsResults(false);
         if(!lista.isEmpty()) {
             tabbedPane.getSelectionModel().select(tabResults);
         }

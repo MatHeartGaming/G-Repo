@@ -34,16 +34,18 @@ public class Constants {
     public static final String PARAM_DATE_COMMIT = "Data ultimo commit";
     public static final String PARAM_URL = "URL";
     public static final String PARAM_REPOSITORIES = "Repositories";
-    public static final String PARAM_DIMENSION = "Dimensione";
-    public static final String PARAM_STARS = "Stars";
+    public static final String PARAM_DIMENSION_GREATER = "Dimensione >=";
+    public static final String PARAM_DIMENSION_SMALLER = "Dimensione <";
+    public static final String PARAM_STARS_GREATER = "Stars >=";
+    public static final String PARAM_STARS_SMALLER = "Stars <";
 
     public static final String ULTIMO_CAMPO_KEY = "ultimo campo Q";
 
-    public static final String THREAD_DOWNLOAD_REPO = "thread repo";
+    public static final String THREAD_WARNING_PANEL = "thread repo";
     public static final String THREAD_REPO_SEARCHER = "Thread tool";
     public static final String THREAD_LANGUAGE = "thread language";
 
-    public static final String ACCEPT_DELETION_PROCESS = "delete json";
+    public static final String ACCEPT_WARNING_MEX = "delete json";
     public static final String MESSAGGIO_FINE_RICERCA = "mex tool";
 
     public static final String PROGRESS_BAR = "progress bar";
@@ -52,7 +54,7 @@ public class Constants {
 
     public static final String PRIMARY_STAGE = "primary stage";
     public static final String SAVE_PATH = "save path";
-    public static final String THREAD_SAVE = "thread save";
+    public static final String THREAD_LANGUAGE_DETECT = "thread lang detect";
 
     public static final String[] LISTA_QUAL = {"in", "repo", "user", "org", "size", "followers", "fork",
             "stars", "pushed", "language", "topic", "topics", "license",

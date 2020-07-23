@@ -21,14 +21,14 @@ public class WarningPanelController {
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
         buttonCancel.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonCancel, "#ff0000");}});
         buttonCancel.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonCancel, "#cc3333");}});
-        buttonCancel.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {actionCancel(actionEvent);}});
+        buttonCancel.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {commonEvents.actionCancel(actionEvent);}});
 
         buttonAccept.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonAccept, Constants.BUTTON_HOVER_COLOR);}});
         buttonAccept.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonAccept, Constants.COLORE_BUTTON);}});
-        buttonAccept.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {actionAccept(actionEvent);}});
+        buttonAccept.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {commonEvents.actionAccept(actionEvent);}});
 
 
-        Applicazione.getInstance().getModello().addObject(Constants.ACCEPT_DELETION_PROCESS, false);
+        Applicazione.getInstance().getModello().addObject(Constants.ACCEPT_WARNING_MEX, false);
         initIcons();
     }
 
@@ -43,23 +43,6 @@ public class WarningPanelController {
         iconAccept.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {buttonAccept.fire();}});
     }
 
-    private void actionAccept(ActionEvent actionEvent) {
-        Applicazione.getInstance().getModello().addObject(Constants.ACCEPT_DELETION_PROCESS, true);
-        notifyThread();
-        Applicazione.getInstance().getCommonEvents().hideWindow(actionEvent);
-    }
 
-    private void actionCancel(ActionEvent actionEvent) {
-        Applicazione.getInstance().getModello().addObject(Constants.ACCEPT_DELETION_PROCESS, false);
-        notifyThread();
-        Applicazione.getInstance().getCommonEvents().hideWindow(actionEvent);
-    }
-
-    private void notifyThread() {
-        Thread thread = (Thread) Applicazione.getInstance().getModello().getObject(Constants.THREAD_DOWNLOAD_REPO);
-        synchronized (thread) {
-            thread.notify();
-        }
-    }
 
 }
