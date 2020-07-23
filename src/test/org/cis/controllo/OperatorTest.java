@@ -174,7 +174,7 @@ class OperatorTest {
         String daCercare = "repodriller";
         String parametro = "Repositories";
         boolean ris = false;
-        ris = Operator.confrontaElemConParametriNotStrict(repository,daCercare,parametro);
+        ris = Operator.confrontaElemConParametriNotStrict(repository,daCercare,parametro, "");
         assertEquals(true,ris);
     }
 
@@ -186,7 +186,7 @@ class OperatorTest {
         String daCercare = "ciao";
         String parametro = "Repositories";
         boolean ris = false;
-        ris = Operator.confrontaElemConParametriNotStrict(repository,daCercare,parametro);
+        ris = Operator.confrontaElemConParametriNotStrict(repository,daCercare,parametro, "");
         assertEquals(false,ris);
     }
 
