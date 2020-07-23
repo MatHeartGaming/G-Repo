@@ -21,12 +21,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.*;
 import javafx.util.Duration;
 import org.cis.DAO.DAORepositoryCSV;
-import org.cis.DAO.DAORepositoryJSON;
 import org.cis.controllo.*;
 import org.cis.modello.*;
 
 import java.io.File;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Instant;
@@ -34,7 +32,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class PrimaryController extends Window {
 
@@ -478,6 +475,8 @@ public class PrimaryController extends Window {
                 daoRepositoryCSV.updateRepositories(outputCSV, s -> {
                     String[] values = s.split(",");
 
+                    if (values.length == 0) return;
+
                     Repository repository = repositories.get(Integer.parseInt(values[0]));
                     repository.setCloneDirectory(values[1]);
 
@@ -688,8 +687,7 @@ public class PrimaryController extends Window {
 
                         if (Operator.avvioGHRepoSearcher()) {
                             System.out.println("fine GHrepoSearcher!");
-                            String path = new File("").getAbsolutePath();
-                            path = path + "\\risorse\\json";
+                            String path = FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_JSON).toString();
                             System.out.println("***Path: " + path + "***");
                             List<Repository> lista = Applicazione.getInstance().getDaoRepositoryJSON().loadRepositories(path);
                             ObservableList<Repository> tabList = FXCollections.observableArrayList(lista);

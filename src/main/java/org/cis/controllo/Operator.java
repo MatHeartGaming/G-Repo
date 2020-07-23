@@ -381,7 +381,8 @@ public class Operator {
             System.out.println("Path salvataggio lingua unknown delete: " + pathUn);
             Files.list(pathUn).forEach(FileUtils::deleteDirTree);
 
-            String cmd = "python detector.py";
+            String pythonCommand = Utils.isWindows() ? "python" : "python3";
+            String cmd = pythonCommand + " " + "detector.py";
             String toolPathRel = "risorse" + separetor + "GHLanguageDetection";
             Path toolPath = FileUtils.createAbsolutePath(toolPathRel);
             File dir = new File(toolPath.toString());

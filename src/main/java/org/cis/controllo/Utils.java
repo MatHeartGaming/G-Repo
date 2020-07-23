@@ -1,11 +1,16 @@
 package org.cis.controllo;
 
+import javafx.application.Platform;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Utils {
+
+    private static final String OS = System.getProperty("os.name", "generic").toLowerCase(Locale.ENGLISH);
 
     public static void setTimeout(Runnable runnable, long delay) {
         Timer t = new Timer();
@@ -24,6 +29,10 @@ public class Utils {
         BigDecimal bd = new BigDecimal(Double.toString(value));
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
+    }
+
+    public static boolean isWindows() {
+        return OS.contains("win");
     }
 
 }
