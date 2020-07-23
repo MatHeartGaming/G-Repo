@@ -118,7 +118,7 @@ public class Operator {
         return false;
     }
 
-    private static boolean confrontaElemConParametriNotStrict(Repository repo, String daCercare, String parametro) {
+    public static boolean confrontaElemConParametriNotStrict(Repository repo, String daCercare, String parametro) {
         daCercare = daCercare.trim();
         if(daCercare.isEmpty()) {
             return true;
