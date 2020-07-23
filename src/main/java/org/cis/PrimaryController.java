@@ -762,6 +762,7 @@ public class PrimaryController extends Window {
             } else {
                 commonEvents.changeBorderColor(t, "#ff0000");
                 this.labelErrori.setText("Check the queries in red!");
+                return null;
             }
             System.out.println("key: " + t.getText());
             System.out.println("valore: " + this.listaCampiQuery.get(i).getText());
