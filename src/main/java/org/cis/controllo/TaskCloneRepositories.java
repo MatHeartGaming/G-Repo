@@ -41,7 +41,7 @@ public class TaskCloneRepositories extends Task<Void> {
         RepositoryVisitor repositoryVisitor = new RepositoryVisitor();
 
         updateMessage(this.firstNonClonedRepositoryIndex == 0 ? "Clone all repositories" : "Cloning resumption");
-        // Inizializzo la barra o con 0 oppure con l'elemento già clonato (che a partire da 1 coincide con firstNonClonedRepositoryIndex, rispetto a size()).
+
         updateProgress(this.firstNonClonedRepositoryIndex, this.repositories.size());
         System.out.println(" Inizio Clonazione");
         for (int i = this.firstNonClonedRepositoryIndex; i < this.repositories.size(); i++) {
@@ -50,7 +50,7 @@ public class TaskCloneRepositories extends Task<Void> {
             if (repository.getCloneDirectory() == null) {
                 //# Cloning.
                 currentNameRepository = repository.getName();
-                String cloneDirectory = FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY + "\\" + repository.getName()).toString();
+                String cloneDirectory = FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY + "\\" + (repository.getName() + "_" + i)).toString();
                 System.out.println("Clonazione del repo: " + cloneDirectory);
                 try {
                     gitCommand.cloneRepository(repository.getCloneUrl(), cloneDirectory, this.token, monitor);

@@ -12,6 +12,9 @@ public class Constants {
     public static final String RELATIVE_PATH_MIXED = RELATIVE_PATH_LANGUAGE_REPOSITORIES + "\\" + "mixed";
     public static final String RELATIVE_PATH_NOT_ENGLISH = RELATIVE_PATH_LANGUAGE_REPOSITORIES + "\\" + "not_english";
     public static final String RELATIVE_PATH_UNKNOWN = RELATIVE_PATH_LANGUAGE_REPOSITORIES + "\\" + "unknown";
+
+    public static final String RELATIVE_PATH_JSON = "\\risorse\\json";
+
     public static final String PROCESS_LANGUAGE_DETECTION= "Process language detection";
     public static final String MESSAGGIO_LANGUAGE_DETECTION= "messaggio language detection";
 
@@ -64,5 +67,4 @@ public class Constants {
     public static final String COLORE_BUTTON = "#90E0EF";
     public static final String COLOR_HOVER_TEXTFIELD = "#212529";
     public static final String COLOR_TEXTFIELD = "#6C757D";
-
 }

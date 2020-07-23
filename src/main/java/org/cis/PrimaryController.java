@@ -41,7 +41,7 @@ public class PrimaryController extends Window {
             bottoneEliminaQuery, bottoneStop, bottoneEliminaBulk, bottoneEliminaSelezionato, buttonFilterProgrLanguage;
 
     @FXML
-    private TextField campoToken, campoParametroQ1, campoParametroQ2, campoParametroQ3,
+    private TextField campoToken, campoParametroQ1, campoParametroQ2, campoParametroQ3, fieldPercentage,
             campoCercaTabella, campoQ3, campoSort, campoOrder, campoQ1, campoQ2, campoKeyOrder, campoKeySort;
 
     @FXML
@@ -130,7 +130,7 @@ public class PrimaryController extends Window {
         this.bottoneCerca.setDisable(true);
         //todo: ripristinare a true.
         this.tabResults.setDisable(true);
-
+        fieldPercentage.setVisible(false);
         this.enableDisableRemoveButton(true);
         this.bottoneEliminaSelezionato.setDisable(true);
         initIcons();
@@ -372,6 +372,11 @@ public class PrimaryController extends Window {
 
     public void initCombo() {
         comboParametriRicerca.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            if(newValue.equals(Constants.PARAM_PROGR_LANGUAGE) || newValue.equals(Constants.PARAM_LANGUAGE)) {
+                fieldPercentage.setVisible(true);
+            } else {
+                fieldPercentage.setVisible(false);
+            }
             getSelectedComboLanguage();
             cercaInTabella();
         });
@@ -475,6 +480,8 @@ public class PrimaryController extends Window {
                 daoRepositoryCSV.updateRepositories(outputCSV, s -> {
                     String[] values = s.split(",");
 
+                    if (values.length == 0) return;
+
                     Repository repository = repositories.get(Integer.parseInt(values[0]));
                     repository.setCloneDirectory(values[1]);
 
@@ -503,8 +510,6 @@ public class PrimaryController extends Window {
         task.setOnSucceeded(workerStateEvent -> {
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Language detection completed!")), 1500);
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 2500);
-            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Rilevamento del linguaggio completato")), 1500);
-            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Aspetto che mi dia qualcosa da fare...")), 2500);
             disableAllUIElementsResults(false);
             stopThread();
         });
@@ -513,12 +518,10 @@ public class PrimaryController extends Window {
             workerStateEvent.getSource().getException().printStackTrace();
             task.cancel(true);
 
-            System.out.println("Qualcosa è andato storto...");
             labelProgress.setText("Something went wrong...");
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 1500);
             System.out.println(Applicazione.getInstance().getModello().getObject(Constants.MESSAGGIO_LANGUAGE_DETECTION));
             labelProgress.setText((String) Applicazione.getInstance().getModello().getObject(Constants.MESSAGGIO_LANGUAGE_DETECTION));
-            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Aspetto che mi dia qualcosa da fare...")), 4000);
             disableAllUIElementsResults(false);
             stopThread();
         });
@@ -528,7 +531,7 @@ public class PrimaryController extends Window {
     }
 
     private void filterByProgrammingLanguage() {
-        Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Rilevamento del linguaggio di programmazione/markup in corso...")), 1500);
+        Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Detecting of programming language in progress...")), 1500);
 
         List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
         Map<String, StatisticsProgrammingLanguage> languageProgrammingMap =
@@ -561,10 +564,10 @@ public class PrimaryController extends Window {
 
         Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Rilevamento del linguaggio di programmazione/markup completato")), 1500);
         Utils.setTimeout(() -> Platform.runLater(() -> {
-            labelProgress.setText("Aspetto che mi dia qualcosa da fare...");
+            labelProgress.setText("Waiting for something to do...");
             // Reset progressBar.
             progressBar.setProgress(Constants.values[0]);
-        }), 2500);
+        }), 3500);
         disableAllUIElementsResults(false);
 
     }
@@ -689,8 +692,7 @@ public class PrimaryController extends Window {
 
                         if (Operator.avvioGHRepoSearcher()) {
                             System.out.println("fine GHrepoSearcher!");
-                            String path = new File("").getAbsolutePath();
-                            path = path + "\\risorse\\json";
+                            String path = FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_JSON).toString();
                             System.out.println("***Path: " + path + "***");
                             List<Repository> lista = Applicazione.getInstance().getDaoRepositoryJSON().loadRepositories(path);
                             ObservableList<Repository> tabList = FXCollections.observableArrayList(lista);
@@ -762,6 +764,7 @@ public class PrimaryController extends Window {
             } else {
                 commonEvents.changeBorderColor(t, "#ff0000");
                 this.labelErrori.setText("Check the queries in red!");
+                return null;
             }
             System.out.println("key: " + t.getText());
             System.out.println("valore: " + this.listaCampiQuery.get(i).getText());
@@ -954,6 +957,14 @@ public class PrimaryController extends Window {
     }
 
     private void actionSaveClone() {
+        int indexLastClonedRepository = (int) Applicazione.getInstance().getModello().getObject(Constants.INDEX_LAST_CLONED_REPOSITORY);
+        if (indexLastClonedRepository == -1) {
+            // No cloning started.
+            labelProgress.setText("You must clone first");
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 2500);
+            return;
+        }
+
         Stage stage = (Stage) Applicazione.getInstance().getModello().getObject(Constants.PRIMARY_STAGE);
         DirectoryChooser chooser = new DirectoryChooser();
         chooser.setTitle("G-Repo - Choose where to save your repos");
@@ -961,23 +972,52 @@ public class PrimaryController extends Window {
         chooser.setInitialDirectory(new File(currentPath));
         disableAllUIElementsResults(true);
         File selectedDirectory = chooser.showDialog(stage);
+
+        if (selectedDirectory == null) {
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Canceled operation")), 1500);
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 3500);
+            return;
+        }
+
+        TaskSaveRepository task = new TaskSaveRepository(selectedDirectory.toPath());
+
+        //# Setting event handler on task
+        task.setOnSucceeded(workerStateEvent -> {
+            // Reset progressBar, labelProgress.
+            progressBar.progressProperty().unbind();
+            progressBar.setProgress(Constants.values[0]);
+            labelProgress.textProperty().unbind();
+
+
+            System.out.println("Tutte le Repository spostate");
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("All repositories moved")), 1500);
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 3500);
+        });
+
+        task.setOnFailed(workerStateEvent -> {
+            workerStateEvent.getSource().getException().printStackTrace();
+            task.cancel(true);
+
+            // Reset progressBar, labelProgress.
+            progressBar.progressProperty().unbind();
+            progressBar.setProgress(Constants.values[0]);
+            labelProgress.textProperty().unbind();
+
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Something went wrong...")), 1500);
+            Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 3500);
+        });
+
+        progressBar.progressProperty().bind(task.progressProperty());
+        labelProgress.textProperty().bind(task.messageProperty());
+
+        Thread exe = new Thread(task);
+        exe.setName("Thread-Save-Repository");
+        exe.start();
+
         Applicazione.getInstance().getModello().addObject(Constants.SAVE_PATH, selectedDirectory);
         disableAllUIElementsResults(false);
         String path = Applicazione.getInstance().getModello().getObject(Constants.SAVE_PATH).toString();
         System.out.println("Choosen path: " + path);
-    }
-
-    private void filterByIdiom() {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                List<Repository> lista = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
-                if (lista == null) {
-                    return;
-                }
-                Operator.actionDetectIdiom();
-            }
-        });
     }
 
 }
