@@ -40,7 +40,7 @@ public class Operator {
         return risultato;
     }
 
-    private static boolean confrontaElemConParametriStrict(Repository repo, String daCercare, String parametro, String percent) {
+    public static boolean confrontaElemConParametriStrict(Repository repo, String daCercare, String parametro, String percent) {
         daCercare = daCercare.trim();
         if (daCercare.isEmpty()) {
             return true;
@@ -107,7 +107,7 @@ public class Operator {
         return false;
     }
 
-    private static boolean confrontaElemConParametriNotStrict(Repository repo, String daCercare, String parametro, String percent) {
+    public static boolean confrontaElemConParametriNotStrict(Repository repo, String daCercare, String parametro, String percent) {
         daCercare = daCercare.trim();
         if(daCercare.isEmpty()) {
             return true;
