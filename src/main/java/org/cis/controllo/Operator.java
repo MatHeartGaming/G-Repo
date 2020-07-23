@@ -20,18 +20,18 @@ public class Operator {
 
 
 
-    public static ObservableList<Repository> cercaPerNome(ObservableList<Repository> lista, String daCercare, String parametro, boolean strict) {
+    public static ObservableList<Repository> cercaPerNome(ObservableList<Repository> lista, String daCercare, String parametro, boolean strict, String percent) {
         ObservableList<Repository> risultato = FXCollections.observableArrayList();
         if(lista == null) {
             return risultato;
         }
         for(Repository repo : lista) {
             if(strict) {
-                if(confrontaElemConParametriStrict(repo, daCercare, parametro)) {
+                if(confrontaElemConParametriStrict(repo, daCercare, parametro, percent)) {
                     risultato.add(repo);
                 }
             } else {
-                if(confrontaElemConParametriNotStrict(repo, daCercare, parametro)) {
+                if(confrontaElemConParametriNotStrict(repo, daCercare, parametro, percent)) {
                     risultato.add(repo);
                 }
             }
@@ -40,7 +40,7 @@ public class Operator {
         return risultato;
     }
 
-    private static boolean confrontaElemConParametriStrict(Repository repo, String daCercare, String parametro) {
+    private static boolean confrontaElemConParametriStrict(Repository repo, String daCercare, String parametro, String percent) {
         daCercare = daCercare.trim();
         if (daCercare.isEmpty()) {
             return true;
@@ -55,7 +55,8 @@ public class Operator {
                 if (repo.getLanguageProperty() != null && repo.getLanguageProperty().toLowerCase().equals(daCercare.toLowerCase().trim())) {
                     return true;
                 }
-            } else if (parametro.equals(Constants.PARAM_PROGR_LANGUAGE)) {
+            }
+        } else if (parametro.equals(Constants.PARAM_PROGR_LANGUAGE)) {
                 Map<String, StatisticsProgrammingLanguage> languageProgrammingMap =
                         (Map<String, StatisticsProgrammingLanguage>) Applicazione.getInstance().getModello().getObject(Constants.MAP_REPOSITORY_PROGRAMMING_LANGUAGE);
                 StatisticsProgrammingLanguage statisticsProgrammingLanguage = languageProgrammingMap.get(repo.getId());
@@ -63,52 +64,50 @@ public class Operator {
                 if (statisticsProgrammingLanguage != null && statisticsProgrammingLanguage.existsProgrammingLanguage(language -> language.toLowerCase().equals(finalDaCercare.toLowerCase().trim()))) {
                     return true;
                 }
-            } else if (parametro.equals(Constants.PARAM_DATE_COMMIT)) {
+        } else if (parametro.equals(Constants.PARAM_DATE_COMMIT)) {
                 if (repo.getLastCommitDate() != null && repo.getLastCommitDate().toString().toLowerCase().equals(daCercare.toLowerCase().trim())) {
                     return true;
                 }
-            } else if (parametro.equals(Constants.PARAM_URL)) {
+        } else if (parametro.equals(Constants.PARAM_URL)) {
                 if (repo.getUrlProject().equalsIgnoreCase(daCercare)) {
                     return true;
                 }
-            } else if (parametro.equals(Constants.PARAM_DIMENSION_GREATER)) {
+        } else if (parametro.equals(Constants.PARAM_DIMENSION_GREATER)) {
                 String dimensione = repo.getSizeString();
                 Sorter.SortByDimension sorter = new Sorter().new SortByDimension();
-
                 if (sorter.compare(dimensione, daCercare) == 0) {
                     return true;
                 }
-            } else if (parametro.equals(Constants.PARAM_DIMENSION_SMALLER)) {
+        } else if (parametro.equals(Constants.PARAM_DIMENSION_SMALLER)) {
                 String dimensione = repo.getSizeString();
                 Sorter.SortByDimension sorter = new Sorter().new SortByDimension();
 
                 if (sorter.compare(dimensione, daCercare) < 0) {
                     return true;
                 }
-            } else if (parametro.equals(Constants.PARAM_STARS_GREATER)) {
+        } else if (parametro.equals(Constants.PARAM_STARS_GREATER)) {
                 String stars = repo.starsProperty().get().trim();
                 Sorter.SortByStars sorter = new Sorter().new SortByStars();
 
                 if (sorter.compare(stars, daCercare) == 0) {
                     return true;
                 }
-            } else if (parametro.equals(Constants.PARAM_STARS_SMALLER)) {
+        } else if (parametro.equals(Constants.PARAM_STARS_SMALLER)) {
                 String stars = repo.starsProperty().get().trim();
                 Sorter.SortByStars sorter = new Sorter().new SortByStars();
 
                 if (sorter.compare(stars, daCercare) < 0) {
                     return true;
                 }
-            } else {
+        } else {
                 if (repo.getName().equalsIgnoreCase(daCercare)) {
                     return true;
                 }
-            }
         }
         return false;
     }
 
-    private static boolean confrontaElemConParametriNotStrict(Repository repo, String daCercare, String parametro) {
+    private static boolean confrontaElemConParametriNotStrict(Repository repo, String daCercare, String parametro, String percent) {
         daCercare = daCercare.trim();
         if(daCercare.isEmpty()) {
             return true;
