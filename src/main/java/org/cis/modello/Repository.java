@@ -153,6 +153,10 @@ public class Repository {
         return programmingLanguagesProperty;
     }
 
+    public String getProgrammingLanguageProperty() {
+        return this.programmingLanguagesProperty.get();
+    }
+
     public StringProperty getDataProperty() {
         return this.lastCommitDateProperty;
     }

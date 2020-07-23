@@ -1,24 +1,13 @@
 package org.cis;
 
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.cis.controllo.CommonEvents;
 import org.cis.controllo.FileUtils;
-import org.cis.controllo.SingleThread;
-import org.cis.modello.Repository;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
 
 /**
  * JavaFX App
@@ -41,6 +30,7 @@ public class App extends Application {
         Applicazione.getInstance().getCommonEvents().moveWindow(root, stage);
         //stage.setResizable(false);
         stage.setTitle("G-Repo");*/
+
     }
 
     private void initFolder() {

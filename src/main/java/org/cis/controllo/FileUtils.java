@@ -4,10 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileAttribute;
 
 public class FileUtils {
 
     public static final String PATH_SEPARATOR = FileSystems.getDefault().getSeparator();
+    private static final DeleteFileVisitor deleteFileVisitor = new DeleteFileVisitor();
 
     public static Path createAbsolutePath(String relativePath) {
         // OS independent path.
@@ -18,17 +20,17 @@ public class FileUtils {
         return Paths.get(FileUtils.getRootPath() + PATH_SEPARATOR, relativePath.split("\\\\"));
     }
 
-    public static Path move(Path from, Path to) {
-        if (from == null || to == null) throw new IllegalArgumentException("The argument from or to cannot be null");
-        if (!FileUtils.exists(from)) throw new IllegalStateException("The path " + from + " from does not exist");
-        if (FileUtils.exists(to)) throw new IllegalStateException("The path " + to + "to already exists");
+    public static boolean moveDirTree(Path moveFrom, Path moveTo) {
+        if (moveFrom == null || moveTo == null) throw new IllegalArgumentException("The argument moveFrom or moveTo cannot be null");
+        if (!FileUtils.exists(moveFrom)) throw new IllegalStateException("The path " + moveFrom + " moveFrom does not exist");
 
         try {
-            return Files.move(from, to);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
+            Files.walkFileTree(moveFrom, new MoveFileVisitor(moveFrom, moveTo));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
         }
+        return true;
     }
 
     public static Path createDirectory(Path dir) {
@@ -86,40 +88,77 @@ public class FileUtils {
         if (!FileUtils.exists(pathDir)) {
             return true;
         }
+
         try {
-            Files.walkFileTree(pathDir, new SimpleFileVisitor<>() {
-
-                @Override
-                public FileVisitResult postVisitDirectory(Path dir, IOException ioe) throws IOException {
-                    setPermission(dir.toFile());
-                    // Files.delete(dir)
-                    Files.deleteIfExists(dir);
-                    return FileVisitResult.CONTINUE;
-                }
-
-                @Override
-                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                    setPermission(file.toFile());
-                    Files.deleteIfExists(file);
-                    return FileVisitResult.CONTINUE;
-                }
-
-                private void setPermission(File file) {
-                    // Set application user permissions to 455.
-                    file.setReadable(true);
-                    file.setWritable(true);
-                    file.setExecutable(false);
-                    //change permission to 777 for all the users
-                    //no option for group and others
-                    /*file.setExecutable(true, false);
-                    file.setReadable(true, false);
-                    file.setWritable(true, false);*/
-                }
-            });
+            Files.walkFileTree(pathDir, deleteFileVisitor);
         } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
         return true;
+    }
+
+    private static void setPermission(File file) {
+        // Set application user permissions to 455.
+        file.setReadable(true);
+        file.setWritable(true);
+        file.setExecutable(false);
+        //change permission to 777 for all the users
+        //no option for group and others
+        /*file.setExecutable(true, false);
+        file.setReadable(true, false);
+        file.setWritable(true, false);*/
+    }
+
+    private static class DeleteFileVisitor extends SimpleFileVisitor<Path> {
+
+        @Override
+        public FileVisitResult postVisitDirectory(Path dir, IOException ioe) throws IOException {
+            setPermission(dir.toFile());
+            // Files.delete(dir)
+            Files.deleteIfExists(dir);
+            return FileVisitResult.CONTINUE;
+        }
+
+        @Override
+        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+            setPermission(file.toFile());
+            Files.deleteIfExists(file);
+            return FileVisitResult.CONTINUE;
+        }
+    }
+
+    private static class MoveFileVisitor extends SimpleFileVisitor<Path> {
+
+        private Path moveFrom;
+        private Path moveTo;
+
+        public MoveFileVisitor(Path moveFrom, Path moveTo) {
+            this.moveFrom = moveFrom;
+            this.moveTo = moveTo;
+        }
+
+        @Override
+        public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+            Path newDir = moveTo.resolve(moveFrom.relativize(dir));
+            Files.copy(dir, newDir, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.COPY_ATTRIBUTES);
+
+            return FileVisitResult.CONTINUE;
+        }
+
+        @Override
+        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+            Files.move(file, moveTo.resolve(moveFrom.relativize(file)), StandardCopyOption.REPLACE_EXISTING);
+
+            return FileVisitResult.CONTINUE;
+        }
+
+        @Override
+        public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+            setPermission(dir.toFile());
+            Files.deleteIfExists(dir);
+
+            return FileVisitResult.CONTINUE;
+        }
     }
 }
