@@ -27,5 +27,19 @@ public class Sorter {
         }
     }
 
+    public class SortByProgrLanguage implements Comparator<String> {
+
+        @Override
+        public int compare(String o1, String o2) {
+            int indexPercent1 = o1.indexOf("%");
+            String percent1 = o1.substring(0, indexPercent1);
+            int indexPercent2 = o2.indexOf("%");
+            String percent2 = o2.substring(0, indexPercent2);
+            double percentDouble1 = Double.parseDouble(percent1);
+            double percentDouble2 = Double.parseDouble(percent2);
+            return Double.compare(percentDouble1, percentDouble2);
+        }
+    }
+
 
 }

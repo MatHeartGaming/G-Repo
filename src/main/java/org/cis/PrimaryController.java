@@ -142,11 +142,15 @@ public class PrimaryController extends Window {
     }
 
     private void eventiCampi() {
-        CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
-        campoToken.setOnKeyReleased(new EventHandler<KeyEvent>() {@Override public void handle(KeyEvent keyEvent) {enableDisableSearchButton();}});
-        campoToken.setOnKeyPressed(new EventHandler<KeyEvent>() {@Override public void handle(KeyEvent keyEvent) {enableDisableSearchButton();}});
-        campoCercaTabella.setOnKeyPressed(new EventHandler<KeyEvent>() {@Override public void handle(KeyEvent keyEvent) {cercaInTabella();}});
-        campoCercaTabella.setOnKeyReleased(new EventHandler<KeyEvent>() {@Override public void handle(KeyEvent keyEvent) {cercaInTabella();}});
+        campoCercaTabella.textProperty().addListener((observable, oldValue, newValue) -> {
+            cercaInTabella();
+        });
+        fieldPercentage.textProperty().addListener((observable, oldValue, newValue) -> {
+            cercaInTabella();
+        });
+        campoToken.textProperty().addListener((observable, oldValue, newValue) -> {
+            enableDisableSearchButton();
+        });
         Applicazione.getInstance().getModello().addObject(Constants.ULTIMO_CAMPO_KEY, campoQ3);
         initListaTextField();
     }
@@ -213,6 +217,7 @@ public class PrimaryController extends Window {
 
         columnStars.setComparator(sorter.new SortByStars());
         columnDimensione.setComparator(sorter.new SortByDimension());
+        columnLinguaggio.setComparator(sorter.new SortByProgrLanguage());
     }
 
     private void initListaTextField() {
@@ -328,7 +333,7 @@ public class PrimaryController extends Window {
     }
 
     private void enableDisableSearchButton() {
-        if (campoToken.getText().isEmpty()) {
+        if (campoToken.getText().length() < 40 || campoToken.getText().length() > 40) {
             bottoneCerca.setDisable(true);
         } else {
             bottoneCerca.setDisable(false);
@@ -375,7 +380,7 @@ public class PrimaryController extends Window {
 
     public void initCombo() {
         comboParametriRicerca.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
-            if(newValue.equals(Constants.PARAM_PROGR_LANGUAGE)) {
+            if(newValue.equals(Constants.PARAM_PROGR_LANGUAGE_GREATER) || newValue.equals(Constants.PARAM_PROGR_LANGUAGE_SMALLER)) {
                 fieldPercentage.setVisible(true);
             } else {
                 fieldPercentage.setVisible(false);
@@ -383,7 +388,7 @@ public class PrimaryController extends Window {
             getSelectedComboLanguage();
             cercaInTabella();
         });
-        String parametri[] = {Constants.PARAM_REPOSITORIES, Constants.PARAM_LANGUAGE, Constants.PARAM_PROGR_LANGUAGE, Constants.PARAM_DATE_COMMIT,
+        String parametri[] = {Constants.PARAM_REPOSITORIES, Constants.PARAM_LANGUAGE, Constants.PARAM_PROGR_LANGUAGE_GREATER, Constants.PARAM_PROGR_LANGUAGE_SMALLER, Constants.PARAM_DATE_COMMIT,
                 Constants.PARAM_URL, Constants.PARAM_DIMENSION_GREATER, Constants.PARAM_DIMENSION_SMALLER, Constants.PARAM_STARS_GREATER, Constants.PARAM_STARS_SMALLER};
         ObservableList<String> listaLinguaggi = FXCollections.observableArrayList(parametri);
         comboParametriRicerca.setItems(listaLinguaggi);
