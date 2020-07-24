@@ -55,14 +55,42 @@ public class Operator {
                     return true;
                 }
             }
-        } else if (parametro.equals(Constants.PARAM_PROGR_LANGUAGE)) {
-                Map<String, StatisticsProgrammingLanguage> languageProgrammingMap =
-                        (Map<String, StatisticsProgrammingLanguage>) Applicazione.getInstance().getModello().getObject(Constants.MAP_REPOSITORY_PROGRAMMING_LANGUAGE);
-                StatisticsProgrammingLanguage statisticsProgrammingLanguage = languageProgrammingMap.get(repo.getId());
-                String finalDaCercare = daCercare;
-                if (statisticsProgrammingLanguage != null && statisticsProgrammingLanguage.existsProgrammingLanguage(language -> language.toLowerCase().equals(finalDaCercare.toLowerCase().trim()))) {
-                    return true;
-                }
+        } else if (parametro.equals(Constants.PARAM_PROGR_LANGUAGE_GREATER)) {
+            Map<String, StatisticsProgrammingLanguage> languageProgrammingMap =
+                    (Map<String, StatisticsProgrammingLanguage>) Applicazione.getInstance().getModello().getObject(Constants.MAP_REPOSITORY_PROGRAMMING_LANGUAGE);
+            StatisticsProgrammingLanguage statisticsProgrammingLanguage = languageProgrammingMap.get(repo.getId());
+            String finalDaCercare = daCercare;
+
+            double percentDouble;
+            boolean predicatePercentage = true;
+            try {
+                percentDouble = Double.parseDouble(percent);
+                predicatePercentage = statisticsProgrammingLanguage.getPercentage() == percentDouble;
+            } catch (NumberFormatException e) {}
+
+            if(statisticsProgrammingLanguage != null
+                    && statisticsProgrammingLanguage.existsProgrammingLanguage(language -> language.toLowerCase().contains(finalDaCercare.toLowerCase().trim()))
+                    && predicatePercentage) {
+                return true;
+            }
+        } else if(parametro.equals(Constants.PARAM_PROGR_LANGUAGE_SMALLER)) {
+            Map<String, StatisticsProgrammingLanguage> languageProgrammingMap =
+                    (Map<String, StatisticsProgrammingLanguage>) Applicazione.getInstance().getModello().getObject(Constants.MAP_REPOSITORY_PROGRAMMING_LANGUAGE);
+            StatisticsProgrammingLanguage statisticsProgrammingLanguage = languageProgrammingMap.get(repo.getId());
+            String finalDaCercare = daCercare;
+
+            double percentDouble;
+            boolean predicatePercentage = true;
+            try {
+                percentDouble = Double.parseDouble(percent);
+                predicatePercentage = statisticsProgrammingLanguage.getPercentage() == percentDouble;
+            } catch (NumberFormatException e) {}
+
+            if(statisticsProgrammingLanguage != null
+                    && statisticsProgrammingLanguage.existsProgrammingLanguage(language -> language.toLowerCase().contains(finalDaCercare.toLowerCase().trim()))
+                    && predicatePercentage) {
+                return true;
+            }
         } else if (parametro.equals(Constants.PARAM_DATE_COMMIT)) {
                 if (repo.getLastCommitDate() != null && repo.getLastCommitDate().toString().toLowerCase().equals(daCercare.toLowerCase().trim())) {
                     return true;
@@ -81,7 +109,7 @@ public class Operator {
                 String dimensione = repo.getSizeString();
                 Sorter.SortByDimension sorter = new Sorter().new SortByDimension();
 
-                if (sorter.compare(dimensione, daCercare) < 0) {
+                if (sorter.compare(dimensione, daCercare) == 0) {
                     return true;
                 }
         } else if (parametro.equals(Constants.PARAM_STARS_GREATER)) {
@@ -95,7 +123,7 @@ public class Operator {
                 String stars = repo.starsProperty().get().trim();
                 Sorter.SortByStars sorter = new Sorter().new SortByStars();
 
-                if (sorter.compare(stars, daCercare) < 0) {
+                if (sorter.compare(stars, daCercare) == 0) {
                     return true;
                 }
         } else {
@@ -119,7 +147,7 @@ public class Operator {
             if(repositoryLanguage != null && repositoryLanguage.getLanguage().toLowerCase().contains(daCercare.toLowerCase().trim())) {
                 return true;
             }
-        } else if(parametro.equals(Constants.PARAM_PROGR_LANGUAGE)) {
+        } else if(parametro.equals(Constants.PARAM_PROGR_LANGUAGE_GREATER)) {
             Map<String, StatisticsProgrammingLanguage> languageProgrammingMap =
                     (Map<String, StatisticsProgrammingLanguage>) Applicazione.getInstance().getModello().getObject(Constants.MAP_REPOSITORY_PROGRAMMING_LANGUAGE);
             StatisticsProgrammingLanguage statisticsProgrammingLanguage = languageProgrammingMap.get(repo.getId());
@@ -130,6 +158,24 @@ public class Operator {
             try {
                 percentDouble = Double.parseDouble(percent);
                 predicatePercentage = statisticsProgrammingLanguage.getPercentage() >= percentDouble;
+            } catch (NumberFormatException e) {}
+
+            if(statisticsProgrammingLanguage != null
+                    && statisticsProgrammingLanguage.existsProgrammingLanguage(language -> language.toLowerCase().contains(finalDaCercare.toLowerCase().trim()))
+                    && predicatePercentage) {
+                return true;
+            }
+        } else if(parametro.equals(Constants.PARAM_PROGR_LANGUAGE_SMALLER)) {
+            Map<String, StatisticsProgrammingLanguage> languageProgrammingMap =
+                    (Map<String, StatisticsProgrammingLanguage>) Applicazione.getInstance().getModello().getObject(Constants.MAP_REPOSITORY_PROGRAMMING_LANGUAGE);
+            StatisticsProgrammingLanguage statisticsProgrammingLanguage = languageProgrammingMap.get(repo.getId());
+            String finalDaCercare = daCercare;
+
+            double percentDouble;
+            boolean predicatePercentage = true;
+            try {
+                percentDouble = Double.parseDouble(percent);
+                predicatePercentage = statisticsProgrammingLanguage.getPercentage() < percentDouble;
             } catch (NumberFormatException e) {}
 
             if(statisticsProgrammingLanguage != null

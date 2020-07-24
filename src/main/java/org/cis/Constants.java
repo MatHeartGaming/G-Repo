@@ -29,13 +29,14 @@ public class Constants {
 
     public static final String[] LINGUA = {"Inglese", "Non-Inglese", "Misto"};
 
-    public static final String PARAM_LANGUAGE = "Lingua";
-    public static final String PARAM_PROGR_LANGUAGE = "Linguaggio";
-    public static final String PARAM_DATE_COMMIT = "Data ultimo commit";
+    public static final String PARAM_LANGUAGE = "Language";
+    public static final String PARAM_PROGR_LANGUAGE_GREATER = "Language >=";
+    public static final String PARAM_PROGR_LANGUAGE_SMALLER = "Language <";
+    public static final String PARAM_DATE_COMMIT = "Last Commit Date";
     public static final String PARAM_URL = "URL";
     public static final String PARAM_REPOSITORIES = "Repositories";
-    public static final String PARAM_DIMENSION_GREATER = "Dimensione >=";
-    public static final String PARAM_DIMENSION_SMALLER = "Dimensione <";
+    public static final String PARAM_DIMENSION_GREATER = "Dimension >=";
+    public static final String PARAM_DIMENSION_SMALLER = "Dimension <";
     public static final String PARAM_STARS_GREATER = "Stars >=";
     public static final String PARAM_STARS_SMALLER = "Stars <";
 
