@@ -46,7 +46,6 @@ public class Operator {
             return true;
         }
         if (parametro.equals(Constants.PARAM_LANGUAGE)) {
-            // TODO: 20/07/2020 gestire la ricerca con l'oggetto RepositoryLanguage e quindi usare la mappa Constants.MAP_REPOSITORY_LANGUAGE.
             if (repo.getLanguageProperty() != null && repo.getLanguageProperty().equalsIgnoreCase(daCercare)) {
                 return true;
             }
@@ -113,7 +112,11 @@ public class Operator {
             return true;
         }
         if(parametro.equals(Constants.PARAM_LANGUAGE)) {
-            if(repo.getLanguageProperty() != null && repo.getLanguageProperty().toLowerCase().contains(daCercare.toLowerCase().trim())) {
+            Map<String, RepositoryLanguage> repositoryLanguageMap =
+                    (Map<String, RepositoryLanguage>) Applicazione.getInstance().getModello().getObject(Constants.MAP_REPOSITORY_LANGUAGE);
+            RepositoryLanguage  repositoryLanguage = repositoryLanguageMap.get(repo.getId());
+
+            if(repositoryLanguage != null && repositoryLanguage.getLanguage().toLowerCase().contains(daCercare.toLowerCase().trim())) {
                 return true;
             }
         } else if(parametro.equals(Constants.PARAM_PROGR_LANGUAGE)) {
@@ -121,7 +124,17 @@ public class Operator {
                     (Map<String, StatisticsProgrammingLanguage>) Applicazione.getInstance().getModello().getObject(Constants.MAP_REPOSITORY_PROGRAMMING_LANGUAGE);
             StatisticsProgrammingLanguage statisticsProgrammingLanguage = languageProgrammingMap.get(repo.getId());
             String finalDaCercare = daCercare;
-            if(statisticsProgrammingLanguage != null && statisticsProgrammingLanguage.existsProgrammingLanguage(language -> language.toLowerCase().contains(finalDaCercare.toLowerCase().trim()))) {
+
+            double percentDouble;
+            boolean predicatePercentage = true;
+            try {
+                percentDouble = Double.parseDouble(percent);
+                predicatePercentage = statisticsProgrammingLanguage.getPercentage() >= percentDouble;
+            } catch (NumberFormatException e) {}
+
+            if(statisticsProgrammingLanguage != null
+                    && statisticsProgrammingLanguage.existsProgrammingLanguage(language -> language.toLowerCase().contains(finalDaCercare.toLowerCase().trim()))
+                    && predicatePercentage) {
                 return true;
             }
         } else if(parametro.equals(Constants.PARAM_DATE_COMMIT)) {

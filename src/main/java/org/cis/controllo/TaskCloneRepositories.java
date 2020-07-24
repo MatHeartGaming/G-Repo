@@ -9,9 +9,11 @@ import org.cis.modello.StatisticsProgrammingLanguage;
 import org.eclipse.jgit.lib.ProgressMonitor;
 
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class TaskCloneRepositories extends Task<Void> {
 
@@ -34,7 +36,15 @@ public class TaskCloneRepositories extends Task<Void> {
         if (this.firstNonClonedRepositoryIndex == 0) {
             updateMessage("Clone cache cleanup");
             System.out.println("Cancellazione cache repository");
-            Files.list(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY)).forEach(FileUtils::deleteDirTree);
+            //FileUtils.deleteDirTree(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY));
+
+            List<Path> paths = Files.list(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY))
+                                    .collect(Collectors.toList());
+
+            for (int i = 0; i < paths.size(); i++) {
+                FileUtils.deleteDirTree(paths.get(i));
+                updateProgress(i + 1, paths.size());
+            }
         }
 
         GitCommand gitCommand = new GitCommand();
