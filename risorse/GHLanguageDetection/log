@@ -1,156 +1,619 @@
-13:13:15 - 22/07/2020 - Starting script...
+21:14:47 - 24/07/2020 - Starting script...
 
-13:13:15 - Analyzing Repository: JCSPROUT
-13:13:15 - Language Detected: en with confidence: 100.0%
-13:13:15 - OPERATION: Moving repository to 'english' folder because README is written in english!
+21:14:47 - Analyzing Repository: IJPay_0
+21:14:47 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:47 - Language Detected: no with confidence: 57.1%
+21:14:47 - Language Detected: en with confidence: 42.9%
+21:14:47 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
 
-13:13:15 - Writing CSV file! 
+21:14:47 - Writing CSV file! 
 
-13:13:15 - Analyzing Repository: SPRING-BOOT-EXAMPLES
-13:13:15 - * MULTIPLE LANGUAGES WERE DETECTED *
-13:13:15 - Language Detected: en with confidence: 85.7%
-13:13:15 - Language Detected: no with confidence: 14.3%
-13:13:15 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
+21:14:48 - Analyzing Repository: ZLayoutManager_7
+21:14:48 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:48 - Language Detected: no with confidence: 42.9%
+21:14:48 - Language Detected: vi with confidence: 28.6%
+21:14:48 - Language Detected: en with confidence: 28.6%
+21:14:48 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
 
-13:13:15 - Writing CSV file! 
+21:14:48 - Writing CSV file! 
 
-13:13:16 - Analyzing Repository: SPRINGALL
-13:13:16 - Language Detected: en with confidence: 100.0%
-13:13:16 - OPERATION: Moving repository to 'english' folder because README is written in english!
+21:14:48 - Analyzing Repository: ArgusAPM_15
+21:14:48 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:48 - Language Detected: zh-cn with confidence: 71.4%
+21:14:48 - Language Detected: ko with confidence: 28.6%
+21:14:48 - OPERATION: Moving repository to 'not english' folder because README is written in english!
 
-13:13:16 - Writing CSV file! 
+21:14:48 - Writing CSV file! 
 
-13:13:16 - Analyzing Repository: SPRINGCLOUDLEARNING
-13:13:16 - * MULTIPLE LANGUAGES WERE DETECTED *
-13:13:16 - Language Detected: en with confidence: 85.7%
-13:13:16 - Language Detected: vi with confidence: 14.3%
-13:13:16 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
+21:14:48 - Analyzing Repository: xbin-store_17
+21:14:48 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:48 - Language Detected: en with confidence: 71.4%
+21:14:48 - Language Detected: no with confidence: 28.6%
+21:14:48 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
 
-13:13:16 - Writing CSV file! 
+21:14:48 - Writing CSV file! 
 
-13:13:16 - Analyzing Repository: SPRINGBOOT-LEARNING-EXAMPLE
-13:13:16 - Language Detected: en with confidence: 100.0%
-13:13:16 - OPERATION: Moving repository to 'english' folder because README is written in english!
+21:14:48 - Analyzing Repository: seckill_21
+21:14:48 - Language Detected: zh-cn with confidence: 100.0%
+21:14:48 - OPERATION: Moving repository to 'not english' folder because README is written in english!
 
-13:13:16 - Writing CSV file! 
+21:14:48 - Writing CSV file! 
 
-13:13:16 - Analyzing Repository: MATISSE
-13:13:16 - Language Detected: en with confidence: 100.0%
-13:13:16 - OPERATION: Moving repository to 'english' folder because README is written in english!
+21:14:48 - Analyzing Repository: initializr_29
+21:14:48 - Moving repository to 'unknown' folder because README does not exist!
 
-13:13:16 - Writing CSV file! 
+21:14:48 - Writing CSV file! 
 
-13:13:16 - Analyzing Repository: VLAYOUT
-13:13:16 - Language Detected: en with confidence: 100.0%
-13:13:16 - OPERATION: Moving repository to 'english' folder because README is written in english!
+21:14:49 - Analyzing Repository: es_33
+21:14:49 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:49 - Language Detected: en with confidence: 85.7%
+21:14:49 - Language Detected: ca with confidence: 14.3%
+21:14:49 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
 
-13:13:16 - Writing CSV file! 
+21:14:49 - Writing CSV file! 
 
-13:13:16 - Analyzing Repository: SPRING-BOOT-API-PROJECT-SEED
-13:13:16 - Language Detected: zh-cn with confidence: 100.0%
-13:13:16 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+21:14:49 - Analyzing Repository: thymeleaf_36
+21:14:49 - Moving repository to 'unknown' folder because README does not exist!
 
-13:13:16 - Writing CSV file! 
+21:14:49 - Writing CSV file! 
 
-13:13:16 - Analyzing Repository: VIRTUALAPK
-13:13:16 - Language Detected: en with confidence: 100.0%
-13:13:16 - OPERATION: Moving repository to 'english' folder because README is written in english!
+21:14:49 - Analyzing Repository: TakePhoto_63
+21:14:49 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:49 - Language Detected: no with confidence: 71.4%
+21:14:49 - Language Detected: vi with confidence: 28.6%
+21:14:49 - OPERATION: Moving repository to 'not english' folder because README is written in english!
 
-13:13:16 - Writing CSV file! 
+21:14:49 - Writing CSV file! 
 
-13:13:16 - Analyzing Repository: AWESOME-JAVA-LEETCODE
-13:13:16 - Language Detected: en with confidence: 100.0%
-13:13:16 - OPERATION: Moving repository to 'english' folder because README is written in english!
+21:14:49 - Analyzing Repository: Java_65
+21:14:49 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:49 - Language Detected: et with confidence: 71.4%
+21:14:49 - Language Detected: vi with confidence: 28.6%
+21:14:49 - OPERATION: Moving repository to 'not english' folder because README is written in english!
 
-13:13:16 - Writing CSV file! 
+21:14:49 - Writing CSV file! 
 
-13:13:16 - Analyzing Repository: ANDROID-DEBUG-DATABASE
-13:13:16 - Language Detected: en with confidence: 100.0%
-13:13:16 - OPERATION: Moving repository to 'english' folder because README is written in english!
+21:14:49 - Analyzing Repository: okhttputils_66
+21:14:49 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:49 - Language Detected: no with confidence: 71.4%
+21:14:49 - Language Detected: en with confidence: 14.3%
+21:14:49 - Language Detected: vi with confidence: 14.3%
+21:14:49 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
 
-13:13:16 - Writing CSV file! 
+21:14:49 - Writing CSV file! 
 
-13:13:16 - Analyzing Repository: ULTIMATEANDROIDREFERENCE
-13:13:16 - Language Detected: en with confidence: 100.0%
-13:13:16 - OPERATION: Moving repository to 'english' folder because README is written in english!
+21:14:49 - Analyzing Repository: SmartTabLayout_68
+21:14:49 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:49 - Language Detected: en with confidence: 85.7%
+21:14:49 - Language Detected: da with confidence: 14.3%
+21:14:49 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
 
-13:13:16 - Writing CSV file! 
+21:14:49 - Writing CSV file! 
 
-13:13:16 - Analyzing Repository: ANDROID-INTERVIEW-QUESTIONS
-13:13:16 - Language Detected: en with confidence: 100.0%
-13:13:16 - OPERATION: Moving repository to 'english' folder because README is written in english!
+21:14:51 - Analyzing Repository: coursera-android_72
+21:14:51 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:51 - Language Detected: en with confidence: 57.1%
+21:14:51 - Language Detected: fr with confidence: 42.9%
+21:14:51 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
 
-13:13:16 - Writing CSV file! 
+21:14:51 - Writing CSV file! 
 
-13:13:16 - Analyzing Repository: TOASTY
-13:13:16 - Language Detected: en with confidence: 100.0%
-13:13:16 - OPERATION: Moving repository to 'english' folder because README is written in english!
+21:14:52 - Analyzing Repository: XposedInstaller_80
+21:14:52 - Moving repository to 'unknown' folder because README does not exist!
 
-13:13:16 - Writing CSV file! 
+21:14:52 - Writing CSV file! 
 
-13:13:17 - Analyzing Repository: SPRINGBOOT-LABS
-13:13:17 - Language Detected: zh-cn with confidence: 100.0%
-13:13:17 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+21:14:52 - Analyzing Repository: TubeMQ_94
+21:14:52 - Language Detected: zh-cn with confidence: 100.0%
+21:14:52 - OPERATION: Moving repository to 'not english' folder because README is written in english!
 
-13:13:17 - Writing CSV file! 
+21:14:52 - Writing CSV file! 
 
-13:13:17 - Analyzing Repository: MVVMHABIT
-13:13:17 - Language Detected: en with confidence: 100.0%
-13:13:17 - OPERATION: Moving repository to 'english' folder because README is written in english!
+21:14:52 - Analyzing Repository: AndroidOpenGLDemo_101
+21:14:52 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:52 - Language Detected: zh-cn with confidence: 71.4%
+21:14:52 - Language Detected: ko with confidence: 28.6%
+21:14:52 - OPERATION: Moving repository to 'not english' folder because README is written in english!
 
-13:13:17 - Writing CSV file! 
+21:14:52 - Writing CSV file! 
 
-13:13:17 - Analyzing Repository: TSUNAMI-SECURITY-SCANNER
-13:13:17 - Language Detected: en with confidence: 100.0%
-13:13:17 - OPERATION: Moving repository to 'english' folder because README is written in english!
+21:14:52 - Analyzing Repository: android-interview-guide_103
+21:14:52 - Language Detected: vi with confidence: 100.0%
+21:14:52 - OPERATION: Moving repository to 'not english' folder because README is written in english!
 
-13:13:17 - Writing CSV file! 
+21:14:52 - Writing CSV file! 
 
-13:13:17 - Analyzing Repository: WALLE
-13:13:17 - Language Detected: en with confidence: 100.0%
-13:13:17 - OPERATION: Moving repository to 'english' folder because README is written in english!
+21:14:52 - Analyzing Repository: PaletteImageView_106
+21:14:52 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:52 - Language Detected: no with confidence: 71.4%
+21:14:52 - Language Detected: en with confidence: 28.6%
+21:14:52 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
 
-13:13:17 - Writing CSV file! 
+21:14:52 - Writing CSV file! 
 
-13:13:18 - Analyzing Repository: SPRING-CLOUD-EXAMPLES
-13:13:18 - * MULTIPLE LANGUAGES WERE DETECTED *
-13:13:18 - Language Detected: no with confidence: 85.7%
-13:13:18 - Language Detected: vi with confidence: 14.3%
-13:13:18 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+21:14:52 - Analyzing Repository: Android-BLE_107
+21:14:52 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:52 - Language Detected: zh-cn with confidence: 85.7%
+21:14:52 - Language Detected: ko with confidence: 14.3%
+21:14:52 - OPERATION: Moving repository to 'not english' folder because README is written in english!
 
-13:13:18 - Writing CSV file! 
+21:14:52 - Writing CSV file! 
 
-13:13:18 - Analyzing Repository: FROM-JAVA-TO-KOTLIN
-13:13:18 - Language Detected: en with confidence: 100.0%
-13:13:18 - OPERATION: Moving repository to 'english' folder because README is written in english!
+21:14:52 - Analyzing Repository: GlideImageView_108
+21:14:52 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:52 - Language Detected: en with confidence: 57.1%
+21:14:52 - Language Detected: no with confidence: 42.9%
+21:14:52 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
 
-13:13:18 - Writing CSV file! 
+21:14:52 - Writing CSV file! 
 
-13:13:18 - Analyzing Repository: DUBBO-SPRING-BOOT-PROJECT
-13:13:18 - Language Detected: en with confidence: 100.0%
-13:13:18 - OPERATION: Moving repository to 'english' folder because README is written in english!
+21:14:52 - Analyzing Repository: SpringMVC-Mybatis-Shiro-redis-0.2_109
+21:14:52 - Moving repository to 'unknown' folder because README does not exist!
 
-13:13:18 - Writing CSV file! 
+21:14:52 - Writing CSV file! 
 
-13:13:18 - Analyzing Repository: CHUCK
-13:13:18 - Language Detected: en with confidence: 100.0%
-13:13:18 - OPERATION: Moving repository to 'english' folder because README is written in english!
+21:14:52 - Analyzing Repository: zfile_112
+21:14:52 - Language Detected: vi with confidence: 100.0%
+21:14:52 - OPERATION: Moving repository to 'not english' folder because README is written in english!
 
-13:13:18 - Writing CSV file! 
+21:14:52 - Writing CSV file! 
 
-13:13:18 - Analyzing Repository: FLUTTER_BOOST
-13:13:18 - Language Detected: en with confidence: 100.0%
-13:13:18 - OPERATION: Moving repository to 'english' folder because README is written in english!
+21:14:52 - Analyzing Repository: XSnow_114
+21:14:52 - Language Detected: zh-cn with confidence: 100.0%
+21:14:52 - OPERATION: Moving repository to 'not english' folder because README is written in english!
 
-13:13:18 - Writing CSV file! 
+21:14:52 - Writing CSV file! 
 
-13:13:18 - Analyzing Repository: SPRINGBOOT
-13:13:18 - * MULTIPLE LANGUAGES WERE DETECTED *
-13:13:18 - Language Detected: en with confidence: 57.1%
-13:13:18 - Language Detected: no with confidence: 28.6%
-13:13:18 - Language Detected: af with confidence: 14.3%
-13:13:18 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
+21:14:52 - Analyzing Repository: wechat-api_119
+21:14:52 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:52 - Language Detected: zh-cn with confidence: 85.7%
+21:14:52 - Language Detected: ko with confidence: 14.3%
+21:14:52 - OPERATION: Moving repository to 'not english' folder because README is written in english!
 
-13:13:18 - Writing CSV file! 
+21:14:52 - Writing CSV file! 
 
-13:13:18 - Finish!
+21:14:52 - Analyzing Repository: mybatis-generator-gui_127
+21:14:52 - Language Detected: zh-cn with confidence: 100.0%
+21:14:52 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:14:52 - Writing CSV file! 
+
+21:14:52 - Analyzing Repository: server_129
+21:14:52 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:52 - Language Detected: en with confidence: 85.7%
+21:14:52 - Language Detected: vi with confidence: 14.3%
+21:14:52 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
+
+21:14:52 - Writing CSV file! 
+
+21:14:52 - Analyzing Repository: ssm_131
+21:14:52 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:52 - Language Detected: no with confidence: 85.7%
+21:14:52 - Language Detected: en with confidence: 14.3%
+21:14:52 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
+
+21:14:52 - Writing CSV file! 
+
+21:14:53 - Analyzing Repository: UltraViewPager_132
+21:14:53 - Language Detected: no with confidence: 100.0%
+21:14:53 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:14:53 - Writing CSV file! 
+
+21:14:53 - Analyzing Repository: android-zxingLibrary_136
+21:14:53 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:53 - Language Detected: zh-cn with confidence: 85.7%
+21:14:53 - Language Detected: ko with confidence: 14.3%
+21:14:53 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:14:53 - Writing CSV file! 
+
+21:14:53 - Analyzing Repository: Jetpack-MVVM-Best-Practice_137
+21:14:53 - Language Detected: zh-cn with confidence: 100.0%
+21:14:53 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:14:53 - Writing CSV file! 
+
+21:14:53 - Analyzing Repository: SpringCloud_138
+21:14:53 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:53 - Language Detected: en with confidence: 57.1%
+21:14:53 - Language Detected: no with confidence: 28.6%
+21:14:53 - Language Detected: vi with confidence: 14.3%
+21:14:53 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
+
+21:14:53 - Writing CSV file! 
+
+21:14:53 - Analyzing Repository: lanproxy_140
+21:14:53 - Language Detected: zh-cn with confidence: 100.0%
+21:14:53 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:14:53 - Writing CSV file! 
+
+21:14:53 - Analyzing Repository: BadgeView_143
+21:14:53 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:53 - Language Detected: no with confidence: 85.7%
+21:14:53 - Language Detected: en with confidence: 14.3%
+21:14:53 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
+
+21:14:53 - Writing CSV file! 
+
+21:14:53 - Analyzing Repository: tx-lcn_147
+21:14:53 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:53 - Language Detected: no with confidence: 71.4%
+21:14:53 - Language Detected: vi with confidence: 28.6%
+21:14:53 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:14:53 - Writing CSV file! 
+
+21:14:54 - Analyzing Repository: gpmall_148
+21:14:54 - Language Detected: no with confidence: 100.0%
+21:14:54 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:14:54 - Writing CSV file! 
+
+21:14:54 - Analyzing Repository: roncoo-pay_150
+21:14:54 - Language Detected: zh-cn with confidence: 100.0%
+21:14:54 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:14:54 - Writing CSV file! 
+
+21:14:54 - Analyzing Repository: xpay_151
+21:14:54 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:54 - Language Detected: zh-cn with confidence: 85.7%
+21:14:54 - Language Detected: ko with confidence: 14.3%
+21:14:54 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:14:54 - Writing CSV file! 
+
+21:14:54 - Analyzing Repository: tech-weekly_156
+21:14:54 - Language Detected: zh-cn with confidence: 100.0%
+21:14:54 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:14:54 - Writing CSV file! 
+
+21:14:55 - Analyzing Repository: spring-boot-projects_157
+21:14:55 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:55 - Language Detected: vi with confidence: 42.9%
+21:14:55 - Language Detected: af with confidence: 32.2%
+21:14:55 - Language Detected: no with confidence: 24.9%
+21:14:55 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:14:55 - Writing CSV file! 
+
+21:14:55 - Analyzing Repository: Spring-Boot-In-Action_158
+21:14:55 - Language Detected: zh-cn with confidence: 100.0%
+21:14:55 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:14:55 - Writing CSV file! 
+
+21:14:56 - Analyzing Repository: Discovery_163
+21:14:56 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:56 - Language Detected: en with confidence: 57.1%
+21:14:56 - Language Detected: vi with confidence: 42.9%
+21:14:56 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
+
+21:14:56 - Writing CSV file! 
+
+21:14:56 - Analyzing Repository: android-adDialog_164
+21:14:56 - Language Detected: zh-cn with confidence: 100.0%
+21:14:56 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:14:56 - Writing CSV file! 
+
+21:14:56 - Analyzing Repository: Guns_165
+21:14:56 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:56 - Language Detected: vi with confidence: 57.1%
+21:14:56 - Language Detected: no with confidence: 42.9%
+21:14:56 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:14:56 - Writing CSV file! 
+
+21:14:57 - Analyzing Repository: onemall_167
+21:14:57 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:57 - Language Detected: vi with confidence: 57.1%
+21:14:57 - Language Detected: en with confidence: 42.9%
+21:14:57 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
+
+21:14:57 - Writing CSV file! 
+
+21:14:57 - Analyzing Repository: web3j_173
+21:14:57 - Moving repository to 'unknown' folder because README does not exist!
+
+21:14:57 - Writing CSV file! 
+
+21:14:57 - Analyzing Repository: booksource_180
+21:14:57 - Language Detected: zh-cn with confidence: 100.0%
+21:14:57 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:14:57 - Writing CSV file! 
+
+21:14:57 - Analyzing Repository: spring-cloud-gateway_184
+21:14:57 - Moving repository to 'unknown' folder because README does not exist!
+
+21:14:57 - Writing CSV file! 
+
+21:14:58 - Analyzing Repository: AndroidFire_185
+21:14:58 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:58 - Language Detected: no with confidence: 71.4%
+21:14:58 - Language Detected: vi with confidence: 28.6%
+21:14:58 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:14:58 - Writing CSV file! 
+
+21:14:58 - Analyzing Repository: clojure_196
+21:14:58 - Moving repository to 'unknown' folder because README does not exist!
+
+21:14:58 - Writing CSV file! 
+
+21:14:58 - Analyzing Repository: facebook-android-sdk_203
+21:14:58 - Moving repository to 'unknown' folder because README does not exist!
+
+21:14:58 - Writing CSV file! 
+
+21:14:58 - Analyzing Repository: Twitter4J_213
+21:14:58 - Moving repository to 'unknown' folder because README does not exist!
+
+21:14:58 - Writing CSV file! 
+
+21:14:58 - Analyzing Repository: AndroidProcess_215
+21:14:58 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:58 - Language Detected: vi with confidence: 85.7%
+21:14:58 - Language Detected: no with confidence: 14.3%
+21:14:58 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:14:58 - Writing CSV file! 
+
+21:14:58 - Analyzing Repository: Android-Skin-Loader_223
+21:14:58 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:58 - Language Detected: en with confidence: 85.7%
+21:14:58 - Language Detected: no with confidence: 14.3%
+21:14:58 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
+
+21:14:58 - Writing CSV file! 
+
+21:14:58 - Analyzing Repository: springmvc-mybatis-learning_225
+21:14:58 - Language Detected: no with confidence: 100.0%
+21:14:58 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:14:58 - Writing CSV file! 
+
+21:14:58 - Analyzing Repository: NineGridView_234
+21:14:58 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:58 - Language Detected: no with confidence: 85.7%
+21:14:58 - Language Detected: en with confidence: 14.3%
+21:14:58 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
+
+21:14:58 - Writing CSV file! 
+
+21:14:58 - Analyzing Repository: gremlin_245
+21:14:58 - Moving repository to 'unknown' folder because README does not exist!
+
+21:14:58 - Writing CSV file! 
+
+21:14:58 - Analyzing Repository: spring-data-jpa_247
+21:14:58 - Moving repository to 'unknown' folder because README does not exist!
+
+21:14:58 - Writing CSV file! 
+
+21:14:59 - Analyzing Repository: sshj_253
+21:14:59 - Moving repository to 'unknown' folder because README does not exist!
+
+21:14:59 - Writing CSV file! 
+
+21:14:59 - Analyzing Repository: JavaGuide_254
+21:14:59 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:59 - Language Detected: vi with confidence: 42.9%
+21:14:59 - Language Detected: en with confidence: 42.9%
+21:14:59 - Language Detected: no with confidence: 14.3%
+21:14:59 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
+
+21:14:59 - Writing CSV file! 
+
+21:14:59 - Analyzing Repository: advanced-java_255
+21:14:59 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:59 - Language Detected: no with confidence: 42.9%
+21:14:59 - Language Detected: en with confidence: 42.9%
+21:14:59 - Language Detected: vi with confidence: 14.3%
+21:14:59 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
+
+21:14:59 - Writing CSV file! 
+
+21:14:59 - Analyzing Repository: proxyee-down_257
+21:14:59 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:59 - Language Detected: zh-cn with confidence: 71.4%
+21:14:59 - Language Detected: no with confidence: 14.3%
+21:14:59 - Language Detected: vi with confidence: 14.3%
+21:14:59 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:14:59 - Writing CSV file! 
+
+21:14:59 - Analyzing Repository: vhr_259
+21:14:59 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:14:59 - Language Detected: no with confidence: 42.9%
+21:14:59 - Language Detected: en with confidence: 42.9%
+21:14:59 - Language Detected: vi with confidence: 14.3%
+21:14:59 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
+
+21:14:59 - Writing CSV file! 
+
+21:14:59 - Analyzing Repository: easyexcel_261
+21:14:59 - Language Detected: zh-cn with confidence: 100.0%
+21:14:59 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:14:59 - Writing CSV file! 
+
+21:14:59 - Analyzing Repository: litemall_262
+21:14:59 - Language Detected: zh-cn with confidence: 100.0%
+21:14:59 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:14:59 - Writing CSV file! 
+
+21:14:59 - Analyzing Repository: QMUI_Android_264
+21:14:59 - Language Detected: zh-cn with confidence: 100.0%
+21:14:59 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:14:59 - Writing CSV file! 
+
+21:15:00 - Analyzing Repository: paascloud-master_270
+21:15:00 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:15:00 - Language Detected: zh-cn with confidence: 85.7%
+21:15:00 - Language Detected: ko with confidence: 14.3%
+21:15:00 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:15:00 - Writing CSV file! 
+
+21:15:00 - Analyzing Repository: DataX_274
+21:15:00 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:15:00 - Language Detected: en with confidence: 85.7%
+21:15:00 - Language Detected: no with confidence: 14.3%
+21:15:00 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
+
+21:15:00 - Writing CSV file! 
+
+21:15:01 - Analyzing Repository: mall-learning_276
+21:15:01 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:15:01 - Language Detected: en with confidence: 85.7%
+21:15:01 - Language Detected: no with confidence: 14.3%
+21:15:01 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
+
+21:15:01 - Writing CSV file! 
+
+21:15:01 - Analyzing Repository: MyBookshelf_278
+21:15:01 - Language Detected: zh-cn with confidence: 100.0%
+21:15:01 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:15:01 - Writing CSV file! 
+
+21:15:01 - Analyzing Repository: CircleDemo_281
+21:15:01 - Language Detected: zh-cn with confidence: 100.0%
+21:15:01 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:15:01 - Writing CSV file! 
+
+21:15:01 - Analyzing Repository: Cknife_291
+21:15:01 - Moving repository to 'unknown' folder because README does not exist!
+
+21:15:01 - Writing CSV file! 
+
+21:15:01 - Analyzing Repository: ApiManager_299
+21:15:01 - Language Detected: ca with confidence: 100.0%
+21:15:01 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:15:01 - Writing CSV file! 
+
+21:15:01 - Analyzing Repository: dynamic-load-apk_303
+21:15:01 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:15:01 - Language Detected: en with confidence: 42.9%
+21:15:01 - Language Detected: no with confidence: 42.9%
+21:15:01 - Language Detected: vi with confidence: 14.3%
+21:15:01 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
+
+21:15:01 - Writing CSV file! 
+
+21:15:02 - Analyzing Repository: xUtils3_304
+21:15:02 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:15:02 - Language Detected: vi with confidence: 71.4%
+21:15:02 - Language Detected: no with confidence: 28.6%
+21:15:02 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:15:02 - Writing CSV file! 
+
+21:15:02 - Analyzing Repository: disconf_307
+21:15:02 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:15:02 - Language Detected: vi with confidence: 85.7%
+21:15:02 - Language Detected: no with confidence: 14.3%
+21:15:02 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:15:02 - Writing CSV file! 
+
+21:15:02 - Analyzing Repository: cachecloud_308
+21:15:02 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:15:02 - Language Detected: vi with confidence: 85.7%
+21:15:02 - Language Detected: no with confidence: 14.3%
+21:15:02 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:15:02 - Writing CSV file! 
+
+21:15:02 - Analyzing Repository: AndroidPicker_312
+21:15:02 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:15:02 - Language Detected: no with confidence: 85.7%
+21:15:02 - Language Detected: en with confidence: 14.3%
+21:15:02 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
+
+21:15:02 - Writing CSV file! 
+
+21:15:02 - Analyzing Repository: Android-ConvenientBanner_316
+21:15:02 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:15:02 - Language Detected: en with confidence: 42.9%
+21:15:02 - Language Detected: no with confidence: 42.9%
+21:15:02 - Language Detected: nl with confidence: 14.3%
+21:15:02 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
+
+21:15:02 - Writing CSV file! 
+
+21:15:02 - Analyzing Repository: Douya_318
+21:15:02 - Language Detected: zh-cn with confidence: 100.0%
+21:15:02 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:15:02 - Writing CSV file! 
+
+21:15:02 - Analyzing Repository: ImagePicker_320
+21:15:02 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:15:02 - Language Detected: no with confidence: 71.4%
+21:15:02 - Language Detected: vi with confidence: 28.6%
+21:15:02 - OPERATION: Moving repository to 'not english' folder because README is written in english!
+
+21:15:02 - Writing CSV file! 
+
+21:15:02 - Analyzing Repository: spring-cloud-netflix_321
+21:15:02 - Moving repository to 'unknown' folder because README does not exist!
+
+21:15:02 - Writing CSV file! 
+
+21:15:03 - Analyzing Repository: quartz_329
+21:15:03 - Moving repository to 'unknown' folder because README does not exist!
+
+21:15:03 - Writing CSV file! 
+
+21:15:03 - Analyzing Repository: canal_334
+21:15:03 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:15:03 - Language Detected: en with confidence: 71.4%
+21:15:03 - Language Detected: no with confidence: 28.6%
+21:15:03 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
+
+21:15:03 - Writing CSV file! 
+
+21:15:03 - Analyzing Repository: DropDownMenu_356
+21:15:03 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:15:03 - Language Detected: en with confidence: 57.1%
+21:15:03 - Language Detected: no with confidence: 28.6%
+21:15:03 - Language Detected: vi with confidence: 14.3%
+21:15:03 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
+
+21:15:03 - Writing CSV file! 
+
+21:15:03 - Analyzing Repository: study_361
+21:15:03 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:15:03 - Language Detected: en with confidence: 57.1%
+21:15:03 - Language Detected: vi with confidence: 42.9%
+21:15:03 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
+
+21:15:03 - Writing CSV file! 
+
+21:15:03 - Analyzing Repository: StickyHeaderListView_371
+21:15:03 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:15:03 - Language Detected: en with confidence: 71.4%
+21:15:03 - Language Detected: no with confidence: 28.6%
+21:15:03 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
+
+21:15:03 - Writing CSV file! 
+
+21:15:03 - Analyzing Repository: CityPicker_372
+21:15:03 - * MULTIPLE LANGUAGES WERE DETECTED *
+21:15:03 - Language Detected: no with confidence: 85.7%
+21:15:03 - Language Detected: en with confidence: 14.3%
+21:15:03 - OPERATION: Moving repository to 'mixed' folder because README is written in english!
+
+21:15:03 - Writing CSV file! 
+
+21:15:03 - Finish!

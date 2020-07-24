@@ -24,12 +24,12 @@ import os
 PATH = os.path
 
 # Directories and files for Testing
-repo_withMd = sysPath("repositories_test/repo_withReadme/")
-repo_withNoMd = sysPath("repositories_test/repo_withNoReadme/")
-repo_withNestedMd = sysPath("repositories_test/repo_withNestedReadme/")
-repo_withEmptyMd = sysPath("repositories_test/repo_withEmptyReadme/")
-repo_withFullMd = sysPath("repositories_test/repo_withFullReadme/")
-repo_withRenamedMd = sysPath("repositories_test/repo_withRenamedReadme/")
+repo_withMd = sysPath("repositories_test/repo_withReadme")
+repo_withNoMd = sysPath("repositories_test/repo_withNoReadme")
+repo_withNestedMd = sysPath("repositories_test/repo_withNestedReadme")
+repo_withEmptyMd = sysPath("repositories_test/repo_withEmptyReadme")
+repo_withFullMd = sysPath("repositories_test/repo_withFullReadme")
+repo_withRenamedMd = sysPath("repositories_test/repo_withRenamedREADME")
 
 md_withTable = sysPath("repositories_test/README_files/README_table.md")
 md_withLink = sysPath("repositories_test/README_files/README_link.md")
@@ -82,7 +82,7 @@ def test_empty_readme():
 
 
 # Test if README does not empty
-def test_empty_full():
+def test_full_readme():
     with open(PATH.abspath(dt.exists(repo_withFullMd)[0]), 'r', encoding='utf8') as f:
         str_md = dt.strip_inspector(f.read()).replace("\n", " ")
         if str_md and not str_md.isspace():

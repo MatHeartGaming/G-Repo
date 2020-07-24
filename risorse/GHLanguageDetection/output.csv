@@ -1,25 +1,88 @@
 Index,CloneDirectory,Language,Code1,Percentage1,Code2,Percentage2
-0,D:\Unibas\complementi Ingegneria del software\versioni\1.19\risorse\lingua\english\JCSprout,english,en,100.0,,
-1,D:\Unibas\complementi Ingegneria del software\versioni\1.19\risorse\lingua\mixed\spring-boot-examples,mixed,en,85.7,no,14.3
-2,D:\Unibas\complementi Ingegneria del software\versioni\1.19\risorse\lingua\english\SpringAll,english,en,100.0,,
-3,D:\Unibas\complementi Ingegneria del software\versioni\1.19\risorse\lingua\mixed\SpringCloudLearning,mixed,en,85.7,vi,14.3
-4,D:\Unibas\complementi Ingegneria del software\versioni\1.19\risorse\lingua\english\springboot-learning-example,english,en,100.0,,
-5,D:\Unibas\complementi Ingegneria del software\versioni\1.19\risorse\lingua\english\Matisse,english,en,100.0,,
-6,D:\Unibas\complementi Ingegneria del software\versioni\1.19\risorse\lingua\english\vlayout,english,en,100.0,,
-7,D:\Unibas\complementi Ingegneria del software\versioni\1.19\risorse\lingua\not_english\spring-boot-api-project-seed,not english,zh-cn,100.0,,
-8,D:\Unibas\complementi Ingegneria del software\versioni\1.19\risorse\lingua\english\VirtualAPK,english,en,100.0,,
-9,D:\Unibas\complementi Ingegneria del software\versioni\1.19\risorse\lingua\english\awesome-java-leetcode,english,en,100.0,,
-10,D:\Unibas\complementi Ingegneria del software\versioni\1.19\risorse\lingua\english\Android-Debug-Database,english,en,100.0,,
-11,D:\Unibas\complementi Ingegneria del software\versioni\1.19\risorse\lingua\english\UltimateAndroidReference,english,en,100.0,,
-12,D:\Unibas\complementi Ingegneria del software\versioni\1.19\risorse\lingua\english\android-interview-questions,english,en,100.0,,
-13,D:\Unibas\complementi Ingegneria del software\versioni\1.19\risorse\lingua\english\Toasty,english,en,100.0,,
-14,D:\Unibas\complementi Ingegneria del software\versioni\1.19\risorse\lingua\not_english\SpringBoot-Labs,not english,zh-cn,100.0,,
-15,D:\Unibas\complementi Ingegneria del software\versioni\1.19\risorse\lingua\english\MVVMHabit,english,en,100.0,,
-16,D:\Unibas\complementi Ingegneria del software\versioni\1.19\risorse\lingua\english\tsunami-security-scanner,english,en,100.0,,
-17,D:\Unibas\complementi Ingegneria del software\versioni\1.19\risorse\lingua\english\walle,english,en,100.0,,
-18,D:\Unibas\complementi Ingegneria del software\versioni\1.19\risorse\lingua\not_english\spring-cloud-examples,not english,no,85.7,vi,14.3
-19,D:\Unibas\complementi Ingegneria del software\versioni\1.19\risorse\lingua\english\from-java-to-kotlin,english,en,100.0,,
-20,D:\Unibas\complementi Ingegneria del software\versioni\1.19\risorse\lingua\english\dubbo-spring-boot-project,english,en,100.0,,
-21,D:\Unibas\complementi Ingegneria del software\versioni\1.19\risorse\lingua\english\chuck,english,en,100.0,,
-22,D:\Unibas\complementi Ingegneria del software\versioni\1.19\risorse\lingua\english\flutter_boost,english,en,100.0,,
-23,D:\Unibas\complementi Ingegneria del software\versioni\1.19\risorse\lingua\mixed\springBoot,mixed,en,57.1,no,28.6
+0,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/IJPay_0,mixed,no,57.1,en,42.9
+7,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/ZLayoutManager_7,mixed,no,42.9,vi,28.6
+15,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/ArgusAPM_15,not english,zh-cn,71.4,ko,28.6
+17,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/xbin-store_17,mixed,en,71.4,no,28.6
+21,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/seckill_21,not english,zh-cn,100.0,,
+29,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/unknown/initializr_29,unknown,,,,
+33,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/es_33,mixed,en,85.7,ca,14.3
+36,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/unknown/thymeleaf_36,unknown,,,,
+63,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/TakePhoto_63,not english,no,71.4,vi,28.6
+65,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/Java_65,not english,et,71.4,vi,28.6
+66,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/okhttputils_66,mixed,no,71.4,en,14.3
+68,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/SmartTabLayout_68,mixed,en,85.7,da,14.3
+72,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/coursera-android_72,mixed,en,57.1,fr,42.9
+80,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/unknown/XposedInstaller_80,unknown,,,,
+94,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/TubeMQ_94,not english,zh-cn,100.0,,
+101,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/AndroidOpenGLDemo_101,not english,zh-cn,71.4,ko,28.6
+103,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/android-interview-guide_103,not english,vi,100.0,,
+106,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/PaletteImageView_106,mixed,no,71.4,en,28.6
+107,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/Android-BLE_107,not english,zh-cn,85.7,ko,14.3
+108,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/GlideImageView_108,mixed,en,57.1,no,42.9
+109,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/unknown/SpringMVC-Mybatis-Shiro-redis-0.2_109,unknown,,,,
+112,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/zfile_112,not english,vi,100.0,,
+114,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/XSnow_114,not english,zh-cn,100.0,,
+119,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/wechat-api_119,not english,zh-cn,85.7,ko,14.3
+127,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/mybatis-generator-gui_127,not english,zh-cn,100.0,,
+129,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/server_129,mixed,en,85.7,vi,14.3
+131,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/ssm_131,mixed,no,85.7,en,14.3
+132,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/UltraViewPager_132,not english,no,100.0,,
+136,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/android-zxingLibrary_136,not english,zh-cn,85.7,ko,14.3
+137,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/Jetpack-MVVM-Best-Practice_137,not english,zh-cn,100.0,,
+138,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/SpringCloud_138,mixed,en,57.1,no,28.6
+140,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/lanproxy_140,not english,zh-cn,100.0,,
+143,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/BadgeView_143,mixed,no,85.7,en,14.3
+147,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/tx-lcn_147,not english,no,71.4,vi,28.6
+148,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/gpmall_148,not english,no,100.0,,
+150,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/roncoo-pay_150,not english,zh-cn,100.0,,
+151,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/xpay_151,not english,zh-cn,85.7,ko,14.3
+156,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/tech-weekly_156,not english,zh-cn,100.0,,
+157,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/spring-boot-projects_157,not english,vi,42.9,af,32.2
+158,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/Spring-Boot-In-Action_158,not english,zh-cn,100.0,,
+163,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/Discovery_163,mixed,en,57.1,vi,42.9
+164,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/android-adDialog_164,not english,zh-cn,100.0,,
+165,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/Guns_165,not english,vi,57.1,no,42.9
+167,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/onemall_167,mixed,vi,57.1,en,42.9
+173,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/unknown/web3j_173,unknown,,,,
+180,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/booksource_180,not english,zh-cn,100.0,,
+184,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/unknown/spring-cloud-gateway_184,unknown,,,,
+185,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/AndroidFire_185,not english,no,71.4,vi,28.6
+196,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/unknown/clojure_196,unknown,,,,
+203,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/unknown/facebook-android-sdk_203,unknown,,,,
+213,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/unknown/Twitter4J_213,unknown,,,,
+215,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/AndroidProcess_215,not english,vi,85.7,no,14.3
+223,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/Android-Skin-Loader_223,mixed,en,85.7,no,14.3
+225,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/springmvc-mybatis-learning_225,not english,no,100.0,,
+234,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/NineGridView_234,mixed,no,85.7,en,14.3
+245,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/unknown/gremlin_245,unknown,,,,
+247,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/unknown/spring-data-jpa_247,unknown,,,,
+253,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/unknown/sshj_253,unknown,,,,
+254,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/JavaGuide_254,mixed,vi,42.9,en,42.9
+255,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/advanced-java_255,mixed,no,42.9,en,42.9
+257,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/proxyee-down_257,not english,zh-cn,71.4,no,14.3
+259,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/vhr_259,mixed,no,42.9,en,42.9
+261,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/easyexcel_261,not english,zh-cn,100.0,,
+262,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/litemall_262,not english,zh-cn,100.0,,
+264,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/QMUI_Android_264,not english,zh-cn,100.0,,
+270,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/paascloud-master_270,not english,zh-cn,85.7,ko,14.3
+274,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/DataX_274,mixed,en,85.7,no,14.3
+276,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/mall-learning_276,mixed,en,85.7,no,14.3
+278,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/MyBookshelf_278,not english,zh-cn,100.0,,
+281,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/CircleDemo_281,not english,zh-cn,100.0,,
+291,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/unknown/Cknife_291,unknown,,,,
+299,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/ApiManager_299,not english,ca,100.0,,
+303,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/dynamic-load-apk_303,mixed,en,42.9,no,42.9
+304,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/xUtils3_304,not english,vi,71.4,no,28.6
+307,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/disconf_307,not english,vi,85.7,no,14.3
+308,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/cachecloud_308,not english,vi,85.7,no,14.3
+312,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/AndroidPicker_312,mixed,no,85.7,en,14.3
+316,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/Android-ConvenientBanner_316,mixed,en,42.9,no,42.9
+318,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/Douya_318,not english,zh-cn,100.0,,
+320,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/not_english/ImagePicker_320,not english,no,71.4,vi,28.6
+321,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/unknown/spring-cloud-netflix_321,unknown,,,,
+329,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/unknown/quartz_329,unknown,,,,
+334,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/canal_334,mixed,en,71.4,no,28.6
+356,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/DropDownMenu_356,mixed,en,57.1,no,28.6
+361,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/study_361,mixed,en,57.1,vi,42.9
+371,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/StickyHeaderListView_371,mixed,en,71.4,no,28.6
+372,/Users/anasmounsifmaster/Documents/G-Repo/risorse/lingua/mixed/CityPicker_372,mixed,no,85.7,en,14.3
