@@ -48,6 +48,9 @@ public class Sorter {
 
         @Override
         public int compare(String o1, String o2) {
+            if(o1.equals("Not exists") || o2.equals("Not exists")) {
+                return -1;
+            }
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
             LocalDate date1 = LocalDate.parse(o1, dtf);
             LocalDate date2 = LocalDate.parse(o2, dtf);
