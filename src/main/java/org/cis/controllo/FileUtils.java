@@ -20,12 +20,31 @@ public class FileUtils {
         return Paths.get(FileUtils.getRootPath() + PATH_SEPARATOR, relativePath.split("\\\\"));
     }
 
+    public static boolean isDirEmpty(final Path directory) throws IOException {
+        try(DirectoryStream<Path> dirStream = Files.newDirectoryStream(directory)) {
+            return !dirStream.iterator().hasNext();
+        }
+    }
+
     public static boolean moveDirTree(Path moveFrom, Path moveTo) {
         if (moveFrom == null || moveTo == null) throw new IllegalArgumentException("The argument moveFrom or moveTo cannot be null");
         if (!FileUtils.exists(moveFrom)) throw new IllegalStateException("The path " + moveFrom + " moveFrom does not exist");
 
         try {
             Files.walkFileTree(moveFrom, new MoveFileVisitor(moveFrom, moveTo));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean copyDirTree(Path copyFrom, Path copyTo) {
+        if (copyFrom == null || copyTo == null) throw new IllegalArgumentException("The argument copyFrom or copyTo cannot be null");
+        if (!FileUtils.exists(copyFrom)) throw new IllegalStateException("The path " + copyFrom + " moveFrom does not exist");
+
+        try {
+            Files.walkFileTree(copyFrom, new CopyFileVisitor(copyFrom, copyTo));
         } catch (IOException e) {
             e.printStackTrace();
             return false;
@@ -130,8 +149,8 @@ public class FileUtils {
 
     private static class MoveFileVisitor extends SimpleFileVisitor<Path> {
 
-        private Path moveFrom;
-        private Path moveTo;
+        private final Path moveFrom;
+        private final Path moveTo;
 
         public MoveFileVisitor(Path moveFrom, Path moveTo) {
             this.moveFrom = moveFrom;
@@ -156,9 +175,33 @@ public class FileUtils {
         @Override
         public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
             setPermission(dir.toFile());
-            Files.deleteIfExists(dir);
+            Files.delete(dir);
 
             return FileVisitResult.CONTINUE;
         }
+    }
+
+    private static class CopyFileVisitor extends SimpleFileVisitor<Path> {
+
+        private final Path copyFrom;
+        private final Path copyTo;
+
+        public CopyFileVisitor(Path copyFrom, Path copyTo) {
+            this.copyFrom = copyFrom;
+            this.copyTo = copyTo;
+        }
+
+        @Override
+        public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+            Files.copy(dir, copyTo.resolve(copyFrom.relativize(dir)), StandardCopyOption.REPLACE_EXISTING);
+            return FileVisitResult.CONTINUE;
+        }
+
+        @Override
+        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+            Files.copy(file, copyTo.resolve(copyFrom.relativize(file)), StandardCopyOption.REPLACE_EXISTING);
+            return FileVisitResult.CONTINUE;
+        }
+
     }
 }

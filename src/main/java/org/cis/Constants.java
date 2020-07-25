@@ -20,6 +20,9 @@ public class Constants {
 
     public static final String TASK_CLONE_REPOSITORIES = "TASK_CLONE_REPOSITORIES";
 
+    public static final String IS_SAVE_REPOSITORIES = "IS_SAVE_REPOSITORIES";
+    public static final String IS_LANGUAGE_DETECTION = "IS_LANGUAGE_DETECTION";
+
     public static final String MAP_REPOSITORY_PROGRAMMING_LANGUAGE = "MAP_REPOSITORY_LANGUAGE_PROGRAMMING";
     public static final String MAP_REPOSITORY_LANGUAGE = "MAP_REPOSITORY_LANGUAGE";
 

@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Operator {
 
@@ -38,6 +39,19 @@ public class Operator {
 
         }
         return risultato;
+    }
+
+    public static boolean allCacheRepositoriesIsEmpty() throws IOException {
+        Path pathCloneDirectory = FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY);
+        if (!FileUtils.isDirEmpty(pathCloneDirectory)) return false;
+
+        List<Path> pathLanguagesRepositories = Files.list(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_LANGUAGE_REPOSITORIES))
+                                                    .collect(Collectors.toList());
+        for (Path pathLanguage: pathLanguagesRepositories) {
+            if (!FileUtils.isDirEmpty(pathLanguage)) return false;
+        }
+
+        return true;
     }
 
     public static boolean confrontaElemConParametriStrict(Repository repo, String daCercare, String parametro, String percent) {

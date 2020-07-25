@@ -198,7 +198,7 @@ public class DAORepositoryJSON implements IDAORepository {
         writer.name("name").value(repository.getName());
         writer.name("html_url").value(repository.getUrlProject());
         writer.name("description").value(repository.getDescription());
-        writer.name("last_committed_date").value(String.valueOf(repository.getLastCommitDate()));
+        writer.name("last_committed_date").value(repository.getDataProperty().get());
         writer.name("clone_url").value(repository.getCloneUrl());
         writer.name("language").value(repository.getLanguageProperty());
         writer.name("programming_language").value(repository.getProgrammingLanguageProperty());
