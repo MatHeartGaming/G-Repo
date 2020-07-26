@@ -306,7 +306,7 @@ public class Operator {
 
 
         } catch (IOException io) {
-            Applicazione.getInstance().getCommonEvents().showExceptionDialog(io);
+            Platform.runLater(() -> Applicazione.getInstance().getCommonEvents().showExceptionDialog(io));
             io.printStackTrace();
         }
 
@@ -470,7 +470,7 @@ public class Operator {
 
 
         } catch (Exception ex) {
-            Applicazione.getInstance().getCommonEvents().showExceptionDialog(ex);
+            Platform.runLater(() -> Applicazione.getInstance().getCommonEvents().showExceptionDialog(ex));
             ex.printStackTrace();
         }
         return true;
