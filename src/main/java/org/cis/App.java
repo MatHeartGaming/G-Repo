@@ -30,10 +30,12 @@ public class App extends Application {
         Applicazione.getInstance().getCommonEvents().moveWindow(root, stage);
         //stage.setResizable(false);
         stage.setTitle("G-Repo");*/
-
     }
 
     private void initFolder() {
+        //## By Search query.
+        FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_JSON));
+
         //## By cloning.
         FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY));
 

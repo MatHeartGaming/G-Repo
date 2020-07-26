@@ -28,12 +28,8 @@ import os
 # Importing Exceptions from Libraries
 from langdetect.lang_detect_exception import LangDetectException
 
-
-# PREFERENCES
+# IF THE SCRIPT IS USED INDIVIDUALLY
 # ----------------------------------------------------------------------------------------------------------------------
-# Set to 0 for deterministic result, 1 for non-deterministic
-OUTPUT_TYPE = 1
-
 # Colors Configuration
 RED = '\033[91m'
 END = '\033[0m'
@@ -54,6 +50,11 @@ text = " {}Anas Mounsif{} - Università Degli Studi Della Basilicata.".format(RE
 parser.add_argument("-a", "--author", help=" show author information", action='version', version=text)
 parser.parse_args()
 
+# PREFERENCES
+# ----------------------------------------------------------------------------------------------------------------------
+# Set to 0 for deterministic result, 1 for non-deterministic
+OUTPUT_TYPE = 1
+
 # Modify as needed but pay attention to folder's structure
 DESTINATION_ENGLISH = sysPath("../lingua/english/")
 DESTINATION_NOT_ENGLISH = sysPath("../lingua/not_english/")
@@ -65,6 +66,7 @@ CSV = "input.csv"
 NEW_CSV = "output.csv"
 FIELDNAMES = ['Index', 'CloneDirectory', 'Language', 'Code1', 'Percentage1', 'Code2', 'Percentage2']
 README = "readme.md"
+NULL = 'null'
 
 # Regex patterns
 TABLES = "^(\|[^\n]+\|\r?\n)((?:\|:?[-]+:?)+\|)(\n(?:\|[^\n]+\|\r?\n?)*)?$"
@@ -92,14 +94,14 @@ def print_exception(e):
     print("ERROR: Something went wrong -> %s " % e)
 
 
-def refactor(str_md, pattern):
-    outcome = stripper(str_md, pattern)
+def refactor(repository, str_md, pattern):
+    outcome = stripper(repository, str_md, pattern)
     return outcome
 
 
 def csv_writer(writer, row, destination, language, lang_code, lang_percentage, optional_code, optional_percentage):
 
-    # LOGS
+    # LOG
     LOG("Writing CSV file! \n")
 
     writer.writerow({'Index': '%s' % row['Index'], 'CloneDirectory': '%s' % destination, 'Language': '%s' % language,
@@ -120,9 +122,12 @@ def get_destination(destination, repository) -> str:
 
 
 def exists(repository_dir):
-    paths = gl(f'{repository_dir}/**/*[{README}]', recursive=True)
-    path = [val for val in paths if not PATH.isdir(val)]
-    return path
+    paths = []
+    for ext in ('*.md', '*.MD', '*.markdown', '*.MARKDOWN'):
+        # Passing "readme" and not variable README for correct execution of tests
+        pa = [i for i in gl(PATH.join(repository_dir, '**', ext), recursive=True) if "readme" in PATH.basename(i.lower())]
+        paths.extend(pa)
+    return paths
 
 
 def format_percentage(percent):
@@ -132,7 +137,7 @@ def format_percentage(percent):
 # MAIN METHODS
 # ----------------------------------------------------------------------------------------------------------------------
 # Takes care of replacing the target
-def stripper(txt, pattern):
+def stripper(repository, txt, pattern):
     file = txt
     try:
         match_pattern = regex.findall(pattern, txt, regex.MULTILINE | regex.DOTALL)
@@ -144,26 +149,29 @@ def stripper(txt, pattern):
 
     # Catching exceptions
     except Exception as ex:
-        print_exception(" Catched by stripper method - %s " % ex)
+        # LOG
+        LOG(" %s" + ex)
+
+        print_exception(" Catched by stripper method on repository: {} - {} ".format(get_name(repository), ex))
 
 
 # Takes care of checking the text and replacing the targets
-def strip_inspector(str_md):
+def strip_inspector(repository, str_md):
 
     # Removing Markdown Code Snippets
-    str_from_cs = refactor(str_md, CODE_SNIPPETS)
+    str_from_cs = refactor(repository, str_md, CODE_SNIPPETS)
     str_md = str_from_cs if str_from_cs is not None else str_md
 
     # Removing Table Markdown
-    str_from_tables = refactor(str_md, TABLES)
+    str_from_tables = refactor(repository, str_md, TABLES)
     str_md = str_from_tables if str_from_tables is not None else str_md
 
     # Removing Markdown Links
-    str_from_links = refactor(str_md, LINKS)
+    str_from_links = refactor(repository, str_md, LINKS)
     str_md = str_from_links if str_from_links is not None else str_md
 
     # Removing Markdown Images
-    str_from_images = refactor(str_md, IMAGES)
+    str_from_images = refactor(repository, str_md, IMAGES)
     str_md = str_from_images if str_from_images is not None else str_md
 
     # TODO -> add other patterns...
@@ -181,7 +189,7 @@ def detector(target):
 def inspector(list_of_results, repository, writer, row):
     try:
         # LOGS
-        LOG("Analyzing Repository: %s" % get_name(repository).upper())
+        LOG("Analyzing Repository: %s" % get_name(repository))
         if len(list_of_results) > 1:
             LOG("* MULTIPLE LANGUAGES WERE DETECTED *")
 
@@ -199,7 +207,7 @@ def inspector(list_of_results, repository, writer, row):
         # Checking if README is in English
         if any(result.lang == "en" and result.prob >= 0.90 for result in list_of_results):
 
-            # LOGS
+            # LOG
             LOG("OPERATION: Moving repository to 'english' folder because README is written in english!\n")
 
             # Moving repository in "english" folder
@@ -212,7 +220,7 @@ def inspector(list_of_results, repository, writer, row):
         if any(result.lang == "en" and result.prob <= 0.10 for result in list_of_results) \
                 or not any(result.lang == "en" for result in list_of_results):
 
-            # LOGS
+            # LOG
             LOG("OPERATION: Moving repository to 'not english' folder because README is written in english!\n")
 
             # Moving repository in "not_english" folder
@@ -224,7 +232,7 @@ def inspector(list_of_results, repository, writer, row):
         # Checking if README is mixed
         if any(result.lang == "en" and 0.10 < result.prob < 0.90 for result in list_of_results):
 
-            # LOGS
+            # LOG
             LOG("OPERATION: Moving repository to 'mixed' folder because README is written in english!\n")
 
             # Moving repository in "mixed" folder
@@ -235,7 +243,10 @@ def inspector(list_of_results, repository, writer, row):
 
     # Catching exceptions
     except Exception as ex:
-        print_exception(" Catched by inspector method - %s " % ex)
+        # LOG
+        LOG(" %s" + ex)
+
+        print_exception(" Catched by inspector method on repository: {} - {} ".format(get_name(repository), ex))
 
 
 # FIRST METHOD
@@ -243,7 +254,7 @@ def inspector(list_of_results, repository, writer, row):
 def main():
     try:
         # Opening CSV
-        with open(CSV, encoding='utf-8') as csvfile:
+        with open(CSV, encoding='utf-8', errors='ignore') as csvfile:
             readcsv = csv.DictReader(csvfile, delimiter=',')
             # Writing new CSV
             with open(NEW_CSV, 'w', newline='') as csv_file:
@@ -252,17 +263,26 @@ def main():
                 writer.writeheader()
                 # Scanning rows in CSV
                 for row in readcsv:
+                    # Taking the path from CSV
                     repository_dir = row['CloneDirectory']
+                    # Checking if the repository cannot be cloned
+                    if NULL in repository_dir:
+                        # LOG
+                        LOG("Can't access because repository cannot be cloned! ")
+
+                        csv_writer(writer, row, NULL, '', '', '', '', '')
+                        continue
+
                     # Scanning repository
                     for root_dir_path, _, files in os.walk(repository_dir):
                         # Check if readme exist in directory and its sub directories
                         file_found = exists(repository_dir)
                         # Scanning files in repository
-                        if file_found and (file for file in files if README in file.lower()):
+                        if file_found and (file for file in file_found if README in file.lower()):
                             # Opening Target - getting always the first README
-                            with open(get_abspath(file_found[0]), 'r', encoding='utf8') as f:
+                            with open(file_found[0], 'r', encoding='utf-8', errors='ignore') as f:
                                 # Cleaning
-                                str_md = strip_inspector(f.read())
+                                str_md = strip_inspector(get_name(repository_dir), f.read())
                             # Doing stuff after closing target
                             if str_md and not str_md.isspace():
                                 # Managing the result of the language detector
@@ -291,17 +311,25 @@ def main():
 
     # Catching exceptions
     except LangDetectException:
-        print("ERROR: Passing to Language Detector empty string, probably not null, but without characters! ")
+        # LOG
+        LOG(" Passing to Language Detector empty string, probably not null, but without characters")
+
+        print("ERROR: on repository: %s Passing to Language Detector empty string, probably not null, but without characters! " % get_name(repository_dir))
 
     except Exception as ex:
-        print_exception(" Catched by main method - %s " % ex)
+        # LOG
+        LOG(" %s" % ex)
+
+        print_exception(" Catched by main method on repository: {} - {} ".format(get_name(repository_dir), ex))
 
 
 # START
 # ----------------------------------------------------------------------------------------------------------------------
-# Starting Detector Script
+# LOG
 LOG("%s - Starting script...\n" % TODAY.strftime("%d/%m/%Y"))
 
+# Starting Detector Script
 main()
 
+# LOG
 LOG("Finish!")

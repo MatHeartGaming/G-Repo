@@ -6,6 +6,7 @@ import org.cis.Applicazione;
 import org.cis.Constants;
 import org.cis.modello.Repository;
 import org.cis.modello.StatisticsProgrammingLanguage;
+import org.eclipse.jgit.dircache.InvalidPathException;
 import org.eclipse.jgit.lib.ProgressMonitor;
 
 import java.nio.file.Files;
@@ -46,7 +47,6 @@ public class TaskCloneRepositories extends Task<Void> {
                 updateProgress(i + 1, paths.size());
             }
         }
-
         GitCommand gitCommand = new GitCommand();
         RepositoryVisitor repositoryVisitor = new RepositoryVisitor();
 
@@ -64,7 +64,11 @@ public class TaskCloneRepositories extends Task<Void> {
                 System.out.println("Clonazione del repo: " + cloneDirectory);
                 try {
                     gitCommand.cloneRepository(repository.getCloneUrl(), cloneDirectory, this.token, monitor);
-                } catch (Exception e) {
+                } catch (InvalidPathException e) {
+                    // Cloning must proceed for other pending repositories.
+                    System.out.println("Repository non clonabile: " + cloneDirectory);
+                    continue;
+                } catch(Exception e) {
                     if (this.cancel == true) {
                         updateMessage("Stop Cloning");
                         this.cancel(true);
@@ -89,9 +93,14 @@ public class TaskCloneRepositories extends Task<Void> {
 
                 //# Calculation of the date of the last commit.
                 LocalDate dataCommit = gitCommand.lastDateCommit(repository.getCloneDirectory());
-                repository.setLastCommitDate(dataCommit);
+                String dataCommitString = "Not exists";
+                if (dataCommit != null) {
+                    repository.setLastCommitDate(dataCommit);
+                    dataCommitString = dataCommit.toString();
+                }
                 //## Displays the date in the table.
-                Platform.runLater(() -> repository.displayLastCommitDate());
+                String finalDataCommitString = dataCommitString;
+                Platform.runLater(() -> repository.displayLastCommitDate(finalDataCommitString));
 
                 updateProgress(i + 1, this.repositories.size());
             }

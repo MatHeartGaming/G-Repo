@@ -21,8 +21,7 @@ public class DAORepositoryCSV implements IDAORepository{
 
     @Override
     public void saveRepositories(String directoryFiles, List<Repository> repositories) {
-        //todo: qui utilizzero la versione generica ma su tutte le proprietà...cambia solo l'implementazione della callback;
-        // inoltre farò anche raggruppamento per data come per i json?.
+        // Use saveRepositories(Path pathFile, List<Repository> repositories, String[] header, BiFunction<Repository, Integer, String> stringFunction).
         throw new UnsupportedOperationException("Not implemented");
     }
 
