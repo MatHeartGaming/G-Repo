@@ -21,6 +21,8 @@ public class Repository {
     private StringProperty programmingLanguagesProperty;// display programmingLanguages.
     private IntegerProperty stars;
 
+    public Repository() {}
+
     public Repository(String id, String name, String description, String urlProject, String cloneUrl, long size, int stars) {
         String yet = "Not determined (yet)";
         this.id = id;
@@ -67,8 +69,8 @@ public class Repository {
         this.lastCommitDate = lastCommitDate;
     }
 
-    public void displayLastCommitDate() {
-        this.lastCommitDateProperty.set(this.getLastCommitDate().toString());
+    public void displayLastCommitDate(String lastCommitDate) {
+        this.lastCommitDateProperty.set(lastCommitDate);
     }
 
     public StringProperty urlProjectProperty() {
