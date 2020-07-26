@@ -13,8 +13,6 @@ import java.util.Map;
 
 public class RepositoryVisitor {
 
-    //todo: refactoring dei nomi...sono infelici.
-
     // Init map<Key=Ext, Value=LanguageName>.
     private static Map<String, String> mapExtLanguages = new ProgrammingLanguage().loadMapExtLanguages();
     private static VisitorLanguageProgramming visitorLanguageProgramming = new VisitorLanguageProgramming();
