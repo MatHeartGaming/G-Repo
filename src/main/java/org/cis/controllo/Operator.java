@@ -394,8 +394,7 @@ public class Operator {
             }
 
         } catch (IOException ex) {
-            Applicazione.getInstance().getCommonEvents().showExceptionDialog(ex);
-
+            Platform.runLater(() -> Applicazione.getInstance().getCommonEvents().showExceptionDialog(ex));
             ex.printStackTrace();
         }
 
