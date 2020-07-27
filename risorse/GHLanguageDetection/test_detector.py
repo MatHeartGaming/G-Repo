@@ -64,7 +64,7 @@ def test_exists_global():
 
 
 # Test if the renamed README is in directory
-def test_exists_renamed_readme():
+def test_exists_renamed_md():
     if dt.exists(repo_withRenamedMd):
         assert True
     else:
@@ -72,9 +72,9 @@ def test_exists_renamed_readme():
 
 
 # Test if README is empty
-def test_empty_readme():
+def test_empty_md():
     with open(PATH.abspath(dt.exists(repo_withEmptyMd)[0]), 'r', encoding='utf8') as f:
-        str_md = dt.strip_inspector(f.read()).replace("\n", " ")
+        str_md = dt.strip_inspector("", f.read()).replace("\n", " ")
         if str_md and not str_md.isspace():
             assert False
         else:
@@ -82,9 +82,9 @@ def test_empty_readme():
 
 
 # Test if README does not empty
-def test_empty_full():
+def test_full_md():
     with open(PATH.abspath(dt.exists(repo_withFullMd)[0]), 'r', encoding='utf8') as f:
-        str_md = dt.strip_inspector(f.read()).replace("\n", " ")
+        str_md = dt.strip_inspector("", f.read()).replace("\n", " ")
         if str_md and not str_md.isspace():
             assert True
         else:
@@ -95,7 +95,7 @@ def test_empty_full():
 def test_remove_table():
     with open(PATH.abspath(md_withTable), 'r', encoding='utf8') as f:
         str_md = f.read()
-        output = dt.refactor(str_md, dt.TABLES)
+        output = dt.refactor("", str_md, dt.TABLES)
         if output and not output.isspace():
             assert False
         else:
@@ -106,7 +106,7 @@ def test_remove_table():
 def test_remove_links():
     with open(PATH.abspath(md_withLink), 'r', encoding='utf8') as f:
         str_md = f.read()
-        output = dt.refactor(str_md, dt.LINKS)
+        output = dt.refactor("", str_md, dt.LINKS)
         if output and not output.isspace():
             assert False
         else:
@@ -117,7 +117,7 @@ def test_remove_links():
 def test_remove_images():
     with open(PATH.abspath(md_withImage), 'r', encoding='utf8') as f:
         str_md = f.read()
-        output = dt.refactor(str_md, dt.IMAGES)
+        output = dt.refactor("", str_md, dt.IMAGES)
         if output and not output.isspace():
             assert False
         else:
@@ -128,7 +128,7 @@ def test_remove_images():
 def test_remove_code_snippet():
     with open(PATH.abspath(md_withCodeSnippet), 'r', encoding='utf8') as f:
         str_md = f.read()
-        output = dt.refactor(str_md, dt.CODE_SNIPPETS)
+        output = dt.refactor("", str_md, dt.CODE_SNIPPETS)
         print(output)
         if output and not output.isspace():
             assert False
@@ -142,10 +142,34 @@ def test_percentage_format():
     assert dt.format_percentage(percentage) == str(50.0)
 
 
-# Test if destination folders exists
+# Test if destination folders exists - Folders must exists to pass the test!
 def test_folder_exists():
     if PATH.isdir(dt.DESTINATION_ENGLISH) and PATH.isdir(dt.DESTINATION_NOT_ENGLISH) \
             and PATH.isdir(dt.DESTINATION_MIXED) and PATH.isdir(dt.DESTINATION_UNKNOWN):
+        assert True
+    else:
+        assert False
+
+
+# Test if string contains only digits
+def test_md_only_digits():
+    if not dt.is_valid("12351236523875"):
+        assert True
+    else:
+        assert False
+
+
+# Test if string contains less than dt.MIN_LENGTH
+def test_md_insufficient_text():
+    if not dt.is_valid("less than 15"):
+        assert True
+    else:
+        assert False
+
+
+# Test if string contains only special characters
+def test_md_special_char():
+    if not dt.is_valid("???_+><#$%@"):
         assert True
     else:
         assert False
