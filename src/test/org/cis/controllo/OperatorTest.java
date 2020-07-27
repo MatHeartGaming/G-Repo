@@ -172,9 +172,8 @@ class OperatorTest {
 
         Repository repository = new Repository("1", "repodriller", "bla bla", "https://github.com/mauricioaniche/repodriller", "https://github.com/mauricioaniche/repodriller.git", 25169);
         String daCercare = "repodriller";
-        String parametro = "Repositories";
-        boolean ris = false;
-        ris = Operator.confrontaElemConParametriNotStrict(repository,daCercare,parametro, "");
+        String parametro = Constants.PARAM_REPOSITORIES;
+        boolean ris = Operator.confrontaElemConParametriNotStrict(repository,daCercare,parametro, "");
         assertEquals(true,ris);
     }
 
@@ -184,9 +183,8 @@ class OperatorTest {
 
         Repository repository = new Repository("1", "repodriller", "bla bla", "https://github.com/mauricioaniche/repodriller", "https://github.com/mauricioaniche/repodriller.git", 25169);
         String daCercare = "ciao";
-        String parametro = "Repositories";
-        boolean ris = false;
-        ris = Operator.confrontaElemConParametriNotStrict(repository,daCercare,parametro, "");
+        String parametro = Constants.PARAM_REPOSITORIES;
+        boolean ris = Operator.confrontaElemConParametriNotStrict(repository,daCercare,parametro, "");
         assertEquals(false,ris);
     }
 
@@ -196,10 +194,10 @@ class OperatorTest {
 
         Repository repository = new Repository("1", "repodriller", "bla bla", "https://github.com/mauricioaniche/repodriller", "https://github.com/mauricioaniche/repodriller.git", 25169);
         String daCercare = "30000";
-        String parametro = "Dimensione <";
+        String parametro = Constants.PARAM_DIMENSION_SMALLER;
         boolean ris = false;
         ris = Operator.confrontaElemConParametriNotStrict(repository,daCercare,parametro, "");
-        assertEquals(true,ris);
+        assertEquals(true, ris);
     }
 
     @Test
@@ -208,7 +206,7 @@ class OperatorTest {
 
         Repository repository = new Repository("1", "repodriller", "bla bla", "https://github.com/mauricioaniche/repodriller", "https://github.com/mauricioaniche/repodriller.git", 25169);
         String daCercare = "30000";
-        String parametro = "Dimensione >";
+        String parametro = Constants.PARAM_DIMENSION_GREATER;
         boolean ris = false;
         ris = Operator.confrontaElemConParametriNotStrict(repository, daCercare, parametro, "");
         assertEquals(false,ris);
@@ -221,7 +219,7 @@ class OperatorTest {
         Repository repository = new Repository("1", "repodriller", "bla bla", "https://github.com/mauricioaniche/repodriller", "https://github.com/mauricioaniche/repodriller.git", 25169);
         repository.setStars(1700);
         String daCercare = "1700";
-        String parametro = "Stars >=";
+        String parametro = Constants.PARAM_STARS_GREATER;
         boolean ris = false;
         ris = Operator.confrontaElemConParametriNotStrict(repository,daCercare,parametro, "");
         assertEquals(true,ris);
@@ -234,7 +232,7 @@ class OperatorTest {
         Repository repository = new Repository("1", "repodriller", "bla bla", "https://github.com/mauricioaniche/repodriller", "https://github.com/mauricioaniche/repodriller.git", 25169);
         repository.setStars(1700);
         String daCercare = "1700";
-        String parametro = "Stars <";
+        String parametro = Constants.PARAM_STARS_SMALLER;
         boolean ris = false;
         ris = Operator.confrontaElemConParametriNotStrict(repository, daCercare, parametro, "");
         assertEquals(false,ris);
@@ -246,10 +244,7 @@ class OperatorTest {
         System.out.println("Test Stars ListaRepo inferiori a soglia");
 
         String daCercare = "1700";
-        String parametro = "Stars <";
-
-        daCercare = "1700";
-        parametro = "Stars <";
+        String parametro = Constants.PARAM_STARS_SMALLER;
         boolean strict = false;
 
         ObservableList<Repository> listaRis = Operator.cercaPerNome((ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO), daCercare, parametro, strict, "");
@@ -280,10 +275,8 @@ class OperatorTest {
         System.out.println("Test Stars ListaRepo superiore a soglia nome Repo");
 
         String daCercare = "1700";
-        String parametro = "Stars >=";
+        String parametro = Constants.PARAM_STARS_GREATER;
 
-        daCercare = "1500";
-        parametro = "Stars >=";
         boolean strict = false;
 
         ObservableList<Repository> listaRis = Operator.cercaPerNome((ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO), daCercare, parametro, strict, "");

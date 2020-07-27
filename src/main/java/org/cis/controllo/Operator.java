@@ -206,9 +206,6 @@ public class Operator {
                 return true;
             }
         } else if (parametro.equals(Constants.PARAM_DIMENSION_GREATER)) {
-            if(daCercare.equals("")) {
-                return true;
-            }
             String dimensione = repo.getSizeString();
             Sorter.SortByDimension sorter = new Sorter().new SortByDimension();
 
