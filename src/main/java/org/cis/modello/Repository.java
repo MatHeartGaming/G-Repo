@@ -16,7 +16,7 @@ public class Repository {
     private StringProperty name;
     private StringProperty urlProject;
     private StringProperty lastCommitDateProperty; // display lastCommitDate.
-    private LongProperty size; // Byte.
+    private LongProperty size; // Kilobyte.
     private StringProperty languageProperty; // Language (English, Non English, Mixed).
     private StringProperty programmingLanguagesProperty;// display programmingLanguages.
     private IntegerProperty stars;

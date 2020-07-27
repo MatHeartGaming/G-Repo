@@ -193,13 +193,13 @@ public class FileUtils {
 
         @Override
         public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-            Files.copy(dir, copyTo.resolve(copyFrom.relativize(dir)), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(dir, copyTo.resolve(copyFrom.relativize(dir)), StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.COPY_ATTRIBUTES);
             return FileVisitResult.CONTINUE;
         }
 
         @Override
         public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-            Files.copy(file, copyTo.resolve(copyFrom.relativize(file)), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(file, copyTo.resolve(copyFrom.relativize(file)), StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.COPY_ATTRIBUTES);
             return FileVisitResult.CONTINUE;
         }
 
