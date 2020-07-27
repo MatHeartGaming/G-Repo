@@ -774,6 +774,10 @@ public class PrimaryController extends Window {
         int i = 0;
         for (TextField t : this.listaCampiChiavi) {
 
+            if(t.getText().isEmpty() && i == 0) {
+                return listQualifiers;
+            }
+
             boolean presenza = checkKeyPresence(t.getText());
             if (presenza && !t.getText().isEmpty() && !this.listaCampiQuery.get(i).getText().isEmpty()) {
                 listQualifiers.add(new Qualifier(t.getText(), this.listaCampiQuery.get(i).getText()));

@@ -37,7 +37,7 @@ md_withImage = sysPath("repositories_test/README_files/README_image.md")
 md_withCodeSnippet = sysPath("repositories_test/README_files/README_codeSnippet.md")
 
 
-# Test Methods
+# Test Methods   
 # ----------------------------------------------------------------------------------------------------------------------
 # Test if README is in directory
 def test_exists():
