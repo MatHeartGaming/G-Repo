@@ -206,9 +206,6 @@ public class Operator {
                 return true;
             }
         } else if (parametro.equals(Constants.PARAM_DIMENSION_GREATER)) {
-            if(daCercare.equals("")) {
-                return true;
-            }
             String dimensione = repo.getSizeString();
             Sorter.SortByDimension sorter = new Sorter().new SortByDimension();
 
@@ -306,7 +303,7 @@ public class Operator {
 
 
         } catch (IOException io) {
-            Applicazione.getInstance().getCommonEvents().showExceptionDialog(io);
+            Platform.runLater(() -> Applicazione.getInstance().getCommonEvents().showExceptionDialog(io));
             io.printStackTrace();
         }
 
@@ -394,8 +391,7 @@ public class Operator {
             }
 
         } catch (IOException ex) {
-            Applicazione.getInstance().getCommonEvents().showExceptionDialog(ex);
-
+            Platform.runLater(() -> Applicazione.getInstance().getCommonEvents().showExceptionDialog(ex));
             ex.printStackTrace();
         }
 
@@ -471,7 +467,7 @@ public class Operator {
 
 
         } catch (Exception ex) {
-            Applicazione.getInstance().getCommonEvents().showExceptionDialog(ex);
+            Platform.runLater(() -> Applicazione.getInstance().getCommonEvents().showExceptionDialog(ex));
             ex.printStackTrace();
         }
         return true;

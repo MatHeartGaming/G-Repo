@@ -564,7 +564,6 @@ public class PrimaryController extends Window {
             repository.displayProgrammingLanguages(statisticsProgrammingLanguage.toString());
 
             int taskWorkProgress = (int) ((100.0 / repositories.size()) * (i + 1));
-            // todo: rivedi come settare il valore della progressBar.
             if (taskWorkProgress < 17) {
                 progressBar.setProgress(Constants.values[0]);
             } else if (taskWorkProgress >= 30) {
@@ -585,7 +584,6 @@ public class PrimaryController extends Window {
             progressBar.setProgress(Constants.values[0]);
         }), 3500);
         disableAllUIElementsResults(false);
-
     }
 
     private void cloneRepositories(Runnable postExecute) {
@@ -658,6 +656,7 @@ public class PrimaryController extends Window {
 
             System.out.println("Qualcosa è andato storto...");
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 1500);
+            disableAllUIElementsResults(false);
         });
 
         progressBar.progressProperty().bind(task.progressProperty());
@@ -774,6 +773,10 @@ public class PrimaryController extends Window {
         int i = 0;
         for (TextField t : this.listaCampiChiavi) {
 
+            if(t.getText().isEmpty() && i == 0) {
+                return listQualifiers;
+            }
+
             boolean presenza = checkKeyPresence(t.getText());
             if (presenza && !t.getText().isEmpty() && !this.listaCampiQuery.get(i).getText().isEmpty()) {
                 listQualifiers.add(new Qualifier(t.getText(), this.listaCampiQuery.get(i).getText()));
@@ -836,7 +839,7 @@ public class PrimaryController extends Window {
 
     private void stopThread() {
         TaskCloneRepositories task = (TaskCloneRepositories) Applicazione.getInstance().getModello().getObject(Constants.TASK_CLONE_REPOSITORIES);
-        if(task != null){
+        if(task != null) {
             task.close();
         }
 
@@ -862,7 +865,7 @@ public class PrimaryController extends Window {
 
 
         Process process = (Process) Applicazione.getInstance().getModello().getObject(Constants.THREAD_REPO_SEARCHER);
-        if(process != null){
+        if(process != null) {
             process.destroy();
         }
 
