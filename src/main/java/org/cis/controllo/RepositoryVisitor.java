@@ -70,6 +70,9 @@ public class RepositoryVisitor {
     }
 
     public StatisticsProgrammingLanguage programmingLanguageDetection(String cloneDirectoryRepository) {
+        if (cloneDirectoryRepository == null || cloneDirectoryRepository.isEmpty()) throw new IllegalArgumentException("The clone directory cannot be null or empty");
+        if (!FileUtils.exists(Paths.get(cloneDirectoryRepository))) throw new IllegalStateException("The path " + cloneDirectoryRepository + " clone directory does not exist");
+
         Map<String, Integer> languageProgrammingOccurrence = this.computeLanguagesProgramming(cloneDirectoryRepository);
 
         // The repository can be empty, or not contain files related to programming languages ​​or markup.
@@ -125,6 +128,9 @@ public class RepositoryVisitor {
 
 
     public Map<String, Integer> computeLanguagesProgramming(String cloneDirectoryRepository) {
+        if (cloneDirectoryRepository == null || cloneDirectoryRepository.isEmpty()) throw new IllegalArgumentException("The clone directory cannot be null or empty");
+        if (!FileUtils.exists(Paths.get(cloneDirectoryRepository))) throw new IllegalStateException("The path " + cloneDirectoryRepository + " clone directory does not exist");
+
         Map<String, Integer> languageProgrammingOccurrence = new HashMap<>();
         RepositoryVisitor.visitorLanguageProgramming.setLanguageProgrammingOccurrence(languageProgrammingOccurrence);
 

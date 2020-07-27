@@ -48,13 +48,20 @@ public class Sorter {
 
         @Override
         public int compare(String o1, String o2) {
-            if(o1.equals("Not exists") && !o2.equals("Not exists")) {
+            String notDetermined = "Not determined (yet)";
+            if (o1.equals(notDetermined) || o2.equals(notDetermined)) {
+                return -1;
+            }
+
+            String notExists = "Not exists";
+            if(o1.equals(notExists) && !o2.equals(notExists)) {
                 return 1;
             }
-            if(o1.equals("Not exists")) {
+
+            if(o1.equals(notExists)) {
                 return 0;
             }
-            if(o2.equals("Not exists")) {
+            if(o2.equals(notExists)) {
                 return -1;
             }
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);

@@ -60,7 +60,7 @@ public class GitCommand {
      * @param token
      * @throws GitAPIException
      */
-    public void cloneRepository(String cloneUrl, String cloneDirectory, String token, ProgressMonitor monitor) throws IllegalStateException, GitAPIException, IllegalArgumentException {
+    public void cloneRepository(String cloneUrl, String cloneDirectory, String token, ProgressMonitor monitor) throws Exception {
         // JGits commands are lazily evaluated to allow for configuration via method chaining.
         // The call of call() starts the execution of the command.
         // By default, JGit only clones the default branch.

@@ -4,7 +4,6 @@ import org.cis.modello.StatisticsProgrammingLanguage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -15,22 +14,117 @@ class RepositoryVisitorTest {
 
     private RepositoryVisitor repositoryVisitor = new RepositoryVisitor();
 
-    public static final String RELATIVE_REPO_1 = "\\src\\test\\org\\cis\\controllo\\resources\\ProgrammingLanguageDetection\\Repo1";
-    public static final String RELATIVE_REPO_2 = "\\src\\test\\org\\cis\\controllo\\resources\\ProgrammingLanguageDetection\\Repo2";
-    public static final String RELATIVE_REPO_3 = "\\src\\test\\org\\cis\\controllo\\resources\\ProgrammingLanguageDetection\\Repo3";
+    private static final String RELATIVE_REPO_1 = "\\src\\test\\org\\cis\\controllo\\resources\\ProgrammingLanguageDetection\\Repo1";
+    private static final String RELATIVE_REPO_2 = "\\src\\test\\org\\cis\\controllo\\resources\\ProgrammingLanguageDetection\\Repo2";
+    private static final String RELATIVE_REPO_3 = "\\src\\test\\org\\cis\\controllo\\resources\\ProgrammingLanguageDetection\\Repo3";
+
+    private static final String RELATIVE_PATH_NOT_EXISTS = "\\pathNotExistsGHRepo";
 
     private String cloneDirectoryRepo1;
     private String cloneDirectoryRepo2;
     private String cloneDirectoryRepo3;
 
+    private String pathNotExistsGHRepo;
+
     @BeforeEach
     void setUp() {
         // Repo 1.
-        cloneDirectoryRepo1 = toPathString(RELATIVE_REPO_1);
+        cloneDirectoryRepo1 = toPathStringAbsolute(RELATIVE_REPO_1);
         // Repo 2.
-        cloneDirectoryRepo2 = toPathString(RELATIVE_REPO_2);
+        cloneDirectoryRepo2 = FileUtils.createDirectory(FileUtils.createAbsolutePath(RELATIVE_REPO_2)).toString();
         // Repo 3.
-        cloneDirectoryRepo3 = toPathString(RELATIVE_REPO_3);
+        cloneDirectoryRepo3 = toPathStringAbsolute(RELATIVE_REPO_3);
+
+        // Path not exists.
+        pathNotExistsGHRepo = toPathStringAbsolute(RELATIVE_PATH_NOT_EXISTS);
+    }
+
+    @Test
+    void programmingLanguageDetectionCloneDirNull() {
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> {
+            repositoryVisitor.programmingLanguageDetection(null);
+        });
+
+        String expectedMessage = "The clone directory cannot be null or empty";
+        String actualMessage = illegalArgumentException.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void programmingLanguageDetectionCloneDirEmpty() {
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> {
+            repositoryVisitor.programmingLanguageDetection("");
+        });
+
+        String expectedMessage = "The clone directory cannot be null or empty";
+        String actualMessage = illegalArgumentException.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void computeLanguagesProgrammingCloneDirNull() {
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> {
+            repositoryVisitor.computeLanguagesProgramming(null);
+        });
+
+        String expectedMessage = "The clone directory cannot be null or empty";
+        String actualMessage = illegalArgumentException.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void computeLanguagesProgrammingCloneDirEmpty() {
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> {
+            repositoryVisitor.computeLanguagesProgramming("");
+        });
+
+        String expectedMessage = "The clone directory cannot be null or empty";
+        String actualMessage = illegalArgumentException.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void programmingLanguageDetectionCloneDirNotExists() {
+
+        IllegalStateException illegalStateException = assertThrows(IllegalStateException.class, () -> {
+            repositoryVisitor.programmingLanguageDetection(pathNotExistsGHRepo);
+        });
+
+        String expectedMessage = "The path " + pathNotExistsGHRepo + " clone directory does not exist";
+        String actualMessage = illegalStateException.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+
+        illegalStateException = assertThrows(IllegalStateException.class, () -> {
+            repositoryVisitor.programmingLanguageDetection("pathNotExistsGHRepo");
+        });
+
+        expectedMessage = "The path " + "pathNotExistsGHRepo" + " clone directory does not exist";
+        actualMessage = illegalStateException.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void computeLanguagesProgrammingCloneDirNotExists() {
+
+        IllegalStateException illegalStateException = assertThrows(IllegalStateException.class, () -> {
+            repositoryVisitor.computeLanguagesProgramming(pathNotExistsGHRepo);
+        });
+
+        String expectedMessage = "The path " + pathNotExistsGHRepo + " clone directory does not exist";
+        String actualMessage = illegalStateException.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+
+        illegalStateException = assertThrows(IllegalStateException.class, () -> {
+            repositoryVisitor.computeLanguagesProgramming("pathNotExistsGHRepo");
+        });
+
+        expectedMessage = "The path " + "pathNotExistsGHRepo" + " clone directory does not exist";
+        actualMessage = illegalStateException.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
     @Test
@@ -100,7 +194,7 @@ class RepositoryVisitorTest {
         assertTrue(languageProgrammingOccurrence.isEmpty());
     }
 
-    private String toPathString(String relativePath) {
+    private String toPathStringAbsolute(String relativePath) {
         return FileUtils.createAbsolutePath(relativePath).toString();
     }
 }

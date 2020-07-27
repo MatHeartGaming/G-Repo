@@ -47,6 +47,8 @@ public class TaskCloneRepositories extends Task<Void> {
                 updateProgress(i + 1, paths.size());
             }
         }
+
+        final String notExists = "Not exists";
         GitCommand gitCommand = new GitCommand();
         RepositoryVisitor repositoryVisitor = new RepositoryVisitor();
 
@@ -66,6 +68,11 @@ public class TaskCloneRepositories extends Task<Void> {
                     gitCommand.cloneRepository(repository.getCloneUrl(), cloneDirectory, this.token, monitor);
                 } catch (InvalidPathException e) {
                     // Cloning must proceed for other pending repositories.
+                    Platform.runLater(() -> {
+                        repository.displayLastCommitDate(notExists);
+                        repository.displayProgrammingLanguages(notExists);
+                        repository.setLanguageProperty(notExists);
+                    });
                     System.out.println("Repository non clonabile: " + cloneDirectory);
                     continue;
                 } catch(Exception e) {
@@ -93,7 +100,7 @@ public class TaskCloneRepositories extends Task<Void> {
 
                 //# Calculation of the date of the last commit.
                 LocalDate dataCommit = gitCommand.lastDateCommit(repository.getCloneDirectory());
-                String dataCommitString = "Not exists";
+                String dataCommitString = notExists;
                 if (dataCommit != null) {
                     repository.setLastCommitDate(dataCommit);
                     dataCommitString = dataCommit.toString();
