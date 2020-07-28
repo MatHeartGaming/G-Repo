@@ -67,7 +67,7 @@ NEW_CSV = "output.csv"
 FIELDNAMES = ['Index', 'CloneDirectory', 'Language', 'Code1', 'Percentage1', 'Code2', 'Percentage2']
 README = "readme.md"
 NULL = 'null'
-MIN_LENGTH = 15
+MIN_LENGTH = 50
 
 # Regex patterns
 TABLES = r"^(\|[^\n]+\|\r?\n)((?:\|:?[-]+:?)+\|)(\n(?:\|[^\n]+\|\r?\n?)*)?$"
@@ -77,6 +77,7 @@ CODE_SNIPPETS = r"(```.+?```)"
 LINKS = r"\[.*?\]\(.*?\)"
 HTML = r"\<.*?\>"
 ILLEGAL_STRING = r'^[_\W0-9]+$'
+
 
 # Config LOGS
 logging.basicConfig(filename="log", filemode='w', format='%(asctime)s - %(message)s',
@@ -160,8 +161,8 @@ def stripper(repository, txt, pattern):
     except Exception as ex:
         # LOG
         LOG(" %s" % ex)
-
         print_exception(" Catched by stripper method on repository: {} - {} ".format(get_name(repository), ex))
+        pass
 
 
 # Takes care of checking the text and replacing the targets
@@ -182,6 +183,10 @@ def strip_inspector(repository, str_md):
     # Removing Markdown Images
     str_from_images = refactor(repository, str_md, IMAGES)
     str_md = str_from_images if str_from_images is not None else str_md
+
+    # Removing Markdown URLs
+    str_from_urls = refactor(repository, str_md, URLS)
+    str_md = str_from_urls if str_from_urls is not None else str_md
 
     # TODO -> add other patterns...
 
@@ -215,10 +220,8 @@ def inspector(list_of_results, repository, writer, row):
 
         # Checking if README is in English
         if any(result.lang == "en" and result.prob >= 0.90 for result in list_of_results):
-
             # LOG
             LOG("OPERATION: Moving repository to 'english' folder because README is written in english!\n")
-
             # Moving repository in "english" folder
             MOVE_TO(repository, "%s" % DESTINATION_ENGLISH)
             # Update CSV
@@ -228,10 +231,8 @@ def inspector(list_of_results, repository, writer, row):
         # checking if README is not in English
         if any(result.lang == "en" and result.prob <= 0.10 for result in list_of_results) \
                 or not any(result.lang == "en" for result in list_of_results):
-
             # LOG
             LOG("OPERATION: Moving repository to 'not english' folder because README is written in english!\n")
-
             # Moving repository in "not_english" folder
             MOVE_TO(repository, "%s" % DESTINATION_NOT_ENGLISH)
             # Update CSV
@@ -240,10 +241,8 @@ def inspector(list_of_results, repository, writer, row):
 
         # Checking if README is mixed
         if any(result.lang == "en" and 0.10 < result.prob < 0.90 for result in list_of_results):
-
             # LOG
             LOG("OPERATION: Moving repository to 'mixed' folder because README is written in english!\n")
-
             # Moving repository in "mixed" folder
             MOVE_TO(repository, "%s" % DESTINATION_MIXED)
             # Update CSV
@@ -254,8 +253,8 @@ def inspector(list_of_results, repository, writer, row):
     except Exception as ex:
         # LOG
         LOG(" %s" % ex)
-
         print_exception(" Catched by inspector method on repository: {} - {} ".format(get_name(repository), ex))
+        pass
 
 
 # FIRST METHOD
@@ -278,10 +277,8 @@ def main():
                     if NULL in repository_dir:
                         # LOG
                         LOG("Can't access because repository cannot be cloned! ")
-
                         csv_writer(writer, row, NULL, '', '', '', '', '')
                         continue
-
                     # Scanning repository
                     for root_dir_path, _, files in os.walk(repository_dir):
                         # Check if readme exist in directory and its sub directories
@@ -294,42 +291,39 @@ def main():
                                 str_md = strip_inspector(get_name(repository_dir), f.read())
                             # Doing stuff after closing target
                             if str_md and not str_md.isspace() and is_valid(str_md):
-                                # Managing the result of the language detector
-                                results = detector(str_md)
+                                try:
+                                    # Managing the result of the language detector
+                                    results = detector(str_md)
+                                # Catching exceptions
+                                except LangDetectException:
+                                    # LOG
+                                    LOG(" Passing to Language Detector empty string, probably not null, "
+                                        "but without characters")
+                                    print("ERROR: on repository: %s Passing to Language Detector empty string, "
+                                          "probably not null, but without characters! " % get_name(repository_dir))
+                                    pass
                                 inspector(results, repository_dir, writer, row)
                             else:
                                 # LOGS
                                 LOG("Analyzing Repository: %s" % get_name(repository_dir))
                                 LOG("Moving repository to 'unknown' folder because README is empty!\n")
-
                                 # Moving repository in unknown folder because README is empty
                                 MOVE_TO(repository_dir, "%s" % DESTINATION_UNKNOWN)
                                 # Update CSV
-                                csv_writer(writer, row, get_destination(DESTINATION_UNKNOWN, repository_dir),
-                                           'unknown', '', '', '', '')
+                                csv_writer(writer, row, get_destination(DESTINATION_UNKNOWN, repository_dir), 'unknown',
+                                           '', '', '', '')
                         else:
                             # LOGS
                             LOG("Analyzing Repository: %s" % get_name(repository_dir))
                             LOG("Moving repository to 'unknown' folder because README does not exist!\n")
-
                             # Moving repository in unknown folder because README does not exist
                             MOVE_TO(root_dir_path, "%s" % DESTINATION_UNKNOWN)
                             # Update CSV
                             csv_writer(writer, row, get_destination(DESTINATION_UNKNOWN, repository_dir),
                                        'unknown', '', '', '', '')
-
-    # Catching exceptions
-    except LangDetectException:
-        # LOG
-        LOG(" Passing to Language Detector empty string, probably not null, but without characters")
-
-        print("ERROR: on repository: %s Passing to Language Detector empty string, probably not null, but without characters! "
-              % get_name(repository_dir))
-
     except Exception as ex:
         # LOG
         LOG(" %s" % ex)
-
         print_exception(" Catched by main method on repository: {} - {} ".format(get_name(repository_dir), ex))
 
 
@@ -337,9 +331,7 @@ def main():
 # ----------------------------------------------------------------------------------------------------------------------
 # LOG
 LOG("%s - Starting script...\n" % TODAY.strftime("%d/%m/%Y"))
-
 # Starting Detector Script
 main()
-
 # LOG
 LOG("Finish!")
