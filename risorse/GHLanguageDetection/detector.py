@@ -8,7 +8,7 @@ Python 3.8
 Probably glob
 
 Usage:
-[ python3 detector.py ] or [ python3 detector.py -h] for more information.
+[ python3 detector.py ] or [ python3 detector.py -h ] for more information.
 """
 
 # IMPORTS
@@ -67,14 +67,16 @@ NEW_CSV = "output.csv"
 FIELDNAMES = ['Index', 'CloneDirectory', 'Language', 'Code1', 'Percentage1', 'Code2', 'Percentage2']
 README = "readme.md"
 NULL = 'null'
+MIN_LENGTH = 15
 
 # Regex patterns
-TABLES = "^(\|[^\n]+\|\r?\n)((?:\|:?[-]+:?)+\|)(\n(?:\|[^\n]+\|\r?\n?)*)?$"
-URLS = "https?:\/\/?[\da-z\.-]+\.[a-z\.]{2,6}[\/\w \.-]*"
-IMAGES = "!\[[^\]]+\]\([^)]+\)"
-CODE_SNIPPETS = "(```.+?```)"
-LINKS = "\[.*?\]\(.*?\)"
-HTML = "\<.*?\>"
+TABLES = r"^(\|[^\n]+\|\r?\n)((?:\|:?[-]+:?)+\|)(\n(?:\|[^\n]+\|\r?\n?)*)?$"
+URLS = r"https?:\/\/?[\da-z\.-]+\.[a-z\.]{2,6}[\/\w \.-]*"
+IMAGES = r"!\[[^\]]+\]\([^)]+\)"
+CODE_SNIPPETS = r"(```.+?```)"
+LINKS = r"\[.*?\]\(.*?\)"
+HTML = r"\<.*?\>"
+ILLEGAL_STRING = r'^[_\W0-9]+$'
 
 # Config LOGS
 logging.basicConfig(filename="log", filemode='w', format='%(asctime)s - %(message)s',
@@ -134,6 +136,13 @@ def format_percentage(percent):
     return "{:.1f}".format(100*percent)
 
 
+def is_valid(string):
+    if len(string) < MIN_LENGTH or regex.match(ILLEGAL_STRING, string):
+        return False
+    else:
+        return True
+
+
 # MAIN METHODS
 # ----------------------------------------------------------------------------------------------------------------------
 # Takes care of replacing the target
@@ -150,7 +159,7 @@ def stripper(repository, txt, pattern):
     # Catching exceptions
     except Exception as ex:
         # LOG
-        LOG(" %s" + ex)
+        LOG(" %s" % ex)
 
         print_exception(" Catched by stripper method on repository: {} - {} ".format(get_name(repository), ex))
 
@@ -244,7 +253,7 @@ def inspector(list_of_results, repository, writer, row):
     # Catching exceptions
     except Exception as ex:
         # LOG
-        LOG(" %s" + ex)
+        LOG(" %s" % ex)
 
         print_exception(" Catched by inspector method on repository: {} - {} ".format(get_name(repository), ex))
 
@@ -284,7 +293,7 @@ def main():
                                 # Cleaning
                                 str_md = strip_inspector(get_name(repository_dir), f.read())
                             # Doing stuff after closing target
-                            if str_md and not str_md.isspace():
+                            if str_md and not str_md.isspace() and is_valid(str_md):
                                 # Managing the result of the language detector
                                 results = detector(str_md)
                                 inspector(results, repository_dir, writer, row)
@@ -314,7 +323,8 @@ def main():
         # LOG
         LOG(" Passing to Language Detector empty string, probably not null, but without characters")
 
-        print("ERROR: on repository: %s Passing to Language Detector empty string, probably not null, but without characters! " % get_name(repository_dir))
+        print("ERROR: on repository: %s Passing to Language Detector empty string, probably not null, but without characters! "
+              % get_name(repository_dir))
 
     except Exception as ex:
         # LOG
