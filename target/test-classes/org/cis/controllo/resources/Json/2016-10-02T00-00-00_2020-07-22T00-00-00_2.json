@@ -1,0 +1,149 @@
+{
+  "total_count": 12,
+  "items": [
+    {
+      "id": "209921402",
+      "name": "newbee-mall",
+      "html_url": "https://github.com/newbee-ltd/newbee-mall",
+      "description": "newbee-mall 项目（新蜂商城）是一套电商系统，包括 newbee-mall 商城系统�?� newbee-mall-admin 商城�?��?�管�?�系统，基于 Spring Boot 2.X �?�相关技术栈开�?�。 �?�?�商城系统包�?�首页门户�?商�?分类�?新�?上线�?首页轮播�?商�?推�??�?商�?�?�索�?商�?展示�?购物车�?订�?�结算�?订�?��?程�?个人订�?�管�?��?会员中心�?帮助中心等模�?�。 �?��?�管�?�系统包�?�数�?��?��?��?轮播图管�?��?商�?管�?��?订�?�管�?��?会员管�?��?分类管�?��?设置等模�?�。",
+      "last_committed_date": "Not determined (yet)",
+      "clone_url": "https://github.com/newbee-ltd/newbee-mall.git",
+      "language": "java",
+      "programming_language": "Not determined (yet)",
+      "size": 34662,
+      "stargazers_count": 4490
+    },
+    {
+      "id": "131404910",
+      "name": "LayoutManagerGroup",
+      "html_url": "https://github.com/DingMouRen/LayoutManagerGroup",
+      "description": ":point_right: Customize the LayoutManager of RecyclerView(自定义LayoutManager)",
+      "last_committed_date": "Not determined (yet)",
+      "clone_url": "https://github.com/DingMouRen/LayoutManagerGroup.git",
+      "language": "Not determined (yet)",
+      "programming_language": "Not determined (yet)",
+      "size": 45683,
+      "stargazers_count": 4388
+    },
+    {
+      "id": "74271054",
+      "name": "CloudReader",
+      "html_url": "https://github.com/youlookwhat/CloudReader",
+      "description": "云阅：一款基于网易云音�?UI，使用WanAndroid�?Gank.Io�?�时光网api开�?�的符�?�Google Material Design的Android客户端。项目采�?�的是MVVM-DataBinding架构开�?�，主�?包括：玩安�?�区�?干货区和电影区三个�?模�?�。",
+      "last_committed_date": "Not determined (yet)",
+      "clone_url": "https://github.com/youlookwhat/CloudReader.git",
+      "language": "Not determined (yet)",
+      "programming_language": "Not determined (yet)",
+      "size": 95040,
+      "stargazers_count": 4306
+    },
+    {
+      "id": "80192374",
+      "name": "android-mvp-architecture",
+      "html_url": "https://github.com/MindorksOpenSource/android-mvp-architecture",
+      "description": "This repository contains a detailed sample app that implements MVP architecture using Dagger2,  GreenDao, RxJava2, FastAndroidNetworking and PlaceholderView",
+      "last_committed_date": "Not determined (yet)",
+      "clone_url": "https://github.com/MindorksOpenSource/android-mvp-architecture.git",
+      "language": "Not determined (yet)",
+      "programming_language": "Not determined (yet)",
+      "size": 6148,
+      "stargazers_count": 4228
+    },
+    {
+      "id": "81267171",
+      "name": "chuck",
+      "html_url": "https://github.com/jgilfelt/chuck",
+      "description": "An in-app HTTP inspector for Android OkHttp clients",
+      "last_committed_date": "Not determined (yet)",
+      "clone_url": "https://github.com/jgilfelt/chuck.git",
+      "language": "Not determined (yet)",
+      "programming_language": "Not determined (yet)",
+      "size": 1899,
+      "stargazers_count": 4226
+    },
+    {
+      "id": "174063999",
+      "name": "flutter_boost",
+      "html_url": "https://github.com/alibaba/flutter_boost",
+      "description": "FlutterBoost is a Flutter plugin which enables hybrid integration of Flutter for your existing native apps with minimum efforts",
+      "last_committed_date": "Not determined (yet)",
+      "clone_url": "https://github.com/alibaba/flutter_boost.git",
+      "language": "Not determined (yet)",
+      "programming_language": "Not determined (yet)",
+      "size": 1383,
+      "stargazers_count": 4221
+    },
+    {
+      "id": "111241370",
+      "name": "capacitor",
+      "html_url": "https://github.com/ionic-team/capacitor",
+      "description": "Build cross-platform Native Progressive Web Apps for iOS, Android, and the web ⚡�?",
+      "last_committed_date": "Not determined (yet)",
+      "clone_url": "https://github.com/ionic-team/capacitor.git",
+      "language": "Not determined (yet)",
+      "programming_language": "Not determined (yet)",
+      "size": 64275,
+      "stargazers_count": 4206
+    },
+    {
+      "id": "168802729",
+      "name": "ZXBlog",
+      "html_url": "https://github.com/ZXZxin/ZXBlog",
+      "description": "记录�?��?学习笔记(算法�?Java�?数�?�库�?并�?�......)",
+      "last_committed_date": "Not determined (yet)",
+      "clone_url": "https://github.com/ZXZxin/ZXBlog.git",
+      "language": "Not determined (yet)",
+      "programming_language": "Not determined (yet)",
+      "size": 251160,
+      "stargazers_count": 4200
+    },
+    {
+      "id": "173335706",
+      "name": "incubator-dolphinscheduler",
+      "html_url": "https://github.com/apache/incubator-dolphinscheduler",
+      "description": "Dolphin Scheduler is a distributed and easy-to-extend visual workflow scheduling platform, dedicated to solving the complex dependencies in data processing, making the scheduling system out of the box for data processing.(分布�?易扩展的�?�视化工作�?任务调度)",
+      "last_committed_date": "Not determined (yet)",
+      "clone_url": "https://github.com/apache/incubator-dolphinscheduler.git",
+      "language": "Not determined (yet)",
+      "programming_language": "Not determined (yet)",
+      "size": 78668,
+      "stargazers_count": 4136
+    },
+    {
+      "id": "109910389",
+      "name": "smartTable",
+      "html_url": "https://github.com/huangyanbin/smartTable",
+      "description": "一款android自动生�?表格框架---An Android automatically generated table framework",
+      "last_committed_date": "Not determined (yet)",
+      "clone_url": "https://github.com/huangyanbin/smartTable.git",
+      "language": "Not determined (yet)",
+      "programming_language": "Not determined (yet)",
+      "size": 63951,
+      "stargazers_count": 4130
+    },
+    {
+      "id": "73034122",
+      "name": "springBoot",
+      "html_url": "https://github.com/527515025/springBoot",
+      "description": "springboot 框架与其它组件结�?�如 jpa�?mybatis�?websocket�?security�?shiro�?cache等",
+      "last_committed_date": "Not determined (yet)",
+      "clone_url": "https://github.com/527515025/springBoot.git",
+      "language": "Not determined (yet)",
+      "programming_language": "Not determined (yet)",
+      "size": 859,
+      "stargazers_count": 4100
+    },
+    {
+      "id": "74261168",
+      "name": "lanproxy",
+      "html_url": "https://github.com/ffay/lanproxy",
+      "description": "lanproxy是一个将局域网个人电脑�?�?务器代�?�到公网的内网穿�?工具，支�?tcp�?�?转�?�，�?�支�?任何tcp上层�??议（访问内网网站�?本地支付接�?�调试�?ssh访问�?远程桌�?�...）。目�?市�?�上�??供类似�?务的有花生壳�?TeamView�?GoToMyCloud等等，但�?使用第三方的公网�?务器就必须为第三方付费，并且这些�?务都有�?��?�?�样的�?制，此外，由于数�?�包会�?�?第三方，因此对数�?�安全也是一大�?患。技术交�?QQ群 1067424330",
+      "last_committed_date": "Not determined (yet)",
+      "clone_url": "https://github.com/ffay/lanproxy.git",
+      "language": "Not determined (yet)",
+      "programming_language": "Not determined (yet)",
+      "size": 8549,
+      "stargazers_count": 4072
+    }
+  ]
+}
