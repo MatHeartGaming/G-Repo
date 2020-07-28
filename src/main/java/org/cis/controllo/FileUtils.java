@@ -1,10 +1,10 @@
 package org.cis.controllo;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.nio.file.attribute.FileAttribute;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 public class FileUtils {
 
@@ -127,6 +127,47 @@ public class FileUtils {
         /*file.setExecutable(true, false);
         file.setReadable(true, false);
         file.setWritable(true, false);*/
+    }
+
+    public static boolean unzip(String zipFilePath, String destDirectory){
+        if (zipFilePath == null || zipFilePath.isEmpty()) throw new IllegalArgumentException("Zip file path cannot be null or empty");
+        if (destDirectory == null || destDirectory.isEmpty()) throw new IllegalArgumentException("Destination directory cannot be null or empty");
+        if (!FileUtils.exists(Paths.get(zipFilePath))) throw new IllegalStateException("The path " + zipFilePath + " zipFilePath does not exist");
+
+        File destDir = new File(destDirectory);
+        if (!destDir.exists()) {
+            destDir.mkdir();
+        }
+
+        try {
+            ZipInputStream zipIn = new ZipInputStream(new FileInputStream(zipFilePath));
+            ZipEntry entry = zipIn.getNextEntry();
+            // iterates over entries in the zip file
+            while (entry != null) {
+                String filePath = destDirectory + FileUtils.PATH_SEPARATOR + entry.getName();
+                if (!entry.isDirectory()) {
+                    // if the entry is a file, extracts it
+                    BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(filePath));
+                    byte[] bytesIn = new byte[1024];
+                    int read = 0;
+                    while ((read = zipIn.read(bytesIn)) != -1) {
+                        bos.write(bytesIn, 0, read);
+                    }
+                    bos.close();
+                } else {
+                    // if the entry is a directory, make the directory
+                    File dir = new File(filePath);
+                    dir.mkdir();
+                }
+                zipIn.closeEntry();
+                entry = zipIn.getNextEntry();
+            }
+            zipIn.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     private static class DeleteFileVisitor extends SimpleFileVisitor<Path> {

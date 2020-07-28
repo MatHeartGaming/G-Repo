@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.Month;
 
+import static org.cis.controllo.FileUtils.unzip;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GitCommandTest {
@@ -23,8 +24,11 @@ class GitCommandTest {
     @Test
     void lastDateCommit() throws Exception {
         String prefixLastCommitDate = "_test_last_commit_date";
-        String cloneDirectory = FileUtils.createAbsolutePath(RELATIVE_PATH_CLONING_DIRECTORY + "\\" + "repodriller" +  prefixLastCommitDate).toString();
-        LocalDate actualLastCommitDate = gitCommand.lastDateCommit(cloneDirectory);
+        Path pathCloneDirectory = FileUtils.createAbsolutePath(RELATIVE_PATH_CLONING_DIRECTORY + "\\" + "repodriller" +  prefixLastCommitDate);
+        if (!FileUtils.exists(pathCloneDirectory)) {
+            unzip(pathCloneDirectory + ".zip", FileUtils.createAbsolutePath(RELATIVE_PATH_CLONING_DIRECTORY).toString());
+        }
+        LocalDate actualLastCommitDate = gitCommand.lastDateCommit(String.valueOf(pathCloneDirectory));
         LocalDate expectedLastCommitDate = LocalDate.of(2018, Month.JUNE, 11);
 
         assertTrue(actualLastCommitDate.compareTo(expectedLastCommitDate) == 0);
