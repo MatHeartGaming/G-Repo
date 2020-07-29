@@ -1,1 +1,1 @@
-# GH-Repo Test Programming Language Detection
+# G-Repo Test Programming Language Detection
