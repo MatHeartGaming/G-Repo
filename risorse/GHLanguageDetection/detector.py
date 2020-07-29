@@ -55,6 +55,9 @@ parser.parse_args()
 # Set to 0 for deterministic result, 1 for non-deterministic
 OUTPUT_TYPE = 1
 
+# True if you want the script to move the repositories else False - attention to ACCESS DENIED problem!
+MOVE = False
+
 # Modify as needed but pay attention to folder's structure
 DESTINATION_ENGLISH = sysPath("../lingua/english/")
 DESTINATION_NOT_ENGLISH = sysPath("../lingua/not_english/")
@@ -93,37 +96,47 @@ TODAY = date.today()
 
 # UTILITY METHODS
 # ----------------------------------------------------------------------------------------------------------------------
+# Printing Exception
 def print_exception(e):
     print("ERROR: Something went wrong -> %s " % e)
 
 
+# Takes care of passing the text and the pattern to the stripper
 def refactor(repository, str_md, pattern):
     outcome = stripper(repository, str_md, pattern)
     return outcome
 
 
+# Writing CSV
 def csv_writer(writer, row, destination, language, lang_code, lang_percentage, optional_code, optional_percentage):
 
     # LOG
     LOG("Writing CSV file! \n")
+
+    if not MOVE:
+        destination = row['CloneDirectory']
 
     writer.writerow({'Index': '%s' % row['Index'], 'CloneDirectory': '%s' % destination, 'Language': '%s' % language,
                      'Code1': '%s' % lang_code, 'Percentage1': '%s' % lang_percentage, 'Code2': '%s' % optional_code,
                      'Percentage2': '%s' % optional_percentage})
 
 
+# Getting absolute path of the target
 def get_abspath(target):
     return PATH.abspath(target)
 
 
+# Getting absolute path of the repository
 def get_name(repo):
     return get_abspath(repo).split(PATH.sep)[-1]
 
 
+# Getting absolute path of the Destination - if MOVE = True
 def get_destination(destination, repository) -> str:
     return sysPath(get_abspath(destination) + SEPARATOR + get_name(repository))
 
 
+# Checking if README.md exists in repository folder structure
 def exists(repository_dir):
     paths = []
     for ext in ('*.md', '*.MD', '*.markdown', '*.MARKDOWN'):
@@ -133,10 +146,12 @@ def exists(repository_dir):
     return paths
 
 
+# Transform percentage to ##.#
 def format_percentage(percent):
     return "{:.1f}".format(100*percent)
 
 
+# Checking if README.md is valid
 def is_valid(string):
     if len(string) < MIN_LENGTH or regex.match(ILLEGAL_STRING, string):
         return False
@@ -203,6 +218,7 @@ def detector(target):
 def inspector(list_of_results, repo, writer, row):
     try:
         # LOGS
+        LOG("---------------------------------------------------")
         LOG("Analyzing Repository: %s" % get_name(repo))
         if len(list_of_results) > 1:
             LOG("* MULTIPLE LANGUAGES WERE DETECTED *")
@@ -216,38 +232,47 @@ def inspector(list_of_results, repo, writer, row):
 
         # LOGS
         for result in list_of_results:
-            LOG("Language Detected: {} with confidence: {}%".format(result.lang, format_percentage(result.prob)))
+            LOG("Language Detected: {} with {}% confidence.".format(result.lang, format_percentage(result.prob)))
 
         # Checking if README is in English
         if any(result.lang == "en" and result.prob >= 0.90 for result in list_of_results):
-            # LOG
-            LOG("OPERATION: Moving repository to 'english' folder because README is written in english!\n")
+
             # Update CSV
             csv_writer(writer, row, get_destination(DESTINATION_ENGLISH, repo), 'english', first_code, first_percentage,
                        second_code, second_percentage)
-            # Moving repository in "english" folder
-            # MOVE_TO(repo, "%s" % DESTINATION_ENGLISH)
+            if MOVE:
+                # LOG
+                LOG("OPERATION: Moving repository to 'english' folder because README is written in english!")
+
+                # Moving repository in "english" folder
+                MOVE_TO(repo, "%s" % DESTINATION_ENGLISH)
 
         # checking if README is not in English
         if any(result.lang == "en" and result.prob <= 0.10 for result in list_of_results) \
                 or not any(result.lang == "en" for result in list_of_results):
-            # LOG
-            LOG("OPERATION: Moving repository to 'not english' folder because README is written in english!\n")
+
             # Update CSV
             csv_writer(writer, row, get_destination(DESTINATION_NOT_ENGLISH, repo), 'not english', first_code,
                        first_percentage, second_code, second_percentage)
-            # Moving repository in "not_english" folder
-            # MOVE_TO(repo, "%s" % DESTINATION_NOT_ENGLISH)
+            if MOVE:
+                # LOG
+                LOG("OPERATION: Moving repository to 'not english' folder because README isn't written in english!")
+
+                # Moving repository in "not_english" folder
+                MOVE_TO(repo, "%s" % DESTINATION_NOT_ENGLISH)
 
         # Checking if README is mixed
         if any(result.lang == "en" and 0.10 < result.prob < 0.90 for result in list_of_results):
-            # LOG
-            LOG("OPERATION: Moving repository to 'mixed' folder because README is written in english!\n")
+
             # Update CSV
             csv_writer(writer, row, get_destination(DESTINATION_MIXED, repo), 'mixed', first_code, first_percentage,
                        second_code, second_percentage)
-            # Moving repository in "mixed" folder
-            # MOVE_TO(repo, "%s" % DESTINATION_MIXED)
+            if MOVE:
+                # LOG
+                LOG("OPERATION: Moving repository to 'mixed' folder because README is written in different languages!")
+
+                # Moving repository in "mixed" folder
+                MOVE_TO(repo, "%s" % DESTINATION_MIXED)
 
     # Catching exceptions
     except Exception as ex:
@@ -273,54 +298,69 @@ def main():
                 for row in readcsv:
                     # Taking the path from CSV
                     repository_dir = row['CloneDirectory']
+
                     # Checking if the repository cannot be cloned
                     if NULL in repository_dir:
                         # LOG
                         LOG("Can't access because repository cannot be cloned! ")
+
                         csv_writer(writer, row, NULL, '', '', '', '', '')
                         continue
-                    # Scanning repository
-                    for root_dir_path, _, files in os.walk(repository_dir):
-                        # Check if readme exist in directory and its sub directories
-                        file_found = exists(repository_dir)
-                        # Scanning files in repository
-                        if file_found and (file for file in file_found if README in file.lower()):
-                            # Opening Target - getting always the first README
-                            with open(file_found[0], 'r', encoding='utf-8', errors='ignore') as f:
-                                # Cleaning
-                                str_md = strip_inspector(get_name(repository_dir), f.read())
-                            # Doing stuff after closing target
-                            if str_md and not str_md.isspace() and is_valid(str_md):
-                                try:
-                                    # Managing the result of the language detector
-                                    results = detector(str_md)
-                                    inspector(results, repository_dir, writer, row)
-                                # Catching exceptions
-                                except LangDetectException:
-                                    # LOG
-                                    LOG("Error: Passing to Language Detector empty string, probably not null, "
-                                        "but without characters")
-                                    print("Problem on repository: %s Passing to Language Detector empty string, "
-                                          "probably not null, but without characters! " % get_name(repository_dir))
-                                    pass
-                            else:
-                                # LOGS
-                                LOG("Analyzing Repository: %s" % get_name(repository_dir))
-                                LOG("Moving repository to 'unknown' folder because README is empty!\n")
-                                # Moving repository in unknown folder because README is empty
-                                # MOVE_TO(repository_dir, "%s" % DESTINATION_UNKNOWN)
-                                # Update CSV
-                                csv_writer(writer, row, get_destination(DESTINATION_UNKNOWN, repository_dir), 'unknown',
-                                           '', '', '', '')
+
+                    # Check if readme exist in directory and its sub directories
+                    file_found = exists(repository_dir)
+                    # Scanning files in repository
+                    if file_found and (file for file in file_found if README in file.lower()):
+                        # Opening Target - getting always the first README
+                        with open(file_found[0], 'r', encoding='utf-8', errors='ignore') as f:
+                            # Cleaning
+                            str_md = strip_inspector(get_name(repository_dir), f.read())
+
+                        # Doing stuff after closing target
+                        if str_md and not str_md.isspace() and is_valid(str_md):
+                            # Managing the result of the language detector
+                            results = detector(str_md)
+                            inspector(results, repository_dir, writer, row)
                         else:
-                            # LOGS
+                            # LOG
+                            LOG("---------------------------------------------------")
                             LOG("Analyzing Repository: %s" % get_name(repository_dir))
-                            LOG("Moving repository to 'unknown' folder because README does not exist!\n")
-                            # Moving repository in unknown folder because README does not exist
-                            # MOVE_TO(root_dir_path, "%s" % DESTINATION_UNKNOWN)
+                            LOG("README is empty!")
+
                             # Update CSV
                             csv_writer(writer, row, get_destination(DESTINATION_UNKNOWN, repository_dir),
+                                           'unknown', '', '', '', '')
+
+                            if MOVE:
+                                # LOG
+                                LOG("Moving repository to 'unknown' folder!")
+
+                                # Moving repository in unknown folder because README is empty
+                                MOVE_TO(repository_dir, "%s" % DESTINATION_UNKNOWN)
+                    else:
+                        # LOGS
+                        LOG("---------------------------------------------------")
+                        LOG("Analyzing Repository: %s" % get_name(repository_dir))
+                        LOG("README does not exist!")
+
+                        # Update CSV
+                        csv_writer(writer, row, get_destination(DESTINATION_UNKNOWN, repository_dir),
                                        'unknown', '', '', '', '')
+
+                        if MOVE:
+                            # LOG
+                            LOG("Moving repository to 'unknown' folder!")
+
+                            # Moving repository in unknown folder because README does not exist
+                            MOVE_TO(repository_dir, "%s" % DESTINATION_UNKNOWN)
+
+    # Catching exceptions
+    except LangDetectException:
+        # LOG
+        message = "Passing to Language Detector empty string, probably not null, but without characters!"
+        LOG("Error: %s " % message)
+        print("Error on repository: {}, {}".format(get_name(repository_dir), message))
+
     except Exception as ex:
         # LOG
         LOG("Error: %s" % ex)
@@ -329,9 +369,16 @@ def main():
 
 # START
 # ----------------------------------------------------------------------------------------------------------------------
-# LOG
+activation_move = "MOVE activated." if MOVE else "MOVE disabled."
+activation_deterministic = "Deterministic algorithm activated." if OUTPUT_TYPE == 0 else "Non Deterministic algorithm" \
+                                                                                         " activated."
+# LOGS
 LOG("%s - Starting script...\n" % TODAY.strftime("%d/%m/%Y"))
+LOG("\n\n- - - - - - - - - - - - - - - - - - -\nScript Config: \n - {}\n - {}\n- - - - - - - - - - - - - - - - - - -\n\n"
+    .format(activation_move, activation_deterministic))
+
 # Starting Detector Script
 main()
+
 # LOG
 LOG("Finish!")

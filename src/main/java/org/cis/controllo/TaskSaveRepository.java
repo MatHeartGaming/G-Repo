@@ -5,6 +5,7 @@ import org.cis.Applicazione;
 import org.cis.Constants;
 import org.cis.DAO.DAORepositoryJSON;
 import org.cis.modello.Repository;
+import org.cis.modello.RepositoryLanguage;
 import org.cis.modello.SessionManager;
 
 import java.nio.file.Files;
@@ -12,6 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class TaskSaveRepository extends Task<Void> {
@@ -37,23 +39,17 @@ public class TaskSaveRepository extends Task<Void> {
 
         Path pathCloneRepositories = FileUtils.createDirectory(Paths.get(pathGHRepoResult.toString(), "CloneRepositories"));
 
-        String toReplace;
+        String toReplace = "risorse" + FileUtils.PATH_SEPARATOR + "cacheCloneRepositories" + FileUtils.PATH_SEPARATOR;
         //Path pathCacheCloneDirectory = FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY);
         boolean isLanguageDetection = (boolean) Applicazione.getInstance().getModello().getObject(Constants.IS_LANGUAGE_DETECTION);
         if (isLanguageDetection) {
             // Language detection has been launched...
             Path pathLingua = FileUtils.createDirectory(Paths.get(pathCloneRepositories.toString(), "lingua"));
-            List<Path> pathLanguagesRepositories = Files.list(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_LANGUAGE_REPOSITORIES))
-                                                        .collect(Collectors.toList());
 
-            for (Path pathLanguage: pathLanguagesRepositories) {
-                if (!FileUtils.isDirEmpty(pathLanguage)) {
-                    FileUtils.createDirectory(Paths.get(pathLingua.toString(), pathLanguage.getFileName().toString()));
-                }
-            }
-            toReplace = "risorse" + FileUtils.PATH_SEPARATOR;
-        } else {
-            toReplace = "risorse" + FileUtils.PATH_SEPARATOR + "cacheCloneRepositories" + FileUtils.PATH_SEPARATOR;
+            FileUtils.createDirectory(Paths.get(pathLingua.toString(), "english"));
+            FileUtils.createDirectory(Paths.get(pathLingua.toString(), "not_english"));
+            FileUtils.createDirectory(Paths.get(pathLingua.toString(), "mixed"));
+            FileUtils.createDirectory(Paths.get(pathLingua.toString(), "unknown"));
         }
 
 
@@ -69,9 +65,20 @@ public class TaskSaveRepository extends Task<Void> {
             updateMessage(message);
             Path pathBase = Paths.get(FileUtils.getRootPath());
             Path pathCloneDirectory = Paths.get(repository.getCloneDirectory());
+
             System.out.println("pathCloneDirectory: " + pathCloneDirectory);
+
             Path pathRelativeCloneDirectory = pathBase.relativize(pathCloneDirectory);
+
             pathRelativeCloneDirectory = Paths.get(pathRelativeCloneDirectory.toString().replace(toReplace, ""));
+
+            if (isLanguageDetection) {
+                Map<String, RepositoryLanguage> repositoryLanguageMap =
+                        (Map<String, RepositoryLanguage>) Applicazione.getInstance().getModello().getObject(Constants.MAP_REPOSITORY_LANGUAGE);
+                RepositoryLanguage repositoryLanguage = repositoryLanguageMap.get(repository.getId());
+                pathRelativeCloneDirectory = Paths.get("lingua" + FileUtils.PATH_SEPARATOR + String.join("_", repositoryLanguage.getLanguage().split(" ")) + FileUtils.PATH_SEPARATOR + pathRelativeCloneDirectory);
+            }
+
             Path pathCopy = pathCloneRepositories.resolve(pathRelativeCloneDirectory);
 
             System.out.println("pathCopy: " + pathCopy);

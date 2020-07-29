@@ -1015,6 +1015,7 @@ public class PrimaryController extends Window {
         if (selectedDirectory == null) {
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Canceled operation")), 1500);
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 3500);
+            disableAllUIElementsResults(false);
             return;
         }
 
