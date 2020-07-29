@@ -35,6 +35,7 @@ md_withTable = sysPath("repositories_test/README_files/README_table.md")
 md_withLink = sysPath("repositories_test/README_files/README_link.md")
 md_withImage = sysPath("repositories_test/README_files/README_image.md")
 md_withCodeSnippet = sysPath("repositories_test/README_files/README_codeSnippet.md")
+md_withCodeUrl = sysPath("repositories_test/README_files/README_url.md")
 
 
 # Test Methods   
@@ -107,6 +108,17 @@ def test_remove_links():
     with open(PATH.abspath(md_withLink), 'r', encoding='utf8') as f:
         str_md = f.read()
         output = dt.refactor("", str_md, dt.LINKS)
+        if output and not output.isspace():
+            assert False
+        else:
+            assert True
+
+
+# Test elimination of URLs
+def test_remove_urls():
+    with open(PATH.abspath(md_withCodeUrl), 'r', encoding='utf8') as f:
+        str_md = f.read()
+        output = dt.refactor("", str_md, dt.URLS)
         if output and not output.isspace():
             assert False
         else:
