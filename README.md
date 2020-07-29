@@ -35,22 +35,6 @@ The script is able to classify the repositories according to the language used t
 
 ![](Demos/language_detection_demo.gif)
 
-To use the script a CSV file is provided which contains the absolute paths for each single repository cloned, this CSV must be present in the same folder where the detector is, next the script will generate an output CSV.
-
-CSV Input Example:
-|Index | CloneDirectory|
-|------------ | -------------|
-| 1 | path / to / first repository |
-| 2 | path / to / second repository |
-|... | ...|
-
-CSV Output Example:
-|Index | CloneDirectory | Language | LangCode | LangPercentage | LangCode_optional | LangPercentage_optional|
-|------------ | ------------- | ------------ | ------------- | ------------ | ------------- | ------------|
-|1 | path | english | en | 90 | fr | 10 |
-|2 | path | not_english | es | 100 | / | / |
-|... | ... | ... | ... | ... | ... | ...|
-
 * By default the script uses a **nondeterministic** classification algorithm, this functionality is part of a design from the original Google project. If you want to enforce determinism, set this [line](https://github.com/MatHeartGaming/G-Repo/blob/master/risorse/GHLanguageDetection/detector.py#L56) to 0.
 
 * If in the repository there is no README.md file or is empty, does not have enough text or contains only special characters then the repository will be classified as **unknown**, same in case some repository should throw exceptions on the parserization.
