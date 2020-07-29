@@ -255,7 +255,7 @@ public class PrimaryController extends Window {
 
         this.iconStop.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneStop, "#ff0000");}});
         this.iconStop.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneStop, "#cc3333");}});
-        iconStop.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {stopThread();}});
+        iconStop.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {bottoneStop.fire();}});
 
         iconDeleteBulk.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {bottoneEliminaBulk.fire();}});
         iconDeleteBulk.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaBulk, "#ff0000");}});
@@ -1014,11 +1014,14 @@ public class PrimaryController extends Window {
         String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
         chooser.setInitialDirectory(new File(currentPath));
         disableAllUIElementsResults(true);
+        bottoneStop.setDisable(true);
         File selectedDirectory = chooser.showDialog(stage);
 
         if (selectedDirectory == null) {
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Canceled operation")), 1500);
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 3500);
+            disableAllUIElementsResults(false);
+            bottoneStop.setDisable(false);
             return;
         }
 
@@ -1064,6 +1067,7 @@ public class PrimaryController extends Window {
         exe.start();
 
         disableAllUIElementsResults(false);
+        bottoneStop.setDisable(false);
     }
 
 }
