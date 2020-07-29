@@ -128,8 +128,8 @@ def exists(repository_dir):
     paths = []
     for ext in ('*.md', '*.MD', '*.markdown', '*.MARKDOWN'):
         # Passing "readme" and not variable README for correct execution of tests
-        pa = [i for i in gl(PATH.join(repository_dir, '**', ext), recursive=True) if "readme" in PATH.basename(i.lower())]
-        paths.extend(pa)
+        p = [i for i in gl(PATH.join(repository_dir, '**', ext), recursive=True) if "readme" in PATH.basename(i.lower())]
+        paths.extend(p)
     return paths
 
 
@@ -160,9 +160,9 @@ def stripper(repository, txt, pattern):
     # Catching exceptions
     except Exception as ex:
         # LOG
-        LOG(" %s" % ex)
+        LOG("Error: %s" % ex)
         print_exception(" Catched by stripper method on repository: {} - {} ".format(get_name(repository), ex))
-        pass
+        # pass
 
 
 # Takes care of checking the text and replacing the targets
@@ -200,10 +200,10 @@ def detector(target):
 
 
 # Analyzes the result and decides the destination of the repositories
-def inspector(list_of_results, repository, writer, row):
+def inspector(list_of_results, repo, writer, row):
     try:
         # LOGS
-        LOG("Analyzing Repository: %s" % get_name(repository))
+        LOG("Analyzing Repository: %s" % get_name(repo))
         if len(list_of_results) > 1:
             LOG("* MULTIPLE LANGUAGES WERE DETECTED *")
 
@@ -222,39 +222,39 @@ def inspector(list_of_results, repository, writer, row):
         if any(result.lang == "en" and result.prob >= 0.90 for result in list_of_results):
             # LOG
             LOG("OPERATION: Moving repository to 'english' folder because README is written in english!\n")
-            # Moving repository in "english" folder
-            MOVE_TO(repository, "%s" % DESTINATION_ENGLISH)
             # Update CSV
-            csv_writer(writer, row, get_destination(DESTINATION_ENGLISH, repository), 'english',
-                       first_code, first_percentage, second_code, second_percentage)
+            csv_writer(writer, row, get_destination(DESTINATION_ENGLISH, repo), 'english', first_code, first_percentage,
+                       second_code, second_percentage)
+            # Moving repository in "english" folder
+            # MOVE_TO(repo, "%s" % DESTINATION_ENGLISH)
 
         # checking if README is not in English
         if any(result.lang == "en" and result.prob <= 0.10 for result in list_of_results) \
                 or not any(result.lang == "en" for result in list_of_results):
             # LOG
             LOG("OPERATION: Moving repository to 'not english' folder because README is written in english!\n")
-            # Moving repository in "not_english" folder
-            MOVE_TO(repository, "%s" % DESTINATION_NOT_ENGLISH)
             # Update CSV
-            csv_writer(writer, row, get_destination(DESTINATION_NOT_ENGLISH, repository), 'not english',
-                       first_code, first_percentage, second_code, second_percentage)
+            csv_writer(writer, row, get_destination(DESTINATION_NOT_ENGLISH, repo), 'not english', first_code,
+                       first_percentage, second_code, second_percentage)
+            # Moving repository in "not_english" folder
+            # MOVE_TO(repo, "%s" % DESTINATION_NOT_ENGLISH)
 
         # Checking if README is mixed
         if any(result.lang == "en" and 0.10 < result.prob < 0.90 for result in list_of_results):
             # LOG
             LOG("OPERATION: Moving repository to 'mixed' folder because README is written in english!\n")
-            # Moving repository in "mixed" folder
-            MOVE_TO(repository, "%s" % DESTINATION_MIXED)
             # Update CSV
-            csv_writer(writer, row, get_destination(DESTINATION_MIXED, repository), 'mixed',
-                       first_code, first_percentage, second_code, second_percentage)
+            csv_writer(writer, row, get_destination(DESTINATION_MIXED, repo), 'mixed', first_code, first_percentage,
+                       second_code, second_percentage)
+            # Moving repository in "mixed" folder
+            # MOVE_TO(repo, "%s" % DESTINATION_MIXED)
 
     # Catching exceptions
     except Exception as ex:
         # LOG
-        LOG(" %s" % ex)
-        print_exception(" Catched by inspector method on repository: {} - {} ".format(get_name(repository), ex))
-        pass
+        LOG("Error: %s" % ex)
+        print_exception(" Catched by inspector method on repository: {} - {} ".format(get_name(repo), ex))
+        # pass
 
 
 # FIRST METHOD
@@ -294,21 +294,21 @@ def main():
                                 try:
                                     # Managing the result of the language detector
                                     results = detector(str_md)
+                                    inspector(results, repository_dir, writer, row)
                                 # Catching exceptions
                                 except LangDetectException:
                                     # LOG
-                                    LOG(" Passing to Language Detector empty string, probably not null, "
+                                    LOG("Error: Passing to Language Detector empty string, probably not null, "
                                         "but without characters")
-                                    print("ERROR: on repository: %s Passing to Language Detector empty string, "
+                                    print("Problem on repository: %s Passing to Language Detector empty string, "
                                           "probably not null, but without characters! " % get_name(repository_dir))
                                     pass
-                                inspector(results, repository_dir, writer, row)
                             else:
                                 # LOGS
                                 LOG("Analyzing Repository: %s" % get_name(repository_dir))
                                 LOG("Moving repository to 'unknown' folder because README is empty!\n")
                                 # Moving repository in unknown folder because README is empty
-                                MOVE_TO(repository_dir, "%s" % DESTINATION_UNKNOWN)
+                                # MOVE_TO(repository_dir, "%s" % DESTINATION_UNKNOWN)
                                 # Update CSV
                                 csv_writer(writer, row, get_destination(DESTINATION_UNKNOWN, repository_dir), 'unknown',
                                            '', '', '', '')
@@ -317,13 +317,13 @@ def main():
                             LOG("Analyzing Repository: %s" % get_name(repository_dir))
                             LOG("Moving repository to 'unknown' folder because README does not exist!\n")
                             # Moving repository in unknown folder because README does not exist
-                            MOVE_TO(root_dir_path, "%s" % DESTINATION_UNKNOWN)
+                            # MOVE_TO(root_dir_path, "%s" % DESTINATION_UNKNOWN)
                             # Update CSV
                             csv_writer(writer, row, get_destination(DESTINATION_UNKNOWN, repository_dir),
                                        'unknown', '', '', '', '')
     except Exception as ex:
         # LOG
-        LOG(" %s" % ex)
+        LOG("Error: %s" % ex)
         print_exception(" Catched by main method on repository: {} - {} ".format(get_name(repository_dir), ex))
 
 
