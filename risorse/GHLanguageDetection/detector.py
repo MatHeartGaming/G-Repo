@@ -22,6 +22,7 @@ import shutil as sh
 import re as regex
 import argparse
 import logging
+import time
 import csv
 import os
 
@@ -45,7 +46,7 @@ description = ' This script is able to filter repositories based on the language
 parser = argparse.ArgumentParser(description=description, formatter_class=argparse.RawDescriptionHelpFormatter)
 
 # Adding optional argument
-parser.add_argument("-v", "--version", help=" show script version", action='version', version=' version: 3.0')
+parser.add_argument("-v", "--version", help=" show script version", action='version', version=' version: 5.1')
 text = " {}Anas Mounsif{} - Università Degli Studi Della Basilicata.".format(RED, END)
 parser.add_argument("-a", "--author", help=" show author information", action='version', version=text)
 parser.parse_args()
@@ -55,7 +56,7 @@ parser.parse_args()
 # Set to 0 for deterministic result, 1 for non-deterministic
 OUTPUT_TYPE = 1
 
-# True if you want the script to move the repositories else False - attention to ACCESS DENIED problem!
+# True if you want the script to move the repositories else False - be care to ACCESS DENIED problem!
 MOVE = False
 
 # Modify as needed but pay attention to folder's structure
@@ -73,14 +74,13 @@ NULL = 'null'
 MIN_LENGTH = 50
 
 # Regex patterns
-TABLES = r"^(\|[^\n]+\|\r?\n)((?:\|:?[-]+:?)+\|)(\n(?:\|[^\n]+\|\r?\n?)*)?$"
-URLS = r"https?:\/\/?[\da-z\.-]+\.[a-z\.]{2,6}[\/\w \.-]*"
-IMAGES = r"!\[[^\]]+\]\([^)]+\)"
-CODE_SNIPPETS = r"(```.+?```)"
-LINKS = r"\[.*?\]\(.*?\)"
-HTML = r"\<.*?\>"
-ILLEGAL_STRING = r'^[_\W0-9]+$'
-
+TABLES = r"^(\|[^\n]+\|\r?\n)((?:\|:?[-]+:?)+\|)(\n(?:\|[^\n]+\|\r?\n?)*)?$"  # pattern to recognize tables
+URLS = r"https?:\/\/?[\da-z\.-]+\.[a-z\.]{2,6}[\/\w \.-]*"  # pattern to recognize urls
+IMAGES = r"!\[[^\]]+\]\([^)]+\)"  # pattern to recognize images
+CODE_SNIPPETS = r"(```.+?```)"  # pattern to recognize code snippets
+LINKS = r"\[.*?\]\(.*?\)"  # pattern to recognize links
+HTML = r"\<.*?\>"  # pattern to recognize the html code
+ILLEGAL_STRING = r'^[_\W0-9]+$'  # pattern to recognize the only digits or special character
 
 # Config LOGS
 logging.basicConfig(filename="log", filemode='w', format='%(asctime)s - %(message)s',
@@ -111,7 +111,7 @@ def refactor(repository, str_md, pattern):
 def csv_writer(writer, row, destination, language, lang_code, lang_percentage, optional_code, optional_percentage):
 
     # LOG
-    LOG("Writing CSV file! \n")
+    LOG("Writing CSV file!")
 
     if not MOVE:
         destination = row['CloneDirectory']
@@ -177,7 +177,6 @@ def stripper(repository, txt, pattern):
         # LOG
         LOG("Error: %s" % ex)
         print_exception(" Catched by stripper method on repository: {} - {} ".format(get_name(repository), ex))
-        # pass
 
 
 # Takes care of checking the text and replacing the targets
@@ -217,11 +216,9 @@ def detector(target):
 # Analyzes the result and decides the destination of the repositories
 def inspector(list_of_results, repo, writer, row):
     try:
-        # LOGS
-        LOG("---------------------------------------------------")
-        LOG("Analyzing Repository: %s" % get_name(repo))
+        # LOG
         if len(list_of_results) > 1:
-            LOG("* MULTIPLE LANGUAGES WERE DETECTED *")
+            LOG("* MULTIPLE LANGUAGES WERE DETECTED - GETTING FIRST TWO *")
 
         # Getting only first 2 results
         first_code = list_of_results[0].lang
@@ -299,6 +296,9 @@ def main():
                     # Taking the path from CSV
                     repository_dir = row['CloneDirectory']
 
+                    # LOGS
+                    LOG("Analyzing Repository: %s" % get_name(repository_dir).upper())
+
                     # Checking if the repository cannot be cloned
                     if NULL in repository_dir:
                         # LOG
@@ -318,49 +318,51 @@ def main():
 
                         # Doing stuff after closing target
                         if str_md and not str_md.isspace() and is_valid(str_md):
-                            # Managing the result of the language detector
-                            results = detector(str_md)
-                            inspector(results, repository_dir, writer, row)
+                            try:
+                                # Managing the result of the language detector
+                                results = detector(str_md)
+                                inspector(results, repository_dir, writer, row)
+
+                            # Catching exceptions
+                            except LangDetectException:
+                                # LOG
+                                message = "Passing to Language Detector empty string, probably not null, " \
+                                          "but without characters!"
+                                LOG("Error: %s " % message)
+                                print("Problem on repository: {}, {}".format(get_name(repository_dir), message))
+
+                                # Update CSV
+                                csv_writer(writer, row, get_destination(DESTINATION_UNKNOWN, repository_dir), 'unknown',
+                                           '', '', '', '')
+                                pass
                         else:
                             # LOG
-                            LOG("---------------------------------------------------")
-                            LOG("Analyzing Repository: %s" % get_name(repository_dir))
                             LOG("README is empty!")
 
                             # Update CSV
-                            csv_writer(writer, row, get_destination(DESTINATION_UNKNOWN, repository_dir),
-                                           'unknown', '', '', '', '')
-
+                            csv_writer(writer, row, get_destination(DESTINATION_UNKNOWN, repository_dir), 'unknown',
+                                       '', '', '', '')
                             if MOVE:
                                 # LOG
-                                LOG("Moving repository to 'unknown' folder!")
+                                LOG("OPERATION: Moving repository to 'unknown' folder!")
 
                                 # Moving repository in unknown folder because README is empty
                                 MOVE_TO(repository_dir, "%s" % DESTINATION_UNKNOWN)
                     else:
-                        # LOGS
-                        LOG("---------------------------------------------------")
-                        LOG("Analyzing Repository: %s" % get_name(repository_dir))
+                        # LOG
                         LOG("README does not exist!")
 
                         # Update CSV
-                        csv_writer(writer, row, get_destination(DESTINATION_UNKNOWN, repository_dir),
-                                       'unknown', '', '', '', '')
-
+                        csv_writer(writer, row, get_destination(DESTINATION_UNKNOWN, repository_dir), 'unknown',
+                                   '', '', '', '')
                         if MOVE:
                             # LOG
-                            LOG("Moving repository to 'unknown' folder!")
+                            LOG("OPERATION: Moving repository to 'unknown' folder!")
 
                             # Moving repository in unknown folder because README does not exist
                             MOVE_TO(repository_dir, "%s" % DESTINATION_UNKNOWN)
 
     # Catching exceptions
-    except LangDetectException:
-        # LOG
-        message = "Passing to Language Detector empty string, probably not null, but without characters!"
-        LOG("Error: %s " % message)
-        print("Error on repository: {}, {}".format(get_name(repository_dir), message))
-
     except Exception as ex:
         # LOG
         LOG("Error: %s" % ex)
@@ -372,13 +374,15 @@ def main():
 activation_move = "MOVE activated." if MOVE else "MOVE disabled."
 activation_deterministic = "Deterministic algorithm activated." if OUTPUT_TYPE == 0 else "Non Deterministic algorithm" \
                                                                                          " activated."
+start_time = time.time()
+
 # LOGS
-LOG("%s - Starting script...\n" % TODAY.strftime("%d/%m/%Y"))
-LOG("\n\n- - - - - - - - - - - - - - - - - - -\nScript Config: \n - {}\n - {}\n- - - - - - - - - - - - - - - - - - -\n\n"
+LOG("%s - Starting script..." % TODAY.strftime("%d/%m/%Y"))
+LOG("\n\n- - - - - - - - - - - - - - - - - - - -\nScript Config:\n- {}\n- {}\n- - - - - - - - - - - - - - - - - - - -\n"
     .format(activation_move, activation_deterministic))
 
 # Starting Detector Script
 main()
 
 # LOG
-LOG("Finish!")
+LOG("\n\nFinished in: %s seconds " % (time.time() - start_time))
