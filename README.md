@@ -32,7 +32,10 @@ Makes possible the translation and therefore the classification of the README fi
 The script is able to classify the repositories according to the language used to write the **README.md**.
 
 #### Usage
-To use the script a CSV file is provided to the script which contains the absolute paths for each single repository cloned, this CSV must be present in the same folder where the detector is, next the script will generate an output CSV.
+
+![](Demos/language_detection_demo.gif)
+
+To use the script a CSV file is provided which contains the absolute paths for each single repository cloned, this CSV must be present in the same folder where the detector is, next the script will generate an output CSV.
 
 CSV Input Example:
 |Index | CloneDirectory|
