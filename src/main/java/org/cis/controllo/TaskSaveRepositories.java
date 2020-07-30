@@ -16,14 +16,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class TaskSaveRepository extends Task<Void> {
+public class TaskSaveRepositories extends Task<Void> {
 
     private Path pathSelectedDirectory;
     private List<Repository> repositories;
     private final AtomicInteger count = new AtomicInteger(0);
 
 
-    public TaskSaveRepository(Path pathSelectedDirectory, List<Repository> repositories) {
+    public TaskSaveRepositories(Path pathSelectedDirectory, List<Repository> repositories) {
         this.pathSelectedDirectory = pathSelectedDirectory;
         this.repositories = repositories;
     }

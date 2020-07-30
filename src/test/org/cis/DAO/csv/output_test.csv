@@ -1,0 +1,12 @@
+Index,CloneDirectory,Language,Code1,Percentage1,Code2,Percentage2
+0,C:\testCsv\lingua\english\JCSprout,english,en,100.0,,
+1,C:\testCsv\lingua\mixed\spring-boot-examples,mixed,en,85.7,no,14.3
+2,C:\testCsv\lingua\english\SpringAll,english,en,100.0,,
+3,C:\testCsv\lingua\mixed\SpringCloudLearning,mixed,en,85.7,vi,14.3
+4,null,,,,,
+5,C:\testCsv\lingua\english\Matisse,english,en,100.0,,
+6,null,,,,,
+7,C:\testCsv\lingua\not_english\spring-boot-api-project-seed,not english,zh-cn,100.0,,
+8,C:\testCsv\lingua\english\VirtualAPK,english,en,97.5,,
+9,C:\testCsv\lingua\english\awesome-java-leetcode,unknown,,,,
+10,C:\testCsv\lingua\not_english\SpringBoot-Labs,not english,zh-cn,95.7,,

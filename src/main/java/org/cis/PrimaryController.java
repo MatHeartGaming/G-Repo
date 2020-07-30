@@ -24,7 +24,6 @@ import org.cis.controllo.*;
 import org.cis.modello.*;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Instant;
@@ -1020,7 +1019,7 @@ public class PrimaryController extends Window {
         }
 
 
-        TaskSaveRepository task = new TaskSaveRepository(selectedDirectory.toPath(), repositories);
+        TaskSaveRepositories task = new TaskSaveRepositories(selectedDirectory.toPath(), repositories);
 
         //# Setting event handler on task
         task.setOnSucceeded(workerStateEvent -> {

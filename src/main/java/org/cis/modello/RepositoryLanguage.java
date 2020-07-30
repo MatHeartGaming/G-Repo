@@ -25,6 +25,22 @@ public class RepositoryLanguage {
         return this;
     }
 
+    public String getDetection1Code() {
+        return this.detection1 == null ? null : this.detection1.getCode();
+    }
+
+    public String getDetection2Code() {
+        return this.detection2 == null ? null : this.detection2.getCode();
+    }
+
+    public double getDetection1Percentage() {
+        return this.detection1 == null ? 0.0 : this.detection1.getPercentage();
+    }
+
+    public double getDetection2Percentage() {
+        return this.detection2 == null ? 0.0 : this.detection2.getPercentage();
+    }
+
     @Override
     public String toString() {
         return this.detection1 == null ? this.language : (this.language + " (" + this.detection1.toString()
