@@ -67,8 +67,21 @@ public class Constants {
 
     public static final String COLORE_PRIMARIO = "#E9ECEF";
     public static final String COLORE_SECONDARIO = "#1c2541";
-    public static final String BUTTON_HOVER_COLOR = "#48CAE4";
-    public static final String COLORE_BUTTON = "#90E0EF";
+    public static final String BUTTON_HOVER_COLOR = "#212529";
+    public static final String COLORE_BUTTON = "#343a40";
     public static final String COLOR_HOVER_TEXTFIELD = "#212529";
     public static final String COLOR_TEXTFIELD = "#6C757D";
+    public static final String COLOR_BUTTON_CLEARER = "#6c757d";
+    public static final String COLOR_BUTTON_CLEARER_HOVER = "#495057";
+
+
+    //LEGACY COLORS
+    public static final String LEGACY_MODE_ON = "legacy mode on";
+    public static final String COLOR_BUTTON_LEGACY_PRIMARY = "#90E0EF";
+    public static final String COLOR_BUTTON_LEGACY_HOVER = "#48CAE4";
+    public static final String COLOR_BUTTON_LEGACY_GREEN = "#99ff33";
+    public static final String COLOR_BUTTON_LEGACY_GREEN_HOVER = "#00ff00";
+    public static final String COLOR_BUTTON_LEGACY_RED = "#cc3333";
+    public static final String COLOR_BUTTON_LEGACY_RED_HOVER = "#ff0000";
+
 }
