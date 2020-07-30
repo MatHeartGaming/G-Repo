@@ -32,7 +32,8 @@ public class Constants {
 
     public static final String[] LINGUA = {"Inglese", "Non-Inglese", "Misto"};
 
-    public static final String PARAM_LANGUAGE = "Language";
+    public static final String PARAM_LANGUAGE_GREATER = "Language >=";
+    public static final String PARAM_LANGUAGE_SMALLER = "Language <";
     public static final String PARAM_PROGR_LANGUAGE_GREATER = "Progr. Language >=";
     public static final String PARAM_PROGR_LANGUAGE_SMALLER = "Progr. Language <";
     public static final String PARAM_DATE_COMMIT = "Last Commit Date";

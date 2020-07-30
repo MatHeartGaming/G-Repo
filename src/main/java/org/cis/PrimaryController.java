@@ -87,7 +87,6 @@ public class PrimaryController extends Window {
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
         Applicazione.getInstance().getModello().addObject(Constants.LEGACY_MODE_ON, false);
         createButtonList();
-        createIconList();
         this.eventiCampi();
         bottoneCerca.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneCerca, Constants.BUTTON_HOVER_COLOR);}});
         bottoneCerca.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneCerca, Constants.COLORE_BUTTON);}});
@@ -156,19 +155,6 @@ public class PrimaryController extends Window {
         buttonList.add(buttonFilterLanguage);
         buttonList.add(buttonClone);
         buttonList.add(bottoneSalva);
-    }
-
-    private void createIconList() {
-        iconList.add(iconRemoveQuery);
-        iconList.add(iconAddQuery);
-        iconList.add(iconSearch);
-        iconList.add(iconStop);
-        iconList.add(iconDeleteBulk);
-        iconList.add(iconDeleteSelected);
-        iconList.add(iconFilterProgr);
-        iconList.add(iconFilterLang);
-        iconList.add(iconClone);
-        iconList.add(iconSave);
     }
 
     private void eventiCampi() {
@@ -300,20 +286,15 @@ public class PrimaryController extends Window {
         iconClone.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {buttonClone.fire();}});
         iconClone.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonClone, Constants.BUTTON_HOVER_COLOR);}});
         iconClone.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonClone, Constants.COLORE_BUTTON);}});
-
-        imgUnibas.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
+        imgUnibas.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {
                 setLegacyButtonColors(mouseEvent);
-            }
-        });
+            }});
     }
 
     private void setLegacyButtonColors(MouseEvent mouseEvent) {
         Applicazione.getInstance().getModello().addObject(Constants.LEGACY_MODE_ON, true);
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
         if(mouseEvent.getClickCount() == 5) {
-            System.out.println("Legacy is the way to go! Maria <3");
             setLegacyColorEventsIcons();
             boolean wasDisabled = false;
             boolean elimQueryDisabled = false;
@@ -500,7 +481,7 @@ public class PrimaryController extends Window {
 
     public void initCombo() {
         comboParametriRicerca.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
-            if(newValue.equals(Constants.PARAM_PROGR_LANGUAGE_GREATER) || newValue.equals(Constants.PARAM_PROGR_LANGUAGE_SMALLER) || newValue.equals(Constants.PARAM_LANGUAGE)) {
+            if(newValue.equals(Constants.PARAM_PROGR_LANGUAGE_GREATER) || newValue.equals(Constants.PARAM_PROGR_LANGUAGE_SMALLER) || newValue.equals(Constants.PARAM_LANGUAGE_GREATER) || newValue.equals(Constants.PARAM_LANGUAGE_SMALLER)) {
                 fieldPercentage.setVisible(true);
             } else {
                 fieldPercentage.setVisible(false);
@@ -508,7 +489,7 @@ public class PrimaryController extends Window {
             getSelectedComboLanguage();
             cercaInTabella();
         });
-        String parametri[] = {Constants.PARAM_REPOSITORIES, Constants.PARAM_LANGUAGE, Constants.PARAM_PROGR_LANGUAGE_GREATER, Constants.PARAM_PROGR_LANGUAGE_SMALLER, Constants.PARAM_DATE_COMMIT,
+        String parametri[] = {Constants.PARAM_REPOSITORIES, Constants.PARAM_LANGUAGE_GREATER, Constants.PARAM_LANGUAGE_SMALLER, Constants.PARAM_PROGR_LANGUAGE_GREATER, Constants.PARAM_PROGR_LANGUAGE_SMALLER, Constants.PARAM_DATE_COMMIT,
                 Constants.PARAM_URL, Constants.PARAM_DIMENSION_GREATER, Constants.PARAM_DIMENSION_SMALLER, Constants.PARAM_STARS_GREATER, Constants.PARAM_STARS_SMALLER};
         ObservableList<String> listaLinguaggi = FXCollections.observableArrayList(parametri);
         comboParametriRicerca.setItems(listaLinguaggi);
@@ -585,6 +566,7 @@ public class PrimaryController extends Window {
     }
 
     private void filterByLanguage() {
+        imgUnibas.setDisable(true);
         Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Language detection in progress...")), 1500);
         // ANAS CODE...
         Task<Void> task = new Task<>() {
@@ -608,10 +590,16 @@ public class PrimaryController extends Window {
                 daoRepositoryCSV.updateRepositories(outputCSV, s -> {
                     String[] values = s.split(",");
 
-                    if (values.length == 0) return;
+                    if (values.length == 0) {
+                        imgUnibas.setDisable(false);
+                        return;
+                    }
 
                     // The repository in question has never been cloned.
-                    if (values[1].equals("null")) return;
+                    if (values[1].equals("null")) {
+                        imgUnibas.setDisable(false);
+                        return;
+                    }
 
                     Repository repository = repositories.get(Integer.parseInt(values[0]));
                     repository.setCloneDirectory(values[1]);
@@ -634,6 +622,7 @@ public class PrimaryController extends Window {
                             (Map<String, RepositoryLanguage>) Applicazione.getInstance().getModello().getObject(Constants.MAP_REPOSITORY_LANGUAGE);
                     repositoryLanguageMap.put(repository.getId(), repositoryLanguage);
                 });
+                imgUnibas.setDisable(false);
                 return null;
             }
         };
@@ -704,6 +693,7 @@ public class PrimaryController extends Window {
     }
 
     private void cloneRepositories(Runnable postExecute) {
+        imgUnibas.setDisable(true);
         Runnable runnable = postExecute == null ? () -> {} : postExecute;
 
         disableAllUIElementsResults(true);
@@ -713,6 +703,7 @@ public class PrimaryController extends Window {
             labelProgress.setText("You must run a search query first");
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 1500);
             disableAllUIElementsResults(false);
+            imgUnibas.setDisable(false);
             return;
         }
 
@@ -723,7 +714,7 @@ public class PrimaryController extends Window {
             labelProgress.setText("Cloned repositories");
             runnable.run();
             disableAllUIElementsResults(false);
-
+            imgUnibas.setDisable(false);
             return;
         }
 
@@ -760,6 +751,7 @@ public class PrimaryController extends Window {
             System.out.println("Stop Cloning...");
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 1500);
             disableAllUIElementsResults(false);
+            imgUnibas.setDisable(false);
         });
 
         task.setOnFailed(workerStateEvent -> {
@@ -774,6 +766,7 @@ public class PrimaryController extends Window {
             System.out.println("Qualcosa è andato storto...");
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 1500);
             disableAllUIElementsResults(false);
+            imgUnibas.setDisable(false);
         });
 
         progressBar.progressProperty().bind(task.progressProperty());
@@ -799,6 +792,7 @@ public class PrimaryController extends Window {
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    imgUnibas.setDisable(true);
                     synchronized (Applicazione.getInstance().getModello().getObject(Constants.THREAD_WARNING_PANEL)) {
                         try {
                             Applicazione.getInstance().getModello().getObject(Constants.THREAD_WARNING_PANEL).wait();
@@ -819,7 +813,7 @@ public class PrimaryController extends Window {
                         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
                         Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Creating properties file", 1);}});
                         Operator.createConfigProperties();
-                        Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Properties file  creato! It's been a pleasure working for you!", 5);}});
+                        Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Properties file created! It's been a pleasure working for you!", 5);}});
 
                         System.out.println("Properties! creato");
 
@@ -875,6 +869,7 @@ public class PrimaryController extends Window {
                         });
                     }
                     disableAllUIElements(false);
+                    imgUnibas.setDisable(false);
                 }
             });
 
@@ -970,7 +965,7 @@ public class PrimaryController extends Window {
         if(thread != null) {
             thread.interrupt();
             String messaggio = (String) Applicazione.getInstance().getModello().getObject(Constants.MESSAGGIO_FINE_RICERCA);
-            Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar(messaggio, 5);}});
+            Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar(messaggio, 0);}});
             Applicazione.getInstance().getModello().addObject(Constants.MESSAGGIO_FINE_RICERCA,null);
         }
 
@@ -1089,11 +1084,13 @@ public class PrimaryController extends Window {
     }
 
     private void actionSaveClone() {
+        imgUnibas.setDisable(true);
         List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
         if (repositories == null || repositories.isEmpty()) {
             System.out.println("Esegui prima una query di ricerca \uD83D\uDE0E");
             labelProgress.setText("You must run a search query first");
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 2500);
+            imgUnibas.setDisable(false);
             return;
         }
 
@@ -1102,6 +1099,7 @@ public class PrimaryController extends Window {
             // No cloning started.
             labelProgress.setText("You must clone first");
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 2500);
+            imgUnibas.setDisable(false);
             return;
         }
 
@@ -1110,6 +1108,7 @@ public class PrimaryController extends Window {
             // Saving already started previously.
             labelProgress.setText("The repositories have already been saved");
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 3500);
+            imgUnibas.setDisable(false);
             return;
         }
 
@@ -1127,6 +1126,7 @@ public class PrimaryController extends Window {
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 3500);
             disableAllUIElementsResults(false);
             bottoneStop.setDisable(false);
+            imgUnibas.setDisable(false);
             return;
         }
 
@@ -1173,6 +1173,7 @@ public class PrimaryController extends Window {
 
         disableAllUIElementsResults(false);
         bottoneStop.setDisable(false);
+        imgUnibas.setDisable(false);
     }
 
 }

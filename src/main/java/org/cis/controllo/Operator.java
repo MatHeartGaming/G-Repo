@@ -59,8 +59,40 @@ public class Operator {
         if (daCercare.isEmpty()) {
             return true;
         }
-        if (parametro.equals(Constants.PARAM_LANGUAGE)) {
-            if (repo.getLanguageProperty() != null && repo.getLanguageProperty().equalsIgnoreCase(daCercare)) {
+        if (parametro.equals(Constants.PARAM_LANGUAGE_GREATER)) {
+            Map<String, RepositoryLanguage> repositoryLanguageMap =
+                    (Map<String, RepositoryLanguage>) Applicazione.getInstance().getModello().getObject(Constants.MAP_REPOSITORY_LANGUAGE);
+            RepositoryLanguage  repositoryLanguage = repositoryLanguageMap.get(repo.getId());
+            double percentage = 0;
+            if(!percent.isEmpty()) {
+                percentage = Double.valueOf(percent);
+            }
+            double lanuguagePercentage = 100;
+            if(repositoryLanguage.getDetection1() != null) {
+                lanuguagePercentage = repositoryLanguage.getDetection1().getPercentage();
+            }
+            if(repositoryLanguage != null && repositoryLanguage.getLanguage().equalsIgnoreCase(daCercare) && percent.isEmpty()) {
+                System.out.println(repositoryLanguage.toString());
+                return true;
+            } else if(repositoryLanguage != null && repositoryLanguage.getLanguage().equalsIgnoreCase(daCercare) && lanuguagePercentage >= percentage) {
+                return true;
+            }
+        } else if(parametro.equals(Constants.PARAM_LANGUAGE_SMALLER)) {
+            Map<String, RepositoryLanguage> repositoryLanguageMap =
+                    (Map<String, RepositoryLanguage>) Applicazione.getInstance().getModello().getObject(Constants.MAP_REPOSITORY_LANGUAGE);
+            RepositoryLanguage  repositoryLanguage = repositoryLanguageMap.get(repo.getId());
+            double percentage = 0;
+            if(!percent.isEmpty()) {
+                percentage = Double.valueOf(percent);
+            }
+            double lanuguagePercentage = 100;
+            if(repositoryLanguage.getDetection1() != null) {
+                lanuguagePercentage = repositoryLanguage.getDetection1().getPercentage();
+            }
+            if(repositoryLanguage != null && repositoryLanguage.getLanguage().equalsIgnoreCase(daCercare) && percent.isEmpty()) {
+                System.out.println(repositoryLanguage.toString());
+                return true;
+            } else if(repositoryLanguage != null && repositoryLanguage.getLanguage().equalsIgnoreCase(daCercare) && lanuguagePercentage < percentage) {
                 return true;
             }
         } else if (parametro.equals(Constants.PARAM_REPOSITORIES)) {
@@ -153,12 +185,40 @@ public class Operator {
         if(daCercare.isEmpty()) {
             return true;
         }
-        if(parametro.equals(Constants.PARAM_LANGUAGE)) {
+        if(parametro.equals(Constants.PARAM_LANGUAGE_GREATER)) {
             Map<String, RepositoryLanguage> repositoryLanguageMap =
                     (Map<String, RepositoryLanguage>) Applicazione.getInstance().getModello().getObject(Constants.MAP_REPOSITORY_LANGUAGE);
             RepositoryLanguage  repositoryLanguage = repositoryLanguageMap.get(repo.getId());
-
-            if(repositoryLanguage != null && repositoryLanguage.getLanguage().toLowerCase().contains(daCercare.toLowerCase().trim())) {
+            double percentage = 0;
+            if(!percent.isEmpty()) {
+                percentage = Double.valueOf(percent);
+            }
+            double lanuguagePercentage = 100;
+            if(repositoryLanguage.getDetection1() != null) {
+                lanuguagePercentage = repositoryLanguage.getDetection1().getPercentage();
+            }
+            if(repositoryLanguage != null && repositoryLanguage.getLanguage().toLowerCase().contains(daCercare.toLowerCase()) && percent.isEmpty()) {
+                System.out.println(repositoryLanguage.toString());
+                return true;
+            } else if(repositoryLanguage != null && repositoryLanguage.getLanguage().toLowerCase().contains(daCercare.toLowerCase()) && lanuguagePercentage >= percentage) {
+                return true;
+            }
+        } else if(parametro.equals(Constants.PARAM_LANGUAGE_SMALLER)) {
+            Map<String, RepositoryLanguage> repositoryLanguageMap =
+                    (Map<String, RepositoryLanguage>) Applicazione.getInstance().getModello().getObject(Constants.MAP_REPOSITORY_LANGUAGE);
+            RepositoryLanguage  repositoryLanguage = repositoryLanguageMap.get(repo.getId());
+            double percentage = 0;
+            if(!percent.isEmpty()) {
+                percentage = Double.valueOf(percent);
+            }
+            double lanuguagePercentage = 100;
+            if(repositoryLanguage.getDetection1() != null) {
+                lanuguagePercentage = repositoryLanguage.getDetection1().getPercentage();
+            }
+            if(repositoryLanguage != null && repositoryLanguage.getLanguage().toLowerCase().contains(daCercare.toLowerCase()) && percent.isEmpty()) {
+                System.out.println(repositoryLanguage.toString());
+                return true;
+            } else if(repositoryLanguage != null && repositoryLanguage.getLanguage().toLowerCase().contains(daCercare.toLowerCase()) && lanuguagePercentage < percentage) {
                 return true;
             }
         } else if(parametro.equals(Constants.PARAM_PROGR_LANGUAGE_GREATER)) {
