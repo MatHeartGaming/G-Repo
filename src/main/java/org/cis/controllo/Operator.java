@@ -405,37 +405,14 @@ public class Operator {
     public static boolean actionDetectIdiom() {
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
         System.out.println("Avvio processo di language detection");
+
+        BufferedReader stdInput = null;
+        BufferedReader stdError = null;
+
         try {
-
-            String separetor = FileUtils.PATH_SEPARATOR;
-
-            String savePath = "risorse" + separetor + "lingua";
-            System.out.println("Path salvataggio lingua: " + FileUtils.createAbsolutePath(savePath));
-
-            String pathEnRel = savePath + separetor + "english";
-            Path pathEn = FileUtils.createAbsolutePath(pathEnRel);
-            System.out.println("Path salvataggio lingua english delete: " + pathEn);
-            Files.list(pathEn).forEach(FileUtils::deleteDirTree);
-
-
-            String pathNotEnRel = savePath + separetor + "not_english";
-            Path pathNotEn = FileUtils.createAbsolutePath(pathNotEnRel);
-            System.out.println("Path salvataggio lingua not english delete: " + pathNotEn);
-            Files.list(pathNotEn).forEach(FileUtils::deleteDirTree);
-
-            String pathMixRel = savePath + separetor + "mixed";
-            Path pathMix = FileUtils.createAbsolutePath(pathMixRel);
-            System.out.println("Path salvataggio lingua mixed delete: " + pathMix);
-            Files.list(pathMix).forEach(FileUtils::deleteDirTree);
-
-            String pathUnRel = savePath + separetor + "unknown";
-            Path pathUn = FileUtils.createAbsolutePath(pathUnRel);
-            System.out.println("Path salvataggio lingua unknown delete: " + pathUn);
-            Files.list(pathUn).forEach(FileUtils::deleteDirTree);
-
             String pythonCommand = Utils.isWindows() ? "python" : "python3";
             String cmd = pythonCommand + " " + "detector.py";
-            String toolPathRel = "risorse" + separetor + "GHLanguageDetection";
+            String toolPathRel = "risorse" + FileUtils.PATH_SEPARATOR + "GHLanguageDetection";
             Path toolPath = FileUtils.createAbsolutePath(toolPathRel);
             File dir = new File(toolPath.toString());
             System.out.println("Path tool: " + toolPath);
@@ -443,11 +420,9 @@ public class Operator {
             Process process = Runtime.getRuntime().exec(cmd, null, dir);
             Applicazione.getInstance().getModello().addObject(Constants.PROCESS_LANGUAGE_DETECTION, process);
 
-            BufferedReader stdInput = new BufferedReader(new
-                    InputStreamReader(process.getInputStream()));
+            stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
-            BufferedReader stdError = new BufferedReader(new
-                    InputStreamReader(process.getErrorStream()));
+            stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 
             // Read the output from the command
 
@@ -456,7 +431,7 @@ public class Operator {
             while ((s = stdInput.readLine()) != null) {
                 if (s.contains("ERROR")){
                     System.out.println(s);
-                    Applicazione.getInstance().getModello().addObject(Constants.MESSAGGIO_LANGUAGE_DETECTION,s);
+                    Applicazione.getInstance().getModello().addObject(Constants.MESSAGGIO_LANGUAGE_DETECTION, s);
                     return false;
                 }
                 System.out.println(s);
@@ -464,15 +439,30 @@ public class Operator {
             // Read any errors from the attempted command
 
             while ((s = stdError.readLine()) != null) {
-                Applicazione.getInstance().getModello().addObject(Constants.MESSAGGIO_LANGUAGE_DETECTION,s);
+                Applicazione.getInstance().getModello().addObject(Constants.MESSAGGIO_LANGUAGE_DETECTION, s);
                 System.out.println(s);
                 return false;
             }
 
 
         } catch (Exception ex) {
-            Applicazione.getInstance().getCommonEvents().showExceptionDialog(ex);
+            Platform.runLater(() -> Applicazione.getInstance().getCommonEvents().showExceptionDialog(ex));
             ex.printStackTrace();
+        } finally {
+            if (stdInput != null) {
+                try {
+                    stdInput.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (stdError != null) {
+                try {
+                    stdError.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return true;
     }
