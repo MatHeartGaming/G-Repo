@@ -89,7 +89,7 @@ public class PrimaryController extends Window {
         createButtonList();
         this.eventiCampi();
         bottoneCerca.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneCerca, Constants.BUTTON_HOVER_COLOR);}});
-        bottoneCerca.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneCerca, Constants.COLORE_BUTTON);}});
+        bottoneCerca.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneCerca, Constants.COLOR_BUTTON);}});
         bottoneCerca.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {actionCerca();}});
 
         // Setting Listener Tap 2.
@@ -97,9 +97,9 @@ public class PrimaryController extends Window {
         buttonFilterLanguage.setOnAction(actionEvent -> cloneRepositories(() -> filterByLanguage()));
 
         buttonFilterLanguage.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonFilterLanguage, Constants.BUTTON_HOVER_COLOR);}});
-        buttonFilterLanguage.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonFilterLanguage, Constants.COLORE_BUTTON);}});
+        buttonFilterLanguage.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonFilterLanguage, Constants.COLOR_BUTTON);}});
         bottoneSalva.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneSalva, Constants.BUTTON_HOVER_COLOR);}});
-        bottoneSalva.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneSalva, Constants.COLORE_BUTTON);}});
+        bottoneSalva.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneSalva, Constants.COLOR_BUTTON);}});
         bottoneSalva.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {actionSaveClone();}});
         bottoneAggiungiQuery.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneAggiungiQuery, Constants.COLOR_BUTTON_CLEARER_HOVER);}});
         bottoneAggiungiQuery.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneAggiungiQuery, Constants.COLOR_BUTTON_CLEARER);}});
@@ -108,18 +108,18 @@ public class PrimaryController extends Window {
         bottoneEliminaQuery.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaQuery, Constants.COLOR_BUTTON_CLEARER_HOVER);}});
         bottoneEliminaQuery.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaQuery, Constants.COLOR_BUTTON_CLEARER);}});
         bottoneStop.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneStop, Constants.BUTTON_HOVER_COLOR);}});
-        bottoneStop.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneStop, Constants.COLORE_BUTTON);}});
+        bottoneStop.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneStop, Constants.COLOR_BUTTON);}});
 
-        bottoneStop.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) { Applicazione.getInstance().getModello().addObject(Constants.MESSAGGIO_FINE_RICERCA,"Ricerca Stoppata!");stopThread();}});
+        bottoneStop.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) { Applicazione.getInstance().getModello().addObject(Constants.MESSAGE_END_SEARCH,"Ricerca Stoppata!");stopThread();}});
 
         bottoneEliminaSelezionato.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaSelezionato, Constants.BUTTON_HOVER_COLOR);}});
-        bottoneEliminaSelezionato.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaSelezionato, Constants.COLORE_BUTTON);}});
+        bottoneEliminaSelezionato.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaSelezionato, Constants.COLOR_BUTTON);}});
         bottoneEliminaSelezionato.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {deleteSelectedItem();}});
         bottoneEliminaBulk.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaBulk, Constants.BUTTON_HOVER_COLOR);}});
-        bottoneEliminaBulk.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaBulk, Constants.COLORE_BUTTON);}});
+        bottoneEliminaBulk.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaBulk, Constants.COLOR_BUTTON);}});
         bottoneEliminaBulk.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {deleteInBulk();}});
         buttonFilterProgrLanguage.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonFilterProgrLanguage, Constants.BUTTON_HOVER_COLOR);}});
-        buttonFilterProgrLanguage.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonFilterProgrLanguage, Constants.COLORE_BUTTON);}});
+        buttonFilterProgrLanguage.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonFilterProgrLanguage, Constants.COLOR_BUTTON);}});
 
         checkStrictMode.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {cercaInTabella();}});
         buttonClone.setOnAction(actionEvent -> cloneRepositories(() -> {
@@ -127,7 +127,7 @@ public class PrimaryController extends Window {
             disableAllUIElementsResults(false);
         }));
         buttonClone.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonClone, Constants.BUTTON_HOVER_COLOR);}});
-        buttonClone.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonClone, Constants.COLORE_BUTTON);}});
+        buttonClone.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonClone, Constants.COLOR_BUTTON);}});
 
 
         this.bottoneCerca.setDisable(true);
@@ -266,13 +266,13 @@ public class PrimaryController extends Window {
         this.iconAddQuery.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneAggiungiQuery, Constants.COLOR_BUTTON_CLEARER_HOVER);}});
         this.iconAddQuery.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneAggiungiQuery, Constants.COLOR_BUTTON_CLEARER);}});
         this.iconSearch.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneCerca, Constants.BUTTON_HOVER_COLOR);}});
-        this.iconSearch.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneCerca, Constants.COLORE_BUTTON);}});
+        this.iconSearch.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneCerca, Constants.COLOR_BUTTON);}});
         this.iconSearch.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {bottoneCerca.fire();}});
         this.iconFilterLang.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonFilterLanguage, Constants.BUTTON_HOVER_COLOR);}});
-        this.iconFilterLang.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonFilterLanguage, Constants.COLORE_BUTTON);}});
+        this.iconFilterLang.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonFilterLanguage, Constants.COLOR_BUTTON);}});
         this.iconFilterLang.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {buttonFilterLanguage.fire();}});
         this.iconSave.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneSalva, Constants.BUTTON_HOVER_COLOR);}});
-        this.iconSave.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneSalva, Constants.COLORE_BUTTON);}});
+        this.iconSave.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneSalva, Constants.COLOR_BUTTON);}});
         this.iconSave.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {bottoneSalva.fire();}});
 
         this.iconFilterLang.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {buttonFilterLanguage.fire();}});
@@ -282,25 +282,26 @@ public class PrimaryController extends Window {
         this.iconRemoveQuery.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaQuery, Constants.COLOR_BUTTON_CLEARER);}});
 
         this.iconStop.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneStop, Constants.BUTTON_HOVER_COLOR);}});
-        this.iconStop.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneStop, Constants.COLORE_BUTTON);}});
+        this.iconStop.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneStop, Constants.COLOR_BUTTON);}});
         iconStop.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {bottoneStop.fire();}});
 
         iconDeleteBulk.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {bottoneEliminaBulk.fire();}});
         iconDeleteBulk.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaBulk, Constants.BUTTON_HOVER_COLOR);}});
-        iconDeleteBulk.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaBulk, Constants.COLORE_BUTTON);}});
+        iconDeleteBulk.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaBulk, Constants.COLOR_BUTTON);}});
 
         iconDeleteSelected.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {bottoneEliminaSelezionato.fire();}});
         iconDeleteSelected.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaSelezionato, Constants.BUTTON_HOVER_COLOR);}});
-        iconDeleteSelected.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaSelezionato, Constants.COLORE_BUTTON);}});
+        iconDeleteSelected.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneEliminaSelezionato, Constants.COLOR_BUTTON);}});
 
         iconFilterProgr.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonFilterProgrLanguage, Constants.BUTTON_HOVER_COLOR);}});
-        iconFilterProgr.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonFilterProgrLanguage, Constants.COLORE_BUTTON);}});
+        iconFilterProgr.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonFilterProgrLanguage, Constants.COLOR_BUTTON);}});
         iconFilterProgr.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {buttonFilterProgrLanguage.fire();}});
 
         iconClone.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {buttonClone.fire();}});
         iconClone.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonClone, Constants.BUTTON_HOVER_COLOR);}});
         iconClone.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonClone, Constants.COLORE_BUTTON);}});
         imgUnibas.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {setLegacyButtonColors(mouseEvent);}});
+
     }
 
     private void setLegacyButtonColors(MouseEvent mouseEvent) {
@@ -460,8 +461,8 @@ public class PrimaryController extends Window {
 
 
     private void updateTable() {
-        ObservableList<Repository> listaRepoAgg = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO_AGGIORNATA);
-        ObservableList<Repository> listaRepoCompl = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
+        ObservableList<Repository> listaRepoAgg = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LIST_REPO_UPDATED);
+        ObservableList<Repository> listaRepoCompl = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LIST_REPO);
         this.labelRepoNumber.setText("Total amount of repos: " + listaRepoCompl.size() + ", Displayed: " + listaRepoAgg.size());
         this.tableRepository.setItems(listaRepoAgg);
         this.tableRepository.refresh();
@@ -476,11 +477,11 @@ public class PrimaryController extends Window {
     private void eventoCercaInTabella() {
         Modello modello = Applicazione.getInstance().getModello();
         String percent = this.fieldPercentage.getText();
-        ObservableList<Repository> listaOriginale = (ObservableList<Repository>) modello.getObject(Constants.LISTA_REPO);
+        ObservableList<Repository> listaOriginale = (ObservableList<Repository>) modello.getObject(Constants.LIST_REPO);
         boolean strict = this.checkStrictMode.isSelected();
         String daCercare = this.campoCercaTabella.getText();
         ObservableList<Repository> listaAgg = Operator.cercaPerNome(listaOriginale, daCercare, getSelectedComboLanguage(), strict, percent);
-        modello.addObject(Constants.LISTA_REPO_AGGIORNATA, listaAgg);
+        modello.addObject(Constants.LIST_REPO_UPDATED, listaAgg);
     }
 
     private String getSelectedComboLanguage() {
@@ -559,7 +560,7 @@ public class PrimaryController extends Window {
         nuova.setPrefWidth(ultimaInserita.getPrefWidth());
         nuova.setFont(ultimaInserita.getFont());
         nuova.setPromptText(promptText);
-        nuova.setStyle("-fx-background-color:" + Constants.COLORE_PRIMARIO + ";" + " -fx-border-color:" + Constants.COLOR_TEXTFIELD + ";" + " -fx-border-radius: 8; -fx-background-insets: 0; -fx-text-fill: #000;");
+        nuova.setStyle("-fx-background-color:" + Constants.COLOR_PRIMARY + ";" + " -fx-border-color:" + Constants.COLOR_TEXTFIELD + ";" + " -fx-border-radius: 8; -fx-background-insets: 0; -fx-text-fill: #000;");
         nuova.setLayoutX(ultimaInserita.getLayoutX());
         nuova.setMaxHeight(ultimaInserita.getMaxHeight());
         nuova.setMaxWidth(ultimaInserita.getMaxWidth());
@@ -584,7 +585,7 @@ public class PrimaryController extends Window {
         Task<Void> task = new Task<>() {
             @Override
             protected Void call() throws Exception {
-                List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
+                List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LIST_REPO);
                 // Create CSV file...
                 Path inputCSV = FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_INPUT_CSV);
                 DAORepositoryCSV daoRepositoryCSV = Applicazione.getInstance().getDaoRepositoryCSV();
@@ -594,7 +595,7 @@ public class PrimaryController extends Window {
                 // Language Detection.
 
                 if (!Operator.actionDetectIdiom()) {
-                    throw new RuntimeException((String) Applicazione.getInstance().getModello().getObject(Constants.MESSAGGIO_LANGUAGE_DETECTION));
+                    throw new RuntimeException((String) Applicazione.getInstance().getModello().getObject(Constants.MESSAGE_LANGUAGE_DETECTION));
                 }
 
                 // Update repositories from CSV [Index, CloneDirectory, Language, Code1, Percentage1, Code2, Percentage2]
@@ -654,8 +655,8 @@ public class PrimaryController extends Window {
 
             labelProgress.setText("Something went wrong...");
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 1500);
-            System.out.println(Applicazione.getInstance().getModello().getObject(Constants.MESSAGGIO_LANGUAGE_DETECTION));
-            labelProgress.setText((String) Applicazione.getInstance().getModello().getObject(Constants.MESSAGGIO_LANGUAGE_DETECTION));
+            System.out.println(Applicazione.getInstance().getModello().getObject(Constants.MESSAGE_LANGUAGE_DETECTION));
+            labelProgress.setText((String) Applicazione.getInstance().getModello().getObject(Constants.MESSAGE_LANGUAGE_DETECTION));
             disableAllUIElementsResults(false);
             stopThread();
         });
@@ -667,7 +668,7 @@ public class PrimaryController extends Window {
     private void filterByProgrammingLanguage() {
         Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Detecting of programming language in progress...")), 1500);
 
-        List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
+        List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LIST_REPO);
         Map<String, StatisticsProgrammingLanguage> languageProgrammingMap =
                 (Map<String, StatisticsProgrammingLanguage>) Applicazione.getInstance().getModello().getObject(Constants.MAP_REPOSITORY_PROGRAMMING_LANGUAGE);
 
@@ -709,7 +710,7 @@ public class PrimaryController extends Window {
         Runnable runnable = postExecute == null ? () -> {} : postExecute;
 
         disableAllUIElementsResults(true);
-        List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
+        List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LIST_REPO);
         if (repositories == null || repositories.isEmpty()) {
             System.out.println("Esegui prima una query di ricerca \uD83D\uDE0E");
             labelProgress.setText("You must run a search query first");
@@ -829,14 +830,14 @@ public class PrimaryController extends Window {
 
                         System.out.println("Properties! creato");
 
-                        if (Operator.avvioGHRepoSearcher()) {
+                        if (Operator.startGHRepoSearcher()) {
                             System.out.println("fine GHrepoSearcher!");
                             String path = FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_JSON).toString();
                             System.out.println("***Path: " + path + "***");
                             List<Repository> lista = Applicazione.getInstance().getDaoRepositoryJSON().loadRepositories(path);
                             ObservableList<Repository> tabList = FXCollections.observableArrayList(lista);
-                            Applicazione.getInstance().getModello().addObject(Constants.LISTA_REPO_AGGIORNATA, tabList);
-                            Applicazione.getInstance().getModello().addObject(Constants.LISTA_REPO, tabList);
+                            Applicazione.getInstance().getModello().addObject(Constants.LIST_REPO_UPDATED, tabList);
+                            Applicazione.getInstance().getModello().addObject(Constants.LIST_REPO, tabList);
                             // Init Cloning.
                             Applicazione.getInstance().getModello().addObject(Constants.INDEX_LAST_CLONED_REPOSITORY, -1);
 
@@ -863,7 +864,7 @@ public class PrimaryController extends Window {
                             //ottengo lista Repo
 
                             //Utilizzo dati per riempire Tabella
-                            Applicazione.getInstance().getModello().addObject(Constants.MESSAGGIO_FINE_RICERCA,"The search went just AWSOME!");
+                            Applicazione.getInstance().getModello().addObject(Constants.MESSAGE_END_SEARCH,"The search went just AWSOME!");
 
                             stopThread();
                         } else {
@@ -991,9 +992,9 @@ public class PrimaryController extends Window {
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
         if(thread != null) {
             thread.interrupt();
-            String messaggio = (String) Applicazione.getInstance().getModello().getObject(Constants.MESSAGGIO_FINE_RICERCA);
+            String messaggio = (String) Applicazione.getInstance().getModello().getObject(Constants.MESSAGE_END_SEARCH);
             Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar(messaggio, 0);}});
-            Applicazione.getInstance().getModello().addObject(Constants.MESSAGGIO_FINE_RICERCA,null);
+            Applicazione.getInstance().getModello().addObject(Constants.MESSAGE_END_SEARCH,null);
         }
 
 
@@ -1008,7 +1009,7 @@ public class PrimaryController extends Window {
         Applicazione.getInstance().getModello().addObject(Constants.PROCESS_LANGUAGE_DETECTION,null);
         Applicazione.getInstance().getModello().addObject(Constants.TASK_CLONE_REPOSITORIES,null);
 
-        ObservableList<Repository> lista = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
+        ObservableList<Repository> lista = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LIST_REPO);
         if(lista == null) {
             imgUnibas.setDisable(false);
             return;
@@ -1023,8 +1024,8 @@ public class PrimaryController extends Window {
 
     private void deleteInBulk() {
         this.bottoneEliminaSelezionato.setDisable(true);
-        ObservableList<Repository> listaAgg = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO_AGGIORNATA);
-        ObservableList<Repository> listaCompleta = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
+        ObservableList<Repository> listaAgg = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LIST_REPO_UPDATED);
+        ObservableList<Repository> listaCompleta = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LIST_REPO);
         if (listaCompleta == null || listaCompleta.size() == 0) {
             return;
         }
@@ -1040,8 +1041,8 @@ public class PrimaryController extends Window {
     }
 
     private void deleteSelectedItem() {
-        ObservableList<Repository> listaAgg = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO_AGGIORNATA);
-        ObservableList<Repository> listaCompleta = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
+        ObservableList<Repository> listaAgg = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LIST_REPO_UPDATED);
+        ObservableList<Repository> listaCompleta = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LIST_REPO);
         int selectedIndex = this.tableRepository.getSelectionModel().getSelectedIndex();
         this.bottoneEliminaSelezionato.setDisable(true);
         if (selectedIndex != -1) {
@@ -1059,7 +1060,7 @@ public class PrimaryController extends Window {
     }
 
     private void checkListEmpty() {
-        ObservableList<Repository> lista = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
+        ObservableList<Repository> lista = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LIST_REPO);
         if (lista.isEmpty()) {
             tabbedPane.getSelectionModel().select(tabQueries);
             tabResults.setDisable(true);
@@ -1090,7 +1091,7 @@ public class PrimaryController extends Window {
         bottoneAggiungiQuery.setDisable(value);
         bottoneCerca.setDisable(value);
         iconSearch.setDisable(value);
-        ObservableList<Repository> lista = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
+        ObservableList<Repository> lista = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LIST_REPO);
         if (value == false) {
             if (lista != null && !lista.isEmpty()) {
                 tabResults.setDisable(value);
@@ -1114,7 +1115,7 @@ public class PrimaryController extends Window {
 
     private void actionSaveClone() {
         imgUnibas.setDisable(true);
-        List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LISTA_REPO);
+        List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LIST_REPO);
         if (repositories == null || repositories.isEmpty()) {
             System.out.println("Esegui prima una query di ricerca \uD83D\uDE0E");
             labelProgress.setText("You must run a search query first");
