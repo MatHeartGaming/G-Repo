@@ -459,7 +459,6 @@ public class Operator {
     }
 
     public static boolean actionDetectIdiom() {
-        CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
         System.out.println("Avvio processo di language detection");
 
         BufferedReader stdInput = null;
