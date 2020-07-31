@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
-<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
@@ -25,13 +24,15 @@
    <children>
       <AnchorPane prefHeight="129.0" prefWidth="906.0" style="-fx-background-color: #F8F9FA;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <ImageView fx:id="imgUnibas" fitHeight="122.0" fitWidth="1000.0" layoutX="735.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="14.736175537109375">
+            <ImageView fitHeight="613.0" fitWidth="2441.0" layoutX="-579.0" layoutY="-461.0" opacity="0.4" pickOnBounds="true" AnchorPane.leftAnchor="-579.0" AnchorPane.rightAnchor="-704.0">
+               <image>
+                  <Image url="@../../icons/homepage-backdrop.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imgUnibas" fitHeight="153.0" fitWidth="187.0" layoutX="970.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="1.0">
                <image>
                   <Image url="@../../icons/g-repo%20logo.png" />
                </image>
-               <viewport>
-                  <Rectangle2D width="1000.0" />
-               </viewport>
             </ImageView>
          </children>
       </AnchorPane>

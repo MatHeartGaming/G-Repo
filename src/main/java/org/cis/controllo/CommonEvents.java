@@ -115,7 +115,7 @@ public class CommonEvents {
     }
 
     public void changeBorderColor(TextField t, String color) {
-        t.setStyle("-fx-border-color:" + color + ";" + "-fx-background-color:" + Constants.COLORE_PRIMARIO + ";" + "-fx-background-insets: 0;" + "-fx-border-radius: 20; -fx-text-fill: #000;");
+        t.setStyle("-fx-border-color:" + color + ";" + "-fx-background-color:" + Constants.COLORE_PRIMARIO + ";" + "-fx-background-insets: 0;" + "-fx-border-radius: 8; -fx-text-fill: #000;");
     }
 
     public void changeButtonColor(Button b, String color) {

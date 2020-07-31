@@ -547,7 +547,7 @@ public class PrimaryController extends Window {
         nuova.setPrefWidth(ultimaInserita.getPrefWidth());
         nuova.setFont(ultimaInserita.getFont());
         nuova.setPromptText(promptText);
-        nuova.setStyle("-fx-background-color:" + Constants.COLORE_PRIMARIO + ";" + " -fx-border-color:" + Constants.COLOR_TEXTFIELD + ";" + " -fx-border-radius: 20; -fx-background-insets: 0; -fx-text-fill: #000;");
+        nuova.setStyle("-fx-background-color:" + Constants.COLORE_PRIMARIO + ";" + " -fx-border-color:" + Constants.COLOR_TEXTFIELD + ";" + " -fx-border-radius: 8; -fx-background-insets: 0; -fx-text-fill: #000;");
         nuova.setLayoutX(ultimaInserita.getLayoutX());
         nuova.setMaxHeight(ultimaInserita.getMaxHeight());
         nuova.setMaxWidth(ultimaInserita.getMaxWidth());
