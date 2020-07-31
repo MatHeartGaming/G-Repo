@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
-<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
@@ -25,13 +24,15 @@
    <children>
       <AnchorPane prefHeight="129.0" prefWidth="906.0" style="-fx-background-color: #F8F9FA;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <ImageView fitHeight="122.0" fitWidth="1000.0" layoutX="735.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="14.736175537109375">
+            <ImageView fitHeight="613.0" fitWidth="2441.0" layoutX="-579.0" layoutY="-461.0" opacity="0.4" pickOnBounds="true" AnchorPane.leftAnchor="-579.0" AnchorPane.rightAnchor="-704.0">
+               <image>
+                  <Image url="@../../icons/homepage-backdrop.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imgUnibas" fitHeight="153.0" fitWidth="187.0" layoutX="970.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="1.0">
                <image>
                   <Image url="@../../icons/g-repo%20logo.png" />
                </image>
-               <viewport>
-                  <Rectangle2D width="1000.0" />
-               </viewport>
             </ImageView>
          </children>
       </AnchorPane>
@@ -41,7 +42,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="906.0" style="-fx-background-color: #E9ECEF;">
                      <children>
-                        <ScrollPane fx:id="scrollPaneQueries" fitToWidth="true" layoutY="202.0" prefHeight="263.0" prefWidth="906.0" style="-fx-background-color: #E9ECEF;" stylesheets="@tableStyle.css" AnchorPane.bottomAnchor="59.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="202.0">
+                        <ScrollPane fx:id="scrollPaneQueries" fitToWidth="true" layoutY="128.0" prefHeight="337.0" prefWidth="1158.0" style="-fx-background-color: #E9ECEF;" stylesheets="@tableStyle.css" AnchorPane.bottomAnchor="59.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="128.0">
                           <content>
                             <AnchorPane fx:id="anchorQuery" minHeight="0.0" minWidth="0.0" prefWidth="891.0" AnchorPane.bottomAnchor="0.0" VBox.vgrow="ALWAYS">
                                  <children>
@@ -81,12 +82,12 @@
                         </ScrollPane>
                         <AnchorPane layoutY="495.0" prefHeight="58.0" prefWidth="906.0" style="-fx-background-color: #DEE2E6;" AnchorPane.bottomAnchor="0.20000000000002416" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
-                              <Button fx:id="bottoneCerca" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" stylesheets="@ButtonBlue.css" text="Search" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="22.0">
+                              <Button fx:id="bottoneCerca" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" stylesheets="@GreyButtons.css" text="Search" textFill="WHITE" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="22.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="bottoneAggiungiQuery" alignment="CENTER_RIGHT" layoutX="733.0" layoutY="13.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="46.0" stylesheets="@ButtonBlue.css" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="127.0">
+                              <Button fx:id="bottoneAggiungiQuery" alignment="CENTER_RIGHT" layoutX="733.0" layoutY="13.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="46.0" stylesheets="@GreyButtons.css" textFill="WHITE" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="127.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -106,7 +107,7 @@
                                     <Image url="@../../icons/search-icon.png" />
                                  </image>
                               </ImageView>
-                              <Button fx:id="bottoneEliminaQuery" alignment="CENTER_RIGHT" layoutX="679.0" layoutY="13.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="46.0" stylesheets="@ButtonBlue.css" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="181.0">
+                              <Button fx:id="bottoneEliminaQuery" alignment="CENTER_RIGHT" layoutX="679.0" layoutY="13.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="46.0" stylesheets="@GreyButtons.css" textFill="WHITE" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="181.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -118,51 +119,31 @@
                               </ImageView>
                            </children>
                         </AnchorPane>
-                        <AnchorPane layoutY="7.0" prefHeight="172.0" prefWidth="906.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="7.0">
+                        <AnchorPane layoutY="7.0" prefHeight="130.0" prefWidth="1158.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="7.0">
                            <children>
                               <TextField fx:id="campoToken" layoutX="92.0" layoutY="14.0" prefHeight="27.0" prefWidth="719.0" promptText="Inserisci il tuo token" stylesheets="@TextField.css" AnchorPane.leftAnchor="92.0" AnchorPane.rightAnchor="93.0">
                                  <font>
                                     <Font name="System Bold Italic" size="12.0" />
                                  </font>
                               </TextField>
-                              <TextField fx:id="campoSort" layoutX="236.0" layoutY="49.0" prefHeight="27.0" prefWidth="577.0" promptText="Sort parameters" stylesheets="@TextField.css" AnchorPane.leftAnchor="236.0" AnchorPane.rightAnchor="94.0">
-                                 <font>
-                                    <Font name="System Bold Italic" size="12.0" />
-                                 </font>
-                              </TextField>
-                              <TextField fx:id="campoKeySort" editable="false" layoutX="92.0" layoutY="49.0" prefHeight="27.0" prefWidth="132.0" promptText="Q1" stylesheets="@TextField.css" text="Sort" AnchorPane.leftAnchor="92.0">
-                                 <font>
-                                    <Font name="System Bold Italic" size="12.0" />
-                                 </font>
-                              </TextField>
-                              <TextField fx:id="campoOrder" layoutX="236.0" layoutY="84.0" prefHeight="27.0" prefWidth="577.0" promptText="Order parameters" stylesheets="@TextField.css" AnchorPane.leftAnchor="236.0" AnchorPane.rightAnchor="94.0">
-                                 <font>
-                                    <Font name="System Bold Italic" size="12.0" />
-                                 </font>
-                              </TextField>
-                              <TextField fx:id="campoKeyOrder" editable="false" layoutX="92.0" layoutY="84.0" prefHeight="27.0" prefWidth="132.0" promptText="Q1" stylesheets="@TextField.css" text="Order" AnchorPane.leftAnchor="92.0">
-                                 <font>
-                                    <Font name="System Bold Italic" size="12.0" />
-                                 </font>
-                              </TextField>
-                              <Label alignment="CENTER" layoutY="160.0" prefHeight="19.0" prefWidth="906.0" text="Qualificatori" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                              <Label alignment="CENTER" layoutY="105.0" prefHeight="19.0" prefWidth="906.0" text="Qualifiers" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <Separator layoutX="109.0" layoutY="152.0" prefHeight="15.0" prefWidth="689.0" AnchorPane.leftAnchor="109.0" AnchorPane.rightAnchor="109.0" />
-                              <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="94.0" layoutY="130.0" prefHeight="19.0" prefWidth="101.0" text="Start date" AnchorPane.leftAnchor="94.0">
+                              <Separator layoutX="109.0" layoutY="90.0" prefHeight="15.0" prefWidth="689.0" AnchorPane.leftAnchor="109.0" AnchorPane.rightAnchor="109.0" />
+                              <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="92.0" layoutY="60.0" prefHeight="19.0" prefWidth="101.0" text="Start date" AnchorPane.leftAnchor="92.0">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="479.0" layoutY="130.0" prefHeight="19.0" prefWidth="121.0" text="End date" AnchorPane.leftAnchor="479.0">
+                              <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="477.0" layoutY="60.0" prefHeight="19.0" prefWidth="121.0" text="End date" AnchorPane.leftAnchor="477.0">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <DatePicker fx:id="datePickerStart" layoutX="207.0" layoutY="126.0" maxWidth="295.0" prefHeight="26.0" prefWidth="180.0" AnchorPane.leftAnchor="207.0" />
-                              <DatePicker fx:id="datePickerEnd" layoutX="612.0" layoutY="126.0" maxWidth="295.0" prefHeight="26.0" prefWidth="180.0" AnchorPane.leftAnchor="612.0" />
+                              <DatePicker fx:id="datePickerStart" layoutX="205.0" layoutY="56.0" maxWidth="295.0" prefHeight="26.0" prefWidth="180.0" AnchorPane.leftAnchor="205.0" />
+                              <DatePicker fx:id="datePickerEnd" layoutX="610.0" layoutY="56.0" maxWidth="295.0" prefHeight="26.0" prefWidth="180.0" AnchorPane.leftAnchor="610.0" />
                            </children>
                         </AnchorPane>
                      </children>
@@ -184,12 +165,12 @@
                               <TableColumn fx:id="columnStars" prefWidth="75.0" text="Stars" />
                           </columns>
                         </TableView>
-                        <Button fx:id="bottoneSalva" alignment="CENTER_RIGHT" layoutX="782.0" layoutY="509.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0" stylesheets="@ButtonRed.css" text="Save" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="22.0">
+                        <Button fx:id="bottoneSalva" alignment="CENTER_RIGHT" layoutX="782.0" layoutY="509.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0" stylesheets="@GreyButtons.css" text="Save" textFill="WHITE" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="22.0">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="buttonFilterLanguage" alignment="CENTER_RIGHT" layoutX="773.0" layoutY="479.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="163.0" stylesheets="@ButtonBlue.css" text="Filter by Language" AnchorPane.bottomAnchor="14.600000000000023" AnchorPane.rightAnchor="222.20000000000005">
+                        <Button fx:id="buttonFilterLanguage" alignment="CENTER_RIGHT" layoutX="773.0" layoutY="479.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="163.0" stylesheets="@GreyButtons.css" text="Filter by Language" textFill="WHITE" AnchorPane.bottomAnchor="14.600000000000023" AnchorPane.rightAnchor="222.20000000000005">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -215,12 +196,12 @@
                               <Font name="System Bold" size="13.0" />
                            </font>
                         </CheckBox>
-                        <Button fx:id="bottoneEliminaSelezionato" alignment="CENTER_RIGHT" layoutX="154.0" layoutY="479.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="146.0" stylesheets="@ButtonRed.css" text="Delete Selected" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="158.0">
+                        <Button fx:id="bottoneEliminaSelezionato" alignment="CENTER_RIGHT" layoutX="154.0" layoutY="479.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="146.0" stylesheets="@GreyButtons.css" text="Delete Selected" textFill="WHITE" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="158.0">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="bottoneEliminaBulk" alignment="CENTER_RIGHT" layoutX="15.0" layoutY="479.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="125.0" stylesheets="@ButtonRed.css" text="Bulk Delete" AnchorPane.bottomAnchor="14.600000000000001" AnchorPane.leftAnchor="15.0">
+                        <Button fx:id="bottoneEliminaBulk" alignment="CENTER_RIGHT" layoutX="15.0" layoutY="479.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="125.0" stylesheets="@GreyButtons.css" text="Bulk Delete" textFill="WHITE" AnchorPane.bottomAnchor="14.600000000000001" AnchorPane.leftAnchor="15.0">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -235,7 +216,7 @@
                               <Image url="@../../icons/deleteAll-icon.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="buttonFilterProgrLanguage" alignment="CENTER_RIGHT" layoutX="586.0" layoutY="479.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="170.0" stylesheets="@ButtonBlue.css" text="Filter by program. L" AnchorPane.bottomAnchor="14.600000000000023" AnchorPane.rightAnchor="402.0000000000001">
+                        <Button fx:id="buttonFilterProgrLanguage" alignment="CENTER_RIGHT" layoutX="586.0" layoutY="479.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="170.0" stylesheets="@GreyButtons.css" text="Filter by program. L" textFill="WHITE" AnchorPane.bottomAnchor="14.600000000000023" AnchorPane.rightAnchor="402.0000000000001">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -250,7 +231,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Button fx:id="buttonClone" alignment="CENTER_RIGHT" layoutX="949.0" layoutY="478.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0" stylesheets="@ButtonRed.css" text="Clone" AnchorPane.bottomAnchor="15.600000000000001" AnchorPane.rightAnchor="123.8000000000001">
+                        <Button fx:id="buttonClone" alignment="CENTER_RIGHT" layoutX="949.0" layoutY="478.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0" stylesheets="@GreyButtons.css" text="Clone" textFill="WHITE" AnchorPane.bottomAnchor="15.600000000000001" AnchorPane.rightAnchor="123.8000000000001">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -260,7 +241,7 @@
                               <Image url="@../../icons/human-being.png" />
                            </image>
                         </ImageView>
-                        <TextField fx:id="fieldPercentage" layoutX="630.0" layoutY="14.0" prefHeight="27.0" prefWidth="129.0" promptText="Percentage" stylesheets="@TextField.css" AnchorPane.leftAnchor="630.0" AnchorPane.rightAnchor="398.80000000000007">
+                        <TextField fx:id="fieldPercentage" layoutX="630.0" layoutY="14.0" prefHeight="27.0" prefWidth="129.0" promptText="Percentage" stylesheets="@TextField.css" AnchorPane.rightAnchor="398.80000000000007">
                            <font>
                               <Font name="System Bold Italic" size="12.0" />
                            </font>
@@ -283,7 +264,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="bottoneStop" alignment="CENTER_RIGHT" layoutX="623.0" layoutY="5.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="163.0" stylesheets="@ButtonRed.css" text="Stop Current Op." AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="21.0">
+            <Button fx:id="bottoneStop" alignment="CENTER_RIGHT" layoutX="623.0" layoutY="5.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="163.0" stylesheets="@GreyButtons.css" text="Stop Current Op." textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="21.0">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

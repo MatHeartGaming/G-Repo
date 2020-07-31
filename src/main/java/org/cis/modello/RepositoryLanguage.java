@@ -41,6 +41,14 @@ public class RepositoryLanguage {
         return this.detection2 == null ? 0.0 : this.detection2.getPercentage();
     }
 
+    public Detection getDetection1() {
+        return detection1;
+    }
+
+    public Detection getDetection2() {
+        return detection2;
+    }
+
     @Override
     public String toString() {
         return this.detection1 == null ? this.language : (this.language + " (" + this.detection1.toString()
