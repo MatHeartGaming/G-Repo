@@ -20,7 +20,7 @@ public class TaskCloneRepositories extends Task<Void> {
 
     private ProgressMonitor monitor = new Monitor();
     private String currentNameRepository;
-    private boolean cancel = false;
+    private volatile boolean cancelled = false;
     private int firstNonClonedRepositoryIndex;
     private List<Repository> repositories;
     private String token;
@@ -76,7 +76,7 @@ public class TaskCloneRepositories extends Task<Void> {
                     System.out.println("Repository non clonabile: " + cloneDirectory);
                     continue;
                 } catch(Exception e) {
-                    if (this.cancel == true) {
+                    if (this.cancelled == true) {
                         updateMessage("Stop Cloning");
                         this.cancel(true);
                         break;
@@ -113,13 +113,13 @@ public class TaskCloneRepositories extends Task<Void> {
             }
 
         }
-        if (this.cancel == false) updateMessage("Repositories cloned correctly");
+        if (this.cancelled == false) updateMessage("Repositories cloned correctly");
         System.out.println(" Fine Clonazione");
         return null;
     }
 
     public void close() {
-        this.cancel = true;
+        this.cancelled = true;
     }
 
     private class Monitor implements ProgressMonitor {
@@ -172,7 +172,7 @@ public class TaskCloneRepositories extends Task<Void> {
 
         @Override
         public boolean isCancelled() {
-            return cancel;
+            return cancelled;
         }
 
         private int getProgress() {

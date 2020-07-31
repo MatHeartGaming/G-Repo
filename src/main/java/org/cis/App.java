@@ -8,6 +8,8 @@ import org.cis.controllo.CommonEvents;
 import org.cis.controllo.FileUtils;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * JavaFX App
@@ -40,11 +42,11 @@ public class App extends Application {
         FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY));
 
         //## By Language Detection
-        FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_LANGUAGE_REPOSITORIES));
+        /*FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_LANGUAGE_REPOSITORIES));
         FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_ENGLISH));
         FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_MIXED));
         FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_NOT_ENGLISH));
-        FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_UNKNOWN));
+        FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_UNKNOWN));*/
     }
 
     public static void main(String[] args) {

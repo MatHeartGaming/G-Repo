@@ -1131,7 +1131,7 @@ public class PrimaryController extends Window {
         }
 
 
-        TaskSaveRepository task = new TaskSaveRepository(selectedDirectory.toPath(), repositories);
+        TaskSaveRepositories task = new TaskSaveRepositories(selectedDirectory.toPath(), repositories);
 
         //# Setting event handler on task
         task.setOnSucceeded(workerStateEvent -> {

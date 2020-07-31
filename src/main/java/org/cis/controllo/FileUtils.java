@@ -41,7 +41,7 @@ public class FileUtils {
 
     public static boolean copyDirTree(Path copyFrom, Path copyTo) {
         if (copyFrom == null || copyTo == null) throw new IllegalArgumentException("The argument copyFrom or copyTo cannot be null");
-        if (!FileUtils.exists(copyFrom)) throw new IllegalStateException("The path " + copyFrom + " moveFrom does not exist");
+        if (!FileUtils.exists(copyFrom)) throw new IllegalStateException("The path " + copyFrom + " copyFrom does not exist");
 
         try {
             Files.walkFileTree(copyFrom, new CopyFileVisitor(copyFrom, copyTo));
