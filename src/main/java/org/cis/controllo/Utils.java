@@ -1,7 +1,5 @@
 package org.cis.controllo;
 
-import javafx.application.Platform;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Locale;

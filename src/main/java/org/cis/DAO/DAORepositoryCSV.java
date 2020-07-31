@@ -8,6 +8,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -27,9 +28,14 @@ public class DAORepositoryCSV implements IDAORepository{
 
     public void saveRepositories(Path pathFile, List<Repository> repositories, String[] header, BiFunction<Repository, Integer, String> stringFunction) {
         if (pathFile == null) throw new IllegalArgumentException("The pathFile argument cannot be null");
+        if (pathFile.compareTo(Paths.get("")) == 0) throw new IllegalArgumentException("The pathFile argument cannot be empty");
+
         if (repositories == null) throw new IllegalArgumentException("The repositories argument cannot be null");
 
+        if (header == null) throw new IllegalArgumentException("The header array cannot be null");
+
         if (stringFunction == null) throw new IllegalArgumentException("The stringFunction callback cannot be null");
+
 
         try (BufferedWriter br = Files.newBufferedWriter(pathFile)) {
             // Header.
@@ -48,7 +54,8 @@ public class DAORepositoryCSV implements IDAORepository{
 
     public boolean updateRepositories(Path pathFile, Consumer<String> stringConsumer) {
         if (pathFile == null) throw new IllegalArgumentException("The pathFile argument cannot be null");
-        if (!FileUtils.exists(pathFile)) throw new IllegalStateException("The path " + pathFile + " from does not exist");
+        if (pathFile.compareTo(Paths.get("")) == 0) throw new IllegalArgumentException("The pathFile argument cannot be empty");
+        if (!FileUtils.exists(pathFile)) throw new IllegalStateException("The path " + pathFile + " pathFile does not exist");
 
         if (stringConsumer == null) throw new IllegalArgumentException("The stringConsumer callback cannot be null");
 

@@ -22,7 +22,7 @@ class GitCommandTest {
     private GitCommand gitCommand = new GitCommand();
 
     @Test
-    void lastDateCommit() throws Exception {
+    void lastDateCommitExists() throws Exception {
         String prefixLastCommitDate = "_test_last_commit_date";
         Path pathCloneDirectory = FileUtils.createAbsolutePath(RELATIVE_PATH_CLONING_DIRECTORY + "\\" + "repodriller" +  prefixLastCommitDate);
         if (!FileUtils.exists(pathCloneDirectory)) {
@@ -32,6 +32,18 @@ class GitCommandTest {
         LocalDate expectedLastCommitDate = LocalDate.of(2018, Month.JUNE, 11);
 
         assertTrue(actualLastCommitDate.compareTo(expectedLastCommitDate) == 0);
+    }
+
+    @Test
+    void lastDateCommitNotExists() throws Exception {
+        String prefixLastCommitDate = "_test_last_commit_date_not_exists";
+        Path pathCloneDirectory = FileUtils.createAbsolutePath(RELATIVE_PATH_CLONING_DIRECTORY + "\\" + "comit-react-2019" +  prefixLastCommitDate);
+        if (!FileUtils.exists(pathCloneDirectory)) {
+            unzip(pathCloneDirectory + ".zip", FileUtils.createAbsolutePath(RELATIVE_PATH_CLONING_DIRECTORY).toString());
+        }
+        LocalDate actualLastCommitDate = gitCommand.lastDateCommit(String.valueOf(pathCloneDirectory));
+
+        assertNull(actualLastCommitDate);
     }
 
     @Test
