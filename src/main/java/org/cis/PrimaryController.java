@@ -723,7 +723,7 @@ public class PrimaryController extends Window {
         int indexLastClonedRepository = (int) Applicazione.getInstance().getModello().getObject(Constants.INDEX_LAST_CLONED_REPOSITORY);
 
         if ((indexLastClonedRepository + 1) == repositories.size()) {
-            //Tutti i repository sono già stati clonati per questa sessione di ricerca.
+            // All repositories have already been cloned for this search session.
             labelProgress.setText("Cloned repositories");
             runnable.run();
             disableAllUIElementsResults(false);
@@ -733,7 +733,7 @@ public class PrimaryController extends Window {
 
         int firstNonClonedRepositoryIndex = 0;
         if (indexLastClonedRepository != -1) {
-            // Qualcosa è andato storto...riprendo a clonare dal repo il cui indice è: indexLastClonedRepository + 1.
+            // Something went wrong ... I start cloning from the repo whose index is: indexLastClonedRepository + 1.
             firstNonClonedRepositoryIndex = indexLastClonedRepository + 1;
         }
 
