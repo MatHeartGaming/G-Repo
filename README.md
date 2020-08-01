@@ -33,9 +33,9 @@ Makes possible the translation and therefore the classification of the README fi
 * Python 3.8
 * six
 
-The script is able to classify the repositories according to the language used to write the **README.md**.
-
 #### Usage
+
+The script is able to classify the repositories according to the language used to write the **README.md**.
 
 ![](Demos/language_detection_demo.gif)
 
