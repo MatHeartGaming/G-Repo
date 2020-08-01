@@ -36,7 +36,7 @@ public class TaskSaveRepositories extends Task<Void> {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
         String suffixGHRepoResult = sessionManager.getSessions().size() + "_" + sessionManager.getCurrentSession().getDate().format(formatter);
 
-        Path pathGHRepoResult = Paths.get(this.pathSelectedDirectory.toString(), "GHRepoResult_" + suffixGHRepoResult);
+        Path pathGHRepoResult = Paths.get(this.pathSelectedDirectory.toString(), "G-RepoResult_" + suffixGHRepoResult);
         pathGHRepoResult = FileUtils.createDirectory(pathGHRepoResult);
 
         final Path pathCloneRepositories = FileUtils.createDirectory(Paths.get(pathGHRepoResult.toString(), "CloneRepositories"));
