@@ -19,7 +19,7 @@ But which repositories to identify to conduct an **MSR** study?
 * A trend is to select a number of top starred repositories, which are the most voted repositories by GitHub users.
 
 
-### README Language Detection
+### Language Detection
 Makes possible the translation and therefore the classification of the README files present in the github repositories.
 
 #### Requirements
@@ -28,7 +28,7 @@ Makes possible the translation and therefore the classification of the README fi
 
 The script is able to classify the repositories according to the language used to write the **README.md**.
 
-#### Usage
+###### Usage
 
 ![](Demos/language_detection_demo.gif)
 
@@ -38,12 +38,7 @@ The script is able to classify the repositories according to the language used t
 
 * In addition, the script also generates a Log file which will contain information regarding the operations that have been carried out, for each session the logs will be overwritten.
 
-#### Tests
-To run the tests you need to unzip the directory: **repositories_test**, and then install [PyTest](https://docs.pytest.org/en/stable/contents.html).
-
-**Usage** : ```[ pytest ]``` in script_detector folder or ```[ py.test -k <method_name> -v ]``` for testing specific method.
-
-#### Conclusion
+###### Conclusion
 For language recognition the script uses the [LangDetect](https://github.com/Mimino666/langdetect) library, a direct port of Google's language-detection library from Java to Python.
 
 If you want to use the script individually go [here](https://github.com/anasmounsif/README-language-detector) :rocket:
