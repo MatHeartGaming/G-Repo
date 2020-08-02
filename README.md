@@ -18,11 +18,11 @@ But which repositories to identify to conduct an **MSR** study?
 ___
 
 ### Problems :no_entry:
-- [x] Problem #1:  **Limitations of the Github API**; *The GitHub Search API, which also allows you to download information about the repositories, returns a maximum of 1000 results. So if a query returns more than 1000 results, they are truncated for best-matching.*
+- [x] #1:  **Limitations of the Github API**; *The GitHub Search API, which also allows you to download information about the repositories, returns a maximum of 1000 results. So if a query returns more than 1000 results, they are truncated for best-matching.*
 
-- [x] Problem #2: **Repository not containing the files in the required programming language**; *Very often the search returns repositories that are not actually written to the requested programming language.*
+- [x] #2: **Repository not containing the files in the required programming language**; *Very often the search returns repositories that are not actually written to the requested programming language.*
 
-- [x] Problem #3 **Non-English language repositories**; *Not all repositories are written in english, so as a result of a search i can get repositories with a readme written in different languages.*
+- [x] #3 **Non-English language repositories**; *Not all repositories are written in english, so as a result of a search i can get repositories with a readme written in different languages.*
 ___
 
 ### Requirements
