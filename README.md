@@ -45,7 +45,7 @@ The **programming language detection** feature allows to detect the **programmin
 ======
 
 G-Repo Makes possible the translation and therefore the classification of the README files present in the github repositories.
-The script is able to classify the repositories according to the language used to write the **README.md**.
+The language detector script that G-Repo uses is able to classify the repositories according to the language used to write the **README.md**.
 
 ![](Demos/language.gif)
 ======
