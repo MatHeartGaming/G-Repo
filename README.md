@@ -1,45 +1,42 @@
-@link simone
-
-
 # G-Repo
 
 G-Repo is a tool developed in java and it is useful in the **Mining Software Repository**, this area aims to collect empirical evidence using the data available in software repositories present on github.
 
 For example:
 
-* “When and Why Your Code Starts to Smell Bad (and Whether the Smells
+> * “When and Why Your Code Starts to Smell Bad (and Whether the Smells
 Go Away)”
-* “Do Developers Feel Emotions? An Exploratory Analysis of Emotions in
+> * “Do Developers Feel Emotions? An Exploratory Analysis of Emotions in
          Software Artifacts”
 
 Many **MSR** studies use GitHub as a data source because:
 
-* It contains millions of open source repositories.
-* Provides a REST API to extract this data.
+> * It contains millions of open source repositories.
+> * Provides a REST API to extract this data.
 
 But which repositories to identify to conduct an **MSR** study?
 
-* A trend is to select a number of top starred repositories, which are the most voted repositories by GitHub users.
+> * A trend is to select a number of top starred repositories, which are the most voted repositories by GitHub users.
 
 
 ### Problems
 - [x] Problem #1:  **Limitations of the Github API**
-* The GitHub Search API, which also allows you to download information about the repositories, returns a maximum of 1000 results. So if a query returns more than 1000 results, they are truncated for best-matching.
+> * The GitHub Search API, which also allows you to download information about the repositories, returns a maximum of 1000 results. So if a query returns more than 1000 results, they are truncated for best-matching.
 
 - [x] Problem #2: **Repository not containing the files in the required programming language**.
+> * Very often the search returns repositories that are not actually written to the requested programming language.
 
 - [x] Problem #3 **Non-English language repositories**.
-
+> * Not all repositories are written in english, so as a result of a search i can get repositories with a readme written in different languages.
 
 ### Requirements
 * Java 8+ ??
-* Python 3.8
-* six
+* Python 3.8, six
 * @michele
 
 
 ### Research
-the tool provides functionality to search for repositories by native github [qualifiers](https://docs.github.com/en/github/searching-for-information-on-github/searching-for-repositories).
+G-Repo provides functionality to search for repositories by native github [qualifiers](https://docs.github.com/en/github/searching-for-information-on-github/searching-for-repositories).
 
 ![](Demos/query_demo.gif)
 
@@ -59,18 +56,13 @@ The script is able to classify the repositories according to the language used t
 
 ![](Demos/language.gif)
 
-* By default the script uses a **nondeterministic** classification algorithm, this functionality is part of a design from the original Google project. If you want to enforce determinism make [```OUTPUT_TYPE```](https://github.com/MatHeartGaming/G-Repo/blob/master/risorse/GHLanguageDetection/detector.py#L57)```= 0```.
+> * By default the script uses a **nondeterministic** classification algorithm, this functionality is part of a design from the original Google project. If you want to enforce determinism make [```OUTPUT_TYPE```](https://github.com/MatHeartGaming/G-Repo/blob/master/risorse/GHLanguageDetection/detector.py#L57)```= 0```.
 
-* If in the repository there is no README.md file or is empty, does not have enough text or contains only special characters then the repository will be classified as **unknown**, same in case some repository should throw exceptions on the parserization, otherwise will be classified in **english**, **not-english** or **mixed**.
-
-
-Il tool inoltre permette di filtrare i risultati di ricerca in base ai criteri disponibili nel menu.
+> * If in the repository there is no README.md file or is empty, does not have enough text or contains only special characters then the repository will be classified as **unknown**, same in case some repository should throw exceptions on the parserization, otherwise will be classified in **english**, **not-english** or **mixed**.
 
 
 ## References
-* [Json](https://github.com/blakeembrey/language-map) :rocket:
+* [Project](https://github.com/blakeembrey/language-map) o [Json](https://github.com/blakeembrey/language-map/blob/master/languages.json) ???
 
-* For language recognition the script uses the [LangDetect](https://github.com/Mimino666/langdetect) library, a direct port of Google's language-detection library from Java to Python.
-
-* If you want to use the script individually go [here](https://github.com/anasmounsif/README-language-detector) :rocket:
+* For language recognition the script uses the [LangDetect](https://github.com/Mimino666/langdetect) library, a direct port of Google's language-detection library from Java to Python, moreover if you want to use the script individually take a look [here](https://github.com/anasmounsif/README-language-detector) :rocket:
 
