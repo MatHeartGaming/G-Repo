@@ -4,10 +4,10 @@ G-Repo is a tool developed in java and it is useful in the **Mining Software Rep
 
 For example:
 
-> * “When and Why Your Code Starts to Smell Bad (and Whether the Smells
+> *“When and Why Your Code Starts to Smell Bad (and Whether the Smells*
 Go Away)”
-> * “Do Developers Feel Emotions? An Exploratory Analysis of Emotions in
-         Software Artifacts”
+
+> *“Do Developers Feel Emotions? An Exploratory Analysis of Emotions in Software Artifacts”*
 
 Many **MSR** studies use GitHub as a data source because:
 
