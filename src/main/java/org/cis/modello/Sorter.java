@@ -1,5 +1,7 @@
 package org.cis.modello;
 
+import org.cis.Constants;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
@@ -48,20 +50,18 @@ public class Sorter {
 
         @Override
         public int compare(String o1, String o2) {
-            String notDetermined = "Not determined (yet)";
-            if (o1.equals(notDetermined) || o2.equals(notDetermined)) {
+            if (o1.equals(Constants.MESSAGE_NOT_DETERMINED_YET) || o2.equals(Constants.MESSAGE_NOT_DETERMINED_YET)) {
                 return -1;
             }
 
-            String notExists = "Not exists";
-            if(o1.equals(notExists) && !o2.equals(notExists)) {
+            if(o1.equals(Constants.MESSAGE_NOT_EXISTS) && !o2.equals(Constants.MESSAGE_NOT_EXISTS)) {
                 return 1;
             }
 
-            if(o1.equals(notExists)) {
+            if(o1.equals(Constants.MESSAGE_NOT_EXISTS)) {
                 return 0;
             }
-            if(o2.equals(notExists)) {
+            if(o2.equals(Constants.MESSAGE_NOT_EXISTS)) {
                 return -1;
             }
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);

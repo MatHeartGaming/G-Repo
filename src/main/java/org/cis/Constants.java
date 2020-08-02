@@ -17,6 +17,9 @@ public class Constants {
 
     public static final String TASK_CLONE_REPOSITORIES = "TASK_CLONE_REPOSITORIES";
 
+    public static final String MESSAGE_NOT_EXISTS = "Not exists";
+    public static final String MESSAGE_NOT_DETERMINED_YET = "Not determined (yet)";
+
     public static final String IS_SAVE_REPOSITORIES = "IS_SAVE_REPOSITORIES";
     public static final String IS_LANGUAGE_DETECTION = "IS_LANGUAGE_DETECTION";
 

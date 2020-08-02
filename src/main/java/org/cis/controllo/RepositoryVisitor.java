@@ -75,7 +75,7 @@ public class RepositoryVisitor {
 
         Map<String, Integer> languageProgrammingOccurrence = this.computeLanguagesProgramming(cloneDirectoryRepository);
 
-        // The repository can be empty, or not contain files related to programming languages ​​or markup.
+        // The repository can be empty, or not contain files related to programming languages or markup.
         if (languageProgrammingOccurrence.isEmpty()) {
             List<String> languagesMaximumOccurrences = new ArrayList<>();
             languagesMaximumOccurrences.add("N.C.");

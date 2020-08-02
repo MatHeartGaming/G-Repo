@@ -1,6 +1,7 @@
 package org.cis.modello;
 
 import javafx.beans.property.*;
+import org.cis.Constants;
 
 import java.time.LocalDate;
 
@@ -10,9 +11,9 @@ public class Repository {
     private String cloneUrl;
     private String cloneDirectory;
     private String description;
-    private String file; // File JSON  a cui appartiene.
+    private String file; // JSON file to which it belongs.
     private LocalDate lastCommitDate;
-    // Proprietà da visualizzare.
+    // Property to display.
     private StringProperty name;
     private StringProperty urlProject;
     private StringProperty lastCommitDateProperty; // display lastCommitDate.
@@ -24,31 +25,29 @@ public class Repository {
     public Repository() {}
 
     public Repository(String id, String name, String description, String urlProject, String cloneUrl, long size, int stars) {
-        String yet = "Not determined (yet)";
         this.id = id;
         this.cloneUrl = cloneUrl;
         this.description = description;
         this.name = new SimpleStringProperty(name);
         this.urlProject = new SimpleStringProperty(urlProject);
         this.size = new SimpleLongProperty(size);
-        this.languageProperty = new SimpleStringProperty(yet);
-        this.programmingLanguagesProperty = new SimpleStringProperty(yet);
-        this.lastCommitDateProperty = new SimpleStringProperty(yet);
+        this.languageProperty = new SimpleStringProperty(Constants.MESSAGE_NOT_DETERMINED_YET);
+        this.programmingLanguagesProperty = new SimpleStringProperty(Constants.MESSAGE_NOT_DETERMINED_YET);
+        this.lastCommitDateProperty = new SimpleStringProperty(Constants.MESSAGE_NOT_DETERMINED_YET);
         this.lastCommitDate = LocalDate.EPOCH;
         this.stars = new SimpleIntegerProperty(stars);
     }
 
     public Repository(String id, String name, String description, String urlProject, String cloneUrl, long size) {
-        String yet = "Not determined (yet)";
         this.id = id;
         this.cloneUrl = cloneUrl;
         this.description = description;
         this.name = new SimpleStringProperty(name);
         this.urlProject = new SimpleStringProperty(urlProject);
         this.size = new SimpleLongProperty(size);
-        this.languageProperty = new SimpleStringProperty(yet);
-        this.programmingLanguagesProperty = new SimpleStringProperty(yet);
-        this.lastCommitDateProperty = new SimpleStringProperty(yet);
+        this.languageProperty = new SimpleStringProperty(Constants.MESSAGE_NOT_DETERMINED_YET);
+        this.programmingLanguagesProperty = new SimpleStringProperty(Constants.MESSAGE_NOT_DETERMINED_YET);
+        this.lastCommitDateProperty = new SimpleStringProperty(Constants.MESSAGE_NOT_DETERMINED_YET);
         this.lastCommitDate = LocalDate.EPOCH;
         this.stars = new SimpleIntegerProperty(0);
     }
@@ -139,8 +138,8 @@ public class Repository {
     }
 
     public SimpleStringProperty starsProperty() {
-        String stelline = String.valueOf(stars.get());
-        return new SimpleStringProperty(stelline);
+        String starlets = String.valueOf(stars.get());
+        return new SimpleStringProperty(starlets);
     }
 
     public void setStars(int stars) {
@@ -164,9 +163,9 @@ public class Repository {
     }
 
     public StringProperty turnIntToStringProperty() {
-        String dimensione = String.valueOf(this.size);
-        dimensione = dimensione.substring(dimensione.indexOf(":") + 1, dimensione.lastIndexOf("]"));
-        return new SimpleStringProperty(dimensione);
+        String dimension = String.valueOf(this.size);
+        dimension = dimension.substring(dimension.indexOf(":") + 1, dimension.lastIndexOf("]"));
+        return new SimpleStringProperty(dimension);
     }
 
 }

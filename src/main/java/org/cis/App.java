@@ -14,7 +14,6 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) {
-        Applicazione.getInstance().getSingleThread().start();
         //# Init Folder:
         initFolder();
 

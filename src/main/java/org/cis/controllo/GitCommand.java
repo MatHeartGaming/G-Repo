@@ -88,10 +88,10 @@ public class GitCommand {
         Git git = null;
         try {
             git = cloneCommand.setURI(cloneUrl)
-                            //.setBare(false)
+                              //.setBare(false)
                               .setDirectory(pathCloneDirectory.toFile())
-                            //.setCloneAllBranches(true)
-                            //.setNoCheckout(false)
+                              //.setCloneAllBranches(true)
+                              //.setNoCheckout(false)
                               .call();
         } catch (Exception e) {
             // Rollback.

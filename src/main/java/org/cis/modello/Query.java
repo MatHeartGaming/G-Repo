@@ -4,12 +4,12 @@ import java.util.List;
 
 public class Query {
 
-    private String token; // Non più Opzionale
+    private String token;
     private List<Qualifier> qualifiers;
     private String sort;
     private String order;
     private String date;
-    private String directoryFile; // File JSON scaricati da GHRepoSearcher.
+    private String directoryFile; // JSON files downloaded from GHRepoSearcher.
 
     public Query(List<Qualifier> qualifiers) {
         this.qualifiers = qualifiers;
@@ -58,4 +58,5 @@ public class Query {
     public void setDate(String date) {
         this.date = date;
     }
+
 }
