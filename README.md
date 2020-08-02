@@ -15,21 +15,19 @@ Many **MSR** studies use GitHub as a data source because:
 But which repositories to identify to conduct an **MSR** study?
 
 * A trend is to select a number of top starred repositories, which are the most voted repositories by GitHub users.
-
-
+___
 ### Problems :no_entry:
 - [x] Problem #1:  **Limitations of the Github API**; *The GitHub Search API, which also allows you to download information about the repositories, returns a maximum of 1000 results. So if a query returns more than 1000 results, they are truncated for best-matching.*
 
 - [x] Problem #2: **Repository not containing the files in the required programming language**; *Very often the search returns repositories that are not actually written to the requested programming language.*
 
 - [x] Problem #3 **Non-English language repositories**; *Not all repositories are written in english, so as a result of a search i can get repositories with a readme written in different languages.*
-
+___
 ### Requirements
 * Java 8+ ??
 * Python 3.8, six
 * @michele
-
-
+___
 ### Research
 G-Repo provides functionality to search for repositories by native github [qualifiers](https://docs.github.com/en/github/searching-for-information-on-github/searching-for-repositories).
 
@@ -38,14 +36,12 @@ G-Repo provides functionality to search for repositories by native github [quali
 
 
 :warning: **For the execution to be successful the repositories will be cloned!** :warning:
-
-
+___
 ### Programming Language Detection
 This feature allows to detect the **programming language** - **markup** most used within the repositories, otherwise if the repository were to be empty the result will be **not classifiable**.
 
 ![](Demos/programming_language.gif)
-
-
+___
 ### Language Detection
 Makes possible the translation and therefore the classification of the README files present in the github repositories.
 The script is able to classify the repositories according to the language used to write the **README.md**.
@@ -53,10 +49,8 @@ The script is able to classify the repositories according to the language used t
 ![](Demos/language.gif)
 
 > * By default the script uses a **nondeterministic** classification algorithm, this functionality is part of a design from the original Google project. If you want to enforce determinism make [`OUTPUT_TYPE`](https://github.com/MatHeartGaming/G-Repo/blob/master/risorse/GHLanguageDetection/detector.py#L57)```= 0```.
-
-> * If in the repository there is no README.md file or is empty, does not have enough text or contains only special characters then the repository will be classified as **unknown**, same in case some repository should throw exceptions on the parserization, otherwise will be classified in **english**, **not-english** or **mixed**.
-
-
+If in the repository there is no README.md file or is empty, does not have enough text or contains only special characters then the repository will be classified as **unknown**, same in case some repository should throw exceptions on the parserization, otherwise will be classified in **english**, **not-english** or **mixed**.
+___
 ## References
 * [Project](https://github.com/blakeembrey/language-map) o [Json](https://github.com/blakeembrey/language-map/blob/master/languages.json) ???
 
