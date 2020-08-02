@@ -37,7 +37,6 @@ public class TaskCloneRepositories extends Task<Void> {
         if (this.firstNonClonedRepositoryIndex == 0) {
             updateMessage("Clone cache cleanup");
             System.out.println("Cancellazione cache repository");
-            //FileUtils.deleteDirTree(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY));
 
             List<Path> paths = Files.list(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY))
                                     .collect(Collectors.toList());

@@ -248,8 +248,8 @@ public class PrimaryController extends Window {
 
         columnStars.setComparator(sorter.new SortByStars());
         columnDimensione.setComparator(sorter.new SortByDimension());
-        columnLinguaggio.setComparator(sorter.new SortByProgrLanguage());
-        columnDataCommit.setComparator(sorter.new SortyByCommitDate());
+        columnLinguaggio.setComparator(sorter.new SortByProgrammingLanguage());
+        columnDataCommit.setComparator(sorter.new SortByLastCommitDate());
     }
 
     private void initListaTextField() {
