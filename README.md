@@ -1,3 +1,6 @@
+@link simone
+
+
 # G-Repo
 
 G-Repo is a tool developed in java and it is useful in the **Mining Software Repository**, this area aims to collect empirical evidence using the data available in software repositories present on github.
@@ -18,34 +21,54 @@ But which repositories to identify to conduct an **MSR** study?
 
 * A trend is to select a number of top starred repositories, which are the most voted repositories by GitHub users.
 
-|
 
-|
+### Problems
+- [x] Problem #1:  **Limitations of the Github API**
+* The GitHub Search API, which also allows you to download information about the repositories, returns a maximum of 1000 results. So if a query returns more than 1000 results, they are truncated for best-matching.
 
-|
+- [x] Problem #2: **Repository not containing the files in the required programming language**.
 
-|
+- [x] Problem #3 **Non-English language repositories**.
+
+
+### Requirements
+* Java 8+ ??
+* Python 3.8
+* six
+* @michele
+
+
+### Research
+the tool provides functionality to search for repositories by native github [qualifiers](https://help.github.com/en/github/searching-for-information-on-github/query_demo.gif).
+
+
+:warning: **For the execution to be successful the repositories will be cloned!** :warning:
+
+
+### Programming Language Detection
+This feature allows to detect the **programming language** - **markup** most used within the repositories, otherwise if the repository were to be empty the result will be **not classifiable**.
+
+![](Demos/programming_language.gif)
+
 
 ### Language Detection
 Makes possible the translation and therefore the classification of the README files present in the github repositories.
-
-#### Requirements
-* Python 3.8
-* six
-
-#### Usage
-
 The script is able to classify the repositories according to the language used to write the **README.md**.
 
-![](Demos/language_detection_demo.gif)
+![](Demos/language.gif)
 
-* By default the script uses a **nondeterministic** classification algorithm, this functionality is part of a design from the original Google project. If you want to enforce determinism, set this [line](https://github.com/MatHeartGaming/G-Repo/blob/master/risorse/GHLanguageDetection/detector.py#L56) to 0.
+* By default the script uses a **nondeterministic** classification algorithm, this functionality is part of a design from the original Google project. If you want to enforce determinism make [```OUTPUT_TYPE```](https://github.com/MatHeartGaming/G-Repo/blob/master/risorse/GHLanguageDetection/detector.py#L57)```= 0```.
 
 * If in the repository there is no README.md file or is empty, does not have enough text or contains only special characters then the repository will be classified as **unknown**, same in case some repository should throw exceptions on the parserization, otherwise will be classified in **english**, **not-english** or **mixed**.
 
-* In addition, the script also generates a Log file which will contain information regarding the operations that have been carried out, for each session the logs will be overwritten.
 
-#### Conclusion
-For language recognition the script uses the [LangDetect](https://github.com/Mimino666/langdetect) library, a direct port of Google's language-detection library from Java to Python.
+Il tool inoltre permette di filtrare i risultati di ricerca in base ai criteri disponibili nel menu.
 
-If you want to use the script individually go [here](https://github.com/anasmounsif/README-language-detector) :rocket:
+
+## References
+* [Json](https://github.com/blakeembrey/language-map) :rocket:
+
+* For language recognition the script uses the [LangDetect](https://github.com/Mimino666/langdetect) library, a direct port of Google's language-detection library from Java to Python.
+
+* If you want to use the script individually go [here](https://github.com/anasmounsif/README-language-detector) :rocket:
+
