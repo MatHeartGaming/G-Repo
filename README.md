@@ -39,7 +39,9 @@ But which repositories to identify to conduct an **MSR** study?
 
 
 ### Research
-the tool provides functionality to search for repositories by native github [qualifiers](https://help.github.com/en/github/searching-for-information-on-github/query_demo.gif).
+the tool provides functionality to search for repositories by native github [qualifiers](https://docs.github.com/en/github/searching-for-information-on-github/searching-for-repositories).
+
+![](Demos/query_demo.gif)
 
 
 :warning: **For the execution to be successful the repositories will be cloned!** :warning:
