@@ -5,7 +5,6 @@ import org.cis.DAO.DAORepositoryCSV;
 import org.cis.DAO.DAORepositoryJSON;
 import org.cis.DAO.DAORepositoryMock;
 import org.cis.controllo.CommonEvents;
-import org.cis.controllo.SingleThread;
 import org.cis.modello.Modello;
 import org.cis.modello.SessionManager;
 
@@ -17,7 +16,6 @@ public class Applicazione {
     private Modello modello = new Modello();
     private DAORepositoryMock daoRepositoryMock = new DAORepositoryMock();
     private SessionManager sessionManager = new SessionManager();
-    private SingleThread singleThread = new SingleThread();
     private DAORepositoryJSON daoRepositoryJSON = new DAORepositoryJSON();
     private DAORepositoryCSV daoRepositoryCSV = new DAORepositoryCSV();
 
@@ -49,5 +47,4 @@ public class Applicazione {
         return sessionManager;
     }
 
-    public SingleThread getSingleThread() { return singleThread; }
 }

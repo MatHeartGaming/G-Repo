@@ -41,7 +41,6 @@ public class CommonEvents {
         //stage.setOnHiding(windowEvent -> System.out.println("Closing"));
         stage.setOnCloseRequest(windowEvent -> {
             System.out.println("Closing");
-            Applicazione.getInstance().getSingleThread().close();
             Platform.exit();
             System.exit(0);
         });
@@ -115,7 +114,7 @@ public class CommonEvents {
     }
 
     public void changeBorderColor(TextField t, String color) {
-        t.setStyle("-fx-border-color:" + color + ";" + "-fx-background-color:" + Constants.COLORE_PRIMARIO + ";" + "-fx-background-insets: 0;" + "-fx-border-radius: 8; -fx-text-fill: #000;");
+        t.setStyle("-fx-border-color:" + color + ";" + "-fx-background-color:" + Constants.COLOR_PRIMARY + ";" + "-fx-background-insets: 0;" + "-fx-border-radius: 8; -fx-text-fill: #000;");
     }
 
     public void changeButtonColor(Button b, String color) {

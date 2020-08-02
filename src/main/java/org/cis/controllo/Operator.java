@@ -380,7 +380,7 @@ public class Operator {
         boolean connect = netIsAvailable();
 
         if(connect == false){
-            Applicazione.getInstance().getModello().addObject(Constants.MESSAGGIO_FINE_RICERCA,"Connection error!");
+            Applicazione.getInstance().getModello().addObject(Constants.MESSAGE_END_SEARCH,"Connection error!");
             return false ;
         }
 
@@ -436,7 +436,7 @@ public class Operator {
             while ((s = stdInput.readLine()) != null) {
                 if (s.contains("ERROR")){
                     System.out.println(s);
-                    Applicazione.getInstance().getModello().addObject(Constants.MESSAGGIO_FINE_RICERCA,"Token non valido");
+                    Applicazione.getInstance().getModello().addObject(Constants.MESSAGE_END_SEARCH,"Token non valido");
                     return false;
                 }
                 System.out.println(s);
@@ -445,7 +445,7 @@ public class Operator {
 
 
             while ((s = stdError.readLine()) != null) {
-                Applicazione.getInstance().getModello().addObject(Constants.MESSAGGIO_FINE_RICERCA,s);
+                Applicazione.getInstance().getModello().addObject(Constants.MESSAGE_END_SEARCH,s);
                 System.out.println(s);
                 return false;
             }
@@ -487,7 +487,7 @@ public class Operator {
             while ((s = stdInput.readLine()) != null) {
                 if (s.contains("ERROR")){
                     System.out.println(s);
-                    Applicazione.getInstance().getModello().addObject(Constants.MESSAGGIO_LANGUAGE_DETECTION, s);
+                    Applicazione.getInstance().getModello().addObject(Constants.MESSAGE_LANGUAGE_DETECTION, s);
                     return false;
                 }
                 System.out.println(s);
@@ -495,7 +495,7 @@ public class Operator {
             // Read any errors from the attempted command
 
             while ((s = stdError.readLine()) != null) {
-                Applicazione.getInstance().getModello().addObject(Constants.MESSAGGIO_LANGUAGE_DETECTION, s);
+                Applicazione.getInstance().getModello().addObject(Constants.MESSAGE_LANGUAGE_DETECTION, s);
                 System.out.println(s);
                 return false;
             }

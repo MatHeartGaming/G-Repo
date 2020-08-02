@@ -17,8 +17,7 @@ import java.nio.file.Paths;
 public class App extends Application {
 
     @Override
-    public void start(Stage stage) throws IOException {
-        Applicazione.getInstance().getSingleThread().start();
+    public void start(Stage stage) {
         //# Init Folder:
         initFolder();
 
@@ -35,18 +34,11 @@ public class App extends Application {
     }
 
     private void initFolder() {
-        //## By Search query.
+        // # By Search query.
         FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_JSON));
 
-        //## By cloning.
+        // # By cloning.
         FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY));
-
-        //## By Language Detection
-        /*FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_LANGUAGE_REPOSITORIES));
-        FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_ENGLISH));
-        FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_MIXED));
-        FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_NOT_ENGLISH));
-        FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_UNKNOWN));*/
     }
 
     public static void main(String[] args) {
