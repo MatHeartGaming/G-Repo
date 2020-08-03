@@ -7,6 +7,12 @@ public class Constants {
     public static final String RELATIVE_PATH_INPUT_CSV = "\\risorse\\GHLanguageDetection\\input.csv";
     public static final String RELATIVE_PATH_OUTPUT_CSV = "\\risorse\\GHLanguageDetection\\output.csv";
 
+    public static final String RELATIVE_PATH_LANGUAGE_REPOSITORIES = "\\risorse\\lingua";
+
+    public static final String RELATIVE_PATH_JSON = "\\risorse\\json";
+
+    public static final String PROCESS_LANGUAGE_DETECTION= "Process language detection";
+    public static final String MESSAGE_LANGUAGE_DETECTION = "messaggio language detection";
     public static final String RELATIVE_PATH_JSON = "\\risorse\\json";
 
     public static final String PROCESS_LANGUAGE_DETECTION= "Process language detection";
@@ -55,6 +61,7 @@ public class Constants {
     public static final String LABEL_PROGRESS = "label progress";
 
     public static final String PRIMARY_STAGE = "primary stage";
+    public static final String ROOT = "root";
 
     public static final String[] LISTA_QUAL = {"in", "repo", "user", "org", "size", "followers", "fork",
             "stars", "pushed", "language", "topic", "topics", "license",
