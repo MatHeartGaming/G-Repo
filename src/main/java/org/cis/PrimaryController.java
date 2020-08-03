@@ -13,10 +13,12 @@ import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.*;
 import javafx.util.Duration;
 import org.cis.DAO.DAORepositoryCSV;
@@ -63,7 +65,7 @@ public class PrimaryController extends Window {
 
     @FXML
     private ImageView iconFilterLang, iconAddQuery, iconSave, iconSearch, iconRemoveQuery,
-            iconStop, iconDeleteBulk, iconDeleteSelected, iconFilterProgr, iconClone, imgUnibas;
+            iconStop, iconDeleteBulk, iconDeleteSelected, iconFilterProgr, iconClone, imgUnibas, iconExit, iconMinimize;
 
     @FXML
     private CheckBox checkStrictMode;
@@ -88,6 +90,7 @@ public class PrimaryController extends Window {
         Applicazione.getInstance().getModello().addObject(Constants.LEGACY_MODE_ON, false);
         createButtonList();
         this.eventiCampi();
+
         bottoneCerca.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneCerca, Constants.BUTTON_HOVER_COLOR);}});
         bottoneCerca.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneCerca, Constants.COLOR_BUTTON);}});
         bottoneCerca.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {actionCerca();}});
@@ -263,6 +266,10 @@ public class PrimaryController extends Window {
 
     private void initIcons() {
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
+        if(commonEvents.isWindows()) {
+            this.iconExit.setVisible(false);
+            this.iconMinimize.setVisible(false);
+        }
         this.iconAddQuery.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneAggiungiQuery, Constants.COLOR_BUTTON_CLEARER_HOVER);}});
         this.iconAddQuery.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneAggiungiQuery, Constants.COLOR_BUTTON_CLEARER);}});
         this.iconSearch.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneCerca, Constants.BUTTON_HOVER_COLOR);}});
@@ -299,9 +306,14 @@ public class PrimaryController extends Window {
 
         iconClone.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {buttonClone.fire();}});
         iconClone.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonClone, Constants.BUTTON_HOVER_COLOR);}});
-        iconClone.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonClone, Constants.COLORE_BUTTON);}});
+        iconClone.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(buttonClone, Constants.COLOR_BUTTON);}});
         imgUnibas.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {setLegacyButtonColors(mouseEvent);}});
 
+        Stage stage = (Stage) Applicazione.getInstance().getModello().getObject(Constants.PRIMARY_STAGE);
+        iconExit.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {System.exit(0);}});
+        iconMinimize.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> commonEvents.minimizeStageOfNode((Node) event.getSource()));
+        commonEvents.highlightBorders(iconExit, Color.RED);
+        commonEvents.highlightBorders(iconMinimize, Color.CYAN);
     }
 
     private void setLegacyButtonColors(MouseEvent mouseEvent) {

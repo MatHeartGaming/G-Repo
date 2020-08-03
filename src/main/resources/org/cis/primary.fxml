@@ -20,9 +20,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="687.0" prefWidth="1158.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.cis.PrimaryController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="777.0" prefWidth="1262.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.cis.PrimaryController">
    <children>
-      <AnchorPane prefHeight="129.0" prefWidth="906.0" style="-fx-background-color: #F8F9FA;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <AnchorPane prefHeight="129.0" prefWidth="1262.0" style="-fx-background-color: #F8F9FA;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <ImageView fitHeight="613.0" fitWidth="2441.0" layoutX="-579.0" layoutY="-461.0" opacity="0.4" pickOnBounds="true" AnchorPane.leftAnchor="-579.0" AnchorPane.rightAnchor="-704.0">
                <image>
@@ -32,6 +32,16 @@
             <ImageView fx:id="imgUnibas" fitHeight="153.0" fitWidth="187.0" layoutX="970.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="1.0">
                <image>
                   <Image url="@../../icons/g-repo%20logo.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="iconExit" fitHeight="27.0" fitWidth="27.0" layoutX="1234.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="1.0">
+               <image>
+                  <Image url="@../../icons/close.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="iconMinimize" fitHeight="27.0" fitWidth="27.0" layoutX="1198.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="37.0">
+               <image>
+                  <Image url="@../../icons/minimize.png" />
                </image>
             </ImageView>
          </children>

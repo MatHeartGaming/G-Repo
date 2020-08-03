@@ -14,6 +14,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) {
+        Applicazione.getInstance().getModello().addObject(Constants.PRIMARY_STAGE, stage);
         Applicazione.getInstance().getSingleThread().start();
         //# Init Folder:
         initFolder();
@@ -21,7 +22,6 @@ public class App extends Application {
         // Init GUI.
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
         commonEvents.loadPanel("primary", Modality.NONE, true, "G-Repo", StageStyle.DECORATED, false);
-        Applicazione.getInstance().getModello().addObject(Constants.PRIMARY_STAGE, stage);
         /*scene = new Scene(loadFXML("primary"));
         Parent root = scene.getRoot();
         stage.setScene(scene);
