@@ -167,12 +167,12 @@
                         <TableView fx:id="tableRepository" layoutY="59.0" prefHeight="440.0" prefWidth="906.0" stylesheets="@tableStyle.css" AnchorPane.bottomAnchor="54.60000000000002" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="59.0">
                           <columns>
                             <TableColumn fx:id="columnRepo" prefWidth="181.60000002384186" text="Repositories" />
-                              <TableColumn fx:id="columnDataCommit" prefWidth="488.8000183105469" text="Last commit date" />
-                              <TableColumn fx:id="columnURL" prefWidth="75.0" text="URL" />
-                              <TableColumn fx:id="columnDimensione" prefWidth="75.0" text="Dimension" />
-                              <TableColumn fx:id="columnLingua" prefWidth="75.0" text="Language" />
-                              <TableColumn fx:id="columnLinguaggio" prefWidth="75.0" text="Progr. Language" />
-                              <TableColumn fx:id="columnStars" prefWidth="75.0" text="Stars" />
+                              <TableColumn fx:id="columnDataCommit" prefWidth="244.8000030517578" text="Last commit date" />
+                              <TableColumn fx:id="columnURL" prefWidth="198.4000244140625" text="URL" />
+                              <TableColumn fx:id="columnDimensione" prefWidth="115.199951171875" text="Dimension (KByte)" />
+                              <TableColumn fx:id="columnLingua" prefWidth="229.60003662109375" text="Language" />
+                              <TableColumn fx:id="columnLinguaggio" prefWidth="181.60009765625" text="Progr. Language" />
+                              <TableColumn fx:id="columnStars" minWidth="0.0" prefWidth="101.60009765625" text="Stars" />
                           </columns>
                         </TableView>
                         <Button fx:id="bottoneSalva" alignment="CENTER_RIGHT" layoutX="782.0" layoutY="509.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0" stylesheets="@GreyButtons.css" text="Save" textFill="WHITE" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="22.0">

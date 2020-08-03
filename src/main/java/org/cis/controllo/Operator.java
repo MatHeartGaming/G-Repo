@@ -432,10 +432,8 @@ public class Operator {
                 return false;
             }
 
-        } catch (IOException ex) {
-            Platform.runLater(() -> Applicazione.getInstance().getCommonEvents().showExceptionDialog(ex));
-            ex.printStackTrace();
-        } finally {
+        } catch (IOException ex) {}
+        finally {
             if (stdInput != null) {
                 try {
                     stdInput.close();

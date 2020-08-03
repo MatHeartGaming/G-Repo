@@ -52,6 +52,7 @@ public class Constants {
     public static final String LABEL_PROGRESS = "label progress";
 
     public static final String PRIMARY_STAGE = "primary stage";
+    public static final String ROOT = "root";
 
     public static final String[] LISTA_QUAL = {"in", "repo", "user", "org", "size", "followers", "fork",
             "stars", "pushed", "language", "topic", "topics", "license",

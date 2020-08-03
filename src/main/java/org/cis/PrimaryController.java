@@ -82,7 +82,7 @@ public class PrimaryController extends Window {
     private List<TextField> listaCampiQuery = new ArrayList<>();
     private List<TextField> listaCampiChiavi = new ArrayList<>();
     private List<Button> buttonList = new ArrayList<>();
-    private boolean isKeyEmpty = true;
+    private boolean isKeyEmpty = false;
 
     @FXML
     private void initialize() {
@@ -266,7 +266,7 @@ public class PrimaryController extends Window {
 
     private void initIcons() {
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
-        if(commonEvents.isWindows()) {
+        if(Utils.isWindows()) {
             this.iconExit.setVisible(false);
             this.iconMinimize.setVisible(false);
         }

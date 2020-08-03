@@ -100,6 +100,7 @@ public class CommonEvents {
             Scene scene = new Scene(loadFXML(fxmlFile));
             Stage stage = new Stage();
             root = scene.getRoot();
+            Applicazione.getInstance().getModello().addObject(Constants.ROOT, root);
             stage.setResizable(resizable);
             stage.initModality(modal);
             stage.setScene(scene);
@@ -188,6 +189,11 @@ public class CommonEvents {
 
         imageView.setOnMouseEntered( ( MouseEvent event ) -> {
             imageView.requestFocus();
+        });
+
+        imageView.setOnMouseExited((MouseEvent event) -> {
+            Parent root = (Parent) Applicazione.getInstance().getModello().getObject(Constants.ROOT);
+            root.requestFocus();
         });
 
         imageView.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue ) -> {
