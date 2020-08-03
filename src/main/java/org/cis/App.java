@@ -15,7 +15,6 @@ public class App extends Application {
     @Override
     public void start(Stage stage) {
         Applicazione.getInstance().getModello().addObject(Constants.PRIMARY_STAGE, stage);
-        Applicazione.getInstance().getSingleThread().start();
         //# Init Folder:
         initFolder();
 
