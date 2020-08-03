@@ -11,11 +11,9 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class Operator {
 
@@ -41,17 +39,9 @@ public class Operator {
         return risultato;
     }
 
-    public static boolean allCacheRepositoriesIsEmpty() throws IOException {
+    public static boolean cacheRepositoriesIsEmpty() throws IOException {
         Path pathCloneDirectory = FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY);
-        if (!FileUtils.isDirEmpty(pathCloneDirectory)) return false;
-
-        List<Path> pathLanguagesRepositories = Files.list(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_LANGUAGE_REPOSITORIES))
-                                                    .collect(Collectors.toList());
-        for (Path pathLanguage: pathLanguagesRepositories) {
-            if (!FileUtils.isDirEmpty(pathLanguage)) return false;
-        }
-
-        return true;
+        return FileUtils.isDirEmpty(pathCloneDirectory);
     }
 
     public static boolean confrontaElemConParametriStrict(Repository repo, String daCercare, String parametro, String percent) {
@@ -371,37 +361,33 @@ public class Operator {
     }
 
 
-    public static boolean avvioGHRepoSearcher(){
-
-        //Controllo la connessione ad internet
+    public static boolean startGHRepoSearcher(){
+        // Checking the connection
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
         System.out.println("Checking internet connection!");
 
         boolean connect = netIsAvailable();
-
         if(connect == false){
             Applicazione.getInstance().getModello().addObject(Constants.MESSAGE_END_SEARCH,"Connection error!");
             return false ;
         }
 
-        System.out.println("avvio GHRepoSearcher!");
-        Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Launching GHRepoSearcher...", 1);}});
+        System.out.println("Launching GHRepoSearcher...");
+        Platform.runLater(() -> commonEvents.setProgressBar("Launching GHRepoSearcher...", 1));
 
-        String separetor = FileUtils.PATH_SEPARATOR;
+
+        BufferedReader stdInput = null;
+        BufferedReader stdError = null;
         try {
-
-            String relativePath = separetor +"risorse" + separetor + "GHRepoSearcher" + separetor + "jar";
-            Path path = FileUtils.createAbsolutePath(relativePath);
+            Path path = FileUtils.createAbsolutePath(Constants.GHREPO_SEARCHER_JAR);
             System.out.println(path.toString());
 
             File dir = new File(path.toString());
-            //System.out.println(dir);
 
-            // ripulisco la cartella Json
-            Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Cleaning up JSON folder...", 1);}});
+            // Cleaning up JSON folder...
+            Platform.runLater(() -> commonEvents.setProgressBar("Cleaning up JSON folder...", 1));
 
-            String relativePathJson = separetor +"risorse" + separetor + "json";
-            Path pathJson = FileUtils.createAbsolutePath(relativePathJson);
+            Path pathJson = FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_JSON);
             System.out.println(pathJson.toString());
 
             File dir2 = new File(pathJson.toString());
@@ -410,66 +396,72 @@ public class Operator {
             for (File f : files) {
                 f.delete();
                 if(i == Math.floor(files.length / 2)) {
-                    Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("We're half way through the cleaning process and I'm not gonna stop! :)", 2);}});
+                    Platform.runLater(() -> commonEvents.setProgressBar("We're half way through the cleaning process and I'm not gonna stop! :)", 2));
                 }
                 i++;
             }
 
-            Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Cleaning up terminated!", 3);}});
+            Platform.runLater(() -> commonEvents.setProgressBar("Cleaning up terminated!", 3));
 
-            //setto il command
+            // Sect in command
             String cmd = "java -jar GHRepoSearcher.jar config.properties";
             Process process = Runtime.getRuntime().exec(cmd, null, dir);
             Applicazione.getInstance().getModello().addObject(Constants.THREAD_REPO_SEARCHER, process);
 
-            Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Working behind the scenes...", 3);}});
+            Platform.runLater(() -> commonEvents.setProgressBar("Working behind the scenes...", 3));
 
-            BufferedReader stdInput = new BufferedReader(new
-                    InputStreamReader(process.getInputStream()));
+            stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
-            BufferedReader stdError = new BufferedReader(new
-                    InputStreamReader(process.getErrorStream()));
+            stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 
             // Read the output from the command
-            String s = null;
-
+            String s;
             while ((s = stdInput.readLine()) != null) {
                 if (s.contains("ERROR")){
                     System.out.println(s);
-                    Applicazione.getInstance().getModello().addObject(Constants.MESSAGE_END_SEARCH,"Token non valido");
+                    Applicazione.getInstance().getModello().addObject(Constants.MESSAGE_END_SEARCH,"Invalid Token");
                     return false;
                 }
                 System.out.println(s);
             }
+
             // Read any errors from the attempted command
-
-
             while ((s = stdError.readLine()) != null) {
                 Applicazione.getInstance().getModello().addObject(Constants.MESSAGE_END_SEARCH,s);
                 System.out.println(s);
                 return false;
             }
 
-        } catch (IOException ex) {
-            Platform.runLater(() -> Applicazione.getInstance().getCommonEvents().showExceptionDialog(ex));
-            ex.printStackTrace();
+        } catch (IOException ex) {}
+        finally {
+            if (stdInput != null) {
+                try {
+                    stdInput.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (stdError != null) {
+                try {
+                    stdError.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-
         return true;
     }
 
     public static boolean actionDetectIdiom() {
-        CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
-        System.out.println("Avvio processo di language detection");
+        System.out.println("Start Process language detection");
 
         BufferedReader stdInput = null;
         BufferedReader stdError = null;
-
         try {
             String pythonCommand = Utils.isWindows() ? "python" : "python3";
             String cmd = pythonCommand + " " + "detector.py";
-            String toolPathRel = "risorse" + FileUtils.PATH_SEPARATOR + "GHLanguageDetection";
-            Path toolPath = FileUtils.createAbsolutePath(toolPathRel);
+
+            Path toolPath = FileUtils.createAbsolutePath(Constants.TOOL_LANGUAGE_DETECTION);
             File dir = new File(toolPath.toString());
             System.out.println("Path tool: " + toolPath);
 
@@ -477,13 +469,10 @@ public class Operator {
             Applicazione.getInstance().getModello().addObject(Constants.PROCESS_LANGUAGE_DETECTION, process);
 
             stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
-
             stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 
             // Read the output from the command
-
             String s;
-
             while ((s = stdInput.readLine()) != null) {
                 if (s.contains("ERROR")){
                     System.out.println(s);
@@ -492,14 +481,13 @@ public class Operator {
                 }
                 System.out.println(s);
             }
-            // Read any errors from the attempted command
 
+            // Read any errors from the attempted command
             while ((s = stdError.readLine()) != null) {
                 Applicazione.getInstance().getModello().addObject(Constants.MESSAGE_LANGUAGE_DETECTION, s);
                 System.out.println(s);
                 return false;
             }
-
 
         } catch (Exception ex) {
             Platform.runLater(() -> Applicazione.getInstance().getCommonEvents().showExceptionDialog(ex));

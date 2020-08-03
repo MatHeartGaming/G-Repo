@@ -1,14 +1,23 @@
 package org.cis.controllo;
 
 import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -44,6 +53,10 @@ public class CommonEvents {
             Platform.exit();
             System.exit(0);
         });
+    }
+
+    public void minimizeStageOfNode(Node node) {
+        ((Stage) (node).getScene().getWindow()).setIconified(true);
     }
 
     public void showExceptionDialog(Exception ex) {
@@ -86,11 +99,16 @@ public class CommonEvents {
             Scene scene = new Scene(loadFXML(fxmlFile));
             Stage stage = new Stage();
             root = scene.getRoot();
+            Applicazione.getInstance().getModello().addObject(Constants.ROOT, root);
             stage.setResizable(resizable);
             stage.initModality(modal);
             stage.setScene(scene);
             stage.setTitle(title);
-            stage.initStyle(stageStyle);
+            if(!isWindows()) {
+                stage.initStyle(StageStyle.UNDECORATED);
+            } else {
+                stage.initStyle(stageStyle);
+            }
             if(fxmlFile.equals("primary")) {
                 stage.setMinHeight(800);
                 stage.setMinWidth(1200);
@@ -106,6 +124,14 @@ public class CommonEvents {
         catch (Exception e) {
             showExceptionDialog(e);
         }
+    }
+
+    public boolean isWindows() {
+        String os = System.getProperty("os.name");
+        if(os.startsWith("Windows")) {
+            return true;
+        }
+        return false;
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
@@ -157,4 +183,24 @@ public class CommonEvents {
         Applicazione.getInstance().getCommonEvents().hideWindow(actionEvent);
     }
 
+    public void highlightBorders(ImageView imageView, Color color) {
+        DropShadow ds = new DropShadow( 6, color);
+
+        imageView.setOnMouseEntered( ( MouseEvent event ) -> {
+            imageView.requestFocus();
+        });
+
+        imageView.setOnMouseExited((MouseEvent event) -> {
+            Parent root = (Parent) Applicazione.getInstance().getModello().getObject(Constants.ROOT);
+            root.requestFocus();
+        });
+
+        imageView.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue ) -> {
+            if ( newValue ) {
+                imageView.setEffect( ds );
+            } else {
+                imageView.setEffect(null);
+            }
+        });
+    }
 }

@@ -13,10 +13,12 @@ import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.*;
 import javafx.util.Duration;
 import org.cis.DAO.DAORepositoryCSV;
@@ -63,7 +65,7 @@ public class PrimaryController extends Window {
 
     @FXML
     private ImageView iconFilterLang, iconAddQuery, iconSave, iconSearch, iconRemoveQuery,
-            iconStop, iconDeleteBulk, iconDeleteSelected, iconFilterProgr, iconClone, imgUnibas;
+            iconStop, iconDeleteBulk, iconDeleteSelected, iconFilterProgr, iconClone, imgUnibas, iconExit, iconMinimize;
 
     @FXML
     private CheckBox checkStrictMode;
@@ -80,7 +82,7 @@ public class PrimaryController extends Window {
     private List<TextField> listaCampiQuery = new ArrayList<>();
     private List<TextField> listaCampiChiavi = new ArrayList<>();
     private List<Button> buttonList = new ArrayList<>();
-    private List<ImageView> iconList = new ArrayList<>();
+    private boolean isKeyEmpty = false;
 
     @FXML
     private void initialize() {
@@ -88,6 +90,7 @@ public class PrimaryController extends Window {
         Applicazione.getInstance().getModello().addObject(Constants.LEGACY_MODE_ON, false);
         createButtonList();
         this.eventiCampi();
+
         bottoneCerca.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneCerca, Constants.BUTTON_HOVER_COLOR);}});
         bottoneCerca.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneCerca, Constants.COLOR_BUTTON);}});
         bottoneCerca.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {actionCerca();}});
@@ -158,6 +161,7 @@ public class PrimaryController extends Window {
     }
 
     private void eventiCampi() {
+        CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
         campoCercaTabella.textProperty().addListener((observable, oldValue, newValue) -> {
             cercaInTabella();
         });
@@ -167,6 +171,19 @@ public class PrimaryController extends Window {
         campoToken.textProperty().addListener((observable, oldValue, newValue) -> {
             enableDisableSearchButton();
         });
+        this.campoParametroQ1.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoParametroQ1, Constants.COLOR_HOVER_TEXTFIELD);}});
+        this.campoParametroQ1.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoParametroQ1, Constants.COLOR_TEXTFIELD);}});
+        this.campoParametroQ2.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoParametroQ2, Constants.COLOR_HOVER_TEXTFIELD);}});
+        this.campoParametroQ2.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoParametroQ2, Constants.COLOR_TEXTFIELD);}});
+        this.campoParametroQ3.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoParametroQ3, Constants.COLOR_HOVER_TEXTFIELD);}});
+        this.campoParametroQ3.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoParametroQ3, Constants.COLOR_TEXTFIELD);}});
+        this.campoQ1.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoQ1, Constants.COLOR_HOVER_TEXTFIELD);}});
+        this.campoQ1.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoQ1, Constants.COLOR_TEXTFIELD);}});
+        this.campoQ2.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoQ2, Constants.COLOR_HOVER_TEXTFIELD);}});
+        this.campoQ2.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoQ2, Constants.COLOR_TEXTFIELD);}});
+        this.campoQ3.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoQ3, Constants.COLOR_HOVER_TEXTFIELD);}});
+        this.campoQ3.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(campoQ3, Constants.COLOR_TEXTFIELD);}});
+
         Applicazione.getInstance().getModello().addObject(Constants.ULTIMO_CAMPO_KEY, campoQ3);
         initListaTextField();
     }
@@ -249,6 +266,10 @@ public class PrimaryController extends Window {
 
     private void initIcons() {
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
+        if(Utils.isWindows()) {
+            this.iconExit.setVisible(false);
+            this.iconMinimize.setVisible(false);
+        }
         this.iconAddQuery.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneAggiungiQuery, Constants.COLOR_BUTTON_CLEARER_HOVER);}});
         this.iconAddQuery.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneAggiungiQuery, Constants.COLOR_BUTTON_CLEARER);}});
         this.iconSearch.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneCerca, Constants.BUTTON_HOVER_COLOR);}});
@@ -289,6 +310,13 @@ public class PrimaryController extends Window {
         imgUnibas.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {
                 setLegacyButtonColors(mouseEvent);
             }});
+        imgUnibas.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {setLegacyButtonColors(mouseEvent);}});
+
+        Stage stage = (Stage) Applicazione.getInstance().getModello().getObject(Constants.PRIMARY_STAGE);
+        iconExit.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {System.exit(0);}});
+        iconMinimize.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> commonEvents.minimizeStageOfNode((Node) event.getSource()));
+        commonEvents.highlightBorders(iconExit, Color.RED);
+        commonEvents.highlightBorders(iconMinimize, Color.CYAN);
     }
 
     private void setLegacyButtonColors(MouseEvent mouseEvent) {
@@ -308,7 +336,7 @@ public class PrimaryController extends Window {
                 elimQueryDisabled = true;
             }
             if(bottoneCerca.isDisabled()) {
-                bottoneCerca.setDisable(false);;
+                bottoneCerca.setDisable(false);
                 searchDisabled = true;
             }
             for(Button b : buttonList) {
@@ -817,7 +845,7 @@ public class PrimaryController extends Window {
 
                         System.out.println("Properties! creato");
 
-                        if (Operator.avvioGHRepoSearcher()) {
+                        if (Operator.startGHRepoSearcher()) {
                             System.out.println("fine GHrepoSearcher!");
                             String path = FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_JSON).toString();
                             System.out.println("***Path: " + path + "***");
@@ -880,37 +908,53 @@ public class PrimaryController extends Window {
     }
 
     private List<Qualifier> createListQualifiers() {
+        boolean[] arrayKeyPresence = checkKeyFields();
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
-        List<Qualifier> listQualifiers = new ArrayList<>();
+        List<Qualifier> result = new ArrayList<>();
+        boolean error = false;
+        for(int i = 0; i < arrayKeyPresence.length; i++) {
+            if(arrayKeyPresence[i]) {
+                continue;
+            }
+            TextField textFieldKey = this.listaCampiChiavi.get(i);
+            TextField textFieldQ = this.listaCampiQuery.get(i);
+            boolean presence = checkKeyPresence(textFieldKey.getText());
+            if(!presence) {
+                commonEvents.changeBorderColor(textFieldKey, "#ff0000");
+                this.labelErrori.setText("Check the queries in red! Keys must correspond to values.");
+                error = true;
+            } else if(presence && textFieldQ.getText().isEmpty()) {
+                commonEvents.changeBorderColor(textFieldQ, "#ff0000");
+                this.labelErrori.setText("Check the queries in red! Keys must correspond to values.");
+                error = true;
+            } else {
+                result.add(new Qualifier(textFieldKey.getText(), textFieldQ.getText()));
+            }
+        }
+
+        if(error) {
+            return null;
+        }
+        restoreStockColorTextFields();
+        return result;
+    }
+
+    private boolean[] checkKeyFields() {
+        boolean keyPresence[] = new boolean[this.listaCampiQuery.size()];
+        this.isKeyEmpty = true;
         int i = 0;
         for (TextField t : this.listaCampiChiavi) {
-
-            if(t.getText().isEmpty() && i == 0) {
-                return listQualifiers;
-            }
-
-            boolean presenza = checkKeyPresence(t.getText());
-            if (presenza && !t.getText().isEmpty() && !this.listaCampiQuery.get(i).getText().isEmpty()) {
-                listQualifiers.add(new Qualifier(t.getText(), this.listaCampiQuery.get(i).getText()));
-                restoreStockColorTextFields();
-                System.out.println("qual added");
-            } else if (presenza && !t.getText().isEmpty() && this.listaCampiQuery.get(i).getText().isEmpty()) {
-                commonEvents.changeBorderColor(t, "#ff0000");
-                this.labelErrori.setText("If you put a key you must put a value too!");
-                return null;
-            } else if (listQualifiers.size() > 0 && t.getText().isEmpty()) {
-                return listQualifiers;
+            if(t.getText().isEmpty()) {
+                keyPresence[i] = true;
             } else {
-                commonEvents.changeBorderColor(t, "#ff0000");
-                this.labelErrori.setText("Check the queries in red!");
-                return null;
+                keyPresence[i] = false;
+                this.isKeyEmpty = false;
             }
-            System.out.println("key: " + t.getText());
-            System.out.println("valore: " + this.listaCampiQuery.get(i).getText());
             i++;
         }
-        return listQualifiers;
+        return keyPresence;
     }
+
 
     private void restoreStockColorTextFields() {
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
@@ -924,7 +968,6 @@ public class PrimaryController extends Window {
             query.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(query, Constants.COLOR_HOVER_TEXTFIELD);}});
             query.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeBorderColor(query, Constants.COLOR_TEXTFIELD);}});
         }
-
     }
 
     private void setOptionalFields(Query q) {
@@ -983,6 +1026,7 @@ public class PrimaryController extends Window {
 
         ObservableList<Repository> lista = (ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LIST_REPO);
         if(lista == null) {
+            imgUnibas.setDisable(false);
             return;
         }
         disableAllUIElements(false);
@@ -990,6 +1034,7 @@ public class PrimaryController extends Window {
         if(!lista.isEmpty()) {
             tabbedPane.getSelectionModel().select(tabResults);
         }
+        imgUnibas.setDisable(false);
     }
 
     private void deleteInBulk() {
