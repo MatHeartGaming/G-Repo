@@ -104,7 +104,7 @@ public class CommonEvents {
             stage.initModality(modal);
             stage.setScene(scene);
             stage.setTitle(title);
-            if(!isWindows()) {
+            if(!Utils.isWindows()) {
                 stage.initStyle(StageStyle.UNDECORATED);
             } else {
                 stage.initStyle(stageStyle);

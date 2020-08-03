@@ -13,10 +13,7 @@ public class Constants {
 
     public static final String PROCESS_LANGUAGE_DETECTION= "Process language detection";
     public static final String MESSAGE_LANGUAGE_DETECTION = "messaggio language detection";
-    public static final String RELATIVE_PATH_JSON = "\\risorse\\json";
 
-    public static final String PROCESS_LANGUAGE_DETECTION= "Process language detection";
-    public static final String MESSAGE_LANGUAGE_DETECTION = "message language detection";
 
     public static final String GHREPO_SEARCHER_JAR = "\\risorse\\GHRepoSearcher\\jar";
     public static final String TOOL_LANGUAGE_DETECTION = "risorse\\GHLanguageDetection";
