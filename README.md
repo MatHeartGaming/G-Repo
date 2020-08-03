@@ -59,7 +59,7 @@ If in the repository there is no README.md file or is empty, does not have enoug
 ___
 
 ## References
-* That [repository](https://github.com/blakeembrey/language-map) was used to generate the file used for the detection of the programming language-markup.
+* The [language-map](https://github.com/blakeembrey/language-map) repository was used to generate the file used for the detection of the programming language-markup.
 
 * For language recognition the script uses the [LangDetect](https://github.com/Mimino666/langdetect) library, a direct port of Google's language-detection library from Java to Python, moreover if you want to use the script individually take a look [here](https://github.com/anasmounsif/README-language-detector) :rocket:
 
