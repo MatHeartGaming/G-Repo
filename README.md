@@ -32,7 +32,7 @@ ___
 
 ### Getting Started
 
-Per avviare il tool tramite [.jar](Demos/), eseguire il comando:
+Per avviare [G-Repo.jar](Demos/), eseguire il comando:
 
 `java -jar --module-path "path_to_javaFX-sdk\lib" --add-modules=javafx.controls,javafx.fxml G-Repo.jar`
 
