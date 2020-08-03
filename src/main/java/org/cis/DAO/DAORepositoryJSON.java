@@ -35,6 +35,8 @@ public class DAORepositoryJSON implements IDAORepository {
             return Files.list(Paths.get(directorySourceFiles))
                       //.collect(Collectors.toList())
                       //.parallelStream()
+                        //.collect(Collectors.toList())
+                        //.parallelStream()
                         .map(nameFile -> this.readRepositories(nameFile.toString()))
                         .flatMap(repository -> repository.stream())
                         .collect(Collectors.toList());
@@ -81,7 +83,6 @@ public class DAORepositoryJSON implements IDAORepository {
     }
 
     private Repository readRepository(JsonReader reader) throws IOException {
-        // todo: verificare l'esistenza di valori null per una deteminata chiave.
         String id = null;
         String name = null;
         String htmlUrl = null;
@@ -132,14 +133,14 @@ public class DAORepositoryJSON implements IDAORepository {
             throw new IllegalArgumentException("repositories cannot be null");
         }
         /*
-            Esempio:
-            Nome Esterno: 2010-11-21T00-00-01_2013-12-14T00-00-01
-            Nome Interno: 2010-11-21T00-00-01_2013-12-14T00-00-01_1.json -- 100 Repository.
+            Example:
+            External name: 2010-11-21T00-00-01_2013-12-14T00-00-01
+            Internal name: 2010-11-21T00-00-01_2013-12-14T00-00-01_1.json -- 100 Repository.
             ...
-            Nome Interno: 2010-11-21T00-00-01_2013-12-14T00-00-01_5.json -- 100 Repository.
-            Nome Interno: 2010-11-21T00-00-01_2013-12-14T00-00-01_6.json -- 77 Repository.
+            Internal name: 2010-11-21T00-00-01_2013-12-14T00-00-01_5.json -- 100 Repository.
+            Internal name: 2010-11-21T00-00-01_2013-12-14T00-00-01_6.json -- 77 Repository.
 
-            Ogni xxx_y.json avrà al più 100 repository.
+            Each xxx_y.json will have a maximum of 100 repositories.
          */
 
         Function<Repository, String> classifierByExternalName = repository -> {
@@ -154,7 +155,7 @@ public class DAORepositoryJSON implements IDAORepository {
                 repositories.stream().collect(Collectors.groupingBy(classifierByExternalName, Collectors.groupingBy(classifierByInternalName)));
 
         mapClassExternalName.forEach((externalName, mapClassInternalName) -> {
-            // numero totale di repository per l'intervallo di data (externalName).
+            // Total number of repositories for the date range (external name).
             int totalCount = getCountRepositoryForDateInterval(mapClassInternalName);
 
             int finalTotalCount = totalCount;

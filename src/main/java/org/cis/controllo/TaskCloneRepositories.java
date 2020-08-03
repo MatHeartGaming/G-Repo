@@ -37,7 +37,6 @@ public class TaskCloneRepositories extends Task<Void> {
         if (this.firstNonClonedRepositoryIndex == 0) {
             updateMessage("Clone cache cleanup");
             System.out.println("Cancellazione cache repository");
-            //FileUtils.deleteDirTree(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY));
 
             List<Path> paths = Files.list(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY))
                                     .collect(Collectors.toList());
@@ -48,7 +47,6 @@ public class TaskCloneRepositories extends Task<Void> {
             }
         }
 
-        final String notExists = "Not exists";
         GitCommand gitCommand = new GitCommand();
         RepositoryVisitor repositoryVisitor = new RepositoryVisitor();
 
@@ -69,9 +67,9 @@ public class TaskCloneRepositories extends Task<Void> {
                 } catch (InvalidPathException e) {
                     // Cloning must proceed for other pending repositories.
                     Platform.runLater(() -> {
-                        repository.displayLastCommitDate(notExists);
-                        repository.displayProgrammingLanguages(notExists);
-                        repository.setLanguageProperty(notExists);
+                        repository.displayLastCommitDate(Constants.MESSAGE_NOT_EXISTS);
+                        repository.displayProgrammingLanguages(Constants.MESSAGE_NOT_EXISTS);
+                        repository.setLanguageProperty(Constants.MESSAGE_NOT_EXISTS);
                     });
                     System.out.println("Repository non clonabile: " + cloneDirectory);
                     continue;
@@ -100,7 +98,7 @@ public class TaskCloneRepositories extends Task<Void> {
 
                 //# Calculation of the date of the last commit.
                 LocalDate dataCommit = gitCommand.lastDateCommit(repository.getCloneDirectory());
-                String dataCommitString = notExists;
+                String dataCommitString = Constants.MESSAGE_NOT_EXISTS;
                 if (dataCommit != null) {
                     repository.setLastCommitDate(dataCommit);
                     dataCommitString = dataCommit.toString();

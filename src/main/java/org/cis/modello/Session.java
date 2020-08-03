@@ -8,7 +8,7 @@ import java.util.List;
 public class Session {
 
     private LocalDateTime date = LocalDateTime.now();
-    private Query query; // Opzionale.
+    private Query query; // Optional.
     private ObservableList<Repository> repositories;
 
     public Session(ObservableList<Repository> repositories) {

@@ -84,7 +84,6 @@ public class FileUtils {
     }
 
     public static String extension(String fileName) {
-        // TODO: REFACTORING.
         char ch;
         int len;
         if(fileName==null ||

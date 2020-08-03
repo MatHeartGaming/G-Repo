@@ -1,13 +1,11 @@
 # G-Repo
 
-G-Repo is a tool developed in java and it is useful in the **Mining Software Repository**, this area aims to collect empirical evidence using the data available in software repositories present on github.
+G-Repo is a tool developed in java and it is useful in the **Mining Software Repository**, this area aims to collect empirical evidence using the data available in software repositories present on github. For example:
 
-For example:
-
-* “When and Why Your Code Starts to Smell Bad (and Whether the Smells
+> *“When and Why Your Code Starts to Smell Bad (and Whether the Smells*
 Go Away)”
-* “Do Developers Feel Emotions? An Exploratory Analysis of Emotions in
-         Software Artifacts”
+
+> *“Do Developers Feel Emotions? An Exploratory Analysis of Emotions in Software Artifacts”*
 
 Many **MSR** studies use GitHub as a data source because:
 
@@ -17,33 +15,47 @@ Many **MSR** studies use GitHub as a data source because:
 But which repositories to identify to conduct an **MSR** study?
 
 * A trend is to select a number of top starred repositories, which are the most voted repositories by GitHub users.
+___
 
+### Problems :no_entry:
+- [x] #1:  **Limitations of the Github API**; *The GitHub Search API, which also allows you to download information about the repositories, returns a maximum of 1000 results. So if a query returns more than 1000 results, they are truncated for best-matching.*
 
-### README Language Detection
-Makes possible the translation and therefore the classification of the README files present in the github repositories.
+- [x] #2: **Repository not containing the files in the required programming language**; *Very often the search returns repositories that are not actually written to the requested programming language.*
 
-#### Requirements
-* Python 3.8
-* six
+- [x] #3 **Non-English language repositories**; *Not all repositories are written in english, so as a result of a search i can get repositories with a readme written in different languages.*
+___
 
-The script is able to classify the repositories according to the language used to write the **README.md**.
+### Requirements
+* Java 8+ ??
+* Python 3.8, six
+* @michele
+___
 
-#### Usage
+### Getting Started
+G-Repo provides functionality to search for repositories by native github [qualifiers](https://docs.github.com/en/github/searching-for-information-on-github/searching-for-repositories).
 
-![](Demos/language_detection_demo.gif)
+![](Demos/query_demo.gif)
+======
 
-* By default the script uses a **nondeterministic** classification algorithm, this functionality is part of a design from the original Google project. If you want to enforce determinism, set this [line](https://github.com/MatHeartGaming/G-Repo/blob/master/risorse/GHLanguageDetection/detector.py#L56) to 0.
+:warning: **For the execution to be successful the repositories will be cloned!** :warning:
 
-* If in the repository there is no README.md file or is empty, does not have enough text or contains only special characters then the repository will be classified as **unknown**, same in case some repository should throw exceptions on the parserization, otherwise will be classified in **english**, **not-english** or **mixed**.
+The **programming language detection** feature allows to detect the **programming language** - **markup** most used within the repositories, otherwise if the repository were to be empty the result will be **not classifiable**.
 
-* In addition, the script also generates a Log file which will contain information regarding the operations that have been carried out, for each session the logs will be overwritten.
+![](Demos/programming_language.gif)
+======
 
-#### Tests
-To run the tests you need to unzip the directory: **repositories_test**, and then install [PyTest](https://docs.pytest.org/en/stable/contents.html).
+G-Repo Makes possible the translation and therefore the classification of the README files present in the github repositories.
+The language detector script that G-Repo uses is able to classify the repositories according to the language used to write the **README.md**.
 
-**Usage** : ```[ pytest ]``` in script_detector folder or ```[ py.test -k <method_name> -v ]``` for testing specific method.
+![](Demos/language.gif)
+======
 
-#### Conclusion
-For language recognition the script uses the [LangDetect](https://github.com/Mimino666/langdetect) library, a direct port of Google's language-detection library from Java to Python.
+By default the script uses a **nondeterministic** classification algorithm, this functionality is part of a design from the original Google project. If you want to enforce determinism make [`OUTPUT_TYPE`](https://github.com/MatHeartGaming/G-Repo/blob/master/risorse/GHLanguageDetection/detector.py#L57)```= 0```.
+If in the repository there is no README.md file or is empty, does not have enough text or contains only special characters then the repository will be classified as **unknown**, same in case some repository should throw exceptions on the parserization, otherwise will be classified in **english**, **not-english** or **mixed**.
+___
 
-If you want to use the script individually go [here](https://github.com/anasmounsif/README-language-detector) :rocket:
+## References
+* [Project](https://github.com/blakeembrey/language-map) o [Json](https://github.com/blakeembrey/language-map/blob/master/languages.json) ???
+
+* For language recognition the script uses the [LangDetect](https://github.com/Mimino666/langdetect) library, a direct port of Google's language-detection library from Java to Python, moreover if you want to use the script individually take a look [here](https://github.com/anasmounsif/README-language-detector) :rocket:
+

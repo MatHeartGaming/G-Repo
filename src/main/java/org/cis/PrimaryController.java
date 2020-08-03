@@ -93,7 +93,8 @@ public class PrimaryController extends Window {
 
         bottoneCerca.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneCerca, Constants.BUTTON_HOVER_COLOR);}});
         bottoneCerca.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneCerca, Constants.COLOR_BUTTON);}});
-        bottoneCerca.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {actionCerca();}});
+        bottoneCerca.setOnAction(new EventHandler<ActionEvent>() {@Override public void handle(ActionEvent actionEvent) {
+            searchAction();}});
 
         // Setting Listener Tap 2.
         buttonFilterProgrLanguage.setOnAction(actionEvent -> cloneRepositories(() -> filterByProgrammingLanguage()));
@@ -250,8 +251,8 @@ public class PrimaryController extends Window {
 
         columnStars.setComparator(sorter.new SortByStars());
         columnDimensione.setComparator(sorter.new SortByDimension());
-        columnLinguaggio.setComparator(sorter.new SortByProgrLanguage());
-        columnDataCommit.setComparator(sorter.new SortyByCommitDate());
+        columnLinguaggio.setComparator(sorter.new SortByProgrammingLanguage());
+        columnDataCommit.setComparator(sorter.new SortByLastCommitDate());
     }
 
     private void initListaTextField() {
@@ -702,7 +703,7 @@ public class PrimaryController extends Window {
                 progressBar.setProgress(Constants.values[0]);
             } else if (taskWorkProgress >= 30) {
                 progressBar.setProgress(Constants.values[2]);
-            } else if (taskWorkProgress >= 73) {
+            } else if (taskWorkProgress >= 50) {
                 progressBar.setProgress(Constants.values[4]);
             } else if (taskWorkProgress >= 90) {
                 progressBar.setProgress(Constants.values[5]);
@@ -799,13 +800,12 @@ public class PrimaryController extends Window {
 
         progressBar.progressProperty().bind(task.progressProperty());
         labelProgress.textProperty().bind(task.messageProperty());
-        //Applicazione.getInstance().getSingleThread().executeTask(task);
         Thread exe = new Thread(task);
         exe.setName("Thread-Cloning");
         exe.start();
     }
 
-    private void actionCerca() {
+    private void searchAction() {
         this.labelErrori.setText("");
         List<Qualifier> qualifiers = createListQualifiers();
         if (qualifiers != null) {
@@ -1007,8 +1007,8 @@ public class PrimaryController extends Window {
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
         if(thread != null) {
             thread.interrupt();
-            String messaggio = (String) Applicazione.getInstance().getModello().getObject(Constants.MESSAGE_END_SEARCH);
-            Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar(messaggio, 0);}});
+            String message = (String) Applicazione.getInstance().getModello().getObject(Constants.MESSAGE_END_SEARCH);
+            Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar(message, 0);}});
             Applicazione.getInstance().getModello().addObject(Constants.MESSAGE_END_SEARCH,null);
         }
 
