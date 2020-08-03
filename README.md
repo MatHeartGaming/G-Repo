@@ -32,7 +32,7 @@ ___
 
 ### Getting Started
 
-Per avviare [G-Repo.jar](Demos/), eseguire il comando:
+To start [G-Repo.jar](Demos/) run the command:
 
 `java -jar --module-path "path_to_javaFX-sdk\lib" --add-modules=javafx.controls,javafx.fxml G-Repo.jar`
 
@@ -59,7 +59,7 @@ If in the repository there is no README.md file or is empty, does not have enoug
 ___
 
 ## References
-* è stato utilizzato il [progetto](https://github.com/blakeembrey/language-map) per generare il file utilizzato per la rilevazione del limguaggio di programmazione-markup.
+* That [repository](https://github.com/blakeembrey/language-map) was used to generate the file used for the detection of the programming language-markup.
 
 * For language recognition the script uses the [LangDetect](https://github.com/Mimino666/langdetect) library, a direct port of Google's language-detection library from Java to Python, moreover if you want to use the script individually take a look [here](https://github.com/anasmounsif/README-language-detector) :rocket:
 
