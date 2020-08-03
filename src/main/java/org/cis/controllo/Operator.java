@@ -427,7 +427,7 @@ public class Operator {
 
             // Read any errors from the attempted command
             while ((s = stdError.readLine()) != null) {
-                Applicazione.getInstance().getModello().addObject(Constants.MESSAGE_END_SEARCH, s);
+                Applicazione.getInstance().getModello().addObject(Constants.MESSAGE_END_SEARCH,s);
                 System.out.println(s);
                 return false;
             }

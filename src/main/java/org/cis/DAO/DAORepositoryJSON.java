@@ -33,11 +33,11 @@ public class DAORepositoryJSON implements IDAORepository {
         }
         try {
             return Files.list(Paths.get(directorySourceFiles))
-                    //.collect(Collectors.toList())
-                    //.parallelStream()
-                    .map(nameFile -> this.readRepositories(nameFile.toString()))
-                    .flatMap(repository -> repository.stream())
-                    .collect(Collectors.toList());
+                      //.collect(Collectors.toList())
+                      //.parallelStream()
+                        .map(nameFile -> this.readRepositories(nameFile.toString()))
+                        .flatMap(repository -> repository.stream())
+                        .collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
         }

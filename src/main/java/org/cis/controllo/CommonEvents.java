@@ -50,7 +50,6 @@ public class CommonEvents {
         //stage.setOnHiding(windowEvent -> System.out.println("Closing"));
         stage.setOnCloseRequest(windowEvent -> {
             System.out.println("Closing");
-            Applicazione.getInstance().getSingleThread().close();
             Platform.exit();
             System.exit(0);
         });

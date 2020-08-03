@@ -31,6 +31,10 @@ public class App extends Application {
     }
 
     private void initFolder() {
+        // # By Search query.
+        FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_JSON));
+
+        // # By cloning.
         //# By Search query.
         FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_JSON));
 
