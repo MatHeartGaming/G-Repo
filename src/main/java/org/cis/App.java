@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.cis.controllo.CommonEvents;
 import org.cis.controllo.FileUtils;
+import org.cis.controllo.Utils;
 
 /**
  * JavaFX App
@@ -20,7 +21,11 @@ public class App extends Application {
 
         // Init GUI.
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
-        commonEvents.loadPanel("primary", Modality.NONE, true, "G-Repo", StageStyle.DECORATED, false);
+        if(Utils.isWindows()) {
+            commonEvents.loadPanel("primary", Modality.NONE, true, "G-Repo", StageStyle.DECORATED, false);
+        } else {
+            commonEvents.loadPanel("primary", Modality.NONE, true, "G-Repo", StageStyle.UNDECORATED, true);
+        }
         /*scene = new Scene(loadFXML("primary"));
         Parent root = scene.getRoot();
         stage.setScene(scene);

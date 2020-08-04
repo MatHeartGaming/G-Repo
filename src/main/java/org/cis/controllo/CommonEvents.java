@@ -104,11 +104,7 @@ public class CommonEvents {
             stage.initModality(modal);
             stage.setScene(scene);
             stage.setTitle(title);
-            if(!Utils.isWindows()) {
-                stage.initStyle(StageStyle.UNDECORATED);
-            } else {
-                stage.initStyle(stageStyle);
-            }
+            stage.initStyle(stageStyle);
             if(fxmlFile.equals("primary")) {
                 stage.setMinHeight(800);
                 stage.setMinWidth(1200);

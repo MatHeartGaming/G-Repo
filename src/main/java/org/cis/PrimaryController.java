@@ -270,6 +270,7 @@ public class PrimaryController extends Window {
         if(Utils.isWindows()) {
             this.iconExit.setVisible(false);
             this.iconMinimize.setVisible(false);
+
         }
         this.iconAddQuery.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneAggiungiQuery, Constants.COLOR_BUTTON_CLEARER_HOVER);}});
         this.iconAddQuery.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneAggiungiQuery, Constants.COLOR_BUTTON_CLEARER);}});
@@ -313,7 +314,6 @@ public class PrimaryController extends Window {
             }});
         imgUnibas.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {setLegacyButtonColors(mouseEvent);}});
 
-        Stage stage = (Stage) Applicazione.getInstance().getModello().getObject(Constants.PRIMARY_STAGE);
         iconExit.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {System.exit(0);}});
         iconMinimize.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> commonEvents.minimizeStageOfNode((Node) event.getSource()));
         commonEvents.highlightBorders(iconExit, Color.RED);
