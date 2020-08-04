@@ -36,7 +36,7 @@ public class TaskCloneRepositories extends Task<Void> {
         //# Clearing the repositories in the cacheCloneRepositories directory.
         if (this.firstNonClonedRepositoryIndex == 0) {
             updateMessage("Clone cache cleanup");
-            System.out.println("Cancellazione cache repository");
+            System.out.println("Clone cache cleanup");
 
             List<Path> paths = Files.list(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY))
                                     .collect(Collectors.toList());
@@ -53,7 +53,7 @@ public class TaskCloneRepositories extends Task<Void> {
         updateMessage(this.firstNonClonedRepositoryIndex == 0 ? "Clone all repositories" : "Cloning resumption");
 
         updateProgress(this.firstNonClonedRepositoryIndex, this.repositories.size());
-        System.out.println(" Inizio Clonazione");
+        System.out.println("Init Cloning");
         for (int i = this.firstNonClonedRepositoryIndex; i < this.repositories.size(); i++) {
             //# Repositories with the cloneDirectory property equal to null have not yet been cloned.
             Repository repository = this.repositories.get(i);
@@ -61,7 +61,7 @@ public class TaskCloneRepositories extends Task<Void> {
                 //# Cloning.
                 currentNameRepository = repository.getName();
                 String cloneDirectory = FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY + "\\" + (repository.getName() + "_" + i)).toString();
-                System.out.println("Clonazione del repo: " + cloneDirectory);
+                System.out.println("Cloning repo: " + cloneDirectory);
                 try {
                     gitCommand.cloneRepository(repository.getCloneUrl(), cloneDirectory, this.token, monitor);
                 } catch (InvalidPathException e) {
@@ -71,7 +71,7 @@ public class TaskCloneRepositories extends Task<Void> {
                         repository.displayProgrammingLanguages(Constants.MESSAGE_NOT_EXISTS);
                         repository.setLanguageProperty(Constants.MESSAGE_NOT_EXISTS);
                     });
-                    System.out.println("Repository non clonabile: " + cloneDirectory);
+                    System.out.println("Repository cannot be cloned: " + cloneDirectory);
                     continue;
                 } catch(Exception e) {
                     if (this.cancelled == true) {
@@ -88,7 +88,7 @@ public class TaskCloneRepositories extends Task<Void> {
 
 
                 //# Anticipated the detection of the programming language.
-                System.out.println("Calcolo linguaggio: " + cloneDirectory);
+                System.out.println("Calculation of programming language: " + cloneDirectory);
                 StatisticsProgrammingLanguage statisticsProgrammingLanguage = repositoryVisitor.programmingLanguageDetection(repository.getCloneDirectory());
                 System.out.println(statisticsProgrammingLanguage);
                 Map<String, StatisticsProgrammingLanguage> mapRepositoryLangProg =
@@ -112,7 +112,7 @@ public class TaskCloneRepositories extends Task<Void> {
 
         }
         if (this.cancelled == false) updateMessage("Repositories cloned correctly");
-        System.out.println(" Fine Clonazione");
+        System.out.println("End Cloning");
         return null;
     }
 

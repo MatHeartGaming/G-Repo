@@ -35,10 +35,6 @@ public class App extends Application {
         FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_JSON));
 
         // # By cloning.
-        //# By Search query.
-        FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_JSON));
-
-        //# By cloning.
         FileUtils.createDirectory(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY));
     }
 

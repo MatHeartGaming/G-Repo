@@ -13,12 +13,10 @@ import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.stage.*;
 import javafx.util.Duration;
 import org.cis.DAO.DAORepositoryCSV;
@@ -135,7 +133,6 @@ public class PrimaryController extends Window {
 
 
         this.bottoneCerca.setDisable(true);
-        //todo: ripristinare a true.
         this.tabResults.setDisable(true);
         fieldPercentage.setVisible(false);
         this.enableDisableRemoveButton(true);
@@ -431,7 +428,7 @@ public class PrimaryController extends Window {
         String formattedDate = dateInstant.substring(0, dateInstant.length() - 1) + "..";
         formattedDate = formattedDate.replace("T23", "T00");
         formattedDate = formattedDate.replace("T22", "T00");
-        System.out.println("Data formattata Start!!! *** " + formattedDate);
+        System.out.println("Formatted date Start!!! *** " + formattedDate);
         return formattedDate;
     }
 
@@ -443,7 +440,7 @@ public class PrimaryController extends Window {
         String formattedDate = dateInstant.substring(0, dateInstant.length() - 1);
         formattedDate = formattedDate.replace("T22", "T00");
         formattedDate = formattedDate.replace("T23", "T00");
-        System.out.println("Data formattata End!!! *** " + formattedDate);
+        System.out.println("Formatted Date End!!! *** " + formattedDate);
         return formattedDate;
     }
 
@@ -486,7 +483,7 @@ public class PrimaryController extends Window {
         ObservableList<Repository> listaOriginale = (ObservableList<Repository>) modello.getObject(Constants.LIST_REPO);
         boolean strict = this.checkStrictMode.isSelected();
         String daCercare = this.campoCercaTabella.getText();
-        ObservableList<Repository> listaAgg = Operator.cercaPerNome(listaOriginale, daCercare, getSelectedComboLanguage(), strict, percent);
+        ObservableList<Repository> listaAgg = Operator.searchByName(listaOriginale, daCercare, getSelectedComboLanguage(), strict, percent);
         modello.addObject(Constants.LIST_REPO_UPDATED, listaAgg);
     }
 
@@ -598,8 +595,8 @@ public class PrimaryController extends Window {
                 daoRepositoryCSV.saveRepositories(inputCSV, repositories, new String[]{"Index", "CloneDirectory"}, (repository, index) -> {
                     return String.join(",", "" + index, repository.getCloneDirectory());
                 });
-                // Language Detection.
 
+                // Language Detection.
                 if (!Operator.actionDetectIdiom()) {
                     throw new RuntimeException((String) Applicazione.getInstance().getModello().getObject(Constants.MESSAGE_LANGUAGE_DETECTION));
                 }
@@ -691,15 +688,15 @@ public class PrimaryController extends Window {
             int taskWorkProgress = (int) ((100.0 / repositories.size()) * (i + 1));
             if (taskWorkProgress < 17) {
                 progressBar.setProgress(Constants.values[0]);
-            } else if (taskWorkProgress >= 30) {
+            } else if (taskWorkProgress >= 30 && taskWorkProgress < 50) {
                 progressBar.setProgress(Constants.values[2]);
-            } else if (taskWorkProgress >= 50) {
+            } else if (taskWorkProgress >= 50 && taskWorkProgress < 90) {
                 progressBar.setProgress(Constants.values[4]);
             } else if (taskWorkProgress >= 90) {
                 progressBar.setProgress(Constants.values[5]);
             }
 
-            System.out.println("Percentuale progressBar: " + taskWorkProgress);
+            System.out.println("ProgressBar percentage: " + taskWorkProgress);
         }
 
         Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Programming language/markup detection complete")), 1500);
@@ -718,7 +715,7 @@ public class PrimaryController extends Window {
         disableAllUIElementsResults(true);
         List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LIST_REPO);
         if (repositories == null || repositories.isEmpty()) {
-            System.out.println("Esegui prima una query di ricerca \uD83D\uDE0E");
+            System.out.println("You must run a search query first \uD83D\uDE0E");
             labelProgress.setText("You must run a search query first");
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 1500);
             disableAllUIElementsResults(false);
@@ -756,7 +753,7 @@ public class PrimaryController extends Window {
             labelProgress.textProperty().unbind();
 
 
-            System.out.println("Tutti i repository sono stati clonati correttamente per questa sessione di ricerca");
+            System.out.println("All repositories have been successfully cloned for this search session");
 
             runnable.run();
         });
@@ -782,7 +779,7 @@ public class PrimaryController extends Window {
             progressBar.setProgress(Constants.values[0]);
             labelProgress.textProperty().unbind();
 
-            System.out.println("Qualcosa è andato storto...");
+            System.out.println("Something went wrong...");
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 1500);
             disableAllUIElementsResults(false);
             imgUnibas.setDisable(false);
@@ -805,7 +802,7 @@ public class PrimaryController extends Window {
             session.setQuery(query);
             Applicazione.getInstance().getSessionManager().addSession(session);
             System.out.println("Session created!");
-            System.out.println("Numero sessioni: " + Applicazione.getInstance().getSessionManager().getSessions().size());
+            System.out.println("Number of sessions: " + Applicazione.getInstance().getSessionManager().getSessions().size());
 
             Thread thread = new Thread(new Runnable() {
                 @Override
@@ -833,10 +830,10 @@ public class PrimaryController extends Window {
                         Operator.createConfigProperties();
                         Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Properties file created! It's been a pleasure working for you!", 5);}});
 
-                        System.out.println("Properties! creato");
+                        System.out.println("Properties! created");
 
                         if (Operator.startGHRepoSearcher()) {
-                            System.out.println("fine GHrepoSearcher!");
+                            System.out.println("End GHrepoSearcher!");
                             String path = FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_JSON).toString();
                             System.out.println("***Path: " + path + "***");
                             List<Repository> lista = Applicazione.getInstance().getDaoRepositoryJSON().loadRepositories(path);
@@ -873,7 +870,7 @@ public class PrimaryController extends Window {
 
                             stopThread();
                         } else {
-                            System.out.println("Errore GHrepoSearcher!");
+                            System.out.println("Error GHRepoSearcher!");
                             stopThread();
                         }
 
@@ -1122,7 +1119,7 @@ public class PrimaryController extends Window {
         imgUnibas.setDisable(true);
         List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LIST_REPO);
         if (repositories == null || repositories.isEmpty()) {
-            System.out.println("Esegui prima una query di ricerca \uD83D\uDE0E");
+            System.out.println("You must run a search query first \uD83D\uDE0E");
             labelProgress.setText("You must run a search query first");
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 2500);
             imgUnibas.setDisable(false);
@@ -1181,7 +1178,7 @@ public class PrimaryController extends Window {
             // Save completed.
             Applicazione.getInstance().getModello().addObject(Constants.IS_SAVE_REPOSITORIES, true);
 
-            System.out.println("Tutte le Repository spostate");
+            System.out.println("All repositories moved");
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("All repositories moved")), 1500);
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 3500);
         });
