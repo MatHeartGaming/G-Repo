@@ -267,11 +267,6 @@ public class PrimaryController extends Window {
 
     private void initIcons() {
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
-        if(Utils.isWindows()) {
-            this.iconExit.setVisible(false);
-            this.iconMinimize.setVisible(false);
-
-        }
         this.iconAddQuery.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneAggiungiQuery, Constants.COLOR_BUTTON_CLEARER_HOVER);}});
         this.iconAddQuery.setOnMouseExited(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneAggiungiQuery, Constants.COLOR_BUTTON_CLEARER);}});
         this.iconSearch.setOnMouseEntered(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {commonEvents.changeButtonColor(bottoneCerca, Constants.BUTTON_HOVER_COLOR);}});
@@ -313,11 +308,6 @@ public class PrimaryController extends Window {
                 setLegacyButtonColors(mouseEvent);
             }});
         imgUnibas.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {setLegacyButtonColors(mouseEvent);}});
-
-        iconExit.setOnMouseClicked(new EventHandler<MouseEvent>() {@Override public void handle(MouseEvent mouseEvent) {System.exit(0);}});
-        iconMinimize.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> commonEvents.minimizeStageOfNode((Node) event.getSource()));
-        commonEvents.highlightBorders(iconExit, Color.RED);
-        commonEvents.highlightBorders(iconMinimize, Color.CYAN);
     }
 
     private void setLegacyButtonColors(MouseEvent mouseEvent) {

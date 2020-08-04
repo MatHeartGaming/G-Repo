@@ -21,11 +21,7 @@ public class App extends Application {
 
         // Init GUI.
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
-        if(Utils.isWindows()) {
-            commonEvents.loadPanel("primary", Modality.NONE, true, "G-Repo", StageStyle.DECORATED, false);
-        } else {
-            commonEvents.loadPanel("primary", Modality.NONE, true, "G-Repo", StageStyle.UNDECORATED, true);
-        }
+        commonEvents.loadPanel("primary", Modality.NONE, true, "G-Repo", StageStyle.DECORATED, false);
         /*scene = new Scene(loadFXML("primary"));
         Parent root = scene.getRoot();
         stage.setScene(scene);
