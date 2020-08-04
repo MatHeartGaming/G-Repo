@@ -825,6 +825,7 @@ public class PrimaryController extends Window {
                         Platform.runLater(new Runnable() {@Override public void run() {labelErrori.setText("Operation aborted.");}});
                         return;
                     }
+
                     if(query.getToken() != null) {
                         disableAllUIElements(true);
 
@@ -892,7 +893,11 @@ public class PrimaryController extends Window {
             });
 
             Applicazione.getInstance().getModello().addObject(Constants.THREAD_WARNING_PANEL, thread);
-            Applicazione.getInstance().getCommonEvents().loadPanel("WarningPanel", Modality.APPLICATION_MODAL, false, "Filtro", StageStyle.UNDECORATED, true);
+            if(Utils.isWindows()) {
+                Applicazione.getInstance().getCommonEvents().loadPanel("WarningPanel", Modality.APPLICATION_MODAL, false, "Warning", StageStyle.UNDECORATED, true);
+            } else {
+                Applicazione.getInstance().getCommonEvents().loadPanel("WarningPanel", Modality.APPLICATION_MODAL, false, "Warning", StageStyle.UTILITY, true);
+            }
             thread.start();
         }
     }
