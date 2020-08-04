@@ -1,0 +1,18 @@
+15:52:45 - 04/08/2020 - Starting script...
+15:52:45 - 
+
+- - - - - - - - - - - - - - - - - - - -
+Script Config:
+- MOVE disabled.
+- Non Deterministic algorithm activated.
+- - - - - - - - - - - - - - - - - - - -
+
+15:52:45 - Analyzing Repository: TSUNAMI-SECURITY-SCANNER_0
+15:52:46 - Language Detected: en with 100.0% confidence.
+15:52:46 - Writing CSV file!
+15:52:46 - Analyzing Repository: JETPACK-MVVM-BEST-PRACTICE_1
+15:52:46 - Language Detected: zh-cn with 100.0% confidence.
+15:52:46 - Writing CSV file!
+15:52:46 - 
+
+Finished in: 1.148897409439087 seconds 

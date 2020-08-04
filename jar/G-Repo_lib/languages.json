@@ -1,0 +1,1852 @@
+{
+  "1C Enterprise": [
+    ".bsl",
+    ".os"
+  ],
+  "4D": [
+    ".4dm"
+  ],
+  "ABAP": [
+    ".abap"
+  ],
+  "AGS Script": [
+    ".asc",
+    ".ash"
+  ],
+  "AMPL": [
+    ".ampl",
+    ".mod"
+  ],
+  "ANTLR": [
+    ".g4"
+  ],
+  "API Blueprint": [
+    ".apib"
+  ],
+  "APL": [
+    ".apl",
+    ".dyalog"
+  ],
+  "ASP": [
+    ".asp",
+    ".asax",
+    ".ascx",
+    ".ashx",
+    ".asmx",
+    ".aspx",
+    ".axd"
+  ],
+  "ATS": [
+    ".dats",
+    ".hats",
+    ".sats"
+  ],
+  "ActionScript": [
+    ".as"
+  ],
+  "Ada": [
+    ".adb",
+    ".ada",
+    ".ads"
+  ],
+  "Agda": [
+    ".agda"
+  ],
+  "Alloy": [
+    ".als"
+  ],
+  "AngelScript": [
+    ".as",
+    ".angelscript"
+  ],
+  "Apex": [
+    ".cls"
+  ],
+  "Apollo Guidance Computer": [
+    ".agc"
+  ],
+  "AppleScript": [
+    ".applescript",
+    ".scpt"
+  ],
+  "Arc": [
+    ".arc"
+  ],
+  "AspectJ": [
+    ".aj"
+  ],
+  "Assembly": [
+    ".asm",
+    ".a51",
+    ".i",
+    ".inc",
+    ".nasm"
+  ],
+  "Asymptote": [
+    ".asy"
+  ],
+  "Augeas": [
+    ".aug"
+  ],
+  "AutoHotkey": [
+    ".ahk",
+    ".ahkl"
+  ],
+  "AutoIt": [
+    ".au3"
+  ],
+  "Awk": [
+    ".awk",
+    ".auk",
+    ".gawk",
+    ".mawk",
+    ".nawk"
+  ],
+  "Ballerina": [
+    ".bal"
+  ],
+  "Batchfile": [
+    ".bat",
+    ".cmd"
+  ],
+  "Befunge": [
+    ".befunge"
+  ],
+  "BibTeX": [
+    ".bib",
+    ".bibtex"
+  ],
+  "Bison": [
+    ".bison"
+  ],
+  "BitBake": [
+    ".bb"
+  ],
+  "Blade": [
+    ".blade",
+    ".blade.php"
+  ],
+  "BlitzBasic": [
+    ".bb",
+    ".decls"
+  ],
+  "BlitzMax": [
+    ".bmx"
+  ],
+  "Bluespec": [
+    ".bsv"
+  ],
+  "Boo": [
+    ".boo"
+  ],
+  "Brainfuck": [
+    ".b",
+    ".bf"
+  ],
+  "Brightscript": [
+    ".brs"
+  ],
+  "C": [
+    ".c",
+    ".cats",
+    ".h",
+    ".idc"
+  ],
+  "C#": [
+    ".cs",
+    ".cake",
+    ".csx",
+    ".linq"
+  ],
+  "C++": [
+    ".cpp",
+    ".c++",
+    ".cc",
+    ".cp",
+    ".cxx",
+    ".h",
+    ".h++",
+    ".hh",
+    ".hpp",
+    ".hxx",
+    ".inc",
+    ".inl",
+    ".ino",
+    ".ipp",
+    ".re",
+    ".tcc",
+    ".tpp"
+  ],
+  "C2hs Haskell": [
+    ".chs"
+  ],
+  "CLIPS": [
+    ".clp"
+  ],
+  "CMake": [
+    ".cmake",
+    ".cmake.in"
+  ],
+  "COBOL": [
+    ".cob",
+    ".cbl",
+    ".ccp",
+    ".cobol",
+    ".cpy"
+  ],
+  "CSS": [
+    ".css"
+  ],
+  "CWeb": [
+    ".w"
+  ],
+  "Cap'n Proto": [
+    ".capnp"
+  ],
+  "CartoCSS": [
+    ".mss"
+  ],
+  "Ceylon": [
+    ".ceylon"
+  ],
+  "Chapel": [
+    ".chpl"
+  ],
+  "Charity": [
+    ".ch"
+  ],
+  "ChucK": [
+    ".ck"
+  ],
+  "Cirru": [
+    ".cirru"
+  ],
+  "Clarion": [
+    ".clw"
+  ],
+  "Clean": [
+    ".icl",
+    ".dcl"
+  ],
+  "Click": [
+    ".click"
+  ],
+  "Clojure": [
+    ".clj",
+    ".boot",
+    ".cl2",
+    ".cljc",
+    ".cljs",
+    ".cljs.hl",
+    ".cljscm",
+    ".cljx",
+    ".hic"
+  ],
+  "Closure Templates": [
+    ".soy"
+  ],
+  "CodeQL": [
+    ".ql",
+    ".qll"
+  ],
+  "CoffeeScript": [
+    ".coffee",
+    "._coffee",
+    ".cake",
+    ".cjsx",
+    ".iced"
+  ],
+  "ColdFusion": [
+    ".cfm",
+    ".cfml"
+  ],
+  "ColdFusion CFC": [
+    ".cfc"
+  ],
+  "Common Lisp": [
+    ".lisp",
+    ".asd",
+    ".cl",
+    ".l",
+    ".lsp",
+    ".ny",
+    ".podsl",
+    ".sexp"
+  ],
+  "Common Workflow Language": [
+    ".cwl"
+  ],
+  "Component Pascal": [
+    ".cp",
+    ".cps"
+  ],
+  "Cool": [
+    ".cl"
+  ],
+  "Coq": [
+    ".coq",
+    ".v"
+  ],
+  "Crystal": [
+    ".cr"
+  ],
+  "Csound": [
+    ".orc",
+    ".udo"
+  ],
+  "Csound Document": [
+    ".csd"
+  ],
+  "Csound Score": [
+    ".sco"
+  ],
+  "Cuda": [
+    ".cu",
+    ".cuh"
+  ],
+  "Cycript": [
+    ".cy"
+  ],
+  "Cython": [
+    ".pyx",
+    ".pxd",
+    ".pxi"
+  ],
+  "D": [
+    ".d",
+    ".di"
+  ],
+  "DIGITAL Command Language": [
+    ".com"
+  ],
+  "DM": [
+    ".dm"
+  ],
+  "DTrace": [
+    ".d"
+  ],
+  "Dafny": [
+    ".dfy"
+  ],
+  "Dart": [
+    ".dart"
+  ],
+  "DataWeave": [
+    ".dwl"
+  ],
+  "Dhall": [
+    ".dhall"
+  ],
+  "Dockerfile": [
+    ".dockerfile"
+  ],
+  "Dogescript": [
+    ".djs"
+  ],
+  "Dylan": [
+    ".dylan",
+    ".dyl",
+    ".intr",
+    ".lid"
+  ],
+  "E": [
+    ".E"
+  ],
+  "ECL": [
+    ".ecl",
+    ".eclxml"
+  ],
+  "ECLiPSe": [
+    ".ecl"
+  ],
+  "EJS": [
+    ".ejs"
+  ],
+  "EQ": [
+    ".eq"
+  ],
+  "Eiffel": [
+    ".e"
+  ],
+  "Elixir": [
+    ".ex",
+    ".exs"
+  ],
+  "Elm": [
+    ".elm"
+  ],
+  "Emacs Lisp": [
+    ".el",
+    ".emacs",
+    ".emacs.desktop"
+  ],
+  "EmberScript": [
+    ".em",
+    ".emberscript"
+  ],
+  "Erlang": [
+    ".erl",
+    ".app.src",
+    ".es",
+    ".escript",
+    ".hrl",
+    ".xrl",
+    ".yrl"
+  ],
+  "F#": [
+    ".fs",
+    ".fsi",
+    ".fsx"
+  ],
+  "F*": [
+    ".fst"
+  ],
+  "FLUX": [
+    ".fx",
+    ".flux"
+  ],
+  "Factor": [
+    ".factor"
+  ],
+  "Fancy": [
+    ".fy",
+    ".fancypack"
+  ],
+  "Fantom": [
+    ".fan"
+  ],
+  "Faust": [
+    ".dsp"
+  ],
+  "Filebench WML": [
+    ".f"
+  ],
+  "Filterscript": [
+    ".fs"
+  ],
+  "Forth": [
+    ".fth",
+    ".4th",
+    ".f",
+    ".for",
+    ".forth",
+    ".fr",
+    ".frt",
+    ".fs"
+  ],
+  "Fortran": [
+    ".f",
+    ".f77",
+    ".for",
+    ".fpp"
+  ],
+  "Fortran Free Form": [
+    ".f90",
+    ".f03",
+    ".f08",
+    ".f95"
+  ],
+  "FreeMarker": [
+    ".ftl"
+  ],
+  "Frege": [
+    ".fr"
+  ],
+  "Futhark": [
+    ".fut"
+  ],
+  "G-code": [
+    ".g",
+    ".cnc",
+    ".gco",
+    ".gcode"
+  ],
+  "GAML": [
+    ".gaml"
+  ],
+  "GAMS": [
+    ".gms"
+  ],
+  "GAP": [
+    ".g",
+    ".gap",
+    ".gd",
+    ".gi",
+    ".tst"
+  ],
+  "GDB": [
+    ".gdb",
+    ".gdbinit"
+  ],
+  "GDScript": [
+    ".gd"
+  ],
+  "GLSL": [
+    ".glsl",
+    ".fp",
+    ".frag",
+    ".frg",
+    ".fs",
+    ".fsh",
+    ".fshader",
+    ".geo",
+    ".geom",
+    ".glslf",
+    ".glslv",
+    ".gs",
+    ".gshader",
+    ".shader",
+    ".tesc",
+    ".tese",
+    ".vert",
+    ".vrx",
+    ".vsh",
+    ".vshader"
+  ],
+  "Game Maker Language": [
+    ".gml"
+  ],
+  "Genie": [
+    ".gs"
+  ],
+  "Genshi": [
+    ".kid"
+  ],
+  "Gentoo Ebuild": [
+    ".ebuild"
+  ],
+  "Gentoo Eclass": [
+    ".eclass"
+  ],
+  "Gherkin": [
+    ".feature"
+  ],
+  "Glyph": [
+    ".glf"
+  ],
+  "Gnuplot": [
+    ".gp",
+    ".gnu",
+    ".gnuplot",
+    ".p",
+    ".plot",
+    ".plt"
+  ],
+  "Go": [
+    ".go"
+  ],
+  "Golo": [
+    ".golo"
+  ],
+  "Gosu": [
+    ".gs",
+    ".gst",
+    ".gsx",
+    ".vark"
+  ],
+  "Grace": [
+    ".grace"
+  ],
+  "Grammatical Framework": [
+    ".gf"
+  ],
+  "Groovy": [
+    ".groovy",
+    ".grt",
+    ".gtpl",
+    ".gvy"
+  ],
+  "Groovy Server Pages": [
+    ".gsp"
+  ],
+  "HCL": [
+    ".hcl",
+    ".tf",
+    ".tfvars",
+    ".workflow"
+  ],
+  "HLSL": [
+    ".hlsl",
+    ".cginc",
+    ".fx",
+    ".fxh",
+    ".hlsli"
+  ],
+  "HTML": [
+    ".html",
+    ".htm",
+    ".html.hl",
+    ".inc",
+    ".st",
+    ".xht",
+    ".xhtml"
+  ],
+  "HTML+Django": [
+    ".jinja",
+    ".jinja2",
+    ".mustache",
+    ".njk"
+  ],
+  "HTML+ECR": [
+    ".ecr"
+  ],
+  "HTML+EEX": [
+    ".eex"
+  ],
+  "HTML+ERB": [
+    ".erb",
+    ".erb.deface"
+  ],
+  "HTML+PHP": [
+    ".phtml"
+  ],
+  "HTML+Razor": [
+    ".cshtml",
+    ".razor"
+  ],
+  "Hack": [
+    ".hack",
+    ".hh",
+    ".hhi",
+    ".php"
+  ],
+  "Haml": [
+    ".haml",
+    ".haml.deface"
+  ],
+  "Handlebars": [
+    ".handlebars",
+    ".hbs"
+  ],
+  "Harbour": [
+    ".hb"
+  ],
+  "Haskell": [
+    ".hs",
+    ".hs-boot",
+    ".hsc"
+  ],
+  "Haxe": [
+    ".hx",
+    ".hxsl"
+  ],
+  "HiveQL": [
+    ".q",
+    ".hql"
+  ],
+  "HolyC": [
+    ".hc"
+  ],
+  "Hy": [
+    ".hy"
+  ],
+  "HyPhy": [
+    ".bf"
+  ],
+  "IDL": [
+    ".pro",
+    ".dlm"
+  ],
+  "IGOR Pro": [
+    ".ipf"
+  ],
+  "Idris": [
+    ".idr",
+    ".lidr"
+  ],
+  "Inform 7": [
+    ".ni",
+    ".i7x"
+  ],
+  "Inno Setup": [
+    ".iss",
+    ".isl"
+  ],
+  "Io": [
+    ".io"
+  ],
+  "Ioke": [
+    ".ik"
+  ],
+  "Isabelle": [
+    ".thy"
+  ],
+  "J": [
+    ".ijs"
+  ],
+  "JFlex": [
+    ".flex",
+    ".jflex"
+  ],
+  "JSONiq": [
+    ".jq"
+  ],
+  "JSX": [
+    ".jsx"
+  ],
+  "Jasmin": [
+    ".j"
+  ],
+  "Java": [
+    ".java"
+  ],
+  "Java Server Pages": [
+    ".jsp"
+  ],
+  "JavaScript": [
+    ".js",
+    "._js",
+    ".bones",
+    ".cjs",
+    ".es",
+    ".es6",
+    ".frag",
+    ".gs",
+    ".jake",
+    ".jsb",
+    ".jscad",
+    ".jsfl",
+    ".jsm",
+    ".jss",
+    ".mjs",
+    ".njs",
+    ".pac",
+    ".sjs",
+    ".ssjs",
+    ".xsjs",
+    ".xsjslib"
+  ],
+  "JavaScript+ERB": [
+    ".js.erb"
+  ],
+  "Jison": [
+    ".jison"
+  ],
+  "Jison Lex": [
+    ".jisonlex"
+  ],
+  "Jolie": [
+    ".ol",
+    ".iol"
+  ],
+  "Jsonnet": [
+    ".jsonnet",
+    ".libsonnet"
+  ],
+  "Julia": [
+    ".jl"
+  ],
+  "Jupyter Notebook": [
+    ".ipynb"
+  ],
+  "KRL": [
+    ".krl"
+  ],
+  "Kit": [
+    ".kit"
+  ],
+  "Kotlin": [
+    ".kt",
+    ".ktm",
+    ".kts"
+  ],
+  "LFE": [
+    ".lfe"
+  ],
+  "LLVM": [
+    ".ll"
+  ],
+  "LOLCODE": [
+    ".lol"
+  ],
+  "LSL": [
+    ".lsl",
+    ".lslp"
+  ],
+  "LabVIEW": [
+    ".lvproj"
+  ],
+  "Lasso": [
+    ".lasso",
+    ".las",
+    ".lasso8",
+    ".lasso9"
+  ],
+  "Latte": [
+    ".latte"
+  ],
+  "Lean": [
+    ".lean",
+    ".hlean"
+  ],
+  "Less": [
+    ".less"
+  ],
+  "Lex": [
+    ".l",
+    ".lex"
+  ],
+  "LilyPond": [
+    ".ly",
+    ".ily"
+  ],
+  "Limbo": [
+    ".b",
+    ".m"
+  ],
+  "Liquid": [
+    ".liquid"
+  ],
+  "Literate Agda": [
+    ".lagda"
+  ],
+  "Literate CoffeeScript": [
+    ".litcoffee"
+  ],
+  "Literate Haskell": [
+    ".lhs"
+  ],
+  "LiveScript": [
+    ".ls",
+    "._ls"
+  ],
+  "Logos": [
+    ".xm",
+    ".x",
+    ".xi"
+  ],
+  "Logtalk": [
+    ".lgt",
+    ".logtalk"
+  ],
+  "LookML": [
+    ".lookml",
+    ".model.lkml",
+    ".view.lkml"
+  ],
+  "LoomScript": [
+    ".ls"
+  ],
+  "Lua": [
+    ".lua",
+    ".fcgi",
+    ".nse",
+    ".p8",
+    ".pd_lua",
+    ".rbxs",
+    ".rockspec",
+    ".wlua"
+  ],
+  "M": [
+    ".mumps",
+    ".m"
+  ],
+  "M4": [
+    ".m4"
+  ],
+  "M4Sugar": [
+    ".m4"
+  ],
+  "MATLAB": [
+    ".matlab",
+    ".m"
+  ],
+  "MAXScript": [
+    ".ms",
+    ".mcr"
+  ],
+  "MLIR": [
+    ".mlir"
+  ],
+  "MQL4": [
+    ".mq4",
+    ".mqh"
+  ],
+  "MQL5": [
+    ".mq5",
+    ".mqh"
+  ],
+  "MTML": [
+    ".mtml"
+  ],
+  "MUF": [
+    ".muf",
+    ".m"
+  ],
+  "Macaulay2": [
+    ".m2"
+  ],
+  "Makefile": [
+    ".mak",
+    ".d",
+    ".make",
+    ".mk",
+    ".mkfile"
+  ],
+  "Mako": [
+    ".mako",
+    ".mao"
+  ],
+  "Marko": [
+    ".marko"
+  ],
+  "Mask": [
+    ".mask"
+  ],
+  "Mathematica": [
+    ".mathematica",
+    ".cdf",
+    ".m",
+    ".ma",
+    ".mt",
+    ".nb",
+    ".nbp",
+    ".wl",
+    ".wlt"
+  ],
+  "Max": [
+    ".maxpat",
+    ".maxhelp",
+    ".maxproj",
+    ".mxt",
+    ".pat"
+  ],
+  "Mercury": [
+    ".m",
+    ".moo"
+  ],
+  "Metal": [
+    ".metal"
+  ],
+  "MiniD": [
+    ".minid"
+  ],
+  "Mirah": [
+    ".druby",
+    ".duby",
+    ".mirah"
+  ],
+  "Modelica": [
+    ".mo"
+  ],
+  "Modula-2": [
+    ".mod"
+  ],
+  "Modula-3": [
+    ".i3",
+    ".ig",
+    ".m3",
+    ".mg"
+  ],
+  "Module Management System": [
+    ".mms",
+    ".mmk"
+  ],
+  "Monkey": [
+    ".monkey",
+    ".monkey2"
+  ],
+  "Moocode": [
+    ".moo"
+  ],
+  "MoonScript": [
+    ".moon"
+  ],
+  "Motorola 68K Assembly": [
+    ".asm",
+    ".i",
+    ".inc",
+    ".s",
+    ".x68"
+  ],
+  "Myghty": [
+    ".myt"
+  ],
+  "NASL": [
+    ".nasl",
+    ".inc"
+  ],
+  "NCL": [
+    ".ncl"
+  ],
+  "NSIS": [
+    ".nsi",
+    ".nsh"
+  ],
+  "Nearley": [
+    ".ne",
+    ".nearley"
+  ],
+  "Nemerle": [
+    ".n"
+  ],
+  "NetLinx": [
+    ".axs",
+    ".axi"
+  ],
+  "NetLinx+ERB": [
+    ".axs.erb",
+    ".axi.erb"
+  ],
+  "NetLogo": [
+    ".nlogo"
+  ],
+  "NewLisp": [
+    ".nl",
+    ".lisp",
+    ".lsp"
+  ],
+  "Nextflow": [
+    ".nf"
+  ],
+  "Nim": [
+    ".nim",
+    ".nim.cfg",
+    ".nimble",
+    ".nimrod",
+    ".nims"
+  ],
+  "Nit": [
+    ".nit"
+  ],
+  "Nix": [
+    ".nix"
+  ],
+  "Nu": [
+    ".nu"
+  ],
+  "NumPy": [
+    ".numpy",
+    ".numpyw",
+    ".numsc"
+  ],
+  "OCaml": [
+    ".ml",
+    ".eliom",
+    ".eliomi",
+    ".ml4",
+    ".mli",
+    ".mll",
+    ".mly"
+  ],
+  "ObjectScript": [
+    ".cls"
+  ],
+  "Objective-C": [
+    ".m",
+    ".h"
+  ],
+  "Objective-C++": [
+    ".mm"
+  ],
+  "Objective-J": [
+    ".j",
+    ".sj"
+  ],
+  "Odin": [
+    ".odin"
+  ],
+  "Omgrofl": [
+    ".omgrofl"
+  ],
+  "Opa": [
+    ".opa"
+  ],
+  "Opal": [
+    ".opal"
+  ],
+  "Open Policy Agent": [
+    ".rego"
+  ],
+  "OpenCL": [
+    ".cl",
+    ".opencl"
+  ],
+  "OpenEdge ABL": [
+    ".p",
+    ".cls",
+    ".w"
+  ],
+  "OpenQASM": [
+    ".qasm"
+  ],
+  "OpenSCAD": [
+    ".scad"
+  ],
+  "Ox": [
+    ".ox",
+    ".oxh",
+    ".oxo"
+  ],
+  "Oxygene": [
+    ".oxygene"
+  ],
+  "Oz": [
+    ".oz"
+  ],
+  "P4": [
+    ".p4"
+  ],
+  "PHP": [
+    ".php",
+    ".aw",
+    ".ctp",
+    ".fcgi",
+    ".inc",
+    ".php3",
+    ".php4",
+    ".php5",
+    ".phps",
+    ".phpt"
+  ],
+  "PLSQL": [
+    ".pls",
+    ".bdy",
+    ".ddl",
+    ".fnc",
+    ".pck",
+    ".pkb",
+    ".pks",
+    ".plb",
+    ".plsql",
+    ".prc",
+    ".spc",
+    ".sql",
+    ".tpb",
+    ".tps",
+    ".trg",
+    ".vw"
+  ],
+  "PLpgSQL": [
+    ".pgsql",
+    ".sql"
+  ],
+  "POV-Ray SDL": [
+    ".pov",
+    ".inc"
+  ],
+  "Pan": [
+    ".pan"
+  ],
+  "Papyrus": [
+    ".psc"
+  ],
+  "Parrot": [
+    ".parrot"
+  ],
+  "Parrot Assembly": [
+    ".pasm"
+  ],
+  "Parrot Internal Representation": [
+    ".pir"
+  ],
+  "Pascal": [
+    ".pas",
+    ".dfm",
+    ".dpr",
+    ".inc",
+    ".lpr",
+    ".pascal",
+    ".pp"
+  ],
+  "Pawn": [
+    ".pwn",
+    ".inc",
+    ".sma"
+  ],
+  "Pep8": [
+    ".pep"
+  ],
+  "Perl": [
+    ".pl",
+    ".al",
+    ".cgi",
+    ".fcgi",
+    ".perl",
+    ".ph",
+    ".plx",
+    ".pm",
+    ".psgi",
+    ".t"
+  ],
+  "Pic": [
+    ".pic",
+    ".chem"
+  ],
+  "PicoLisp": [
+    ".l"
+  ],
+  "PigLatin": [
+    ".pig"
+  ],
+  "Pike": [
+    ".pike",
+    ".pmod"
+  ],
+  "PogoScript": [
+    ".pogo"
+  ],
+  "Pony": [
+    ".pony"
+  ],
+  "PostCSS": [
+    ".pcss",
+    ".postcss"
+  ],
+  "PostScript": [
+    ".ps",
+    ".eps",
+    ".epsi",
+    ".pfa"
+  ],
+  "PowerBuilder": [
+    ".pbt",
+    ".sra",
+    ".sru",
+    ".srw"
+  ],
+  "PowerShell": [
+    ".ps1",
+    ".psd1",
+    ".psm1"
+  ],
+  "Processing": [
+    ".pde"
+  ],
+  "Prolog": [
+    ".pl",
+    ".pro",
+    ".prolog",
+    ".yap"
+  ],
+  "Propeller Spin": [
+    ".spin"
+  ],
+  "Pug": [
+    ".jade",
+    ".pug"
+  ],
+  "Puppet": [
+    ".pp"
+  ],
+  "PureBasic": [
+    ".pb",
+    ".pbi"
+  ],
+  "PureScript": [
+    ".purs"
+  ],
+  "Python": [
+    ".py",
+    ".cgi",
+    ".fcgi",
+    ".gyp",
+    ".gypi",
+    ".lmi",
+    ".py3",
+    ".pyde",
+    ".pyi",
+    ".pyp",
+    ".pyt",
+    ".pyw",
+    ".rpy",
+    ".smk",
+    ".spec",
+    ".tac",
+    ".wsgi",
+    ".xpy"
+  ],
+  "QML": [
+    ".qml",
+    ".qbs"
+  ],
+  "QMake": [
+    ".pro",
+    ".pri"
+  ],
+  "R": [
+    ".r",
+    ".rd",
+    ".rsx"
+  ],
+  "RAML": [
+    ".raml"
+  ],
+  "REALbasic": [
+    ".rbbas",
+    ".rbfrm",
+    ".rbmnu",
+    ".rbres",
+    ".rbtbar",
+    ".rbuistate"
+  ],
+  "REXX": [
+    ".rexx",
+    ".pprx",
+    ".rex"
+  ],
+  "RHTML": [
+    ".rhtml"
+  ],
+  "RPC": [
+    ".x"
+  ],
+  "RUNOFF": [
+    ".rnh",
+    ".rno"
+  ],
+  "Racket": [
+    ".rkt",
+    ".rktd",
+    ".rktl",
+    ".scrbl"
+  ],
+  "Ragel": [
+    ".rl"
+  ],
+  "Raku": [
+    ".6pl",
+    ".6pm",
+    ".nqp",
+    ".p6",
+    ".p6l",
+    ".p6m",
+    ".pl",
+    ".pl6",
+    ".pm",
+    ".pm6",
+    ".t"
+  ],
+  "Rascal": [
+    ".rsc"
+  ],
+  "Reason": [
+    ".re",
+    ".rei"
+  ],
+  "Rebol": [
+    ".reb",
+    ".r",
+    ".r2",
+    ".r3",
+    ".rebol"
+  ],
+  "Red": [
+    ".red",
+    ".reds"
+  ],
+  "Redcode": [
+    ".cw"
+  ],
+  "Ren'Py": [
+    ".rpy"
+  ],
+  "RenderScript": [
+    ".rs",
+    ".rsh"
+  ],
+  "Rich Text Format": [
+    ".rtf"
+  ],
+  "Ring": [
+    ".ring"
+  ],
+  "Riot": [
+    ".riot"
+  ],
+  "RobotFramework": [
+    ".robot"
+  ],
+  "Roff": [
+    ".roff",
+    ".1",
+    ".1in",
+    ".1m",
+    ".1x",
+    ".2",
+    ".3",
+    ".3in",
+    ".3m",
+    ".3p",
+    ".3pm",
+    ".3qt",
+    ".3x",
+    ".4",
+    ".5",
+    ".6",
+    ".7",
+    ".8",
+    ".9",
+    ".l",
+    ".man",
+    ".mdoc",
+    ".me",
+    ".ms",
+    ".n",
+    ".nr",
+    ".rno",
+    ".tmac"
+  ],
+  "Roff Manpage": [
+    ".1",
+    ".1in",
+    ".1m",
+    ".1x",
+    ".2",
+    ".3",
+    ".3in",
+    ".3m",
+    ".3p",
+    ".3pm",
+    ".3qt",
+    ".3x",
+    ".4",
+    ".5",
+    ".6",
+    ".7",
+    ".8",
+    ".9",
+    ".man",
+    ".mdoc"
+  ],
+  "Rouge": [
+    ".rg"
+  ],
+  "Ruby": [
+    ".rb",
+    ".builder",
+    ".eye",
+    ".fcgi",
+    ".gemspec",
+    ".god",
+    ".jbuilder",
+    ".mspec",
+    ".pluginspec",
+    ".podspec",
+    ".rabl",
+    ".rake",
+    ".rbi",
+    ".rbuild",
+    ".rbw",
+    ".rbx",
+    ".ru",
+    ".ruby",
+    ".spec",
+    ".thor",
+    ".watchr"
+  ],
+  "Rust": [
+    ".rs",
+    ".rs.in"
+  ],
+  "SAS": [
+    ".sas"
+  ],
+  "SCSS": [
+    ".scss"
+  ],
+  "SMT": [
+    ".smt2",
+    ".smt"
+  ],
+  "SQF": [
+    ".sqf",
+    ".hqf"
+  ],
+  "SQLPL": [
+    ".sql",
+    ".db2"
+  ],
+  "SRecode Template": [
+    ".srt"
+  ],
+  "SWIG": [
+    ".i"
+  ],
+  "Sage": [
+    ".sage",
+    ".sagews"
+  ],
+  "SaltStack": [
+    ".sls"
+  ],
+  "Sass": [
+    ".sass"
+  ],
+  "Scala": [
+    ".scala",
+    ".kojo",
+    ".sbt",
+    ".sc"
+  ],
+  "Scaml": [
+    ".scaml"
+  ],
+  "Scheme": [
+    ".scm",
+    ".sch",
+    ".sld",
+    ".sls",
+    ".sps",
+    ".ss"
+  ],
+  "Scilab": [
+    ".sci",
+    ".sce",
+    ".tst"
+  ],
+  "Self": [
+    ".self"
+  ],
+  "ShaderLab": [
+    ".shader"
+  ],
+  "Shell": [
+    ".sh",
+    ".bash",
+    ".bats",
+    ".cgi",
+    ".command",
+    ".fcgi",
+    ".ksh",
+    ".sh.in",
+    ".tmux",
+    ".tool",
+    ".zsh"
+  ],
+  "ShellSession": [
+    ".sh-session"
+  ],
+  "Shen": [
+    ".shen"
+  ],
+  "Sieve": [
+    ".sieve"
+  ],
+  "Slash": [
+    ".sl"
+  ],
+  "Slice": [
+    ".ice"
+  ],
+  "Slim": [
+    ".slim"
+  ],
+  "SmPL": [
+    ".cocci"
+  ],
+  "Smali": [
+    ".smali"
+  ],
+  "Smalltalk": [
+    ".st",
+    ".cs"
+  ],
+  "Smarty": [
+    ".tpl"
+  ],
+  "SourcePawn": [
+    ".sp",
+    ".inc"
+  ],
+  "Squirrel": [
+    ".nut"
+  ],
+  "Stan": [
+    ".stan"
+  ],
+  "Standard ML": [
+    ".ML",
+    ".fun",
+    ".sig",
+    ".sml"
+  ],
+  "Starlark": [
+    ".bzl"
+  ],
+  "Stata": [
+    ".do",
+    ".ado",
+    ".doh",
+    ".ihlp",
+    ".mata",
+    ".matah",
+    ".sthlp"
+  ],
+  "Stylus": [
+    ".styl"
+  ],
+  "SugarSS": [
+    ".sss"
+  ],
+  "SuperCollider": [
+    ".sc",
+    ".scd"
+  ],
+  "Svelte": [
+    ".svelte"
+  ],
+  "Swift": [
+    ".swift"
+  ],
+  "SystemVerilog": [
+    ".sv",
+    ".svh",
+    ".vh"
+  ],
+  "TI Program": [
+    ".8xp",
+    ".8xk",
+    ".8xk.txt",
+    ".8xp.txt"
+  ],
+  "TLA": [
+    ".tla"
+  ],
+  "TSQL": [
+    ".sql"
+  ],
+  "TSX": [
+    ".tsx"
+  ],
+  "TXL": [
+    ".txl"
+  ],
+  "Tcl": [
+    ".tcl",
+    ".adp",
+    ".tm"
+  ],
+  "Tcsh": [
+    ".tcsh",
+    ".csh"
+  ],
+  "TeX": [
+    ".tex",
+    ".aux",
+    ".bbx",
+    ".cbx",
+    ".cls",
+    ".dtx",
+    ".ins",
+    ".lbx",
+    ".ltx",
+    ".mkii",
+    ".mkiv",
+    ".mkvi",
+    ".sty",
+    ".toc"
+  ],
+  "Tea": [
+    ".tea"
+  ],
+  "Terra": [
+    ".t"
+  ],
+  "Thrift": [
+    ".thrift"
+  ],
+  "Turing": [
+    ".t",
+    ".tu"
+  ],
+  "Twig": [
+    ".twig"
+  ],
+  "TypeScript": [
+    ".ts"
+  ],
+  "Unified Parallel C": [
+    ".upc"
+  ],
+  "Unix Assembly": [
+    ".s",
+    ".ms"
+  ],
+  "Uno": [
+    ".uno"
+  ],
+  "UnrealScript": [
+    ".uc"
+  ],
+  "UrWeb": [
+    ".ur",
+    ".urs"
+  ],
+  "V": [
+    ".v"
+  ],
+  "VBA": [
+    ".bas",
+    ".cls",
+    ".frm",
+    ".frx",
+    ".vba"
+  ],
+  "VBScript": [
+    ".vbs"
+  ],
+  "VCL": [
+    ".vcl"
+  ],
+  "VHDL": [
+    ".vhdl",
+    ".vhd",
+    ".vhf",
+    ".vhi",
+    ".vho",
+    ".vhs",
+    ".vht",
+    ".vhw"
+  ],
+  "Vala": [
+    ".vala",
+    ".vapi"
+  ],
+  "Verilog": [
+    ".v",
+    ".veo"
+  ],
+  "Vim Snippet": [
+    ".snip",
+    ".snippet",
+    ".snippets"
+  ],
+  "Vim script": [
+    ".vim",
+    ".vba",
+    ".vmb"
+  ],
+  "Visual Basic .NET": [
+    ".vb",
+    ".vbhtml"
+  ],
+  "Volt": [
+    ".volt"
+  ],
+  "Vue": [
+    ".vue"
+  ],
+  "WebAssembly": [
+    ".wast",
+    ".wat"
+  ],
+  "WebIDL": [
+    ".webidl"
+  ],
+  "Wollok": [
+    ".wlk"
+  ],
+  "X10": [
+    ".x10"
+  ],
+  "XC": [
+    ".xc"
+  ],
+  "XProc": [
+    ".xpl",
+    ".xproc"
+  ],
+  "XQuery": [
+    ".xquery",
+    ".xq",
+    ".xql",
+    ".xqm",
+    ".xqy"
+  ],
+  "XS": [
+    ".xs"
+  ],
+  "XSLT": [
+    ".xslt",
+    ".xsl"
+  ],
+  "Xojo": [
+    ".xojo_code",
+    ".xojo_menu",
+    ".xojo_report",
+    ".xojo_script",
+    ".xojo_toolbar",
+    ".xojo_window"
+  ],
+  "Xtend": [
+    ".xtend"
+  ],
+  "YARA": [
+    ".yar",
+    ".yara"
+  ],
+  "YASnippet": [
+    ".yasnippet"
+  ],
+  "Yacc": [
+    ".y",
+    ".yacc",
+    ".yy"
+  ],
+  "ZAP": [
+    ".zap",
+    ".xzap"
+  ],
+  "ZIL": [
+    ".zil",
+    ".mud"
+  ],
+  "Zeek": [
+    ".zeek",
+    ".bro"
+  ],
+  "ZenScript": [
+    ".zs"
+  ],
+  "Zephir": [
+    ".zep"
+  ],
+  "Zig": [
+    ".zig"
+  ],
+  "Zimpl": [
+    ".zimpl",
+    ".zmpl",
+    ".zpl"
+  ],
+  "eC": [
+    ".ec",
+    ".eh"
+  ],
+  "fish": [
+    ".fish"
+  ],
+  "mIRC Script": [
+    ".mrc"
+  ],
+  "mcfunction": [
+    ".mcfunction"
+  ],
+  "mupad": [
+    ".mu"
+  ],
+  "nesC": [
+    ".nc"
+  ],
+  "ooc": [
+    ".ooc"
+  ],
+  "q": [
+    ".q"
+  ],
+  "sed": [
+    ".sed"
+  ],
+  "wdl": [
+    ".wdl"
+  ],
+  "wisp": [
+    ".wisp"
+  ],
+  "xBase": [
+    ".prg",
+    ".ch",
+    ".prw"
+  ]
+}
