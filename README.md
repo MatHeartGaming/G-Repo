@@ -38,10 +38,6 @@ To start [G-Repo.jar](jar/) run the command:
 
 `java -jar --module-path "path_to_javaFX-sdk\lib" --add-modules=javafx.controls,javafx.fxml G-Repo.jar`
 
-or:
-
-`java -jar --module-path "G-Repo_lib" --add-modules=javafx.controls,javafx.fxml G-Repo.jar `
-
 G-Repo provides functionality to search for repositories by native github [qualifiers](https://docs.github.com/en/github/searching-for-information-on-github/searching-for-repositories).
 
 ![](demos/search_demo.gif)
