@@ -104,11 +104,7 @@ public class CommonEvents {
             stage.initModality(modal);
             stage.setScene(scene);
             stage.setTitle(title);
-            if(!isWindows()) {
-                stage.initStyle(StageStyle.UNDECORATED);
-            } else {
-                stage.initStyle(stageStyle);
-            }
+            stage.initStyle(stageStyle);
             if(fxmlFile.equals("primary")) {
                 stage.setMinHeight(800);
                 stage.setMinWidth(1200);
@@ -124,14 +120,6 @@ public class CommonEvents {
         catch (Exception e) {
             showExceptionDialog(e);
         }
-    }
-
-    public boolean isWindows() {
-        String os = System.getProperty("os.name");
-        if(os.startsWith("Windows")) {
-            return true;
-        }
-        return false;
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
