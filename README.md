@@ -26,8 +26,10 @@ ___
 ___
 
 ### Requirements
-* Java 14, JavaFX 14
-* Python3, six
+* [Java 14](https://www.oracle.com/java/technologies/javase-downloads.html)
+* [JavaFX 14](https://gluonhq.com/products/javafx/)
+* [Python3](https://www.python.org/downloads/)
+* [six](https://pypi.org/project/six/)
 ___
 
 ### Getting Started
@@ -36,22 +38,26 @@ To start [G-Repo.jar](jar/) run the command:
 
 `java -jar --module-path "path_to_javaFX-sdk\lib" --add-modules=javafx.controls,javafx.fxml G-Repo.jar`
 
+or:
+
+`java -jar --module-path "G-Repo_lib" --add-modules=javafx.controls,javafx.fxml G-Repo.jar `
+
 G-Repo provides functionality to search for repositories by native github [qualifiers](https://docs.github.com/en/github/searching-for-information-on-github/searching-for-repositories).
 
-![](Demos/search_demo.gif)
+![](demos/search_demo.gif)
 ======
 
 :warning: **For the execution to be successful the repositories will be cloned!** :warning:
 
 The **programming language detection** feature allows to detect the **programming language** - **markup** most used within the repositories, otherwise if the repository were to be empty the result will be **not classifiable**.
 
-![](Demos/programming_language_detection_demo.gif)
+![](demos/programming_language_detection_demo.gif)
 ======
 
 G-Repo Makes possible the translation and therefore the classification of the README files present in the github repositories.
 The language detector script that G-Repo uses is able to classify the repositories according to the language used to write the **README.md**.
 
-![](Demos/language_detection_demo.gif)
+![](demos/language_detection_demo.gif)
 ======
 
 By default the script used by G-Repo uses a **nondeterministic** classification algorithm, this functionality is part of a design from the original Google project. If you want to enforce determinism make [`OUTPUT_TYPE = 0`](https://github.com/MatHeartGaming/G-Repo/blob/master/risorse/GHLanguageDetection/detector.py#L57).
