@@ -240,7 +240,8 @@ class RepositoryVisitorTest {
 
     @Test
     void programmingLanguageDetectionLanguageUserExistsRepo4() {
-        // {Java=2, Limbo|M|MATLAB|MUF|Mathematica|Mercury|Objective-C=2, C|C++|Objective-C=3, JavaScript=1}
+        // e.g. User Programming Language = Objective-C:
+        // {Java=2, Limbo|M|MATLAB|MUF|Mathematica|Mercury|Objective-C=2, C|C++|Objective-C=3, JavaScript=1} -> Objective-C=5 -> (62.5% - Objective-C).
         String valueQualifierLanguage = "objective-c";
         RepositoryVisitor repositoryVisitorQualifier = new RepositoryVisitor(valueQualifierLanguage);
         StatisticsProgrammingLanguage statisticsProgrammingLanguage = repositoryVisitorQualifier.programmingLanguageDetection(cloneDirectoryRepo4);
