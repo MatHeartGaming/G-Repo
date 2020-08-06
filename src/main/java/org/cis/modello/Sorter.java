@@ -71,13 +71,24 @@ public class Sorter {
         if(o1.equals(Constants.MESSAGE_NOT_EXISTS) && !o2.equals(Constants.MESSAGE_NOT_EXISTS)) {
             return 1;
         }
-
         if(o1.equals(Constants.MESSAGE_NOT_EXISTS)) {
             return 0;
         }
         if(o2.equals(Constants.MESSAGE_NOT_EXISTS)) {
             return -1;
         }
+
+        String messageNotExistsLowerCase = Constants.MESSAGE_NOT_EXISTS.toLowerCase();
+        if(o1.contains(messageNotExistsLowerCase) && !o2.contains(messageNotExistsLowerCase)) {
+            return 1;
+        }
+        if(o1.contains(messageNotExistsLowerCase)) {
+            return 0;
+        }
+        if(o2.contains(messageNotExistsLowerCase)) {
+            return -1;
+        }
+
         return null;
     }
 

@@ -1,11 +1,12 @@
 package org.cis.modello;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 public class Query {
 
     private String token;
-    private List<Qualifier> qualifiers;
+    private final List<Qualifier> qualifiers;
     private String sort;
     private String order;
     private String date;
@@ -59,4 +60,11 @@ public class Query {
         this.date = date;
     }
 
+    public Qualifier searchQualifierByCriteria(Predicate<Qualifier> qualifierPredicate) {
+        return this.getQualifiers()
+                   .stream()
+                   .filter(qualifierPredicate)
+                   .findFirst()
+                   .orElse(null);
+    }
 }

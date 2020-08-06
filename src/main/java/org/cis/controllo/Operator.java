@@ -335,7 +335,7 @@ public class Operator {
                 if(q.getValue().equals("C#")) {
                     q.setValue("Csharp");
                 }
-                write.println("q" + j + "=" + q.getKey() .trim()+":"+ q.getValue().trim());
+                write.println("q" + j + "=" + q.getKey().trim()+":"+ q.getValue().trim());
                 j = j +1;
 
             }
