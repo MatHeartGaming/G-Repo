@@ -18,12 +18,14 @@ class RepositoryVisitorTest {
     private static final String RELATIVE_REPO_1 = "\\src\\test\\org\\cis\\controllo\\resources\\ProgrammingLanguageDetection\\Repo1";
     private static final String RELATIVE_REPO_2 = "\\src\\test\\org\\cis\\controllo\\resources\\ProgrammingLanguageDetection\\Repo2";
     private static final String RELATIVE_REPO_3 = "\\src\\test\\org\\cis\\controllo\\resources\\ProgrammingLanguageDetection\\Repo3";
+    private static final String RELATIVE_REPO_4 = "\\src\\test\\org\\cis\\controllo\\resources\\ProgrammingLanguageDetection\\Repo4";
 
     private static final String RELATIVE_PATH_NOT_EXISTS = "\\pathNotExistsGHRepo";
 
     private String cloneDirectoryRepo1;
     private String cloneDirectoryRepo2;
     private String cloneDirectoryRepo3;
+    private String cloneDirectoryRepo4;
 
     private String pathNotExistsGHRepo;
 
@@ -33,8 +35,10 @@ class RepositoryVisitorTest {
         cloneDirectoryRepo1 = toPathStringAbsolute(RELATIVE_REPO_1);
         // Repo 2 is empty.
         cloneDirectoryRepo2 = FileUtils.createDirectory(FileUtils.createAbsolutePath(RELATIVE_REPO_2)).toString();
-        // Repo 3.
+        // Repo 3 only data.
         cloneDirectoryRepo3 = toPathStringAbsolute(RELATIVE_REPO_3);
+        // Repo 4.
+        cloneDirectoryRepo4 = toPathStringAbsolute(RELATIVE_REPO_4);
 
         // Path not exists.
         pathNotExistsGHRepo = toPathStringAbsolute(RELATIVE_PATH_NOT_EXISTS);
@@ -232,6 +236,34 @@ class RepositoryVisitorTest {
         Map<String, Integer> languageProgrammingOccurrence = repositoryVisitor.computeLanguagesProgramming(cloneDirectoryRepo3);
 
         assertTrue(languageProgrammingOccurrence.isEmpty());
+    }
+
+    @Test
+    void programmingLanguageDetectionLanguageUserExistsRepo4() {
+        // {Java=2, Limbo|M|MATLAB|MUF|Mathematica|Mercury|Objective-C=2, C|C++|Objective-C=3, JavaScript=1}
+        String valueQualifierLanguage = "objective-c";
+        RepositoryVisitor repositoryVisitorQualifier = new RepositoryVisitor(valueQualifierLanguage);
+        StatisticsProgrammingLanguage statisticsProgrammingLanguage = repositoryVisitorQualifier.programmingLanguageDetection(cloneDirectoryRepo4);
+
+        assertEquals(62.5, statisticsProgrammingLanguage.getPercentage());
+        assertEquals(1, statisticsProgrammingLanguage.getLanguagesMaximumOccurrences().size());
+
+        assertTrue(statisticsProgrammingLanguage.existsProgrammingLanguage(s -> s.equals("Objective-C")));
+
+    }
+
+    @Test
+    void programmingLanguageDetectionLanguageUserNotExistsRepo4() {
+        String valueQualifierLanguage = "dart";
+        RepositoryVisitor repositoryVisitorQualifier = new RepositoryVisitor(valueQualifierLanguage);
+        StatisticsProgrammingLanguage statisticsProgrammingLanguage = repositoryVisitorQualifier.programmingLanguageDetection(cloneDirectoryRepo4);
+
+        assertEquals(0.0, statisticsProgrammingLanguage.getPercentage());
+        assertEquals(1, statisticsProgrammingLanguage.getLanguagesMaximumOccurrences().size());
+
+        assertFalse(statisticsProgrammingLanguage.existsProgrammingLanguage(s -> s.equals("Dart")));
+
+        assertEquals(valueQualifierLanguage + " " +  Constants.MESSAGE_NOT_EXISTS.toLowerCase(), statisticsProgrammingLanguage.getLanguagesMaximumOccurrences().get(0));
     }
 
     private String toPathStringAbsolute(String relativePath) {

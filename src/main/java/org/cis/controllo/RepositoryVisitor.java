@@ -126,18 +126,13 @@ public class RepositoryVisitor {
             return new StatisticsProgrammingLanguage(0, languagesMaximumOccurrences);
         }
 
-        System.out.println("No language qualifier ");
         // The user did not specify the "language: <language name>" qualifier in the search query.
+        System.out.println("No language qualifier ");
         String languageNameMax = this.max(languageProgrammingOccurrence);
-
         List<String> languagesMaximumOccurrences = this.checkForMoreMax(languageProgrammingOccurrence, languageNameMax);
-
         int totalOccurrences = getTotalOccurrences(languageProgrammingOccurrence);
-
         int occurrenceMax = languageProgrammingOccurrence.get(languageNameMax);
-
         double percentage = getPercentage(totalOccurrences, occurrenceMax);
-
         return new StatisticsProgrammingLanguage(percentage, languagesMaximumOccurrences);
     }
 
