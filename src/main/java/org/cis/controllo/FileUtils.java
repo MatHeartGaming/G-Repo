@@ -16,6 +16,7 @@ public class FileUtils {
         // The root is the path of the application.
         // e.g. "\\risorse\\cacheCloneRepositories" -> Windows: "C:\Users\leo\Documents\G-Repo\risorse\cacheCloneRepositories";
         // Linux: /home/leo/Documenti/G-Repo/risorse/cacheCloneRepositories.
+
         if (relativePath == null) throw new IllegalArgumentException("The relativePath argument cannot be null");
         return Paths.get(FileUtils.getRootPath() + PATH_SEPARATOR, relativePath.split("\\\\"));
     }

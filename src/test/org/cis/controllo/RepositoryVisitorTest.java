@@ -1,5 +1,6 @@
 package org.cis.controllo;
 
+import org.cis.Constants;
 import org.cis.modello.StatisticsProgrammingLanguage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,7 +31,7 @@ class RepositoryVisitorTest {
     void setUp() {
         // Repo 1.
         cloneDirectoryRepo1 = toPathStringAbsolute(RELATIVE_REPO_1);
-        // Repo 2.
+        // Repo 2 is empty.
         cloneDirectoryRepo2 = FileUtils.createDirectory(FileUtils.createAbsolutePath(RELATIVE_REPO_2)).toString();
         // Repo 3.
         cloneDirectoryRepo3 = toPathStringAbsolute(RELATIVE_REPO_3);
@@ -148,6 +149,32 @@ class RepositoryVisitorTest {
 
 
     @Test
+    void programmingLanguageDetectionLanguageUserNotExistsRepo1() {
+        String valueQualifierLanguage = "dart";
+        RepositoryVisitor repositoryVisitorQualifier = new RepositoryVisitor(valueQualifierLanguage);
+        StatisticsProgrammingLanguage statisticsProgrammingLanguage = repositoryVisitorQualifier.programmingLanguageDetection(cloneDirectoryRepo1);
+
+        assertEquals(0.0, statisticsProgrammingLanguage.getPercentage());
+        assertEquals(1, statisticsProgrammingLanguage.getLanguagesMaximumOccurrences().size());
+
+        assertFalse(statisticsProgrammingLanguage.existsProgrammingLanguage(s -> s.equals("Dart")));
+
+        assertEquals(valueQualifierLanguage + " " +  Constants.MESSAGE_NOT_EXISTS.toLowerCase(), statisticsProgrammingLanguage.getLanguagesMaximumOccurrences().get(0));
+    }
+
+    @Test
+    void programmingLanguageDetectionLanguageUserExistsRepo1() {
+        String valueQualifierLanguage = "java";
+        RepositoryVisitor repositoryVisitorQualifier = new RepositoryVisitor(valueQualifierLanguage);
+        StatisticsProgrammingLanguage statisticsProgrammingLanguage = repositoryVisitorQualifier.programmingLanguageDetection(cloneDirectoryRepo1);
+
+        assertEquals(33.3, statisticsProgrammingLanguage.getPercentage());
+        assertEquals(1, statisticsProgrammingLanguage.getLanguagesMaximumOccurrences().size());
+
+        assertTrue(statisticsProgrammingLanguage.existsProgrammingLanguage(s -> s.equals("Java")));
+    }
+
+    @Test
     void computeLanguagesProgrammingRepo1() {
         Map<String, Integer> languageProgrammingOccurrence = repositoryVisitor.computeLanguagesProgramming(cloneDirectoryRepo1);
 
@@ -168,6 +195,19 @@ class RepositoryVisitorTest {
         assertEquals(1, statisticsProgrammingLanguage.getLanguagesMaximumOccurrences().size());
 
         assertEquals("N.C.", statisticsProgrammingLanguage.getLanguagesMaximumOccurrences().get(0));
+    }
+
+    @Test
+    void programmingLanguageDetectionLanguageUserRepo2() {
+        String valueQualifierLanguage = "dart";
+        RepositoryVisitor repositoryVisitorQualifier = new RepositoryVisitor(valueQualifierLanguage);
+        StatisticsProgrammingLanguage statisticsProgrammingLanguage = repositoryVisitorQualifier.programmingLanguageDetection(cloneDirectoryRepo2);
+
+        assertEquals(0.0, statisticsProgrammingLanguage.getPercentage());
+        assertEquals(1, statisticsProgrammingLanguage.getLanguagesMaximumOccurrences().size());
+
+        assertEquals("N.C.", statisticsProgrammingLanguage.getLanguagesMaximumOccurrences().get(0));
+
     }
 
     @Test

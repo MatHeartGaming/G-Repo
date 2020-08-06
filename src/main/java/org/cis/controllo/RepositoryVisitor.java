@@ -1,5 +1,6 @@
 package org.cis.controllo;
 
+import org.cis.Constants;
 import org.cis.DAO.ProgrammingLanguage;
 import org.cis.modello.StatisticsProgrammingLanguage;
 
@@ -14,8 +15,15 @@ import java.util.Map;
 public class RepositoryVisitor {
 
     // Init map<Key=Ext, Value=LanguageName>.
-    private static Map<String, String> mapExtLanguages = new ProgrammingLanguage().loadMapExtLanguages();
-    private static VisitorLanguageProgramming visitorLanguageProgramming = new VisitorLanguageProgramming();
+    private static final  Map<String, String> mapExtLanguages = new ProgrammingLanguage().loadMapExtLanguages();
+    private static final VisitorLanguageProgramming visitorLanguageProgramming = new VisitorLanguageProgramming();
+    private String userProgrammingLanguage;
+
+    public RepositoryVisitor() {}
+
+    public RepositoryVisitor(String userProgrammingLanguage) {
+        this.userProgrammingLanguage = userProgrammingLanguage;
+    }
 
     private static class VisitorLanguageProgramming extends SimpleFileVisitor<Path> {
 
@@ -46,7 +54,7 @@ public class RepositoryVisitor {
 
             String fileName = file.getFileName().toString();
             String ext = FileUtils.extension(fileName);
-            if (ext == "") {
+            if (ext.isEmpty()) {
                 return FileVisitResult.CONTINUE;
             }
             ext = "." + ext;
@@ -82,22 +90,70 @@ public class RepositoryVisitor {
             return new StatisticsProgrammingLanguage(0, languagesMaximumOccurrences);
         }
 
+        // The user specified the "language: <language name>" qualifier in the search query.
+        if (this.userProgrammingLanguage != null) {
+            int occurrenceUserProgrammingLanguage = 0;
+            String languageNameNorm = "";
+
+            System.out.println("User Programming Language: " + this.userProgrammingLanguage);
+            // Sum of occurrences of the language specified by the user.
+            // e.g. User Programming Language = Objective-C:
+            // Repository1:  {Limbo|M|MATLAB|MUF|Mathematica|Mercury|Objective-C=4, C|C++|Objective-C=3, Swift=1} -> Objective-C=7 -> (87.5% - Objective-C).
+            // Repository2: {Java=2, Limbo|M|MATLAB|MUF|Mathematica|Mercury|Objective-C=5, C|C++|Objective-C=6, JavaScript=1} -> Objective-C=11 -> (78.6% - Objective-C).
+            for (String languageName: languageProgrammingOccurrence.keySet()) {
+                int occurrence = languageProgrammingOccurrence.get(languageName);
+                String[] values = languageName.split("\\|");
+                for (String languageNameSplit : values) {
+                    if (this.userProgrammingLanguage.toLowerCase().equals(languageNameSplit.toLowerCase())) {
+                        occurrenceUserProgrammingLanguage = occurrenceUserProgrammingLanguage + occurrence;
+                        languageNameNorm = languageNameSplit;
+                    }
+                }
+            }
+
+            if (occurrenceUserProgrammingLanguage != 0) {
+                System.out.println("User programming language " + languageNameNorm + " exists in the repository");
+                int totalOccurrences = getTotalOccurrences(languageProgrammingOccurrence);
+                double percentage = getPercentage(totalOccurrences, occurrenceUserProgrammingLanguage);
+                List<String> languagesMaximumOccurrences = new ArrayList<>();
+                languagesMaximumOccurrences.add(languageNameNorm);
+                return new StatisticsProgrammingLanguage(percentage, languagesMaximumOccurrences);
+            }
+
+            System.out.println("User programming language " + this.userProgrammingLanguage + " not exists in the repository");
+            List<String> languagesMaximumOccurrences = new ArrayList<>();
+            languagesMaximumOccurrences.add(this.userProgrammingLanguage + " " + Constants.MESSAGE_NOT_EXISTS.toLowerCase());
+            return new StatisticsProgrammingLanguage(0, languagesMaximumOccurrences);
+        }
+
+        System.out.println("No language qualifier ");
+        // The user did not specify the "language: <language name>" qualifier in the search query.
         String languageNameMax = this.max(languageProgrammingOccurrence);
 
         List<String> languagesMaximumOccurrences = this.checkForMoreMax(languageProgrammingOccurrence, languageNameMax);
 
+        int totalOccurrences = getTotalOccurrences(languageProgrammingOccurrence);
+
+        int occurrenceMax = languageProgrammingOccurrence.get(languageNameMax);
+
+        double percentage = getPercentage(totalOccurrences, occurrenceMax);
+
+        return new StatisticsProgrammingLanguage(percentage, languagesMaximumOccurrences);
+    }
+
+    private double getPercentage(int totalOccurrences, int occurrenceMax) {
+        double percentage = ((100.0 / totalOccurrences)
+                * occurrenceMax);
+        percentage = Utils.round(percentage, 1);
+        return percentage;
+    }
+
+    private int getTotalOccurrences(Map<String, Integer> languageProgrammingOccurrence) {
         int totalOccurrences = 0;
         for (Integer occurrence: languageProgrammingOccurrence.values()) {
             totalOccurrences = totalOccurrences + occurrence;
         }
-
-        int occurrenceMax = languageProgrammingOccurrence.get(languageNameMax);
-
-        double percentage = ((100.0 / totalOccurrences)
-                * occurrenceMax);
-        percentage = Utils.round(percentage, 1);
-
-        return new StatisticsProgrammingLanguage(percentage, languagesMaximumOccurrences);
+        return totalOccurrences;
     }
 
     private List<String> checkForMoreMax(Map<String, Integer> languageProgrammingOccurrence, String languageNameMax) {

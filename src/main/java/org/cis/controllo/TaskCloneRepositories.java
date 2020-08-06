@@ -4,8 +4,7 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import org.cis.Applicazione;
 import org.cis.Constants;
-import org.cis.modello.Repository;
-import org.cis.modello.StatisticsProgrammingLanguage;
+import org.cis.modello.*;
 import org.eclipse.jgit.dircache.InvalidPathException;
 import org.eclipse.jgit.lib.ProgressMonitor;
 
@@ -47,8 +46,13 @@ public class TaskCloneRepositories extends Task<Void> {
             }
         }
 
+        SessionManager sessionManager = Applicazione.getInstance().getSessionManager();
+        Session session = sessionManager.getCurrentSession();
+        Query query = session.getQuery();
+        Qualifier qualifier = query.searchQualifierByCriteria(qualifier1 -> qualifier1.getKey().trim().toLowerCase().equals("language"));
+
+        RepositoryVisitor repositoryVisitor = qualifier == null ? new RepositoryVisitor() : new RepositoryVisitor(qualifier.getValue().trim());
         GitCommand gitCommand = new GitCommand();
-        RepositoryVisitor repositoryVisitor = new RepositoryVisitor();
 
         updateMessage(this.firstNonClonedRepositoryIndex == 0 ? "Clone all repositories" : "Cloning resumption");
 
