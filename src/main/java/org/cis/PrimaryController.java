@@ -1114,7 +1114,6 @@ public class PrimaryController extends Window {
         buttonFilterLanguage.setDisable(value);
         buttonFilterProgrLanguage.setDisable(value);
         bottoneEliminaBulk.setDisable(value);
-        bottoneEliminaSelezionato.setDisable(value);
         bottoneSalva.setDisable(value);
         buttonClone.setDisable(value);
         tabbedPane.setDisable(value);
