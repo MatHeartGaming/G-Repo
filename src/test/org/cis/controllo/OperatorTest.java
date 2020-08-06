@@ -247,7 +247,7 @@ class OperatorTest {
         String parametro = Constants.PARAM_STARS_SMALLER;
         boolean strict = false;
 
-        ObservableList<Repository> listaRis = Operator.cercaPerNome((ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LIST_REPO), daCercare, parametro, strict, "");
+        ObservableList<Repository> listaRis = Operator.searchByName((ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LIST_REPO), daCercare, parametro, strict, "");
         assertEquals(2,listaRis.size());
 
     }
@@ -264,7 +264,7 @@ class OperatorTest {
         parametro = "Stars >=";
         boolean strict = false;
 
-        ObservableList<Repository> listaRis = Operator.cercaPerNome((ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LIST_REPO), daCercare, parametro, strict, "");
+        ObservableList<Repository> listaRis = Operator.searchByName((ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LIST_REPO), daCercare, parametro, strict, "");
         assertEquals(2,listaRis.size());
 
     }
@@ -279,7 +279,7 @@ class OperatorTest {
 
         boolean strict = false;
 
-        ObservableList<Repository> listaRis = Operator.cercaPerNome((ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LIST_REPO), daCercare, parametro, strict, "");
+        ObservableList<Repository> listaRis = Operator.searchByName((ObservableList<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LIST_REPO), daCercare, parametro, strict, "");
         assertEquals("repodriller",listaRis.get(0).getName());
 
     }

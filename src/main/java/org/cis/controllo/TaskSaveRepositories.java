@@ -83,7 +83,6 @@ public class TaskSaveRepositories extends Task<Void> {
                              this.updateSafeProgress();
         });
 
-        System.out.println("Save time repositories: " + (System.currentTimeMillis() - start));
         updateMessage("Saving results in the JSON folder");
         Path pathJSON = FileUtils.createDirectory(Paths.get(pathGHRepoResult.toString(), "JSON"));
         DAORepositoryJSON daoRepositoryJSON = Applicazione.getInstance().getDaoRepositoryJSON();
@@ -105,7 +104,6 @@ public class TaskSaveRepositories extends Task<Void> {
 
     private void updateSafeProgress() {
         Platform.runLater(() -> {
-            System.out.println(Thread.currentThread().getName());
             updateProgress(count.getAndIncrement(), this.repositories.size());
         });
     }

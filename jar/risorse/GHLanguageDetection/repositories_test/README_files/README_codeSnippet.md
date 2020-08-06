@@ -1,0 +1,5 @@
+```
+if (isAwesome){
+  return true
+}
+```

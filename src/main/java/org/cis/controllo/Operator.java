@@ -19,12 +19,12 @@ public class Operator {
 
 
 
-    public static ObservableList<Repository> cercaPerNome(ObservableList<Repository> lista, String daCercare, String parametro, boolean strict, String percent) {
+    public static ObservableList<Repository> searchByName(ObservableList<Repository> list, String daCercare, String parametro, boolean strict, String percent) {
         ObservableList<Repository> risultato = FXCollections.observableArrayList();
-        if(lista == null) {
+        if(list == null) {
             return risultato;
         }
-        for(Repository repo : lista) {
+        for(Repository repo : list) {
             if(strict) {
                 if(confrontaElemConParametriStrict(repo, daCercare, parametro, percent)) {
                     risultato.add(repo);
@@ -308,7 +308,7 @@ public class Operator {
 
     public static void createConfigProperties(){
 
-        System.out.println("Avvio Creazione File Properties!");
+        System.out.println("Start Creating File Properties!");
 
         Session session = Applicazione.getInstance().getSessionManager().getCurrentSession();
         Query query = session.getQuery();
@@ -335,7 +335,7 @@ public class Operator {
                 if(q.getValue().equals("C#")) {
                     q.setValue("Csharp");
                 }
-                write.println("q" + j + "=" + q.getKey() .trim()+":"+ q.getValue().trim());
+                write.println("q" + j + "=" + q.getKey().trim()+":"+ q.getValue().trim());
                 j = j +1;
 
             }
