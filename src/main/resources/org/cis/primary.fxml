@@ -1,24 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane fx:id="parentAnchor" minHeight="0.0" minWidth="0.0" prefHeight="777.0" prefWidth="1262.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.cis.PrimaryController">
    <children>
@@ -121,7 +107,7 @@
                         </AnchorPane>
                         <AnchorPane layoutY="7.0" prefHeight="130.0" prefWidth="1158.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="7.0">
                            <children>
-                              <TextField fx:id="campoToken" layoutX="92.0" layoutY="14.0" prefHeight="27.0" prefWidth="719.0" promptText="Inserisci il tuo token" stylesheets="@TextField.css" AnchorPane.leftAnchor="92.0" AnchorPane.rightAnchor="93.0">
+                              <TextField fx:id="campoToken" layoutX="92.0" layoutY="14.0" prefHeight="27.0" prefWidth="719.0" promptText="Insert your token" stylesheets="@TextField.css" AnchorPane.leftAnchor="92.0" AnchorPane.rightAnchor="93.0">
                                  <font>
                                     <Font name="System Bold Italic" size="12.0" />
                                  </font>
@@ -170,7 +156,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="buttonFilterLanguage" alignment="CENTER_RIGHT" layoutX="773.0" layoutY="479.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="163.0" stylesheets="@GreyButtons.css" text="Filter by Language" textFill="WHITE" AnchorPane.bottomAnchor="14.600000000000023" AnchorPane.rightAnchor="222.20000000000005">
+                        <Button fx:id="buttonFilterLanguage" alignment="CENTER_RIGHT" layoutX="773.0" layoutY="479.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="163.0" stylesheets="@GreyButtons.css" text="Analyze Language" textFill="WHITE" AnchorPane.bottomAnchor="14.600000000000023" AnchorPane.rightAnchor="222.20000000000005">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -216,12 +202,12 @@
                               <Image url="@../../icons/deleteAll-icon.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="buttonFilterProgrLanguage" alignment="CENTER_RIGHT" layoutX="586.0" layoutY="479.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="170.0" stylesheets="@GreyButtons.css" text="Filter by program. L" textFill="WHITE" AnchorPane.bottomAnchor="14.600000000000023" AnchorPane.rightAnchor="402.0000000000001">
+                        <Button fx:id="buttonFilterProgrLanguage" alignment="CENTER_RIGHT" layoutX="586.0" layoutY="479.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="159.0" stylesheets="@GreyButtons.css" text="Analyze Language" textFill="WHITE" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="402.0">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Button>
-                        <ImageView fx:id="iconFilterProgr" fitHeight="27.0" fitWidth="36.0" layoutX="586.0" layoutY="480.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="17.0" AnchorPane.rightAnchor="545.4000000000001">
+                        <ImageView fx:id="iconFilterProgr" fitHeight="27.0" fitWidth="36.0" layoutX="707.0" layoutY="569.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="17.600000000000023" AnchorPane.rightAnchor="528.4000000000001">
                            <image>
                               <Image url="@../../icons/filter-icon.png" />
                            </image>

@@ -15,6 +15,9 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.*;
@@ -243,7 +246,7 @@ public class PrimaryController extends Window {
         columnLingua.setCellValueFactory(cellData -> cellData.getValue().languagePropertyProperty());
         columnLinguaggio.setCellValueFactory(cellData -> cellData.getValue().programmingLanguagesPropertyProperty());
         columnStars.setCellValueFactory(cellData -> cellData.getValue().starsProperty());
-
+        this.tableRepository.getSelectionModel().setCellSelectionEnabled(true);
         Sorter sorter = new Sorter();
 
         columnStars.setComparator(sorter.new SortByStars());
@@ -399,6 +402,7 @@ public class PrimaryController extends Window {
     public void initDatePickers() {
         datePickerStart.setEditable(false);
         datePickerEnd.setEditable(false);
+        LocalDate maxDate = LocalDate.now();
         datePickerStart.valueProperty().addListener((ov, oldValue, newValue) -> {
             LocalDate localDateStart = getValueDataPicker(datePickerStart);
             LocalDate localDateEnd = getValueDataPicker(datePickerEnd);
@@ -412,6 +416,9 @@ public class PrimaryController extends Window {
             LocalDate localDateEnd = getValueDataPicker(datePickerEnd);
             if (datePickerStart.getValue() == null || localDateEnd.compareTo(localDateStart) < 0) {
                 datePickerStart.setValue(localDateEnd);
+            }
+            if(datePickerEnd.getValue().isAfter(maxDate)) {
+                datePickerEnd.setValue(maxDate);
             }
         });
 
@@ -459,6 +466,58 @@ public class PrimaryController extends Window {
 
     private void initTable() {
         initTableCells();
+        tableRepository.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.C && e.isControlDown()) {
+                StringBuilder clipboardString = new StringBuilder();
+
+                ObservableList<TablePosition> positionList = tableRepository.getSelectionModel().getSelectedCells();
+
+                int prevRow = -1;
+
+                for (TablePosition position : positionList) {
+
+                    int row = position.getRow();
+                    int col = position.getColumn();
+
+
+                    Object cell = (Object) tableRepository.getColumns().get(col).getCellData(row);
+
+                    // null-check: provide empty string for nulls
+                    if (cell == null) {
+                        cell = "";
+                    }
+
+                    // determine whether we advance in a row (tab) or a column
+                    // (newline).
+                    if (prevRow == row) {
+
+                        clipboardString.append('\t');
+
+                    } else if (prevRow != -1) {
+
+                        clipboardString.append('\n');
+
+                    }
+
+                    // create string from cell
+                    String text = cell.toString();
+
+                    // add new item to clipboard
+                    clipboardString.append(text);
+
+                    // remember previous
+                    prevRow = row;
+                }
+
+                // create clipboard content
+                final ClipboardContent clipboardContent = new ClipboardContent();
+                clipboardContent.putString(clipboardString.toString());
+
+                // set clipboard content
+                Clipboard.getSystemClipboard().setContent(clipboardContent);
+            }
+
+        });
         this.tableRepository.setOnMouseClicked(mouseEvent -> selectItemTableEvent());
     }
 
@@ -867,7 +926,7 @@ public class PrimaryController extends Window {
                             //ottengo lista Repo
 
                             //Utilizzo dati per riempire Tabella
-                            Applicazione.getInstance().getModello().addObject(Constants.MESSAGE_END_SEARCH,"The search went just AWSOME!");
+                            Applicazione.getInstance().getModello().addObject(Constants.MESSAGE_END_SEARCH,"The search went just AWESOME!");
 
                             stopThread();
                         } else {
