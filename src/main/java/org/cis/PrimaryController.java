@@ -724,7 +724,6 @@ public class PrimaryController extends Window {
         }
 
         int indexLastClonedRepository = (int) Applicazione.getInstance().getModello().getObject(Constants.INDEX_LAST_CLONED_REPOSITORY);
-
         if ((indexLastClonedRepository + 1) == repositories.size()) {
             // All repositories have already been cloned for this search session.
             labelProgress.setText("Cloned repositories");
@@ -1122,7 +1121,7 @@ public class PrimaryController extends Window {
 
     private void actionSaveClone() {
         imgUnibas.setDisable(true);
-        List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LIST_REPO);
+        final List<Repository> repositories = (List<Repository>) Applicazione.getInstance().getModello().getObject(Constants.LIST_REPO);
         if (repositories == null || repositories.isEmpty()) {
             System.out.println("You must run a search query first \uD83D\uDE0E");
             labelProgress.setText("You must run a search query first");
@@ -1131,14 +1130,14 @@ public class PrimaryController extends Window {
             return;
         }
 
-        int indexLastClonedRepository = (int) Applicazione.getInstance().getModello().getObject(Constants.INDEX_LAST_CLONED_REPOSITORY);
+        /*int indexLastClonedRepository = (int) Applicazione.getInstance().getModello().getObject(Constants.INDEX_LAST_CLONED_REPOSITORY);
         if (indexLastClonedRepository == -1) {
             // No cloning started.
             labelProgress.setText("You must clone first");
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 2500);
             imgUnibas.setDisable(false);
             return;
-        }
+        }*/
 
         boolean isSaveRepositories = (boolean) Applicazione.getInstance().getModello().getObject(Constants.IS_SAVE_REPOSITORIES);
         if (isSaveRepositories) {
@@ -1181,7 +1180,8 @@ public class PrimaryController extends Window {
             repositories.forEach(repository -> repository.setCloneDirectory(null));
 
             // Save completed.
-            Applicazione.getInstance().getModello().addObject(Constants.IS_SAVE_REPOSITORIES, true);
+            int indexLastClonedRepository = (int) Applicazione.getInstance().getModello().getObject(Constants.INDEX_LAST_CLONED_REPOSITORY);
+            if ((indexLastClonedRepository + 1) == repositories.size()) Applicazione.getInstance().getModello().addObject(Constants.IS_SAVE_REPOSITORIES, true);
 
             System.out.println("All repositories moved");
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("All repositories moved")), 1500);
