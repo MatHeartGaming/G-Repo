@@ -22,6 +22,7 @@ public class TaskSaveRepositories extends Task<Void> {
     private final Path pathSelectedDirectory;
     private final List<Repository> repositories;
     private final AtomicInteger count = new AtomicInteger(0);
+    private int countPoint;
 
 
     public TaskSaveRepositories(Path pathSelectedDirectory, List<Repository> repositories) {
@@ -92,44 +93,39 @@ public class TaskSaveRepositories extends Task<Void> {
         final Map<String, RepositoryLanguage> repositoryLanguageMap =
                 (Map<String, RepositoryLanguage>) Applicazione.getInstance().getModello().getObject(Constants.MAP_REPOSITORY_LANGUAGE);
 
+        final String messageLabel = "Moving repositories in " +  this.pathSelectedDirectory.getFileName() + " folder";
+        updateMessage(messageLabel);
+        Utils.TimerInterval timerInterval = Utils.setInterval(() -> Platform.runLater(() -> {
+            int numPoint = countPoint % 4;
+            updateMessage(messageLabel + "." + ".".repeat(Math.max(0, numPoint)));
+
+            countPoint++;
+        }), 500);
+
         this.repositories.parallelStream()
-                .filter(repository -> repository.getCloneDirectory() != null)
-                .forEach(repository -> {
+                         .filter(repository -> repository.getCloneDirectory() != null)
+                         .forEach(repository -> {
 
-                    this.updateSafeMessage();
+                             Path pathCloneDirectory = Paths.get(repository.getCloneDirectory());
+                             System.out.println("pathCloneDirectory: " + pathCloneDirectory);
+                             Path pathRelativeCloneDirectory = pathBase.relativize(pathCloneDirectory);
+                             pathRelativeCloneDirectory = Paths.get(pathRelativeCloneDirectory.toString().replace(toReplace, ""));
+                             if (isLanguageDetection) {
+                                 RepositoryLanguage repositoryLanguage = repositoryLanguageMap.get(repository.getId());
+                                 pathRelativeCloneDirectory = Paths.get("language" + FileUtils.PATH_SEPARATOR + String.join("_", repositoryLanguage.getLanguage().split(" ")) + FileUtils.PATH_SEPARATOR + pathRelativeCloneDirectory);
+                             }
+                             Path pathCopy = pathCloneRepositories.resolve(pathRelativeCloneDirectory);
+                             System.out.println("pathCopy: " + pathCopy);
+                             FileUtils.copyDirTree(pathCloneDirectory, pathCopy);
+                             FileUtils.deleteDirTree(pathCloneDirectory);
+                             this.updateSafeProgress();
+                         });
 
-                    Path pathCloneDirectory = Paths.get(repository.getCloneDirectory());
-                    System.out.println("pathCloneDirectory: " + pathCloneDirectory);
-                    Path pathRelativeCloneDirectory = pathBase.relativize(pathCloneDirectory);
-                    pathRelativeCloneDirectory = Paths.get(pathRelativeCloneDirectory.toString().replace(toReplace, ""));
-                    if (isLanguageDetection) {
-                        RepositoryLanguage repositoryLanguage = repositoryLanguageMap.get(repository.getId());
-                        pathRelativeCloneDirectory = Paths.get("language" + FileUtils.PATH_SEPARATOR + String.join("_", repositoryLanguage.getLanguage().split(" ")) + FileUtils.PATH_SEPARATOR + pathRelativeCloneDirectory);
-                    }
-                    Path pathCopy = pathCloneRepositories.resolve(pathRelativeCloneDirectory);
-                    System.out.println("pathCopy: " + pathCopy);
-                    FileUtils.copyDirTree(pathCloneDirectory, pathCopy);
-                    FileUtils.deleteDirTree(pathCloneDirectory);
-                    this.updateSafeProgress();
-                });
-    }
-
-    private void updateSafeMessage() {
-        Platform.runLater(() -> {
-            int numPoint = count.get() % 4;
-            String point = ".";
-            for (int i = 0; i < numPoint; i++) {
-                point = point + ".";
-            }
-            String messageLabel = "Moving repositories in " +  this.pathSelectedDirectory.getFileName() + " folder" + point;
-            updateMessage(messageLabel);
-        });
+        timerInterval.cancel();
     }
 
     private void updateSafeProgress() {
-        Platform.runLater(() -> {
-            updateProgress(count.getAndIncrement(), this.repositories.size());
-        });
+        Platform.runLater(() -> updateProgress(count.getAndIncrement(), this.repositories.size()));
     }
 
     /*@Override
