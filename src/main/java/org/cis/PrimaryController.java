@@ -926,7 +926,11 @@ public class PrimaryController extends Window {
                             //ottengo lista Repo
 
                             //Utilizzo dati per riempire Tabella
-                            Applicazione.getInstance().getModello().addObject(Constants.MESSAGE_END_SEARCH,"The search went just AWESOME!");
+                            if(tabList.isEmpty()) {
+                                Applicazione.getInstance().getModello().addObject(Constants.MESSAGE_END_SEARCH,"Last search found ZERO results :(");
+                            } else {
+                                Applicazione.getInstance().getModello().addObject(Constants.MESSAGE_END_SEARCH,"The search went just AWESOME!");
+                            }
 
                             stopThread();
                         } else {

@@ -1,6 +1,6 @@
 # G-Repo
 
-[G-Repo](https://sites.google.com/view/g-repo/home-page) is a tool developed in java and it is useful in the **Mining Software Repository**, this area aims to collect empirical evidence using the data available in software repositories present on github. For example:
+[G-Repo](https://sites.google.com/view/g-repo/home-page) is a tool developed in Java and it is useful in the **Mining Software Repository**, this area aims to collect empirical evidence using the data available in software repositories present on github. For example:
 
 > *“When and Why Your Code Starts to Smell Bad (and Whether the Smells*
 Go Away)”
@@ -34,7 +34,7 @@ ___
 
 ### Getting Started
 
-To start [G-Repo.jar](jar/) run the command:
+To launch [G-Repo.jar](jar/) run the command:
 
 `java -jar --module-path "path_to_javaFX-sdk\lib" --add-modules=javafx.controls,javafx.fxml G-Repo.jar`
 
@@ -45,23 +45,23 @@ G-Repo provides functionality to search for repositories by native github [quali
 
 :warning: **For the execution to be successful the repositories will be cloned!** :warning:
 
-The **programming language detection** feature allows to detect the **programming language** - **markup** most used within the repositories, otherwise if the repository were to be empty the result will be **not classifiable**.
+The **programming language detection** feature allows to detect the **programming language** - **markup** most used within the repositories, in case the repositories found are empty the result will be **not classifiable**.
 
 ![](demos/programming_language_detection_demo.gif)
 ======
 
-G-Repo Makes possible the translation and therefore the classification of the README files present in the github repositories.
-The language detector script that G-Repo uses is able to classify the repositories according to the language used to write the **README.md**.
+G-Repo is also able to detect the language used for a given repository by analyzing its **README.md** file.
+The language detector script that G-Repo uses is capable of classifying the repositories according to the language used to write the **README.md**.
 
 ![](demos/language_detection_demo.gif)
 ======
 
-By default the script used by G-Repo uses a **nondeterministic** classification algorithm, this functionality is part of a design from the original Google project. If you want to enforce determinism make [`OUTPUT_TYPE = 0`](https://github.com/MatHeartGaming/G-Repo/blob/master/risorse/GHLanguageDetection/detector.py#L57).
-If in the repository there is no README.md file or is empty, does not have enough text or contains only special characters then the repository will be classified as **unknown**, same in case some repository should throw exceptions on the parserization, otherwise will be classified in **english**, **not-english** or **mixed**.
+By default the script used by G-Repo uses a **nondeterministic** classification algorithm, this functionality is part of a design from the original Google project. If you want to force it to use a deterministic approach  make [`OUTPUT_TYPE = 0`](https://github.com/MatHeartGaming/G-Repo/blob/master/risorse/GHLanguageDetection/detector.py#L57).
+If the repository lacks a README.md file, it is empty, does not have enough text, or it only contains special characters then the repository will be classified as **unknown**, and the same applies in case some repository throws an exception during the parserization process, otherwise if everything goes fine it will be classified in **english**, **not-english** or **mixed**.
 ___
 
 ## References
 * The [language-map](https://github.com/blakeembrey/language-map) repository was used to generate the file used for the detection of the programming language-markup.
 
-* For language recognition the script uses the [LangDetect](https://github.com/Mimino666/langdetect) library, a direct port of Google's language-detection library from Java to Python, moreover if you want to use the script individually take a look [here](https://github.com/anasmounsif/README-language-detector) :rocket:
+* As for the language recognition the script uses the [LangDetect](https://github.com/Mimino666/langdetect) library, a direct port of Google's language-detection library from Java to Python, moreover if you want to use the script individually take a look [here](https://github.com/anasmounsif/README-language-detector) :rocket:
 
