@@ -334,7 +334,9 @@ public class Operator {
 
                 Qualifier q = listaQualificatori.get(i);
                 q.setValue(q.getValue().replace(" ", ""));
-                if(q.getValue().toUpperCase().equals("C#")) {
+                q.setValue(q.getValue().toLowerCase());
+                q.setKey(q.getKey().toLowerCase());
+                if(q.getValue().toUpperCase().equals("C#") || q.getValue().toUpperCase().equals("C-SHARP") || q.getValue().toUpperCase().equals("CSHARP")) {
                     q.setValue("Csharp");
                 }
                 write.println("q" + j + "=" + q.getKey().trim()+":"+ q.getValue().trim());
