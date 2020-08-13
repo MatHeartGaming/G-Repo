@@ -332,7 +332,7 @@ public class Operator {
             for (int i=0; i < listaQualificatori.size(); i++){
 
                 Qualifier q = listaQualificatori.get(i);
-                if(q.getValue().equals("C#")) {
+                if(q.getValue().toUpperCase().equals("C#")) {
                     q.setValue("Csharp");
                 }
                 write.println("q" + j + "=" + q.getKey().trim()+":"+ q.getValue().trim());
