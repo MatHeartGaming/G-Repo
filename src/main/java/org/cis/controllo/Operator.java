@@ -331,7 +331,9 @@ public class Operator {
 
             for (int i=0; i < listaQualificatori.size(); i++){
 
+
                 Qualifier q = listaQualificatori.get(i);
+                q.setValue(q.getValue().replace(" ", ""));
                 if(q.getValue().toUpperCase().equals("C#")) {
                     q.setValue("Csharp");
                 }
