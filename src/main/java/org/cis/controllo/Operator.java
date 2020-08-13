@@ -329,15 +329,23 @@ public class Operator {
 
             int j = 2;
 
+
             for (int i=0; i < listaQualificatori.size(); i++){
 
+
                 Qualifier q = listaQualificatori.get(i);
-                if(q.getValue().equals("C#")) {
+                q.setValue(q.getValue().replace(" ", ""));
+                q.setValue(q.getValue().toLowerCase());
+                q.setKey(q.getKey().toLowerCase());
+                if(q.getValue().toUpperCase().equals("C#") || q.getValue().toUpperCase().equals("C-SHARP") || q.getValue().toUpperCase().equals("CSHARP")) {
                     q.setValue("Csharp");
                 }
                 write.println("q" + j + "=" + q.getKey().trim()+":"+ q.getValue().trim());
                 j = j +1;
 
+                if(q.getValue().equals("Csharp")) {
+                    q.setValue("C#");
+                }
             }
 
 
