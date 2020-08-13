@@ -329,6 +329,7 @@ public class Operator {
 
             int j = 2;
 
+
             for (int i=0; i < listaQualificatori.size(); i++){
 
 
@@ -342,6 +343,9 @@ public class Operator {
                 write.println("q" + j + "=" + q.getKey().trim()+":"+ q.getValue().trim());
                 j = j +1;
 
+                if(q.getValue().equals("Csharp")) {
+                    q.setValue("C#");
+                }
             }
 
 
