@@ -1181,7 +1181,13 @@ public class PrimaryController extends Window {
 
             // Save completed.
             int indexLastClonedRepository = (int) Applicazione.getInstance().getModello().getObject(Constants.INDEX_LAST_CLONED_REPOSITORY);
-            if ((indexLastClonedRepository + 1) == repositories.size()) Applicazione.getInstance().getModello().addObject(Constants.IS_SAVE_REPOSITORIES, true);
+            if ((indexLastClonedRepository + 1) == repositories.size()) {
+                Applicazione.getInstance().getModello().addObject(Constants.IS_SAVE_REPOSITORIES, true);
+                // Disable button.
+                buttonFilterLanguage.setDisable(true);
+                buttonFilterProgrLanguage.setDisable(true);
+                buttonClone.setDisable(true);
+            }
 
             System.out.println("All repositories moved");
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("All repositories moved")), 1500);
