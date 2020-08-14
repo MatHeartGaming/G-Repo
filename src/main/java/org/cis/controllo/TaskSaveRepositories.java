@@ -40,13 +40,13 @@ public class TaskSaveRepositories extends Task<Void> {
             pathGRepoResult = this.pathSelectedDirectory;
         }
 
+        saveRepositoriesToJson(pathGRepoResult);
+
         final int indexLastClonedRepository = (int) Applicazione.getInstance().getModello().getObject(Constants.INDEX_LAST_CLONED_REPOSITORY);
         if (indexLastClonedRepository != -1) {
             saveCloneRepositories(pathGRepoResult);
         }
 
-
-        saveRepositoriesToJson(pathGRepoResult);
         return null;
     }
 
