@@ -58,11 +58,11 @@ public class Operator {
                 percentage = Double.valueOf(percent);
             }
             double lanuguagePercentage = 100;
-            if(repositoryLanguage.getDetection1() != null) {
+            if(repositoryLanguage != null && repositoryLanguage.getDetection1() != null) {
                 lanuguagePercentage = repositoryLanguage.getDetection1().getPercentage();
             }
             if(repositoryLanguage != null && repositoryLanguage.getLanguage().equalsIgnoreCase(daCercare) && percent.isEmpty()) {
-                System.out.println(repositoryLanguage.toString());
+                //System.out.println(repositoryLanguage.toString());
                 return true;
             } else if(repositoryLanguage != null && repositoryLanguage.getLanguage().equalsIgnoreCase(daCercare) && lanuguagePercentage >= percentage) {
                 return true;
@@ -76,11 +76,11 @@ public class Operator {
                 percentage = Double.valueOf(percent);
             }
             double lanuguagePercentage = 100;
-            if(repositoryLanguage.getDetection1() != null) {
+            if(repositoryLanguage != null && repositoryLanguage.getDetection1() != null) {
                 lanuguagePercentage = repositoryLanguage.getDetection1().getPercentage();
             }
             if(repositoryLanguage != null && repositoryLanguage.getLanguage().equalsIgnoreCase(daCercare) && percent.isEmpty()) {
-                System.out.println(repositoryLanguage.toString());
+                //System.out.println(repositoryLanguage.toString());
                 return true;
             } else if(repositoryLanguage != null && repositoryLanguage.getLanguage().equalsIgnoreCase(daCercare) && lanuguagePercentage < percentage) {
                 return true;
@@ -184,11 +184,11 @@ public class Operator {
                 percentage = Double.valueOf(percent);
             }
             double lanuguagePercentage = 100;
-            if(repositoryLanguage.getDetection1() != null) {
+            if(repositoryLanguage != null && repositoryLanguage.getDetection1() != null) {
                 lanuguagePercentage = repositoryLanguage.getDetection1().getPercentage();
             }
             if(repositoryLanguage != null && repositoryLanguage.getLanguage().toLowerCase().contains(daCercare.toLowerCase()) && percent.isEmpty()) {
-                System.out.println(repositoryLanguage.toString());
+                //System.out.println(repositoryLanguage.toString());
                 return true;
             } else if(repositoryLanguage != null && repositoryLanguage.getLanguage().toLowerCase().contains(daCercare.toLowerCase()) && lanuguagePercentage >= percentage) {
                 return true;
@@ -202,11 +202,11 @@ public class Operator {
                 percentage = Double.valueOf(percent);
             }
             double lanuguagePercentage = 100;
-            if(repositoryLanguage.getDetection1() != null) {
+            if(repositoryLanguage != null && repositoryLanguage.getDetection1() != null) {
                 lanuguagePercentage = repositoryLanguage.getDetection1().getPercentage();
             }
             if(repositoryLanguage != null && repositoryLanguage.getLanguage().toLowerCase().contains(daCercare.toLowerCase()) && percent.isEmpty()) {
-                System.out.println(repositoryLanguage.toString());
+                //System.out.println(repositoryLanguage.toString());
                 return true;
             } else if(repositoryLanguage != null && repositoryLanguage.getLanguage().toLowerCase().contains(daCercare.toLowerCase()) && lanuguagePercentage < percentage) {
                 return true;
