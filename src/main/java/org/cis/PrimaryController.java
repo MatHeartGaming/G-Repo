@@ -660,7 +660,7 @@ public class PrimaryController extends Window {
                     throw new RuntimeException((String) Applicazione.getInstance().getModello().getObject(Constants.MESSAGE_LANGUAGE_DETECTION));
                 }
 
-                // Update repositories from CSV [Index, CloneDirectory, Language, Code1, Percentage1, Code2, Percentage2]
+                // Update repositories from CSV [Index, CloneDirectory, ReadmeAnalyzed, Language, Code1, Percentage1, Code2, Percentage2]
                 Path outputCSV = FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_OUTPUT_CSV);
                 daoRepositoryCSV.updateRepositories(outputCSV, s -> {
                     String[] values = s.split(",");
@@ -669,6 +669,7 @@ public class PrimaryController extends Window {
                         imgUnibas.setDisable(false);
                         return;
                     }
+                    // Reading columns from csv.
 
                     // The repository in question has never been cloned.
                     if (values[1].equals("null")) {
@@ -676,19 +677,26 @@ public class PrimaryController extends Window {
                         return;
                     }
 
+                    // Reading the column Index.
                     Repository repository = repositories.get(Integer.parseInt(values[0]));
+
+                    // Reading the column CloneDirectory.
                     repository.setCloneDirectory(values[1]);
 
                     RepositoryLanguage repositoryLanguage = new RepositoryLanguage();
-                    repositoryLanguage.setLanguage(values[2]);
+                    // Reading the column ReadmeAnalyzed.
+                    repositoryLanguage.setReadmeAnalyzed(Integer.parseInt(values[2]));
 
-                    if (values.length == 5) {
+                    // Reading the column Language.
+                    repositoryLanguage.setLanguage(values[3]);
+
+                    if (values.length == 6) {
                         // Reading the columns: Code1, Percentage1.
-                        repositoryLanguage.setDetection1(values[3], Double.parseDouble(values[4]));
-                    } else if (values.length == 7) {
+                        repositoryLanguage.setDetection1(values[4], Double.parseDouble(values[5]));
+                    } else if (values.length == 8) {
                         // Reading the columns:  Code1, Percentage1, Code2, Percentage2.
-                        repositoryLanguage.setDetection1(values[3], Double.parseDouble(values[4]));
-                        repositoryLanguage.setDetection2(values[5], Double.parseDouble(values[6]));
+                        repositoryLanguage.setDetection1(values[4], Double.parseDouble(values[5]));
+                        repositoryLanguage.setDetection2(values[6], Double.parseDouble(values[7]));
                     }
                     // Displays the date in the table.
                     repository.setLanguageProperty(repositoryLanguage.toString());

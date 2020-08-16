@@ -467,7 +467,7 @@ public class Operator {
         BufferedReader stdError = null;
         try {
             String pythonCommand = Utils.isWindows() ? "python" : "python3";
-            String cmd = pythonCommand + " " + "detector.py";
+            String cmd = pythonCommand + " " + "language_detection.py";
 
             Path toolPath = FileUtils.createAbsolutePath(Constants.TOOL_LANGUAGE_DETECTION);
             File dir = new File(toolPath.toString());
