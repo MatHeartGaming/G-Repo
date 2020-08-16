@@ -145,7 +145,7 @@ def _refactor(repository, str_md, pattern):
 
 
 # Writing CSV
-def _csv_writer(writer, row, destination, lang, en_code, en_percentage, other_code, other_percentage, num_readme):
+def _csv_writer(writer, row, destination, num_readme, lang, en_code, en_percentage, other_code, other_percentage):
     INFO("Writing CSV file!")
 
     if not _MOVE:
@@ -449,7 +449,7 @@ def main():
 
                     else:
                         INFO("[ Analyzing Repository: %s ]" % _name_of(repo_src).upper())
-                        INFO("[ Repository src: %s ]" % repo_src)
+                        INFO("Repository src: %s" % repo_src)
 
                     readme_paths = _find_all_md(repo_src)  # Checking if readme exist in directory and its subdirs
 
@@ -472,6 +472,7 @@ def main():
 
                                 log = "* Opening Readme." if len(readme_paths) == 1 else "* Opening Readme n.%s" % idx
                                 DEBUG(log)
+                                INFO("README path: %s" % readme)
 
                                 with open(readme, 'r', encoding='utf-8', errors='ignore') as f:
                                     DEBUG("Trying to clean the readme.")
@@ -504,11 +505,13 @@ def main():
                                         log = "Multiple languages detected!" if len(results) > 1 \
                                             else "language detected!"
                                         DEBUG(log)
-                                        INFO("LANGUAGE DETECTED: {} with {}% confidence."
-                                             .format(result.lang, _format(result.prob)))
-                                        DEBUG("Loading the results into a data structure.")
 
                                         for result in results:
+
+                                            INFO("LANGUAGE DETECTED: {} with {}% confidence."
+                                                 .format(result.lang, _format(result.prob)))
+                                            DEBUG("Loading the results into a data structure.")
+
                                             detections["Detections"].append({"Detection": [
                                                 {
                                                     "code": result.lang,
