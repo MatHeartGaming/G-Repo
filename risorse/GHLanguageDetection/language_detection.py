@@ -106,8 +106,7 @@ _REMAINING_SPECIAL_CHARS = r"([#@\s]|:[)(])|\W"  # pattern to recognize all spec
 _ILLEGAL_STRING = r'^[_\W0-9]+$'  # pattern to recognize the only digits or special character
 
 # Supported extension: [.md .markdown .MD .MARKDOWN .txt .mdown]
-_EXTENSIONS = ['*.markdown', '*.MARKDOWN', '*.md',
-               '*.MD', '*.mdown', '*.txt']  # TODO: add other extension in future..
+_EXTENSIONS = ['*.markdown', '*.mkdn', '*.md', '*.mdown', '*.txt', '*.mdwn', '*.mkd']  # TODO: add other extension..
 
 # Init logger
 logging.config.fileConfig(fname='log.conf', defaults={'logfilename': 'log'})
