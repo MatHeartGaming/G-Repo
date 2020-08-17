@@ -64,7 +64,7 @@ public class TaskCloneRepositories extends Task<Void> {
             if (repository.getCloneDirectory() == null) {
                 //# Cloning.
                 currentNameRepository = repository.getName();
-                String cloneDirectory = FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY + "\\" + (repository.getName() + "_" + i)).toString();
+                String cloneDirectory = FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY + "\\" + (i + "_" + repository.getId() + "_" + repository.getName())).toString();
                 System.out.println("Cloning repo: " + cloneDirectory);
                 try {
                     gitCommand.cloneRepository(repository.getCloneUrl(), cloneDirectory, this.token, monitor);
