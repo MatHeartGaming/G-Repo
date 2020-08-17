@@ -6,6 +6,8 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableStringValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -21,6 +23,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.*;
+import javafx.util.Callback;
 import javafx.util.Duration;
 import org.cis.DAO.DAORepositoryCSV;
 import org.cis.controllo.*;
@@ -34,6 +37,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class PrimaryController extends Window {
 
@@ -253,6 +257,25 @@ public class PrimaryController extends Window {
         columnDimensione.setComparator(sorter.new SortByDimension());
         columnLinguaggio.setComparator(sorter.new SortByProgrammingLanguage());
         columnDataCommit.setComparator(sorter.new SortByLastCommitDate());
+        addTooltipToColumnCells(columnLingua);
+    }
+
+    private <T> void addTooltipToColumnCells(TableColumn<Repository,T> column) {
+
+        Callback<TableColumn<Repository, T>, TableCell<Repository,T>> existingCellFactory
+                = column.getCellFactory();
+        column.setCellFactory(c -> {
+
+            TableCell<Repository, T> cell = existingCellFactory.call(c);
+
+            Tooltip tooltip = new Tooltip();
+            // can use arbitrary binding here to make text depend on cell
+            // in any way you need:
+            ObservableStringValue observableStringValue = new SimpleStringProperty("i = " + cell.getId());
+            tooltip.textProperty().bind(observableStringValue);
+            cell.setTooltip(tooltip);
+            return cell ;
+        });
     }
 
     private void initListaTextField() {
