@@ -89,6 +89,8 @@ public class PrimaryController extends Window {
     private List<Button> buttonList = new ArrayList<>();
     private boolean isKeyEmpty = false;
 
+
+
     @FXML
     private void initialize() {
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
@@ -257,24 +259,29 @@ public class PrimaryController extends Window {
         columnDimensione.setComparator(sorter.new SortByDimension());
         columnLinguaggio.setComparator(sorter.new SortByProgrammingLanguage());
         columnDataCommit.setComparator(sorter.new SortByLastCommitDate());
-        addTooltipToColumnCells(columnLingua);
     }
 
-    private <T> void addTooltipToColumnCells(TableColumn<Repository,T> column) {
+    private void addTooltipToRow() {
+        System.out.println("Add Tooltip To Row");
 
-        Callback<TableColumn<Repository, T>, TableCell<Repository,T>> existingCellFactory
-                = column.getCellFactory();
-        column.setCellFactory(c -> {
+        tableRepository.setRowFactory(repositoryTableView -> new TableRow<>() {
+            @Override
+            protected void updateItem(Repository repository, boolean empty) {
+                super.updateItem(repository, empty);
 
-            TableCell<Repository, T> cell = existingCellFactory.call(c);
+                if (repository == null) return;
 
-            Tooltip tooltip = new Tooltip();
-            // can use arbitrary binding here to make text depend on cell
-            // in any way you need:
-            ObservableStringValue observableStringValue = new SimpleStringProperty("i = " + cell.getId());
-            tooltip.textProperty().bind(observableStringValue);
-            cell.setTooltip(tooltip);
-            return cell ;
+                Map<String, RepositoryLanguage> repositoryLanguageMap =
+                        (Map<String, RepositoryLanguage>) Applicazione.getInstance().getModello().getObject(Constants.MAP_REPOSITORY_LANGUAGE);
+                if (repositoryLanguageMap == null) return;
+                RepositoryLanguage repositoryLanguage = repositoryLanguageMap.get(repository.getId());
+
+                if (repositoryLanguage != null) {
+                    String messageTooltip = "Language Detection of " + repository.getName() + "\n"
+                            + "Readme Analyzed: " + repositoryLanguage.getReadmeAnalyzed() + ".";
+                    this.setTooltip(new Tooltip(messageTooltip));
+                }
+            }
         });
     }
 
@@ -542,6 +549,7 @@ public class PrimaryController extends Window {
 
         });
         this.tableRepository.setOnMouseClicked(mouseEvent -> selectItemTableEvent());
+        addTooltipToRow();
     }
 
 
@@ -739,6 +747,7 @@ public class PrimaryController extends Window {
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Language detection completed!")), 1500);
             Utils.setTimeout(() -> Platform.runLater(() -> labelProgress.setText("Waiting for something to do...")), 2500);
             disableAllUIElementsResults(false);
+            tableRepository.refresh();
             stopThread();
         });
 
@@ -949,13 +958,8 @@ public class PrimaryController extends Window {
                             // Init by Language Detection.
                             Applicazione.getInstance().getModello().addObject(Constants.IS_LANGUAGE_DETECTION, false);
 
+                            Platform.runLater(() -> updateTable());
 
-                            Platform.runLater(new Runnable() {@Override public void run() {updateTable();}});
-                            //lancio loadRepo da Dao
-
-                            //ottengo lista Repo
-
-                            //Utilizzo dati per riempire Tabella
                             if(tabList.isEmpty()) {
                                 Applicazione.getInstance().getModello().addObject(Constants.MESSAGE_END_SEARCH,"Last search found ZERO results :(");
                             } else {
