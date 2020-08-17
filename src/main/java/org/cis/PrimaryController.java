@@ -56,7 +56,7 @@ public class PrimaryController extends Window {
     private ComboBox comboParametriRicerca;
 
     @FXML
-    private AnchorPane anchorQuery;
+    private AnchorPane anchorQuery, anchorResults;
 
     @FXML
     private Label labelErrori, labelProgress, labelRepoNumber;
@@ -206,8 +206,8 @@ public class PrimaryController extends Window {
         Tooltip.install(iconFilterProgr, new Tooltip("Detect the programming language of every repo (Cloning required)."));
         bottoneSalva.setTooltip(new Tooltip("Choose a dir where to move/save currently cloned repos."));
         Tooltip.install(iconSave, new Tooltip("Choose a dir where to move/save currently cloned repos."));
-        buttonFilterLanguage.setTooltip(new Tooltip("Install Python first to use this function."));
-        Tooltip.install(iconFilterLang, new Tooltip("Install Python first to use this function."));
+        buttonFilterLanguage.setTooltip(new Tooltip("Detect language in which the repos are written in. \nInstall Python first to use this function."));
+        Tooltip.install(iconFilterLang, new Tooltip("Detect language in which the repos are written in. \nInstall Python first to use this function."));
         buttonClone.setTooltip(new Tooltip("Start the cloning process."));
         Tooltip.install(iconClone, new Tooltip("Start the cloning process."));
 
@@ -557,8 +557,12 @@ public class PrimaryController extends Window {
     public void initCombo() {
         comboParametriRicerca.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
             if(newValue.equals(Constants.PARAM_PROGR_LANGUAGE_GREATER) || newValue.equals(Constants.PARAM_PROGR_LANGUAGE_SMALLER) || newValue.equals(Constants.PARAM_LANGUAGE_GREATER) || newValue.equals(Constants.PARAM_LANGUAGE_SMALLER)) {
+                anchorResults.setRightAnchor(campoCercaTabella, 536.0);
+                campoCercaTabella.setPrefWidth(650.0);
                 fieldPercentage.setVisible(true);
             } else {
+                anchorResults.setRightAnchor(campoCercaTabella, 399.0);
+                campoCercaTabella.setPrefWidth(644.0);
                 fieldPercentage.setVisible(false);
             }
             getSelectedComboLanguage();
