@@ -6,17 +6,23 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.cis.controllo.CommonEvents;
 import org.cis.controllo.FileUtils;
-import org.cis.controllo.Utils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * JavaFX App
  */
 public class App extends Application {
 
+    private static final Logger LOG = LoggerFactory.getLogger(App.class);
+
     @Override
     public void start(Stage stage) {
+        LOG.info("Launch of the GRepo application");
         Applicazione.getInstance().getModello().addObject(Constants.PRIMARY_STAGE, stage);
+
         //# Init Folder:
+        LOG.info("Init Folder");
         initFolder();
 
         // Init GUI.

@@ -1,18 +1,14 @@
 package org.cis.controllo;
 
+import ch.qos.logback.classic.LoggerContext;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -22,7 +18,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
 import org.cis.App;
 import org.cis.Applicazione;
 import org.cis.Constants;
@@ -30,6 +25,8 @@ import org.cis.Constants;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+
+import org.slf4j.LoggerFactory;
 
 public class CommonEvents {
 
@@ -51,6 +48,8 @@ public class CommonEvents {
     public void closeApp(Stage stage) {
         //stage.setOnHiding(windowEvent -> System.out.println("Closing"));
         stage.setOnCloseRequest(windowEvent -> {
+            LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
+            loggerContext.stop();
             System.out.println("Closing");
             Platform.exit();
             System.exit(0);

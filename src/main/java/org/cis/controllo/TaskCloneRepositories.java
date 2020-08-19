@@ -7,6 +7,8 @@ import org.cis.Constants;
 import org.cis.modello.*;
 import org.eclipse.jgit.dircache.InvalidPathException;
 import org.eclipse.jgit.lib.ProgressMonitor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,6 +18,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class TaskCloneRepositories extends Task<Void> {
+
+    private static final Logger LOG = LoggerFactory.getLogger(TaskCloneRepositories.class);
 
     private ProgressMonitor monitor = new Monitor();
     private String currentNameRepository;
@@ -35,7 +39,7 @@ public class TaskCloneRepositories extends Task<Void> {
         //# Clearing the repositories in the cacheCloneRepositories directory.
         if (this.firstNonClonedRepositoryIndex == 0) {
             updateMessage("Clone cache cleanup");
-            System.out.println("Clone cache cleanup");
+            LOG.info("Clone cache cleanup");
 
             List<Path> paths = Files.list(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY))
                                     .collect(Collectors.toList());
@@ -57,7 +61,7 @@ public class TaskCloneRepositories extends Task<Void> {
         updateMessage(this.firstNonClonedRepositoryIndex == 0 ? "Clone all repositories" : "Cloning resumption");
 
         updateProgress(this.firstNonClonedRepositoryIndex, this.repositories.size());
-        System.out.println("Init Cloning");
+        LOG.info("Init Cloning");
         for (int i = this.firstNonClonedRepositoryIndex; i < this.repositories.size(); i++) {
             //# Repositories with the cloneDirectory property equal to null have not yet been cloned.
             Repository repository = this.repositories.get(i);
@@ -65,7 +69,7 @@ public class TaskCloneRepositories extends Task<Void> {
                 //# Cloning.
                 currentNameRepository = repository.getName();
                 String cloneDirectory = FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY + "\\" + (i + "_" + repository.getId() + "_" + repository.getName())).toString();
-                System.out.println("Cloning repo: " + cloneDirectory);
+                LOG.info("Cloning repo: " + cloneDirectory);
                 try {
                     gitCommand.cloneRepository(repository.getCloneUrl(), cloneDirectory, this.token, monitor);
                 } catch (InvalidPathException e) {
