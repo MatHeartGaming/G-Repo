@@ -39,7 +39,7 @@ public class TaskCloneRepositories extends Task<Void> {
         //# Clearing the repositories in the cacheCloneRepositories directory.
         if (this.firstNonClonedRepositoryIndex == 0) {
             updateMessage("Clone cache cleanup");
-            LOG.info("Clone cache cleanup");
+            LOG.info("Clone Cache Cleanup");
 
             List<Path> paths = Files.list(FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY))
                                     .collect(Collectors.toList());
@@ -58,7 +58,10 @@ public class TaskCloneRepositories extends Task<Void> {
         RepositoryVisitor repositoryVisitor = qualifier == null ? new RepositoryVisitor() : new RepositoryVisitor(qualifier.getValue().trim());
         GitCommand gitCommand = new GitCommand();
 
-        updateMessage(this.firstNonClonedRepositoryIndex == 0 ? "Clone all repositories" : "Cloning resumption");
+        String messageInitCloning = this.firstNonClonedRepositoryIndex == 0 ? "Clone all repositories" : "Cloning resumption";
+        updateMessage(messageInitCloning);
+
+        LOG.info("--------------------------------------------------------------\n                   " + messageInitCloning + "                    \n--------------------------------------------------------------");
 
         updateProgress(this.firstNonClonedRepositoryIndex, this.repositories.size());
         LOG.info("Init Cloning");
@@ -69,7 +72,7 @@ public class TaskCloneRepositories extends Task<Void> {
                 //# Cloning.
                 currentNameRepository = repository.getName();
                 String cloneDirectory = FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY + "\\" + (i + "_" + repository.getId() + "_" + repository.getName())).toString();
-                LOG.info("Cloning repo: " + cloneDirectory);
+                String messageLog = "\n\t** Cloning of " + repository.getName() + "\n\t* ID " + repository.getId() + "\n\t* Clone Url" + repository.getCloneUrl() + "\n\t* URL Project " + repository.getUrlProject();
                 try {
                     gitCommand.cloneRepository(repository.getCloneUrl(), cloneDirectory, this.token, monitor);
                 } catch (InvalidPathException e) {
@@ -79,32 +82,39 @@ public class TaskCloneRepositories extends Task<Void> {
                         repository.displayProgrammingLanguages(Constants.MESSAGE_NOT_EXISTS);
                         repository.setLanguageProperty(Constants.MESSAGE_NOT_EXISTS);
                     });
-                    System.out.println("Repository cannot be cloned: " + cloneDirectory);
+                    messageLog = messageLog + "\n\t* Outcome of cloning: the repository cannot be cloned, cause: " + "\n\t" + e.getLocalizedMessage() + "\n\t* Clone Directory: not exists";
+                    LOG.info(messageLog);
                     continue;
                 } catch(Exception e) {
                     if (this.cancelled == true) {
                         updateMessage("Stop Cloning");
+                        LOG.info("Stop Cloning");
                         this.cancel(true);
                         break;
                     }
-                    updateMessage("Something went wrong...limit rate reached or connection issues");
+                    updateMessage("Something went wrong: see the log file");
+                    LOG.info("Something went wrong: " + e.getLocalizedMessage());
                     throw e;
                 }
                 //## I imposed the clone Directory if and only if the cloning was successful.
                 repository.setCloneDirectory(cloneDirectory);
                 Applicazione.getInstance().getModello().addObject(Constants.INDEX_LAST_CLONED_REPOSITORY, i);
 
+                messageLog = messageLog + "\n\t* Outcome of cloning: repository successfully cloned" + "\n\t* Clone Directory: " + cloneDirectory;
+                LOG.info(messageLog);
+
 
                 //# Anticipated the detection of the programming language.
-                System.out.println("Calculation of programming language: " + cloneDirectory);
+                LOG.info("Calculation of programming language");
                 StatisticsProgrammingLanguage statisticsProgrammingLanguage = repositoryVisitor.programmingLanguageDetection(repository.getCloneDirectory());
-                System.out.println(statisticsProgrammingLanguage);
+                LOG.info(String.valueOf(statisticsProgrammingLanguage));
                 Map<String, StatisticsProgrammingLanguage> mapRepositoryLangProg =
                         (Map<String, StatisticsProgrammingLanguage>) Applicazione.getInstance().getModello().getObject(Constants.MAP_REPOSITORY_PROGRAMMING_LANGUAGE);
                 mapRepositoryLangProg.put(repository.getId(), statisticsProgrammingLanguage);
 
 
                 //# Calculation of the date of the last commit.
+                LOG.info("Calculation of the date of the last commit");
                 LocalDate dataCommit = gitCommand.lastDateCommit(repository.getCloneDirectory());
                 String dataCommitString = Constants.MESSAGE_NOT_EXISTS;
                 if (dataCommit != null) {
@@ -114,13 +124,17 @@ public class TaskCloneRepositories extends Task<Void> {
                 //## Displays the date in the table.
                 String finalDataCommitString = dataCommitString;
                 Platform.runLater(() -> repository.displayLastCommitDate(finalDataCommitString));
+                LOG.info("Last commit date: " + finalDataCommitString);
 
                 updateProgress(i + 1, this.repositories.size());
             }
 
         }
-        if (this.cancelled == false) updateMessage("Repositories cloned correctly");
-        System.out.println("End Cloning");
+        if (this.cancelled == false) {
+            updateMessage("Repositories cloned correctly");
+            LOG.info("Repositories cloned correctly");
+        }
+        LOG.info("--------------------------------------------------------------\n                   End Cloning                    \n--------------------------------------------------------------");
         return null;
     }
 

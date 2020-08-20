@@ -28,6 +28,8 @@ import javafx.util.Duration;
 import org.cis.DAO.DAORepositoryCSV;
 import org.cis.controllo.*;
 import org.cis.modello.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -40,6 +42,8 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class PrimaryController extends Window {
+
+    private static final Logger LOG = LoggerFactory.getLogger(PrimaryController.class);
 
 
     @FXML
@@ -891,6 +895,7 @@ public class PrimaryController extends Window {
     }
 
     private void searchAction() {
+        LOG.info("\n\t--------------------------------------------------------------\n\t               Search Launched               \n\t--------------------------------------------------------------");
         this.labelErrori.setText("");
         List<Qualifier> qualifiers = createListQualifiers();
         if (qualifiers != null) {
@@ -899,8 +904,7 @@ public class PrimaryController extends Window {
             Session session = new Session(null);
             session.setQuery(query);
             Applicazione.getInstance().getSessionManager().addSession(session);
-            System.out.println("Session created!");
-            System.out.println("Number of sessions: " + Applicazione.getInstance().getSessionManager().getSessions().size());
+            LOG.info("** Session created\n\t* Date: " + session.getDate() + "\n\t** Number of sessions: " + Applicazione.getInstance().getSessionManager().getSessions().size());
 
             Thread thread = new Thread(new Runnable() {
                 @Override
@@ -929,7 +933,7 @@ public class PrimaryController extends Window {
                         Operator.createConfigProperties();
                         Platform.runLater(new Runnable() {@Override public void run() {commonEvents.setProgressBar("Properties file created! It's been a pleasure working for you!", 5);}});
 
-                        System.out.println("Properties! created");
+                        LOG.info("Properties! created");
 
                         if (Operator.startGHRepoSearcher()) {
                             System.out.println("End GHrepoSearcher!");

@@ -10,19 +10,39 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * JavaFX App
+ *
+ *  G-Repo Application.
+ *
  */
 public class App extends Application {
 
     private static final Logger LOG = LoggerFactory.getLogger(App.class);
+    private static final String LOGO = "                                                                               \n" +
+            "                               ,.  ., . ,.  ,  .                                \n" +
+            "                           ., , .    ** ,* ,.  ., ,  .                          \n" +
+            "                          ,.   ,.*.,**..,,,..*,.*.  .,                          \n" +
+            "                         *  *.*,.      .......  *,,,. ,..,                      \n" +
+            "                     ,  , *,,,        ./,  ...     *.*. .,,                     \n" +
+            "    @&&%#%&&&        .*. *.,. ,&&&&&&&&&&   ..      ..** .                      \n" +
+            "  &&*.      ,&#.     ., ..,. .(&/, ...,,&&,.....,,,. ..*, ,*...          ..     \n" +
+            " #&*.         .    ,,,, ..,   (&#,...,,/&#(, &&*,**/&#..#&&**,,*&%.  /&#*,,,%&, \n" +
+            " %&,    (%%%%&&.   ...*./**.  *&%#(((#&&&,.*&&*,.,,,*&(*#&/,    .&%.*&/.     #&,\n" +
+            "  &&.        &&, .,,,,,,/(/,..,&///,   .&&. %&*****,,,*/#&*.,    &#..&(.     %&,\n" +
+            "   *&&%,  ,%&&%,    ,  , ,*,  ,&/.*** ..#&*./#&%. .&&((,#&#&.  &&(,  .&&*  (&&*.\n" +
+            "     ..,,,,,.        . .,  *,,...   *//**//.   .,,****. (&/,.,,,.       .,,,.   \n" +
+            "                       .,,. .*.,*               ,*./.   (&*                     \n" +
+            "                         .,    ,*.**.,**..**,.*,,. ..  .                        \n" +
+            "                           ....* .  ...,.,,.    ,.*,,.                          \n" +
+            "                                ,  ,             .                              \n" +
+            "                                                                                ";
 
     @Override
     public void start(Stage stage) {
-        LOG.info("Launch of the GRepo application");
+        LOG.info(LOGO + "\n\t--------------------------------------------------------------\n\t               Launch of the G-Repo application               \n\t--------------------------------------------------------------");
         Applicazione.getInstance().getModello().addObject(Constants.PRIMARY_STAGE, stage);
 
         //# Init Folder:
-        LOG.info("Init Folder");
+        LOG.info("Init Folder json and cacheCloneRepositories");
         initFolder();
 
         // Init GUI.

@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
+    <!-- LOG LEVELS:
+        - ERROR
+        - WARN
+        - INFO
+        - DEBUG
+        - TRACE-->
+
     <property name="LOG_DIR" value="logs" />
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
@@ -36,12 +43,12 @@
             the Appender not block the application and just drop the messages -->
     </appender>
 
-    <logger name="org.cis" level="debug" additivity="false">
+    <logger name="org.cis" level="info" additivity="false">
         <appender-ref ref="ASYNC_CONSOLE"/>
         <appender-ref ref="ASYNC_FILE"/>
     </logger>
 
-    <root level="error">
+    <root level="debug">
         <appender-ref ref="ASYNC_CONSOLE"/>
     </root>
 
