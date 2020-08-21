@@ -82,12 +82,12 @@ public class TaskCloneRepositories extends Task<Void> {
                     actionRepositoryNotClonable(repository);
                     messageLog = messageLog + "\n\t* Clone Directory: not exists" + "\n\t* Outcome of cloning: the repository cannot be cloned";
                     updateMessage("The repository cannot be cloned: see the log file");
-                    LOG.info(messageLog, e);
+                    LOG.warn(messageLog, e);
                     continue;
                 } catch (JGitInternalException e) {
                     if (this.cancelled) {
                         updateMessage("Stop Cloning");
-                        LOG.info("Stop Cloning");
+                        LOG.info("\n\t--------------------------------------------------------------\n\t                        Stop Cloning\n\t--------------------------------------------------------------");
                         this.cancel(true);
                         break;
                     }
@@ -99,21 +99,21 @@ public class TaskCloneRepositories extends Task<Void> {
                         actionRepositoryNotClonable(repository);
                         messageLog = messageLog + "\n\t* Clone Directory: not exists" + "\n\t* Outcome of cloning: the repository cannot be cloned";
                         updateMessage("The repository cannot be cloned: see the log file");
-                        LOG.info(messageLog, e);
+                        LOG.warn(messageLog, e);
                         continue;
                     }
                     updateMessage("Something went wrong: see the log file");
-                    LOG.info("Something went wrong: ", e);
+                    LOG.error("Something went wrong: ", e);
                     throw e;
                 } catch (Exception e) {
                     if (this.cancelled) {
                         updateMessage("Stop Cloning");
-                        LOG.info("Stop Cloning");
+                        LOG.info("\n\t--------------------------------------------------------------\n\t                        Stop Cloning\n\t--------------------------------------------------------------");
                         this.cancel(true);
                         break;
                     }
                     updateMessage("Something went wrong: see the log file");
-                    LOG.info("Something went wrong: ", e);
+                    LOG.error("Something went wrong: ", e);
                     throw e;
                 }
                 //## I imposed the clone Directory if and only if the cloning was successful.

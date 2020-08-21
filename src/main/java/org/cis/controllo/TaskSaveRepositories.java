@@ -56,7 +56,6 @@ public class TaskSaveRepositories extends Task<Void> {
             LOG.info("All repositories have been moved to folder " + this.pathSelectedDirectory.getFileName());
         }
 
-        LOG.info("End Saving");
         return null;
     }
 
@@ -118,7 +117,6 @@ public class TaskSaveRepositories extends Task<Void> {
                          .forEach(repository -> {
 
                              Path pathCloneDirectory = Paths.get(repository.getCloneDirectory());
-                             System.out.println("pathCloneDirectory: " + pathCloneDirectory);
                              Path pathRelativeCloneDirectory = pathBase.relativize(pathCloneDirectory);
                              pathRelativeCloneDirectory = Paths.get(pathRelativeCloneDirectory.toString().replace(toReplace, ""));
                              if (isLanguageDetection) {
@@ -126,7 +124,6 @@ public class TaskSaveRepositories extends Task<Void> {
                                  pathRelativeCloneDirectory = Paths.get("language" + FileUtils.PATH_SEPARATOR + String.join("_", repositoryLanguage.getLanguage().split(" ")) + FileUtils.PATH_SEPARATOR + pathRelativeCloneDirectory);
                              }
                              Path pathCopy = pathCloneRepositories.resolve(pathRelativeCloneDirectory);
-                             System.out.println("pathCopy: " + pathCopy);
                              FileUtils.copyDirTree(pathCloneDirectory, pathCopy);
                              FileUtils.deleteDirTree(pathCloneDirectory);
                              this.updateSafeProgress();

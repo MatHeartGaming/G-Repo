@@ -26,9 +26,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CommonEvents {
+
+    private static final Logger LOG = LoggerFactory.getLogger(CommonEvents.class);
 
     private double x, y;
 
@@ -50,7 +53,7 @@ public class CommonEvents {
         stage.setOnCloseRequest(windowEvent -> {
             LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
             loggerContext.stop();
-            System.out.println("Closing");
+            LOG.info("Closing");
             Platform.exit();
             System.exit(0);
         });
@@ -61,6 +64,7 @@ public class CommonEvents {
     }
 
     public void showExceptionDialog(Exception ex) {
+        LOG.error("Error:", ex);
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Exception Dialog");
         alert.setHeaderText("Look! An Exception Dialog");
