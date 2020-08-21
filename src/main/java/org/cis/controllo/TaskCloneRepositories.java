@@ -5,11 +5,13 @@ import javafx.concurrent.Task;
 import org.cis.Applicazione;
 import org.cis.Constants;
 import org.cis.modello.*;
+import org.eclipse.jgit.api.errors.JGitInternalException;
 import org.eclipse.jgit.dircache.InvalidPathException;
 import org.eclipse.jgit.lib.ProgressMonitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
@@ -61,7 +63,7 @@ public class TaskCloneRepositories extends Task<Void> {
         String messageInitCloning = this.firstNonClonedRepositoryIndex == 0 ? "Clone all repositories" : "Cloning resumption";
         updateMessage(messageInitCloning);
 
-        LOG.info("--------------------------------------------------------------\n                   " + messageInitCloning + "                    \n--------------------------------------------------------------");
+        LOG.info("\n\t--------------------------------------------------------------\n\t                   " + messageInitCloning + "                    \n\t--------------------------------------------------------------");
 
         updateProgress(this.firstNonClonedRepositoryIndex, this.repositories.size());
         LOG.info("Init Cloning");
@@ -72,28 +74,46 @@ public class TaskCloneRepositories extends Task<Void> {
                 //# Cloning.
                 currentNameRepository = repository.getName();
                 String cloneDirectory = FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_CLONING_DIRECTORY + "\\" + (i + "_" + repository.getId() + "_" + repository.getName())).toString();
-                String messageLog = "\n\t** Cloning of " + repository.getName() + "\n\t* ID " + repository.getId() + "\n\t* Clone Url" + repository.getCloneUrl() + "\n\t* URL Project " + repository.getUrlProject();
+                String messageLog = "\n\t** Cloning of: " + repository.getName() + "\n\t* ID: " + repository.getId() + "\n\t* Clone Url: " + repository.getCloneUrl() + "\n\t* URL Project: " + repository.getUrlProject();
                 try {
                     gitCommand.cloneRepository(repository.getCloneUrl(), cloneDirectory, this.token, monitor);
                 } catch (InvalidPathException e) {
                     // Cloning must proceed for other pending repositories.
-                    Platform.runLater(() -> {
-                        repository.displayLastCommitDate(Constants.MESSAGE_NOT_EXISTS);
-                        repository.displayProgrammingLanguages(Constants.MESSAGE_NOT_EXISTS);
-                        repository.setLanguageProperty(Constants.MESSAGE_NOT_EXISTS);
-                    });
-                    messageLog = messageLog + "\n\t* Outcome of cloning: the repository cannot be cloned, cause: " + "\n\t" + e.getLocalizedMessage() + "\n\t* Clone Directory: not exists";
-                    LOG.info(messageLog);
+                    actionRepositoryNotClonable(repository);
+                    messageLog = messageLog + "\n\t* Clone Directory: not exists" + "\n\t* Outcome of cloning: the repository cannot be cloned";
+                    updateMessage("The repository cannot be cloned: see the log file");
+                    LOG.info(messageLog, e);
                     continue;
-                } catch(Exception e) {
-                    if (this.cancelled == true) {
+                } catch (JGitInternalException e) {
+                    if (this.cancelled) {
+                        updateMessage("Stop Cloning");
+                        LOG.info("Stop Cloning");
+                        this.cancel(true);
+                        break;
+                    }
+                    if (e.getCause() != null
+                            && e.getCause() instanceof IOException
+                            && e.getCause().getMessage().contains("Creating directories for")
+                            && e.getCause().getMessage().contains("failed")) {
+                        // Cloning must proceed for other pending repositories.
+                        actionRepositoryNotClonable(repository);
+                        messageLog = messageLog + "\n\t* Clone Directory: not exists" + "\n\t* Outcome of cloning: the repository cannot be cloned";
+                        updateMessage("The repository cannot be cloned: see the log file");
+                        LOG.info(messageLog, e);
+                        continue;
+                    }
+                    updateMessage("Something went wrong: see the log file");
+                    LOG.info("Something went wrong: ", e);
+                    throw e;
+                } catch (Exception e) {
+                    if (this.cancelled) {
                         updateMessage("Stop Cloning");
                         LOG.info("Stop Cloning");
                         this.cancel(true);
                         break;
                     }
                     updateMessage("Something went wrong: see the log file");
-                    LOG.info("Something went wrong: " + e.getLocalizedMessage());
+                    LOG.info("Something went wrong: ", e);
                     throw e;
                 }
                 //## I imposed the clone Directory if and only if the cloning was successful.
@@ -130,12 +150,20 @@ public class TaskCloneRepositories extends Task<Void> {
             }
 
         }
-        if (this.cancelled == false) {
+        if (!this.cancelled) {
             updateMessage("Repositories cloned correctly");
             LOG.info("Repositories cloned correctly");
         }
-        LOG.info("--------------------------------------------------------------\n                   End Cloning                    \n--------------------------------------------------------------");
+        LOG.info("\n\t--------------------------------------------------------------\n\t                        End Cloning\n\t--------------------------------------------------------------");
         return null;
+    }
+
+    private void actionRepositoryNotClonable(Repository repository) {
+        Platform.runLater(() -> {
+            repository.displayLastCommitDate(Constants.MESSAGE_NOT_EXISTS);
+            repository.displayProgrammingLanguages(Constants.MESSAGE_NOT_EXISTS);
+            repository.setLanguageProperty(Constants.MESSAGE_NOT_EXISTS);
+        });
     }
 
     public void close() {

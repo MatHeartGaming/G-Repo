@@ -36,7 +36,7 @@ public class TaskSaveRepositories extends Task<Void> {
 
     @Override
     protected Void call() throws Exception {
-        LOG.info("\n\t--------------------------------------------------------------\n\t               Saving               \n\t--------------------------------------------------------------");
+        LOG.info("\n\t--------------------------------------------------------------\n\t                           Saving\n\t--------------------------------------------------------------");
         Path pathGRepoResult;
 
         if (!this.pathSelectedDirectory.toString().contains("G-RepoResult")) {

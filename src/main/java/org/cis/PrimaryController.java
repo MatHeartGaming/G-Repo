@@ -895,7 +895,7 @@ public class PrimaryController extends Window {
     }
 
     private void searchAction() {
-        LOG.info("\n\t--------------------------------------------------------------\n\t               Search Launched               \n\t--------------------------------------------------------------");
+        LOG.info("\n\t--------------------------------------------------------------\n\t                       Search Launched\n\t--------------------------------------------------------------");
         this.labelErrori.setText("");
         List<Qualifier> qualifiers = createListQualifiers();
         if (qualifiers != null) {

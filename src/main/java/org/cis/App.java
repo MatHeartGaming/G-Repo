@@ -38,7 +38,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) {
-        LOG.info(LOGO + "\n\t--------------------------------------------------------------\n\t               Launch of the G-Repo application               \n\t--------------------------------------------------------------");
+        LOG.info(LOGO + "\n\t--------------------------------------------------------------\n\t               Launch of the G-Repo application\n\t--------------------------------------------------------------");
         Applicazione.getInstance().getModello().addObject(Constants.PRIMARY_STAGE, stage);
 
         //# Init Folder:
