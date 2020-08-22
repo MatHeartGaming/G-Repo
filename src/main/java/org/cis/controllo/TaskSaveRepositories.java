@@ -8,6 +8,8 @@ import org.cis.DAO.DAORepositoryJSON;
 import org.cis.modello.Repository;
 import org.cis.modello.RepositoryLanguage;
 import org.cis.modello.SessionManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,6 +20,8 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class TaskSaveRepositories extends Task<Void> {
+
+    private static final Logger LOG = LoggerFactory.getLogger(TaskSaveRepositories.class);
 
     private final Path pathSelectedDirectory;
     private final List<Repository> repositories;
@@ -32,19 +36,24 @@ public class TaskSaveRepositories extends Task<Void> {
 
     @Override
     protected Void call() throws Exception {
+        LOG.info("\n\t--------------------------------------------------------------\n\t                           Saving\n\t--------------------------------------------------------------");
         Path pathGRepoResult;
 
         if (!this.pathSelectedDirectory.toString().contains("G-RepoResult")) {
             pathGRepoResult = createFolderResult();
+            LOG.info("Result folder created: " + pathGRepoResult);
         } else {
             pathGRepoResult = this.pathSelectedDirectory;
+            LOG.info("Result folder already exists: " + pathGRepoResult);
         }
 
         saveRepositoriesToJson(pathGRepoResult);
+        LOG.info("Saving results in the JSON folder in " + pathGRepoResult);
 
         final int indexLastClonedRepository = (int) Applicazione.getInstance().getModello().getObject(Constants.INDEX_LAST_CLONED_REPOSITORY);
         if (indexLastClonedRepository != -1) {
             saveCloneRepositories(pathGRepoResult);
+            LOG.info("All repositories have been moved to folder " + this.pathSelectedDirectory.getFileName());
         }
 
         return null;
@@ -64,6 +73,7 @@ public class TaskSaveRepositories extends Task<Void> {
 
     private void saveRepositoriesToJson(Path pathGRepoResult) {
         updateMessage("Saving results in the JSON folder");
+
         Path pathJSON = FileUtils.createDirectory(Paths.get(pathGRepoResult.toString(), "JSON"));
         DAORepositoryJSON daoRepositoryJSON = Applicazione.getInstance().getDaoRepositoryJSON();
         daoRepositoryJSON.saveRepositories(String.valueOf(pathJSON), this.repositories);
@@ -107,7 +117,6 @@ public class TaskSaveRepositories extends Task<Void> {
                          .forEach(repository -> {
 
                              Path pathCloneDirectory = Paths.get(repository.getCloneDirectory());
-                             System.out.println("pathCloneDirectory: " + pathCloneDirectory);
                              Path pathRelativeCloneDirectory = pathBase.relativize(pathCloneDirectory);
                              pathRelativeCloneDirectory = Paths.get(pathRelativeCloneDirectory.toString().replace(toReplace, ""));
                              if (isLanguageDetection) {
@@ -115,7 +124,6 @@ public class TaskSaveRepositories extends Task<Void> {
                                  pathRelativeCloneDirectory = Paths.get("language" + FileUtils.PATH_SEPARATOR + String.join("_", repositoryLanguage.getLanguage().split(" ")) + FileUtils.PATH_SEPARATOR + pathRelativeCloneDirectory);
                              }
                              Path pathCopy = pathCloneRepositories.resolve(pathRelativeCloneDirectory);
-                             System.out.println("pathCopy: " + pathCopy);
                              FileUtils.copyDirTree(pathCloneDirectory, pathCopy);
                              FileUtils.deleteDirTree(pathCloneDirectory);
                              this.updateSafeProgress();

@@ -35,8 +35,8 @@ public class DAORepositoryJSON implements IDAORepository {
             return Files.list(Paths.get(directorySourceFiles))
                       //.collect(Collectors.toList())
                       //.parallelStream()
-                        //.collect(Collectors.toList())
-                        //.parallelStream()
+                      //.collect(Collectors.toList())
+                      //.parallelStream()
                         .map(nameFile -> this.readRepositories(nameFile.toString()))
                         .flatMap(repository -> repository.stream())
                         .collect(Collectors.toList());
