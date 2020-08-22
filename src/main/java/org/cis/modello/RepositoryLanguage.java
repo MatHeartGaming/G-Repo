@@ -5,6 +5,7 @@ public class RepositoryLanguage {
     private String language;
     private Detection detection1;
     private Detection detection2;
+    private int readmeAnalyzed;
 
     public String getLanguage() {
         return language;
@@ -23,6 +24,14 @@ public class RepositoryLanguage {
     public RepositoryLanguage setDetection2(String code, double percentage) {
         this.detection2 = new Detection(code, percentage);
         return this;
+    }
+
+    public void setReadmeAnalyzed(int readmeAnalyzed) {
+        this.readmeAnalyzed = readmeAnalyzed;
+    }
+
+    public int getReadmeAnalyzed() {
+        return readmeAnalyzed;
     }
 
     public String getDetection1Code() {

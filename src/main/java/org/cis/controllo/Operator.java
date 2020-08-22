@@ -6,6 +6,8 @@ import javafx.collections.ObservableList;
 import org.cis.Applicazione;
 import org.cis.Constants;
 import org.cis.modello.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.MalformedURLException;
@@ -17,7 +19,7 @@ import java.util.Map;
 
 public class Operator {
 
-
+    private static final Logger LOG = LoggerFactory.getLogger(Operator.class);
 
     public static ObservableList<Repository> searchByName(ObservableList<Repository> list, String daCercare, String parametro, boolean strict, String percent) {
         ObservableList<Repository> risultato = FXCollections.observableArrayList();
@@ -58,11 +60,11 @@ public class Operator {
                 percentage = Double.valueOf(percent);
             }
             double lanuguagePercentage = 100;
-            if(repositoryLanguage.getDetection1() != null) {
+            if(repositoryLanguage != null && repositoryLanguage.getDetection1() != null) {
                 lanuguagePercentage = repositoryLanguage.getDetection1().getPercentage();
             }
             if(repositoryLanguage != null && repositoryLanguage.getLanguage().equalsIgnoreCase(daCercare) && percent.isEmpty()) {
-                System.out.println(repositoryLanguage.toString());
+                //System.out.println(repositoryLanguage.toString());
                 return true;
             } else if(repositoryLanguage != null && repositoryLanguage.getLanguage().equalsIgnoreCase(daCercare) && lanuguagePercentage >= percentage) {
                 return true;
@@ -76,11 +78,11 @@ public class Operator {
                 percentage = Double.valueOf(percent);
             }
             double lanuguagePercentage = 100;
-            if(repositoryLanguage.getDetection1() != null) {
+            if(repositoryLanguage != null && repositoryLanguage.getDetection1() != null) {
                 lanuguagePercentage = repositoryLanguage.getDetection1().getPercentage();
             }
             if(repositoryLanguage != null && repositoryLanguage.getLanguage().equalsIgnoreCase(daCercare) && percent.isEmpty()) {
-                System.out.println(repositoryLanguage.toString());
+                //System.out.println(repositoryLanguage.toString());
                 return true;
             } else if(repositoryLanguage != null && repositoryLanguage.getLanguage().equalsIgnoreCase(daCercare) && lanuguagePercentage < percentage) {
                 return true;
@@ -184,11 +186,11 @@ public class Operator {
                 percentage = Double.valueOf(percent);
             }
             double lanuguagePercentage = 100;
-            if(repositoryLanguage.getDetection1() != null) {
+            if(repositoryLanguage != null && repositoryLanguage.getDetection1() != null) {
                 lanuguagePercentage = repositoryLanguage.getDetection1().getPercentage();
             }
             if(repositoryLanguage != null && repositoryLanguage.getLanguage().toLowerCase().contains(daCercare.toLowerCase()) && percent.isEmpty()) {
-                System.out.println(repositoryLanguage.toString());
+                //System.out.println(repositoryLanguage.toString());
                 return true;
             } else if(repositoryLanguage != null && repositoryLanguage.getLanguage().toLowerCase().contains(daCercare.toLowerCase()) && lanuguagePercentage >= percentage) {
                 return true;
@@ -202,11 +204,11 @@ public class Operator {
                 percentage = Double.valueOf(percent);
             }
             double lanuguagePercentage = 100;
-            if(repositoryLanguage.getDetection1() != null) {
+            if(repositoryLanguage != null && repositoryLanguage.getDetection1() != null) {
                 lanuguagePercentage = repositoryLanguage.getDetection1().getPercentage();
             }
             if(repositoryLanguage != null && repositoryLanguage.getLanguage().toLowerCase().contains(daCercare.toLowerCase()) && percent.isEmpty()) {
-                System.out.println(repositoryLanguage.toString());
+                //System.out.println(repositoryLanguage.toString());
                 return true;
             } else if(repositoryLanguage != null && repositoryLanguage.getLanguage().toLowerCase().contains(daCercare.toLowerCase()) && lanuguagePercentage < percentage) {
                 return true;
@@ -308,7 +310,7 @@ public class Operator {
 
     public static void createConfigProperties(){
 
-        System.out.println("Start Creating File Properties!");
+        LOG.info("Start Creating File Properties!");
 
         Session session = Applicazione.getInstance().getSessionManager().getCurrentSession();
         Query query = session.getQuery();
@@ -316,7 +318,7 @@ public class Operator {
 
         String separator = FileUtils.PATH_SEPARATOR;
         String relativePath = "risorse" + separator + "GHRepoSearcher" + separator + "jar" + separator +"config.properties";
-        System.out.println(relativePath);
+        LOG.info(relativePath);
 
 
         try (OutputStream output = new FileOutputStream(relativePath)) {
@@ -372,7 +374,7 @@ public class Operator {
     public static boolean startGHRepoSearcher(){
         // Checking the connection
         CommonEvents commonEvents = Applicazione.getInstance().getCommonEvents();
-        System.out.println("Checking internet connection!");
+        LOG.info("Checking internet connection!");
 
         boolean connect = netIsAvailable();
         if(connect == false){
@@ -380,7 +382,7 @@ public class Operator {
             return false ;
         }
 
-        System.out.println("Launching GHRepoSearcher...");
+        LOG.info("Launching GHRepoSearcher...");
         Platform.runLater(() -> commonEvents.setProgressBar("Launching GHRepoSearcher...", 1));
 
 
@@ -388,7 +390,7 @@ public class Operator {
         BufferedReader stdError = null;
         try {
             Path path = FileUtils.createAbsolutePath(Constants.GHREPO_SEARCHER_JAR);
-            System.out.println(path.toString());
+            LOG.info(path.toString());
 
             File dir = new File(path.toString());
 
@@ -396,7 +398,7 @@ public class Operator {
             Platform.runLater(() -> commonEvents.setProgressBar("Cleaning up JSON folder...", 1));
 
             Path pathJson = FileUtils.createAbsolutePath(Constants.RELATIVE_PATH_JSON);
-            System.out.println(pathJson.toString());
+            LOG.info(pathJson.toString());
 
             File dir2 = new File(pathJson.toString());
             File[] files = dir2.listFiles();
@@ -426,17 +428,17 @@ public class Operator {
             String s;
             while ((s = stdInput.readLine()) != null) {
                 if (s.contains("ERROR")){
-                    System.out.println(s);
+                    LOG.info(s);
                     Applicazione.getInstance().getModello().addObject(Constants.MESSAGE_END_SEARCH,"Invalid Token");
                     return false;
                 }
-                System.out.println(s);
+                LOG.info(s);
             }
 
             // Read any errors from the attempted command
             while ((s = stdError.readLine()) != null) {
                 Applicazione.getInstance().getModello().addObject(Constants.MESSAGE_END_SEARCH,s);
-                System.out.println(s);
+                LOG.info(s);
                 return false;
             }
 
@@ -446,6 +448,7 @@ public class Operator {
                 try {
                     stdInput.close();
                 } catch (IOException e) {
+                    LOG.error("", e);
                     e.printStackTrace();
                 }
             }
@@ -453,6 +456,7 @@ public class Operator {
                 try {
                     stdError.close();
                 } catch (IOException e) {
+                    LOG.error("", e);
                     e.printStackTrace();
                 }
             }
@@ -461,17 +465,17 @@ public class Operator {
     }
 
     public static boolean actionDetectIdiom() {
-        System.out.println("Start Process language detection");
+        LOG.info("Start Process language detection");
 
         BufferedReader stdInput = null;
         BufferedReader stdError = null;
         try {
             String pythonCommand = Utils.isWindows() ? "python" : "python3";
-            String cmd = pythonCommand + " " + "detector.py";
+            String cmd = pythonCommand + " " + "language_detection.py";
 
             Path toolPath = FileUtils.createAbsolutePath(Constants.TOOL_LANGUAGE_DETECTION);
             File dir = new File(toolPath.toString());
-            System.out.println("Path tool: " + toolPath);
+            LOG.info("Path tool: " + toolPath);
 
             Process process = Runtime.getRuntime().exec(cmd, null, dir);
             Applicazione.getInstance().getModello().addObject(Constants.PROCESS_LANGUAGE_DETECTION, process);
@@ -483,28 +487,30 @@ public class Operator {
             String s;
             while ((s = stdInput.readLine()) != null) {
                 if (s.contains("ERROR")){
-                    System.out.println(s);
+                    LOG.info(s);
                     Applicazione.getInstance().getModello().addObject(Constants.MESSAGE_LANGUAGE_DETECTION, s);
                     return false;
                 }
-                System.out.println(s);
+                LOG.info(s);
             }
 
             // Read any errors from the attempted command
             while ((s = stdError.readLine()) != null) {
                 Applicazione.getInstance().getModello().addObject(Constants.MESSAGE_LANGUAGE_DETECTION, s);
-                System.out.println(s);
+                LOG.info(s);
                 return false;
             }
 
         } catch (Exception ex) {
             Platform.runLater(() -> Applicazione.getInstance().getCommonEvents().showExceptionDialog(ex));
             ex.printStackTrace();
+            LOG.error("", ex);
         } finally {
             if (stdInput != null) {
                 try {
                     stdInput.close();
                 } catch (IOException e) {
+                    LOG.error("", e);
                     e.printStackTrace();
                 }
             }
@@ -512,6 +518,7 @@ public class Operator {
                 try {
                     stdError.close();
                 } catch (IOException e) {
+                    LOG.error("", e);
                     e.printStackTrace();
                 }
             }

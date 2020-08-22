@@ -3,6 +3,8 @@ package org.cis.controllo;
 import org.cis.Constants;
 import org.cis.DAO.ProgrammingLanguage;
 import org.cis.modello.StatisticsProgrammingLanguage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.file.*;
@@ -13,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 
 public class RepositoryVisitor {
+
+    private static final Logger LOG = LoggerFactory.getLogger(RepositoryVisitor.class);
 
     // Init map<Key=Ext, Value=LanguageName>.
     private static final  Map<String, String> mapExtLanguages = new ProgrammingLanguage().loadMapExtLanguages();
@@ -95,7 +99,7 @@ public class RepositoryVisitor {
             int occurrenceUserProgrammingLanguage = 0;
             String languageNameNorm = "";
 
-            System.out.println("User Programming Language: " + this.userProgrammingLanguage);
+            LOG.info("User Programming Language: " + this.userProgrammingLanguage);
             // Sum of occurrences of the language specified by the user.
             // e.g. User Programming Language = Objective-C:
             // Repository1:  {Limbo|M|MATLAB|MUF|Mathematica|Mercury|Objective-C=4, C|C++|Objective-C=3, Swift=1} -> Objective-C=7 -> (87.5% - Objective-C).
@@ -112,7 +116,7 @@ public class RepositoryVisitor {
             }
 
             if (occurrenceUserProgrammingLanguage != 0) {
-                System.out.println("User programming language " + languageNameNorm + " exists in the repository");
+                LOG.info("User programming language " + languageNameNorm + " exists in the repository");
                 int totalOccurrences = getTotalOccurrences(languageProgrammingOccurrence);
                 double percentage = getPercentage(totalOccurrences, occurrenceUserProgrammingLanguage);
                 List<String> languagesMaximumOccurrences = new ArrayList<>();
@@ -120,14 +124,14 @@ public class RepositoryVisitor {
                 return new StatisticsProgrammingLanguage(percentage, languagesMaximumOccurrences);
             }
 
-            System.out.println("User programming language " + this.userProgrammingLanguage + " not exists in the repository");
+            LOG.info("User programming language " + this.userProgrammingLanguage + " not exists in the repository");
             List<String> languagesMaximumOccurrences = new ArrayList<>();
             languagesMaximumOccurrences.add(this.userProgrammingLanguage + " " + Constants.MESSAGE_NOT_EXISTS.toLowerCase());
             return new StatisticsProgrammingLanguage(0, languagesMaximumOccurrences);
         }
 
         // The user did not specify the "language: <language name>" qualifier in the search query.
-        System.out.println("No language qualifier ");
+        LOG.info("No language qualifier ");
         String languageNameMax = this.max(languageProgrammingOccurrence);
         List<String> languagesMaximumOccurrences = this.checkForMoreMax(languageProgrammingOccurrence, languageNameMax);
         int totalOccurrences = getTotalOccurrences(languageProgrammingOccurrence);
@@ -188,6 +192,7 @@ public class RepositoryVisitor {
         try {
             Files.walkFileTree(Paths.get(cloneDirectoryRepository), RepositoryVisitor.visitorLanguageProgramming);
         } catch (IOException e) {
+            LOG.error("Error Visit Repository: ", e);
             e.printStackTrace();
         }
 
