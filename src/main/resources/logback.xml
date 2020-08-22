@@ -13,7 +13,7 @@
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>%d [%thread] %-5level %logger - %msg%n</pattern>
-  		</encoder>
+        </encoder>
     </appender>
 
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
@@ -28,19 +28,17 @@
     <appender name="ASYNC_CONSOLE" class="ch.qos.logback.classic.AsyncAppender">
         <discardingThreshold>0</discardingThreshold> <!-- default 20, means drop lower event when has 20% capacity remaining -->
         <appender-ref ref="CONSOLE" />
-        <!--<queueSize>1</queueSize> &lt;!&ndash; default 256 &ndash;&gt;-->
-        <includeCallerData>false</includeCallerData><!-- default false -->
-        <neverBlock>true</neverBlock><!-- default false, set to true to cause the
-            Appender not block the application and just drop the messages -->
+        <queueSize>500</queueSize> <!-- default 256 -->
+        <includeCallerData>false</includeCallerData> <!-- default false -->
+        <neverBlock>true</neverBlock> <!-- default false, set to true to cause the Appender not block the application and just drop the messages -->
     </appender>
 
     <appender name="ASYNC_FILE" class="ch.qos.logback.classic.AsyncAppender">
         <discardingThreshold>0</discardingThreshold> <!-- default 20, means drop lower event when has 20% capacity remaining -->
         <appender-ref ref="FILE" />
-        <!--<queueSize>1</queueSize> &lt;!&ndash; default 256 &ndash;&gt;-->
-        <includeCallerData>false</includeCallerData><!-- default false -->
-        <neverBlock>false</neverBlock><!-- default false, set to true to cause
-            the Appender not block the application and just drop the messages -->
+        <queueSize>500</queueSize> <!-- default 256 -->
+        <includeCallerData>false</includeCallerData> <!-- default false -->
+        <neverBlock>true</neverBlock> <!-- default false, set to true to cause the Appender not block the application and just drop the messages -->
     </appender>
 
     <logger name="org.cis" level="info" additivity="false">
