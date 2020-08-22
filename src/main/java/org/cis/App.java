@@ -4,8 +4,7 @@ import javafx.application.Application;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import org.cis.controllo.CommonEvents;
-import org.cis.controllo.FileUtils;
+import org.cis.controllo.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

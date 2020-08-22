@@ -8,10 +8,10 @@
     -fx-background-color: #212529;
 }
 
-#bottoneEliminaQuery, #bottoneAggiungiQuery, #buttonAccept, #buttonCancel {
+#buttonDeleteQuery, #buttonAddQuery, #buttonAccept, #buttonCancel {
     -fx-background-color: #6c757d;
 }
 
-#bottoneEliminaQuery:hover, #bottoneAggiungiQuery:hover, #buttonAccept:hover, #buttonCancel:hover {
+#buttonDeleteQuery:hover, #buttonAddQuery:hover, #buttonAccept:hover, #buttonCancel:hover {
     -fx-background-color: #495057;
 }

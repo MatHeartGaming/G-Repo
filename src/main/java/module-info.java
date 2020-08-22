@@ -6,6 +6,7 @@ module org.cis {
     requires detectlanguage;
     requires slf4j.api;
     requires logback.classic;
+    requires javafx.graphics;
 
     opens org.cis to javafx.fxml;
     exports org.cis;

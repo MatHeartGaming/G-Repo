@@ -12,6 +12,14 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: ch.qos.logback:logback-classic:1.2.3" level="project" />
+    <orderEntry type="library" name="Maven: ch.qos.logback:logback-core:1.2.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter:5.7.0-RC1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-api:5.7.0-RC1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-commons:1.7.0-RC1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-params:5.7.0-RC1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-engine:5.7.0-RC1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-engine:1.7.0-RC1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:14" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:win:14" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:14" level="project" />
@@ -43,5 +51,29 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-params:5.7.0-RC1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-engine:5.7.0-RC1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-engine:1.7.0-RC1" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/lib/javafx-sdk-14/lib/javafx-swt.jar!/" />
+          <root url="jar://C:/lib/javafx-sdk-14/lib/javafx.base.jar!/" />
+          <root url="jar://C:/lib/javafx-sdk-14/lib/javafx.controls.jar!/" />
+          <root url="jar://C:/lib/javafx-sdk-14/lib/javafx.fxml.jar!/" />
+          <root url="jar://C:/lib/javafx-sdk-14/lib/javafx.graphics.jar!/" />
+          <root url="jar://C:/lib/javafx-sdk-14/lib/javafx.media.jar!/" />
+          <root url="jar://C:/lib/javafx-sdk-14/lib/javafx.swing.jar!/" />
+          <root url="jar://C:/lib/javafx-sdk-14/lib/javafx.web.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://C:/lib/javafx-sdk-14/lib/src.zip!/javafx.base" />
+          <root url="jar://C:/lib/javafx-sdk-14/lib/src.zip!/javafx.controls" />
+          <root url="jar://C:/lib/javafx-sdk-14/lib/src.zip!/javafx.fxml" />
+          <root url="jar://C:/lib/javafx-sdk-14/lib/src.zip!/javafx.graphics" />
+          <root url="jar://C:/lib/javafx-sdk-14/lib/src.zip!/javafx.media" />
+          <root url="jar://C:/lib/javafx-sdk-14/lib/src.zip!/javafx.swing" />
+          <root url="jar://C:/lib/javafx-sdk-14/lib/src.zip!/javafx.web" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>
