@@ -1,4 +1,4 @@
-"""
+'''
 TEST LANGUAGE DETECTOR SCRIPT
 Author: Anas Mounsif - Università Degli Studi Della Basilicata
 
@@ -7,259 +7,195 @@ Python 3.8
 PyTest
 
 Usage:
-RECOMMENDED: [ pytest ] in test_detector folder
+RECOMMENDED: [ pytest -v ] in test_detector folder
 Or [ py.test -k <method_name> -v ] for testing specific method.
 For more information about PyTest visit: https://docs.pytest.org/en/stable/contents.html
-"""
+'''
 
 # IMPORTS
 # ----------------------------------------------------------------------------------------------------------------------
 # Importing Libraries
+import language_detection as dt
 import pytest
 from pathlib import Path as sysPath
-import language_detection as dt
 import os
+
+# Directories and files for Testing
+repo_withMd = sysPath("test-stuff/repo-withReadme/")
+repo_withNoMd = sysPath("test-stuff/repo-withNoReadme/")
+repo_withNestedMd = sysPath("test-stuff/repo-withNestedReadme/")
+repo_withRenamedMd = sysPath("test-stuff/repo-withRenamedReadme/")
+repo_withEmptyMd = sysPath("test-stuff/repo-withEmptyReadme/")
+repo_withFullMd = sysPath("test-stuff/repo-withFullReadme/")
+
+# Regex Tests
+md_withTable = sysPath("test-stuff/readme-tests/README-table.md")
+md_withLink = sysPath("test-stuff/readme-tests/README-link.md")
+md_withImage = sysPath("test-stuff/readme-tests/README-image.md")
+md_withCodeSnippet = sysPath("test-stuff/readme-tests/README-codeSnippet.md")
+md_withCodeUrl = sysPath("test-stuff/readme-tests/README-url.md")
+md_withHtml = sysPath("test-stuff/readme-tests/README-html.md")
+md_withRemaining = sysPath("test-stuff/readme-tests/README-remaining.md")
+md_all = sysPath("test-stuff/readme-tests/README-all.md")
 
 # Config shortcut
 PATH = os.path
 
-# Directories and files for Testing
-repo_withMd = sysPath("repositories_test/repo_withReadme/")
-repo_withNoMd = sysPath("repositories_test/repo_withNoReadme/")
-repo_withNestedMd = sysPath("repositories_test/repo_withNestedReadme/")
-repo_withEmptyMd = sysPath("repositories_test/repo_withEmptyReadme/")
-repo_withFullMd = sysPath("repositories_test/repo_withFullReadme/")
-repo_withRenamedMd = sysPath("repositories_test/repo_withRenamedReadme/")
-
-# Regex Tests
-md_withTable = sysPath("repositories_test/README_files/README_table.md")
-md_withLink = sysPath("repositories_test/README_files/README_link.md")
-md_withImage = sysPath("repositories_test/README_files/README_image.md")
-md_withCodeSnippet = sysPath("repositories_test/README_files/README_codeSnippet.md")
-md_withCodeUrl = sysPath("repositories_test/README_files/README_url.md")
-md_withHtml = sysPath("repositories_test/README_files/README_html.md")
-md_withRemaining = sysPath("repositories_test/README_files/README_remaining.md")
-md_all = sysPath("repositories_test/README_files/README_all.md")
+_DETECTIONS = {
+    "Detections": [{
+        "Detection": [
+            {"code": "en", "percentage": 0.4}, {"code": "en", "percentage": 0.3},
+            {"code": "cn", "percentage": 0.7}, {"code": "it", "percentage": 0.6},
+            {"code": "cn", "percentage": 1.0}, {"code": "en", "percentage": 1.0}
+        ]
+    }]
+}
 
 
-# Test Methods   
 # ----------------------------------------------------------------------------------------------------------------------
-# Test if README is in directory
+# Test Methods
+# ----------------------------------------------------------------------------------------------------------------------
+# Testing Exists method
 def test_exists():
-    if dt._find_all_md(repo_withMd):
-        assert True
-    else:
-        assert False
+    there_is_md = dt._find_all_md(repo_withMd)
+    there_no_md = dt._find_all_md(repo_withNoMd)
+    nested_md = dt._find_all_md(repo_withNestedMd)
+    renamed_md = dt._find_all_md(repo_withRenamedMd)
+    assert there_is_md
+    assert not there_no_md
+    assert nested_md
+    assert renamed_md
 
 
-# Test if README is not in directory
-def test_not_exists():
-    if not dt._find_all_md(repo_withNoMd):
-        assert True
-    else:
-        assert False
-
-
-# Test if README is in directory and its subdirectories (nested case)
-def test_exists_global():
-    if dt._find_all_md(repo_withNestedMd):
-        assert True
-    else:
-        assert False
-
-
-# Test if the renamed README is in directory
-def test_exists_renamed_md():
-    if dt._find_all_md(repo_withRenamedMd):
-        assert True
-    else:
-        assert False
-
-
-# Test if README is empty
-def test_empty_md():
+# Testing if readme is empty and not
+def test_empty_full():
     with open(PATH.abspath(dt._find_all_md(repo_withEmptyMd)[0]), 'r', encoding='utf8') as f:
-        str_md = dt.strip_inspector("", f.read()).replace("\n", " ")
-        if str_md and not str_md.isspace():
-            assert True
-        else:
-            assert False
-
-
-# Test if README does not empty
-def test_full_md():
+        test_string_1 = dt.replacer_operator(f.read()).replace("\n", " ")
     with open(PATH.abspath(dt._find_all_md(repo_withFullMd)[0]), 'r', encoding='utf8') as f:
-        str_md = dt.strip_inspector("", f.read()).replace("\n", " ")
-        if str_md and not str_md.isspace():
-            assert True
-        else:
-            assert False
+        test_string_2 = dt.replacer_operator(f.read()).replace("\n", " ")
+    assert test_string_1
+    assert not test_string_1.isspace()
+    assert test_string_2
+    assert not test_string_2.isspace()
 
 
-# Test elimination of tables
-def test_remove_table():
+# Testing elimination of tables
+def test_remove_tables():
     with open(PATH.abspath(md_withTable), 'r', encoding='utf8') as f:
         str_md = f.read()
-        output = dt._refactor("", str_md, dt._TABLES)
-        if output and not output.isspace():
-            assert False
-        else:
-            assert True
+        output = dt._refactor(str_md, dt._TABLES)
+    assert output is not None
+    assert not output.isspace()
 
 
-# Test elimination of links
+# Testing elimination of links
 def test_remove_links():
     with open(PATH.abspath(md_withLink), 'r', encoding='utf8') as f:
         str_md = f.read()
-        output = dt._refactor("", str_md, dt._LINKS)
-        if output and not output.isspace():
-            assert False
-        else:
-            assert True
+        output = dt._refactor(str_md, dt._LINKS)
+    assert output is not None
+    assert output.isspace()
 
 
-# Test elimination of URLs
+# Testing elimination of URLs
 def test_remove_urls():
     with open(PATH.abspath(md_withCodeUrl), 'r', encoding='utf8') as f:
         str_md = f.read()
-        output = dt._refactor("", str_md, dt._URLS)
-        if output and not output.isspace():
-            assert False
-        else:
-            assert True
+        output = dt._refactor(str_md, dt._URLS)
+    assert output == "<>\n"
 
 
-# Test elimination of images
+# Testing elimination of images
 def test_remove_images():
     with open(PATH.abspath(md_withImage), 'r', encoding='utf8') as f:
         str_md = f.read()
-        output = dt._refactor("", str_md, dt._IMAGES)
-        if output and not output.isspace():
-            assert False
-        else:
-            assert True
+        output = dt._refactor(str_md, dt._IMAGES)
+    assert output is not None
+    assert output.isspace()
 
 
-# Test elimination of code snippet
+# Testing elimination of code snippet
 def test_remove_code_snippet():
     with open(PATH.abspath(md_withCodeSnippet), 'r', encoding='utf8') as f:
         str_md = f.read()
-        output = dt._refactor("", str_md, dt._CODE_SNIPPETS)
-        if output and not output.isspace():
-            assert False
-        else:
-            assert True
+        output = dt._refactor(str_md, dt._CODE_SNIPPETS)
+    assert output is not None
+    assert output.isspace()
 
 
-# Test elimination of Html
+# Testing elimination of Html
 def test_remove_html():
     with open(PATH.abspath(md_withHtml), 'r', encoding='utf8') as f:
         str_md = f.read()
-        output = dt._refactor("", str_md, dt._HTML)
-        print(output)
-        if output.strip() == 'The HTML - test regex.':
-            assert True
-        else:
-            assert False
+        output = dt._refactor(str_md, dt._HTML)
+    assert output.strip() == 'The HTML - test regex.'
 
 
-# Test elimination all Remaining Special Character
+# Testing elimination all Remaining Special Character
 def test_remove_remaining():
     with open(PATH.abspath(md_withRemaining), 'r', encoding='utf8') as f:
         str_md = f.read()
-        output = dt._refactor("", str_md, dt._REMAINING_SPECIAL_CHARS)
-        print(output)
-        if output.strip() == 'TesTtEStTesT的模拟仿真程序':
-            assert True
-        else:
-            assert False
+        output = dt._refactor(str_md, dt._REMAINING_SPECIAL_CHARS)
+    assert output.strip() == 'TesTtEStTesT的模拟仿真程序'
 
 
-# Test elimination of all markdowns
+# Testing elimination of all markdowns
 def test_all_markdown_removal():
     with open(PATH.abspath(md_all), 'r', encoding='utf8') as f:
         str_md = f.read()
-        output = dt.strip_inspector("", str_md)
-        print(output)
-        if output.strip() == 'TESTTESTTEE':
-            assert True
-        else:
-            assert False
+        output = dt.replacer_operator(str_md)
+    assert output.strip() == 'TESTTESTTEE'
 
 
-# Test the correct transformation of the percentages
-def test_percentage_format():
-    percentage = 0.499928373951075347813
+# Testing the correct transformation of the percentages
+def test_format():
+    percentage = 0.49993589
     assert dt._format(percentage) == str(50.0)
 
 
-# Test if destination folders exists
+# Testing if destination folders exists
 @pytest.mark.xfail(reason="Folders must exists to pass the test!")  # COMMENT if folders exists
-def test_folder_exists():
-    if PATH.isdir(dt.DESTINATION_ENGLISH) and PATH.isdir(dt.DESTINATION_NOT_ENGLISH) \
-            and PATH.isdir(dt.DESTINATION_MIXED) and PATH.isdir(dt.DESTINATION_UNKNOWN):
-        assert True
-    else:
-        assert False
+def test_isdir():
+    assert PATH.isdir(dt._ENGLISH)
+    assert PATH.isdir(dt._NOT_ENGLISH)
+    assert PATH.isdir(dt._MIXED)
+    assert PATH.isdir(dt._UNKNOWN)
 
 
-# Test if string contains only digits
-def test_md_only_digits():
-    if not dt._is_valid("12351236523875"):
-        assert True
-    else:
-        assert False
+# Testing if string contains is valid method
+def test_is_valid():
+    digit_condition = dt._is_valid("12351236523875")
+    min_length_condition = dt._is_valid("less than %s " % dt._MIN_LENGTH)
+    special_char_condition = dt._is_valid("???_+><#$%@")
+    assert not digit_condition
+    assert not min_length_condition
+    assert not special_char_condition
 
 
-# Test if string contains less than dt.MIN_LENGTH
-def test_md_insufficient_text():
-    if not dt._is_valid("less than %s " % dt._MIN_LENGTH):
-        assert True
-    else:
-        assert False
-
-
-# Test if string contains only special characters
-def test_md_special_char():
-    if not dt._is_valid("???_+><#$%@"):
-        assert True
-    else:
-        assert False
-
-
-# Test if correct execution of name of
+# Testing if correct execution of name of
 def test_name_of():
-    path = "/Users/user/Folder/file"
+    path = "/root/user/folder/nested_folder"
     name = dt._name_of(path)
-    if name == 'file':
-        assert True
-    else:
-        assert False
+    assert name == 'nested_folder'
 
 
-# Test if there is not english
+# Testing if there is not english
 def test_is_there_english():
     percentage_of_english = 0.0
-    if not dt._is_there_english(percentage_of_english):
-        assert True
-    else:
-        assert False
+    assert not dt._is_there_english(percentage_of_english)
 
 
-# Test if percentage are properly formatted
+# Testing if percentage are properly formatted
 def test_percentage_parser():
-
     en = 100.0
-    fr = 80.0
-    cn = 20.0
-    ge = 30.0
-    ca = 70.0
-    it = 100.0
+    other = 300.0
+    eng_percentage, other_percentage = dt._parse_results(en, other)
+    assert eng_percentage == 0.25
+    assert other_percentage == 0.75
 
-    total_other = cn + ge + ca + it + fr
-    eng_percentage, other_percentage = dt._parse_results(en, total_other)
 
-    if eng_percentage == 0.25 and other_percentage == 0.75:
-        assert True
-    else:
-        assert False
+# Testing analyze results
+def test_analyze_results():
+    en_base, other_base = dt._analyze_results(_DETECTIONS)
+    assert en_base == 1.7
+    assert other_base == 2.3
