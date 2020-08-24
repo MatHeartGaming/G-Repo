@@ -1,0 +1,15 @@
+.text-field {
+    -fx-background-color: #E9ECEF;
+    -fx-background-insets: 0;
+    -fx-border-color:  #6C757D;
+    -fx-border-radius: 8;
+}
+
+.text-input {
+    -fx-text-fill: #000;
+}
+
+.text-field:hover {
+    -fx-background-color: #E9ECEF;
+    -fx-border-color:  #212529;
+}

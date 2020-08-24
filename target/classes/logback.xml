@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- LOG LEVELS:
+        - ERROR
+        - WARN
+        - INFO
+        - DEBUG
+        - TRACE-->
+
+    <property name="LOG_DIR" value="log" />
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_DIR}/log.log</file>
+        <append>false</append>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%d [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ASYNC_CONSOLE" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold> <!-- default 20, means drop lower event when has 20% capacity remaining -->
+        <appender-ref ref="CONSOLE" />
+        <queueSize>500</queueSize> <!-- default 256 -->
+        <includeCallerData>false</includeCallerData> <!-- default false -->
+        <neverBlock>true</neverBlock> <!-- default false, set to true to cause the Appender not block the application and just drop the messages -->
+    </appender>
+
+    <appender name="ASYNC_FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold> <!-- default 20, means drop lower event when has 20% capacity remaining -->
+        <appender-ref ref="FILE" />
+        <queueSize>500</queueSize> <!-- default 256 -->
+        <includeCallerData>false</includeCallerData> <!-- default false -->
+        <neverBlock>true</neverBlock> <!-- default false, set to true to cause the Appender not block the application and just drop the messages -->
+    </appender>
+
+    <logger name="org.cis" level="info" additivity="false">
+        <appender-ref ref="ASYNC_FILE"/>
+    </logger>
+
+    <root level="debug">
+        <!--<appender-ref ref="ASYNC_CONSOLE"/>-->
+    </root>
+
+</configuration>

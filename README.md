@@ -35,11 +35,11 @@ $ pip3 install langdetect
 
 ### Getting Started
 
-To launch [G-Repo.jar](jar/) run the command:
+To launch [G-Repo.jar](G-Repo-jar/) move in G-Repo-jar folder and run the command:
 
-`java -jar --module-path "absolut/path/to/javaFX-sdk/lib" --add-modules=javafx.controls,javafx.fxml absolut/path/to/G-Repo.jar`
+`java -jar --module-path "absolut/path/to/javaFX-sdk/lib" --add-modules=javafx.controls,javafx.fxml G-Repo.jar`
 
-G-Repo provides functionality to search for repositories by native github [qualifiers](https://docs.github.com/en/github/searching-for-information-on-github/searching-for-repositories).
+G-Repo provides functionality to search for repositories by native GitHub [qualifiers](https://docs.github.com/en/github/searching-for-information-on-github/searching-for-repositories).
 In order for the search to be successful, you must have a valid token!
 
 ![](demos/search_demo.gif)

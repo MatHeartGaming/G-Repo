@@ -1,0 +1,17 @@
+
+.button {
+    -fx-background-color:  #343a40;
+    -fx-background-radius: 5;
+}
+
+.button:hover {
+    -fx-background-color: #212529;
+}
+
+#buttonDeleteQuery, #buttonAddQuery, #buttonAccept, #buttonCancel {
+    -fx-background-color: #6c757d;
+}
+
+#buttonDeleteQuery:hover, #buttonAddQuery:hover, #buttonAccept:hover, #buttonCancel:hover {
+    -fx-background-color: #495057;
+}

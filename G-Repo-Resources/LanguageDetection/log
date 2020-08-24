@@ -1,0 +1,37 @@
+[2020-08-24 22:58:56,390] (language_detection.py:546) [    INFO] --- 24/08/2020 - STARTING SCRIPT...
+
+Script Config
+- - - - - - - - - - - - - - - - - - - -
+- Moving DISABLED.
+- MOD: Non determinism approach.
+- CSV generation ACTIVATED.
+- - - - - - - - - - - - - - - - - - - -
+
+-->
+
+[2020-08-24 22:58:56,390] (language_detection.py:424) [    INFO] --- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+[2020-08-24 22:58:56,390] (language_detection.py:435) [    INFO] --- Analyzing Repository: 0_269137265_TSUNAMI-SECURITY-SCANNER
+[2020-08-24 22:58:56,390] (language_detection.py:436) [    INFO] --- Repository src: /Users/anasmounsif/Documents/GitHub/G-Repo/G-Repo-Resources/cacheCloneRepositories/0_269137265_tsunami-security-scanner
+[2020-08-24 22:58:56,454] (language_detection.py:443) [    INFO] --- README found = 5
+[2020-08-24 22:58:56,455] (language_detection.py:461) [    INFO] --- Opening Readme n.1: --- /Users/anasmounsif/Documents/GitHub/G-Repo/G-Repo-Resources/cacheCloneRepositories/0_269137265_tsunami-security-scanner/README.md
+[2020-08-24 22:58:56,874] (language_detection.py:483) [    INFO] --- LANGUAGE DETECTED: en with 100.0% confidence.
+[2020-08-24 22:58:56,874] (language_detection.py:461) [    INFO] --- Opening Readme n.2: --- /Users/anasmounsif/Documents/GitHub/G-Repo/G-Repo-Resources/cacheCloneRepositories/0_269137265_tsunami-security-scanner/plugin/README.md
+[2020-08-24 22:58:56,899] (language_detection.py:483) [    INFO] --- LANGUAGE DETECTED: en with 100.0% confidence.
+[2020-08-24 22:58:56,899] (language_detection.py:461) [    INFO] --- Opening Readme n.3: --- /Users/anasmounsif/Documents/GitHub/G-Repo/G-Repo-Resources/cacheCloneRepositories/0_269137265_tsunami-security-scanner/common/README.md
+[2020-08-24 22:58:56,914] (language_detection.py:483) [    INFO] --- LANGUAGE DETECTED: en with 100.0% confidence.
+[2020-08-24 22:58:56,914] (language_detection.py:461) [    INFO] --- Opening Readme n.4: --- /Users/anasmounsif/Documents/GitHub/G-Repo/G-Repo-Resources/cacheCloneRepositories/0_269137265_tsunami-security-scanner/workflow/README.md
+[2020-08-24 22:58:56,920] (language_detection.py:483) [    INFO] --- LANGUAGE DETECTED: en with 100.0% confidence.
+[2020-08-24 22:58:56,920] (language_detection.py:461) [    INFO] --- Opening Readme n.5: --- /Users/anasmounsif/Documents/GitHub/G-Repo/G-Repo-Resources/cacheCloneRepositories/0_269137265_tsunami-security-scanner/main/README.md
+[2020-08-24 22:58:56,931] (language_detection.py:483) [    INFO] --- LANGUAGE DETECTED: en with 100.0% confidence.
+[2020-08-24 22:58:56,931] (language_detection.py:347) [    INFO] --- !! How much English is in repository? : 100.0 %
+[2020-08-24 22:58:56,932] (language_detection.py:424) [    INFO] --- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+[2020-08-24 22:58:56,932] (language_detection.py:435) [    INFO] --- Analyzing Repository: 1_218689982_JETPACK-MVVM-BEST-PRACTICE
+[2020-08-24 22:58:56,932] (language_detection.py:436) [    INFO] --- Repository src: /Users/anasmounsif/Documents/GitHub/G-Repo/G-Repo-Resources/cacheCloneRepositories/1_218689982_Jetpack-MVVM-Best-Practice
+[2020-08-24 22:58:56,989] (language_detection.py:443) [    INFO] --- README found = 1
+[2020-08-24 22:58:56,989] (language_detection.py:461) [    INFO] --- Opening Readme: /Users/anasmounsif/Documents/GitHub/G-Repo/G-Repo-Resources/cacheCloneRepositories/1_218689982_Jetpack-MVVM-Best-Practice/README.md
+[2020-08-24 22:58:57,002] (language_detection.py:483) [    INFO] --- LANGUAGE DETECTED: zh-cn with 85.7% confidence.
+[2020-08-24 22:58:57,002] (language_detection.py:483) [    INFO] --- LANGUAGE DETECTED: ko with 14.3% confidence.
+[2020-08-24 22:58:57,002] (language_detection.py:347) [    INFO] --- !! How much English is in repository? : 0.0 %
+[2020-08-24 22:58:57,002] (language_detection.py:568) [    INFO] --- 
+
+Finished in: 0.6125218868255615 seconds with 0 Errors.

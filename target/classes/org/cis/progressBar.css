@@ -1,0 +1,120 @@
+.progress-bar:status1 > .bar {
+    -fx-background-color: linear-gradient(
+            from 0em 0.75em to 0.75em 0px,
+            repeat,
+            -fx-accent 0%,
+            -fx-accent 49%,
+            derive(-fx-accent, 30%) 50%,
+            derive(-fx-accent, 30%) 99%
+    );
+}
+.progress-bar:status2 > .bar {
+    -fx-background-color: linear-gradient(
+            from 0.25em 0.75em to 1em 0px,
+            repeat,
+            -fx-accent 0%,
+            -fx-accent 49%,
+            derive(-fx-accent, 30%) 50%,
+            derive(-fx-accent, 30%) 99%
+    );
+}
+.progress-bar:status3 > .bar {
+    -fx-background-color: linear-gradient(
+            from 0.5em 0.75em to 1.25em 0px,
+            repeat,
+            -fx-accent 0%,
+            -fx-accent 49%,
+            derive(-fx-accent, 30%) 50%,
+            derive(-fx-accent, 30%) 99%
+    );
+}
+.progress-bar:status4 > .bar {
+    -fx-background-color: linear-gradient(
+            from 0.75em 0.75em to 1.5em 0px,
+            repeat,
+            -fx-accent 0%,
+            -fx-accent 49%,
+            derive(-fx-accent, 30%) 50%,
+            derive(-fx-accent, 30%) 99%
+    );
+}
+.progress-bar:status5 > .bar {
+    -fx-background-color: linear-gradient(
+            from 1em 0.75em to 1.75em 0px,
+            repeat,
+            -fx-accent 0%,
+            -fx-accent 49%,
+            derive(-fx-accent, 30%) 50%,
+            derive(-fx-accent, 30%) 99%
+    );
+}
+.progress-bar:status6 > .bar {
+    -fx-background-color: linear-gradient(
+            from 1.25em 0.75em to 2em 0px,
+            repeat,
+            -fx-accent 0%,
+            -fx-accent 49%,
+            derive(-fx-accent, 30%) 50%,
+            derive(-fx-accent, 30%) 99%
+    );
+}
+.progress-bar:status7 > .bar {
+    -fx-background-color: linear-gradient(
+            from 1.5em 0.75em to 2.25em 0px,
+            repeat,
+            -fx-accent 0%,
+            -fx-accent 49%,
+            derive(-fx-accent, 30%) 50%,
+            derive(-fx-accent, 30%) 99%
+    );
+}
+.progress-bar:status8 > .bar {
+    -fx-background-color: linear-gradient(
+            from 1.75em 0.75em to 2.5em 0px,
+            repeat,
+            -fx-accent 0%,
+            -fx-accent 49%,
+            derive(-fx-accent, 30%) 50%,
+            derive(-fx-accent, 30%) 99%
+    );
+}
+.progress-bar:status9 > .bar {
+    -fx-background-color: linear-gradient(
+            from 2em 0.75em to 2.75em 0px,
+            repeat,
+            -fx-accent 0%,
+            -fx-accent 49%,
+            derive(-fx-accent, 30%) 50%,
+            derive(-fx-accent, 30%) 99%
+    );
+}
+.progress-bar:status10 > .bar {
+    -fx-background-color: linear-gradient(
+            from 2.25em 0.75em to 3em 0px,
+            repeat,
+            -fx-accent 0%,
+            -fx-accent 49%,
+            derive(-fx-accent, 30%) 50%,
+            derive(-fx-accent, 30%) 99%
+    );
+}
+.progress-bar:status11 > .bar {
+    -fx-background-color: linear-gradient(
+            from 2.5em 0.75em to 3.25em 0px,
+            repeat,
+            -fx-accent 0%,
+            -fx-accent 49%,
+            derive(-fx-accent, 30%) 50%,
+            derive(-fx-accent, 30%) 99%
+    );
+}
+.progress-bar:status12 > .bar {
+    -fx-background-color: linear-gradient(
+            from 2.75em 0.75em to 3.5em 0px,
+            repeat,
+            -fx-accent 0%,
+            -fx-accent 49%,
+            derive(-fx-accent, 30%) 50%,
+            derive(-fx-accent, 30%) 99%
+    );
+}
