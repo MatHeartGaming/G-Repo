@@ -58,7 +58,7 @@ The language detector script that G-Repo uses is capable of classifying the repo
 ![](demos/language_detection_demo.gif)
 ======
 
-By default the script used by G-Repo uses a **nondeterministic** classification algorithm, this functionality is part of a design from the original Google project. If you want to force it to use a deterministic approach  make [`translation_type = 0`](https://github.com/anasmounsif/Language_Detection/blob/master/config.ini#L8).
+By default the script used by G-Repo uses a **nondeterministic** classification algorithm, this functionality is part of a design from the original Google project. If you want to force it to use a deterministic approach  make [`translation_type = 0`](https://github.com/MatHeartGaming/G-Repo/blob/master/G-Repo-jar/G-Repo-Resources/LanguageDetection/config.ini#L8).
 If the repository lacks a README file, it is empty, does not have enough text, or it only contains special characters then the repository will be classified as **unknown**, and the same applies in case some repository throws an exception during the parserization process, otherwise if everything goes fine it will be classified as **english**, **not-english** or **mixed**.
 
 
