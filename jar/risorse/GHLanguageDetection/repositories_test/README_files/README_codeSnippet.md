@@ -1,5 +1,0 @@
-```
-if (isAwesome){
-  return true
-}
-```

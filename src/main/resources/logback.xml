@@ -8,7 +8,7 @@
         - DEBUG
         - TRACE-->
 
-    <property name="LOG_DIR" value="logs" />
+    <property name="LOG_DIR" value="log" />
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
@@ -42,7 +42,6 @@
     </appender>
 
     <logger name="org.cis" level="info" additivity="false">
-        <appender-ref ref="ASYNC_CONSOLE"/>
         <appender-ref ref="ASYNC_FILE"/>
     </logger>
 

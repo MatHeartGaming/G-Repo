@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class ProgrammingLanguage {
 
-    public static final String RELATIVE_PATH_LANGUAGE_JSON = "\\src\\main\\resources\\languages\\languages.json";
+    public static final String RELATIVE_PATH_LANGUAGE_JSON = "G-Repo-Resources\\languages\\languages.json";
 	
     public Map<String, String> loadMapExtLanguages() {
         String separator = "|";

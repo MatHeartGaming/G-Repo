@@ -2,21 +2,21 @@ package org.cis;
 
 public class Constants {
 
-    public static final String RELATIVE_PATH_CLONING_DIRECTORY = "\\risorse\\cacheCloneRepositories";
+    public static final String RELATIVE_PATH_CLONING_DIRECTORY = "\\G-Repo-Resources\\cacheCloneRepositories";
 
-    public static final String RELATIVE_PATH_INPUT_CSV = "\\risorse\\GHLanguageDetection\\input.csv";
-    public static final String RELATIVE_PATH_OUTPUT_CSV = "\\risorse\\GHLanguageDetection\\output.csv";
+    public static final String RELATIVE_PATH_INPUT_CSV = "\\G-Repo-Resources\\LanguageDetection\\input.csv";
+    public static final String RELATIVE_PATH_OUTPUT_CSV = "\\G-Repo-Resources\\LanguageDetection\\output.csv";
 
-    public static final String RELATIVE_PATH_LANGUAGE_REPOSITORIES = "\\risorse\\lingua";
+    public static final String RELATIVE_PATH_LANGUAGE_REPOSITORIES = "\\G-Repo-Resources\\lingua";
 
-    public static final String RELATIVE_PATH_JSON = "\\risorse\\json";
+    public static final String RELATIVE_PATH_JSON = "\\G-Repo-Resources\\json";
 
     public static final String PROCESS_LANGUAGE_DETECTION= "Process language detection";
     public static final String MESSAGE_LANGUAGE_DETECTION = "messaggio language detection";
 
 
-    public static final String GHREPO_SEARCHER_JAR = "\\risorse\\GHRepoSearcher\\jar";
-    public static final String TOOL_LANGUAGE_DETECTION = "risorse\\GHLanguageDetection";
+    public static final String GHREPO_SEARCHER_JAR = "\\G-Repo-Resources\\GHRepoSearcher\\jar";
+    public static final String TOOL_LANGUAGE_DETECTION = "G-Repo-Resources\\LanguageDetection";
 
     public static final String TASK_CLONE_REPOSITORIES = "TASK_CLONE_REPOSITORIES";
 

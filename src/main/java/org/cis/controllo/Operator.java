@@ -317,7 +317,7 @@ public class Operator {
         List<Qualifier> listaQualificatori = query.getQualifiers();
 
         String separator = FileUtils.PATH_SEPARATOR;
-        String relativePath = "risorse" + separator + "GHRepoSearcher" + separator + "jar" + separator +"config.properties";
+        String relativePath = "G-Repo-Resources" + separator + "GHRepoSearcher" + separator + "jar" + separator +"config.properties";
         LOG.info(relativePath);
 
 
