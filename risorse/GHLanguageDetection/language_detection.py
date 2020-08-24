@@ -1,4 +1,4 @@
-'''
+"""
 LANGUAGE DETECTOR SCRIPT
 Author: Anas Mounsif - Università Degli Studi Della Basilicata
 
@@ -11,7 +11,7 @@ Usage:
 [ python3 language_detection.py ] or [ python3 language_detection.py -h ] for more information.
 
 * Consult config.ini and log.conf
-'''
+"""
 
 # ----------------------------------------------------------------------------------------------------------------------
 # IMPORTS
@@ -77,11 +77,17 @@ parser.read('config.ini')
 
 # Set to 0 for deterministic result, 1 for non-deterministic in config.ini
 _OUTPUT_TYPE = 0 if int(parser.get("parameters", "translation_type")) == 0 else 1
+
 # Set to 1 for output generation in config.ini, 0 for not
 _CSV_OUTPUT = 0 if int(parser.get("files", "activate_csv_output")) == 0 else 1
+
 # Set to 1 for INPUT generation in config.ini, 0 for not, and get path
 _INPUT_GENERATOR = 0 if int(parser.get("files", "input_generator")) == 0 else 1
 _REPOSITORIES_PATH = Path(str(parser.get("files", "repository_path")))
+
+# Set min and max percentages for english checks
+_EN_MIN = float(parser.get("percentages", "en_min"))
+_EN_MAX = float(parser.get("percentages", "en_max"))
 
 # True if you want the script to move the repositories else False in config.ini - be care to ACCESS DENIED error!
 _MOVE = False if int((parser.get("parameters", "moving_feature"))) == 0 else True
@@ -341,7 +347,7 @@ def operator(detections, repo, writer, row, num):
         INFO("!! How much English is in repository? : {} %".format(en))
 
         # Checking if repository is english
-        if _is_there_english(en_base) and en_final >= 0.90:
+        if _is_there_english(en_base) and en_final >= _EN_MAX:
             DEBUG("Repository is written in english.")
 
             # Writing CSV
@@ -357,7 +363,7 @@ def operator(detections, repo, writer, row, num):
                 MOVE_TO(repo, "%s" % _ENGLISH)
 
         # Checking if repository is mixed
-        if _is_there_english(en_base) > 0 and 0.10 < en_final < 0.90:
+        if _is_there_english(en_base) > 0 and _EN_MIN < en_final < _EN_MAX:
             DEBUG("Repository is written in multiple languages.")
 
             # Writing CSV
@@ -371,7 +377,7 @@ def operator(detections, repo, writer, row, num):
                 MOVE_TO(repo, "%s" % _MIXED)
 
         # checking if repository is not in English
-        if not _is_there_english(en_base) or en_final <= 0.10:
+        if not _is_there_english(en_base) or en_final <= _EN_MIN:
             DEBUG("Repository is not written in english.")
 
             # Writing CSV
@@ -536,7 +542,7 @@ def main():
 # Summary logs
 _start_time, _is_move, _is_csv, _is_deterministic = _log_info()
 
-print("START! \n\nLoading...")
+print("START! \n\nLOADING...\n")
 INFO("{} - STARTING SCRIPT..."
      "\n\nScript Config\n"
      "- - - - - - - - - - - - - - - - - - - -"

@@ -1,4 +1,4 @@
-'''
+"""
 TEST LANGUAGE DETECTOR SCRIPT
 Author: Anas Mounsif - Università Degli Studi Della Basilicata
 
@@ -10,7 +10,7 @@ Usage:
 RECOMMENDED: [ pytest -v ] in test_detector folder
 Or [ py.test -k <method_name> -v ] for testing specific method.
 For more information about PyTest visit: https://docs.pytest.org/en/stable/contents.html
-'''
+"""
 
 # IMPORTS
 # ----------------------------------------------------------------------------------------------------------------------
