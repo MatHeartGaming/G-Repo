@@ -1,6 +1,6 @@
 # G-Repo
 
-[G-Repo](https://sites.google.com/view/g-repo/home-page) is a tool developed in Java and it is useful for **Mining Software Repository**, which aims to collect empirical evidence using the data available in software repositories. For example:
+[G-Repo](https://sites.google.com/view/g-repo/home-page) is a tool developed in Java and Python and it is useful for **Mining Software Repository**, which aims to collect empirical evidence using the data available in software repositories. For example:
 
 > *“When and Why Your Code Starts to Smell Bad (and Whether the Smells*
 Go Away)”
