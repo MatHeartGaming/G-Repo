@@ -1,6 +1,6 @@
 # G-Repo
 
-[G-Repo](https://sites.google.com/view/g-repo/home-page) is a tool developed in Java and it is useful in the **Mining Software Repository**, this area aims to collect empirical evidence using the data available in software repositories present on GitHub. For example:
+[G-Repo](https://sites.google.com/view/g-repo/home-page) is a tool developed in Java and it is useful for **Mining Software Repository**, which aims to collect empirical evidence using the data available in software repositories. For example:
 
 > *“When and Why Your Code Starts to Smell Bad (and Whether the Smells*
 Go Away)”
@@ -12,16 +12,16 @@ Many **MSR** studies use GitHub as a data source because:
 * It contains millions of open source repositories.
 * Provides a REST API to extract this data.
 
-But which repositories to identify to conduct an **MSR** study?
+But which repositories must be chosen to conduct an **MSR** study?
 
 * A trend is to select a number of top starred repositories, which are the most voted repositories by GitHub users.
 
 ### Problems :no_entry:
 - [x] #1:  **Limitations of the Github API**; *The GitHub Search API, which also allows you to download information about the repositories, returns a maximum of 1000 results. So if a query returns more than 1000 results, they are truncated for best-matching.*
 
-- [x] #2: **Repository not containing the files in the required programming language**; *Very often the search returns repositories that are not actually written in the requested programming language.*
+- [x] #2: **Repository not containing the files in the required programming language**; *The search often returns repositories that are not actually written in the requested programming language.*
 
-- [x] #3: **Non-English language repositories**; *Not all repositories are written in english, so as a result of a search it is very likely that the user gets repositories with a readme written in different languages.*
+- [x] #3: **Non-English language repositories**; *Not all repositories are written in English, so as a result of a search it is very likely that the user gets repositories with a readme written in different language(s).*
 ___
 
 ### Launch Requirements
@@ -47,7 +47,7 @@ In order for the search to be successful, you must have a valid token!
 
 :warning: **For the execution to be successful the repositories will be cloned!** :warning:
 
-The **programming language detection** feature allows to detect the **programming language** - **markup** most used within the repositories, in case the repositories found are empty the result will be **not classifiable**.
+The **programming language detection** feature allows to detect the **programming language** - **markup** most used within the repositories; if the repositories found are empty the result will be **not classifiable**.
 
 ![](demos/programming_language_detection_demo.gif)
 ======
@@ -58,7 +58,7 @@ The language detector script that G-Repo uses is capable of classifying the repo
 ![](demos/language_detection_demo.gif)
 ======
 
-By default the script used by G-Repo uses a **nondeterministic** classification algorithm, this functionality is part of a design from the original Google project. If you want to force it to use a deterministic approach  make [`translation_type = 0`](https://github.com/MatHeartGaming/G-Repo/blob/master/G-Repo-jar/G-Repo-Resources/LanguageDetection/config.ini#L8).
+By default the script used by G-Repo uses a **nondeterministic** classification algorithm. This functionality is part of a design from the original Google project. If you want to force it to use a deterministic approach put [`translation_type = 0`](https://github.com/MatHeartGaming/G-Repo/blob/master/G-Repo-jar/G-Repo-Resources/LanguageDetection/config.ini#L8).
 If the repository lacks a README file, it is empty, does not have enough text, or it only contains special characters then the repository will be classified as **unknown**, and the same applies in case some repository throws an exception during the parserization process, otherwise if everything goes fine it will be classified as **english**, **not-english** or **mixed**.
 
 
