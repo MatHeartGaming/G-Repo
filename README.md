@@ -6,6 +6,8 @@
   Click above to see the tool demo on Youtube!
 </div>
 
+___
+
 [G-Repo](https://sites.google.com/view/g-repo/home-page) is a tool developed in Java and Python and it is useful to **Mine Software Repository** (i.e., to collect empirical evidence using the data available in software repositories). For example:
 
 > *“When and Why Your Code Starts to Smell Bad (and Whether the Smells*
