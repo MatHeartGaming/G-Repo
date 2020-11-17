@@ -8,10 +8,9 @@
 
 ___
 
-[G-Repo](https://sites.google.com/view/g-repo/home-page) is a tool developed in Java and Python and it is useful to **Mine Software Repository** (i.e., to collect empirical evidence using the data available in software repositories). For example:
+[G-Repo] is a tool developed in Java and Python and it is useful to **Mine Software Repository** (i.e., to collect empirical evidence using the data available in software repositories). For example:
 
-> *“When and Why Your Code Starts to Smell Bad (and Whether the Smells*
-Go Away)”
+> *“When and Why Your Code Starts to Smell Bad (and Whether the SmellsGo Away)”*
 
 > *“Do Developers Feel Emotions? An Exploratory Analysis of Emotions in Software Artifacts”*
 
@@ -25,11 +24,11 @@ But which repositories must be chosen to conduct an **MSR** study?
 * A trend is to select a number of top starred repositories, which are the most voted repositories by GitHub users.
 
 ### Problems :no_entry:
-- [x] #1:  **Limitations of the Github API**; *The GitHub Search API, which also allows you to download information about the repositories, returns a maximum of 1000 results. So if a query returns more than 1000 results, they are truncated for best-matching.*
+- [x] #1:  **Limitations of the Github API**; *The GitHub Search API, which also allows to download information about the repositories, returns a maximum of 1000 results. So if a query returns more than 1000 results, they are truncated for best-matching.*
 
 - [x] #2: **Repository not containing the files in the required programming language**; *The search often returns repositories that are not actually written in the requested programming language.*
 
-- [x] #3: **Non-English language repositories**; *Not all repositories are written in English, so as a result of a search it is very likely that the user gets repositories with a readme written in different language(s).*
+- [x] #3: **Non-English language repositories**; *Not all repositories are written in English, so as a result of a search it is very likely that the user gets repositories with a readme written in different language(s) and these should be discarded.*
 ___
 
 ### Launch Requirements
