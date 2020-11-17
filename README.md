@@ -47,7 +47,27 @@ To launch [G-Repo.jar](G-Repo-jar/) move in G-Repo-jar folder and run the comman
 
 `java -jar --module-path "absolut/path/to/javaFX-sdk/lib" --add-modules=javafx.controls,javafx.fxml G-Repo.jar`
 
-G-Repo provides functionality to search for repositories by native GitHub [qualifiers](https://docs.github.com/en/github/searching-for-information-on-github/searching-for-repositories).
+G-Repo provides functionality to search for repositories by native GitHub qualifiers listed below: 
+
+
+| Type of Search | Qualifier to specify |
+|----------------|----------------------|
+|By Repos Name|repo:owner/name |
+|Within User’s or Organization’s Repos|user:USERNAME, org:ORGNAME|
+|By Size in KB|size:n, size:(>;<=;>=;<)n, size:n1..n2|
+|By Number of Followers|followers:n, followers:(>;<=;>=;<)n, followers:n1..n2|
+|If Forked or not | fork:true(false)|
+|By Number of Stars|stars:n, stars:(>;<=;>=;<)n, stars:n1..n2|
+|By Language|language:LANGUAGE|
+|By Topic|topic:TOPIC|
+|By Number of Topics|topics:n, topics:(>;<=;>=;<)n, topics:n1..n2|
+|By License|license:[LICENSE](https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/licensing-a-repository#searching-github-by-license-type)|
+|If Public or Private| is:public(private)|
+|If a Mirror or ot| mirror:true(false)|
+|If Archived or not| archived:true(false)|
+|By Number of Issues good-first| good-first-issues:>n|
+|By Number of Issues help-wanted| help-wanted-issues:>n|
+
 In order for the search to be successful, you must have a valid token!
 
 ![](demos/search_demo.gif)
