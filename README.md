@@ -8,7 +8,7 @@
 
 ___
 
-[G-Repo] is a tool developed in Java and Python and it is useful to **Mine Software Repository** (i.e., to collect empirical evidence using the data available in software repositories). For example:
+G-Repo is a tool developed in Java and Python and it is useful to **Mine Software Repository** (i.e., to collect empirical evidence using the data available in software repositories). For example:
 
 > *“When and Why Your Code Starts to Smell Bad (and Whether the SmellsGo Away)”*
 
