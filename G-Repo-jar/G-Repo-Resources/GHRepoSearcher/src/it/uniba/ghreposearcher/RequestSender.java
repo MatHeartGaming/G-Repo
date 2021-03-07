@@ -36,6 +36,7 @@ public class RequestSender {
 	}
 
 	private boolean isErrorStatus(String status) {
+		System.out.println(status);
 		return status.startsWith("4") || status.startsWith("5");
 	}
 
